@@ -30,8 +30,8 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 		console.log("Storing options...");
 	}
 
-	if(!options) {
-		options = {
+	function getNewOptionsInstance() {
+		return {
 			particlesTransparency: 0.5,
 			ceilingTrancparency: 0.5,
 			fragGernadeSize: 0.31,
@@ -46,11 +46,15 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 			targetEnemyNicknameVisibility: true,
 			forwardFiringCoeff: 1
 		}
+	}
+
+	if(!options) {
+		options = getNewOptionsInstance();
 		storeOptions(extensionId, options);
 	}
 
-	emitActionCb.scope = function(){};
 	smokeAlpha.scope = options.smokeGernadeAlpha;
+	emitActionCb.scope = function(){};
 
 	var defsParticles = findVariable("Defs", exports);
 	var bullets = findVariable("bullets", exports);
@@ -60,21 +64,6 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 	var lootBarn = findVariable("LootBarn", exports);
 	var scopeZoomRadius = findVariable("scopeZoomRadius", exports);
 	var inputHandler = findVariable("InputHandler", exports);
-
-	if(inputHandler) {
-		var defaultInputHandlerFreeFunction = function() {};
-		var inputHandlerFreeContext = {};
-
-		defaultInputHandlerFreeFunction = inputHandler.prototype.free;
-		inputHandler.prototype.free = function() {
-			disableCheat();
-			inputHandlerFreeContext = this;
-			defaultInputHandlerFreeFunction.call(inputHandlerFreeContext);			
-		}
-	} else {
-		console.log("Cannot init");
-		return;
-	}
 
 	var particlesTransparencyCb = null;
 	var ceilingTrancparencyCb = null;
@@ -86,7 +75,25 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 	var defaultFragGernadeTint = null;
 	var defaultFragGernadeScale = null;
 
-	if(!!defsParticles || !!items) {
+	if(	!!defsParticles ||
+		!!items ||
+		!!bullets ||
+		!!bagSizes ||
+		!!playerBarn ||
+		!!lootBarn ||
+		!!scopeZoomRadius ||
+		!!inputHandler) {
+
+		var defaultInputHandlerFreeFunction = function() {};
+		var inputHandlerFreeContext = {};
+
+		defaultInputHandlerFreeFunction = inputHandler.prototype.free;
+		inputHandler.prototype.free = function() {
+			disableCheat();
+			inputHandlerFreeContext = this;
+			defaultInputHandlerFreeFunction.call(inputHandlerFreeContext);			
+		}
+
 		// Gernade size and color
 		defaultFragGernadeTint = items.frag.worldImg.tint;
 		defaultFragGernadeScale	= items.frag.worldImg.scale;
@@ -164,11 +171,14 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 				defaultFragGernadeTint: defaultFragGernadeTint
 			}
 		}
-	}
 
-	forwardFiringCoeffCb = function(coeff) {
-		options.forwardFiringCoeff = parseFloat(coeff);
-		autoAim.setForwardFiringCoeff(options.forwardFiringCoeff);
+		forwardFiringCoeffCb = function(coeff) {
+			options.forwardFiringCoeff = parseFloat(coeff);
+			autoAim.setForwardFiringCoeff(options.forwardFiringCoeff);
+		}
+	} else {
+		console.log("Error: Variable not defined");
+		return;
 	}
 
 	storeOptionsCb = function() {

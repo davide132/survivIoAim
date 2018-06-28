@@ -1,17 +1,33 @@
 
-var variableNames = {};
-variableNames.game = '_' + Math.random().toString(36).substring(7);
-variableNames.exports = '_' + Math.random().toString(36).substring(7);
-variableNames.interactionEmitter = '_' + Math.random().toString(36).substring(7);
-variableNames.emitActionCb = '_' + Math.random().toString(36).substring(7);
-variableNames.smokeAlpha = '_' + Math.random().toString(36).substring(7);
+var generateVaribaleName = function() {
+	return '_' + Math.random().toString(36).substring(7);
+}
+
+var variableNames = {
+	game: generateVaribaleName(),
+	exports: generateVaribaleName(),
+	interactionEmitter: generateVaribaleName(),
+	emitActionCb: generateVaribaleName(),
+	smokeAlpha: generateVaribaleName()
+}
 
 var options = null;
+
+var moduleNames = [
+	"autoAim", 
+	"autoLoot", 
+	"autoOpeningDoors", 
+	"gernadeTimer", 
+	"menu", 
+	"smokeAlphaManager", 
+	"zoomRadiusManager"
+];
 
 /*
 	When you working with options, its need to repatching code every time.
 */
-function patchManifestCode(manifestCode) {
+var patchManifestCode = function(manifestCode) {
+
 	var patchRules = [
 		{
 			name: "Exports exports scope",
@@ -23,7 +39,6 @@ function patchManifestCode(manifestCode) {
 	patchRules.forEach(function(item) {
 		if(item.from.test(manifestCode)) {
 			manifestCode = manifestCode.replace(item.from, item.to);
-			console.log(item.name + " patched");
 		} else {
 			console.log("Err patching: " + item.name);
 		}
@@ -32,7 +47,22 @@ function patchManifestCode(manifestCode) {
 	return manifestCode;
 }
 
-function wrapAppCode(appCode) {
+var stringifyModules = function(moduleNames) {
+	var modulesObj = '';
+
+	modulesObj = '{';
+
+	moduleNames.forEach(function(name, index) {
+		modulesObj = modulesObj + name + ':';
+		modulesObj = modulesObj + window[name] + ',';
+	});
+
+	modulesObj += '}';
+
+	return modulesObj;
+}
+
+var wrapAppCode = function(appCode) {
 	/*
 		game: 		 		actual game state
 		exports: 			game constants and additional functions
@@ -41,26 +71,12 @@ function wrapAppCode(appCode) {
 	*/
 	
 	var wrapCode = '';
-	var modules = '';
-	
+
 	// Exporting modules from extension files
-	modules = '{';
-	modules = modules + 'autoAim:';
-	modules = modules + autoAim + ',';
-	modules = modules + 'autoLoot:';
-	modules = modules + autoLoot + ',';
-	modules = modules + 'autoOpeningDoors:';
-	modules = modules + autoOpeningDoors + ',';
-	modules = modules + 'gernadeTimer:';
-	modules = modules + gernadeTimer + ',';
-	modules = modules + 'menu:';
-	modules = modules + menu + ',';
-	modules = modules + 'smokeAlphaManager:';
-	modules = modules + smokeAlphaManager + ',';
-	modules = modules + 'zoomRadiusManager:';
-	modules = modules + zoomRadiusManager + '}';
+	var modules = stringifyModules(moduleNames);
 
 	wrapCode = '(function(';
+
 	wrapCode = wrapCode + variableNames.game + ',';
 	wrapCode = wrapCode + variableNames.exports + ',';
 	wrapCode = wrapCode + variableNames.interactionEmitter + ',';
@@ -129,15 +145,15 @@ function patchAppCode(appCode) {
 		}
 	];
 
-	appCode = wrapAppCode(appCode);
-
 	patchRules.forEach(function(item) {
 		if(item.from.test(appCode)) {
 			appCode = appCode.replace(item.from, item.to);
 		} else {
 			console.log("Err patching: " + item.name);
 		}
-	});	
+	});
+
+	appCode = wrapAppCode(appCode);
 
 	return appCode;
 }
@@ -228,9 +244,11 @@ var codeInjector = (function(){
 	}
 
 	var injectCode = function(tabId, code) {
-		chrome.tabs.executeScript(tabId, {
-			code: code
-		});
+		try {
+			chrome.tabs.executeScript(tabId, {
+				code: code
+			});
+		} catch(e) {};
 	};
 
 	var tryToInjectCode = function(tabId) {
@@ -378,7 +396,6 @@ var codeInjector = (function(){
 							});
 						} else {
 							var patchedAppCode = patchAppCode(appCode.appCode);
-							console.log(appCode.appCode);
 							codeInjector.setAppCode(patchedAppCode);
 							appCodeUpdating = false;
 							codeInjector.tryToInjectCode(tab.id);
@@ -436,6 +453,7 @@ var onBeforeRequestListener = function(details) {
 						chrome.runtime.onMessage.removeListener(onMessageListener);
 						extensionManager.install(extensionCode);
 						chrome.tabs.update(tab.id, {}, function(tab) {});
+						console.log("Updating tab");
 						return;
 					});
 				});

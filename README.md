@@ -19,6 +19,9 @@ Update: Extension with autoupdating available! Now you dont need check updates m
 
 All actions you take at your own risk. The author is not responsible for the consequences of your actions.
 
+Follow me in tox: DD5149809F2320BC81215D2A363A95778D39A0BC260BE7DC90923A933552C765A21E305E722C
+https://qtox.github.io/
+
 ---
 ## Руководство на русском языке
 ### Установка расширения для Chrome/Chromium
