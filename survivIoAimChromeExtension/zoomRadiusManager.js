@@ -1,4 +1,4 @@
-var zoomRadiusManager = function(game, variables) {
+window.zoomRadiusManager = function(game, variables) {
 
 	var scopeZoomRadius = variables.scopeZoomRadius;
 	var defaultZoomRadius = Object.assign({}, scopeZoomRadius);

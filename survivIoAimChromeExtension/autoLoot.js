@@ -1,4 +1,4 @@
-var autoLoot = function(game, variables) {
+window.autoLoot = function(game, variables) {
 
 	var lootBarn = variables.lootBarn;
 	var bagSizes = variables.bagSizes;

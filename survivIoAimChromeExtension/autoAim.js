@@ -1,4 +1,4 @@
-var autoAim = function(game, variables) {
+window.autoAim = function(game, variables) {
 
 	var bullets = variables.bullets;
 	var items = variables.items;

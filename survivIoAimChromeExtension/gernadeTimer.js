@@ -1,4 +1,4 @@
-var gernadeTimer = function(game) {
+window.gernadeTimer = function(game) {
 
 	var binded = false;
 

@@ -1,4 +1,4 @@
-var menu = function(options, callbacks) {
+window.menu = function(options, callbacks) {
 	var binded = false;
 	var menuOpened = false;
 

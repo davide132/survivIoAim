@@ -1,4 +1,4 @@
-var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha, modules, options, extensionId) {
+window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha, modules, options, extensionId) {
 	if(!exports) {
 		console.log("Error: Exports not defined, return.");
 		return;

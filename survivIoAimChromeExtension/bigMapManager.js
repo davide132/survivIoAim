@@ -1,4 +1,4 @@
-var bigMapManager = function(game) {
+window.bigMapManager = function(game) {
 
 	var binded = false;
 

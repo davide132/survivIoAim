@@ -1,4 +1,4 @@
-var autoOpeningDoors = function(game, emitActionCb, interactionEmitter) {
+window.autoOpeningDoors = function(game, emitActionCb, interactionEmitter) {
 
 	var binded = false;
 
