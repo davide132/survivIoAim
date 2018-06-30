@@ -192,9 +192,9 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		storeOptions(extensionId, options);
 	}
 
-	setInterval(function(){if(game.scope && game.scope.activePlayer){
-		console.log(game.scope);console.log(exports);
-	}}, 2000);
+	// setInterval(function(){if(game.scope && game.scope.activePlayer){
+	// 	console.log(game.scope);console.log(exports);
+	// }}, 2000);
 
 	var bindAutoAim = function() {
 		autoAim.bind({
