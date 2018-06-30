@@ -16,7 +16,8 @@ var options = null;
 var moduleNames = [
 	"autoAim", 
 	"autoLoot", 
-	"autoOpeningDoors", 
+	"autoOpeningDoors",
+	"bigMapManager",
 	"gernadeTimer", 
 	"menu", 
 	"smokeAlphaManager", 

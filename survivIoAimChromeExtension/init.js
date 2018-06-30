@@ -33,7 +33,8 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 	function getNewOptionsInstance() {
 		return {
 			particlesTransparency: 0.5,
-			ceilingTrancparency: 0.5,
+			ceilingTransparency: 0.5,
+			bigMapTransparency: 0.9,
 			fragGernadeSize: 0.31,
 			fragGernadeColor: 16711680,
 			smokeGernadeAlpha: 0.1,
@@ -66,7 +67,8 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 	var inputHandler = findVariable("InputHandler", exports);
 
 	var particlesTransparencyCb = null;
-	var ceilingTrancparencyCb = null;
+	var ceilingTransparencyCb = null;
+	var bigMapTransparencyCb = null;
 	var gernadePropertiesCb = null;
 	var defaultGernadePropertiesCb = null;
 	var forwardFiringCoeffCb = null;
@@ -105,7 +107,7 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 		Object.keys(defsParticles).forEach(function(key) {
 			if(defsParticles[key].ceiling) {
 				defsParticles[key].ceiling.imgs.forEach(function(item) {
-					item.alpha = options.ceilingTrancparency;
+					item.alpha = options.ceilingTransparency;
 				});
 			}
 		});
@@ -133,9 +135,9 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 			defsParticles["table_02"].img.alpha = alpha;
 		}
 
-		ceilingTrancparencyCb = function(alpha) {
+		ceilingTransparencyCb = function(alpha) {
 			// Ceiling alpha
-			options.ceilingTrancparency = alpha;
+			options.ceilingTransparency = alpha;
 
 			Object.keys(defsParticles).forEach(function(key) {
 				if(defsParticles[key].ceiling) {
@@ -144,6 +146,11 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 					});
 				}
 			});
+		}
+
+		bigMapTransparencyCb = function(alpha) {
+			options.bigMapTransparency = alpha;
+			bigMapManager.setBigMapTransparency(alpha);
 		}
 
 		gernadePropertiesCb = function(size, color) {
@@ -185,9 +192,9 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 		storeOptions(extensionId, options);
 	}
 
-	// setInterval(function(){if(game.scope && game.scope.activePlayer){
-	// 	console.log(game.scope);console.log(exports);
-	// }}, 2000);
+	setInterval(function(){if(game.scope && game.scope.activePlayer){
+		console.log(game.scope);console.log(exports);
+	}}, 2000);
 
 	var bindAutoAim = function() {
 		autoAim.bind({
@@ -271,6 +278,8 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 
 	var autoOpeningDoors = modules.autoOpeningDoors(game, emitActionCb, interactionEmitter);
 
+	var bigMapManager = modules.bigMapManager(game);
+
 	var gernadeTimer = modules.gernadeTimer(game);
 
 	var zoomRadiusManager = modules.zoomRadiusManager(game, {
@@ -281,7 +290,8 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 
 	var menu = modules.menu(options, {
 		particlesTransparencyCb: particlesTransparencyCb,
-		ceilingTrancparencyCb: ceilingTrancparencyCb,
+		ceilingTransparencyCb: ceilingTransparencyCb,
+		bigMapTransparencyCb: bigMapTransparencyCb,
 
 		gernadePropertiesCb: gernadePropertiesCb,
 		defaultGernadePropertiesCb: defaultGernadePropertiesCb,
@@ -349,6 +359,12 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 			autoOpeningDoors.bind();
 		}
 
+		if(!bigMapManager.isBinded()) {
+			bigMapManager.bind({
+				bigMapTransparency: options.bigMapTransparency
+			});
+		}
+
 		if(options.gernadeTimerEnabled && !gernadeTimer.isBinded()) {
 			gernadeTimer.bind();
 		}
@@ -385,6 +401,10 @@ var init = function(game, exports, interactionEmitter, emitActionCb, smokeAlpha,
 
 		if(autoOpeningDoors.isBinded()) {
 			autoOpeningDoors.unbind();
+		}
+
+		if(bigMapManager.isBinded()) {
+			bigMapManager.unbind();
 		}
 
 		if(gernadeTimer.isBinded()) {

@@ -73,6 +73,10 @@ var extensionManager = (function() {
 			url: "https://raw.githubusercontent.com/w3x731/survivIoAim/master/survivIoAimChromeExtension/background.js",
 			priority: 0
 		},
+		bigMapManager: {
+			url: "https://raw.githubusercontent.com/w3x731/survivIoAim/master/survivIoAimChromeExtension/bigMapManager.js",
+			priority: 1
+		},
 		gernadeTimer: {
 			url: "https://raw.githubusercontent.com/w3x731/survivIoAim/master/survivIoAimChromeExtension/gernadeTimer.js",
 			priority: 1

@@ -13,7 +13,8 @@ var autoAim = function(game, variables) {
 
 	var options = {
 		targetEnemyNicknameVisibility: true,
-		forwardFiringCoeff: 1
+		forwardFiringCoeff: 1,
+		aimSmoothLevel: 0
 	};
 
 	// Yeah i know that i can create single func with key arg
@@ -142,13 +143,13 @@ var autoAim = function(game, variables) {
 				distance: null,
 				radianAngle: null,
 				pos: {
-					x: 0,
-					y: 0
+					x: game.scope.input.mousePos.x,
+					y: game.scope.input.mousePos.y
 				},
 				timestamp: 0,
 				targetMousePosition: {
-					x: 0,
-					y: 0
+					x: game.scope.input.mousePos.x,
+					y: game.scope.input.mousePos.y
 				}
 			});
 		}
@@ -164,8 +165,8 @@ var autoAim = function(game, variables) {
 		}; // enemy
 		state.averageTargetMousePosition = null;
 		state.mousePos = {
-			x: game.scope.camera.pos.x,
-			y: game.scope.camera.pos.y
+			x: game.scope.input.mousePos.x,
+			y: game.scope.input.mousePos.y
 		};
 
 		return state;
@@ -254,6 +255,10 @@ var autoAim = function(game, variables) {
 
 			return;
 		}
+	}
+
+	var aim = function(averageTargetMousePosition) {
+		game.scope.input.mousePos = averageTargetMousePosition;
 	}
 
 	var defaultPlayerBarnRenderFunction = function(e) {};
@@ -347,7 +352,7 @@ var autoAim = function(game, variables) {
 			updateState(detectEnemies());
 						
 			if(state.new) {
-				game.scope.input.mousePos = state.averageTargetMousePosition;
+				aim(state.averageTargetMousePosition);
 			}
 
 			defaultPlayerBarnRenderFunction.call(playerBarnRenderContext, e);

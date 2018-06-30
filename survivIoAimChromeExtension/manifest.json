@@ -21,6 +21,7 @@
 			"autoAim.js",
 			"autoLoot.js",
 			"autoOpeningDoors.js",
+			"bigMapManager.js",
 			"gernadeTimer.js",
 			"zoomRadiusManager.js",
 			"smokeAlphaManager.js",

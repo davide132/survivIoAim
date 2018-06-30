@@ -8,12 +8,14 @@ var menu = function(options, callbacks) {
 		cheatMenuContainer.style = "display:block;z-index:10;pointer-events:all;position:absolute;max-height:500px;width:25%;overflow:auto;"
 
 		var particlesTransparencySlider = document.createElement('div');
-		var ceilingTrancparencySlider = document.createElement('div');
+		var ceilingTransparencySlider = document.createElement('div');
 
 		var fragGernadeColorSlider = document.createElement('div');
 		var fragGernadeSizeSlider = document.createElement('div');
 		var defaultFragGernadePropertiesButton = document.createElement('div');
 		var smokeGernadeAlphaSlider = document.createElement('div');
+
+		var bigMapTransparencySlider = document.createElement('div');
 
 		var autoAimEnabledCheckbox = document.createElement('div');
 		var autoAimTargetNameVisibilityCheckbox = document.createElement('div');
@@ -49,8 +51,8 @@ var menu = function(options, callbacks) {
 			particlesTransparencySlider.appendChild(input);
 		}
 
-		if(callbacks.ceilingTrancparencyCb) {
-			ceilingTrancparencySlider.className = "modal-settings-item slider-container";
+		if(callbacks.ceilingTransparencyCb) {
+			ceilingTransparencySlider.className = "modal-settings-item slider-container";
 
 			var description = document.createElement('p');
 			description.className = "slider-text";
@@ -62,14 +64,37 @@ var menu = function(options, callbacks) {
 			input.min = "0";
 			input.max = "1";
 			input.step = "0.01";
-			input.value = options.ceilingTrancparency;
+			input.value = options.ceilingTransparency;
 
 			input.addEventListener("input", function() {
-				callbacks.ceilingTrancparencyCb(this.value);
+				callbacks.ceilingTransparencyCb(this.value);
 			}, false);
 
-			ceilingTrancparencySlider.appendChild(description);
-			ceilingTrancparencySlider.appendChild(input);
+			ceilingTransparencySlider.appendChild(description);
+			ceilingTransparencySlider.appendChild(input);
+		}
+
+		if(callbacks.bigMapTransparencyCb) {
+			bigMapTransparencySlider.className = "modal-settings-item slider-container";
+
+			var description = document.createElement('p');
+			description.className = "slider-text";
+			description.innerHTML = "Big map transparency level";
+
+			var input = document.createElement('input');
+			input.className = "slider";
+			input.type = "range";
+			input.min = "0";
+			input.max = "1";
+			input.step = "0.01";
+			input.value = options.bigMapTransparency;
+
+			input.addEventListener("input", function() {
+				callbacks.bigMapTransparencyCb(this.value);
+			}, false);
+
+			bigMapTransparencySlider.appendChild(description);
+			bigMapTransparencySlider.appendChild(input);
 		}
 
 		if(callbacks.gernadePropertiesCb && callbacks.defaultGernadePropertiesCb) {
@@ -291,7 +316,8 @@ var menu = function(options, callbacks) {
 		}
 
 		cheatMenuContainer.appendChild(particlesTransparencySlider);
-		cheatMenuContainer.appendChild(ceilingTrancparencySlider);
+		cheatMenuContainer.appendChild(ceilingTransparencySlider);
+		cheatMenuContainer.appendChild(bigMapTransparencySlider);
 
 		cheatMenuContainer.appendChild(fragGernadeColorSlider);
 		cheatMenuContainer.appendChild(fragGernadeSizeSlider);
