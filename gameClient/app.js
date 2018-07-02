@@ -1,4 +1,4 @@
-webpackJsonp([0], {
+webpackJsonp([1], {
     "064c0a93": function(e, t, a) {
         "use strict";
         var i = {
@@ -256,444 +256,362 @@ webpackJsonp([0], {
     },
     "0955a76e": function(e, t, a) {
         "use strict";
-        function i(e, t) {
-            if (!(e instanceof t))
-                throw new TypeError("Cannot call a class as a function")
+        function i() {}
+        function o() {
+            var e = ["img/particles/part-smoke-02.svg", "img/particles/part-smoke-03.svg"];
+            this.active = !1,
+            this.zIdx = 0,
+            this.sprite = r.Sprite.fromImage(e[Math.floor(Math.random() * e.length)]),
+            this.sprite.anchor = new r.Point(.5,.5),
+            this.sprite.visible = !1
         }
-        var o = function() {
-            function e(e, t) {
-                for (var a = 0; a < t.length; a++) {
-                    var i = t[a];
-                    i.enumerable = i.enumerable || !1,
-                    i.configurable = !0,
-                    "value"in i && (i.writable = !0),
-                    Object.defineProperty(e, i.key, i)
-                }
-            }
-            return function(t, a, i) {
-                return a && e(t.prototype, a),
-                i && e(t, i),
-                t
-            }
-        }()
-          , n = a("80ac57a6")
-          , r = a("6b42806d")
-          , s = a("10899aea")
-          , l = a("1901e2d9")
-          , c = a("c2a798c8")
+        function n() {
+            this.e = new d.Pool(i),
+            this.particles = [],
+            this.zIdx = 2147483647
+        }
+        var r = a("8b1dfb45")
+          , s = a("6b42806d")
+          , l = a("10899aea")
+          , c = a("1901e2d9")
+          , m = a("c2a798c8")
           , d = (a("ce29f17f"),
         a("af8ba00f"),
         a("753d6e4b"))
-          , m = a("c60b5e9f")
-          , p = m.RenderType
-          , u = function() {
-            function e() {
-                i(this, e)
+          , p = a("c60b5e9f")
+          , u = p.RenderType;
+        i.prototype = {
+            a: function() {},
+            o: function() {
+                this.particle.fadeOut(),
+                this.particle = null
+            },
+            n: function(e, t, a, i) {
+                this.type = e.type,
+                this.pos = m.copy(e.pos),
+                this.rad = e.rad,
+                t && (this.layer = e.layer),
+                a && (this.particle = i.smokeBarn.allocParticle(),
+                this.particle.a(this.pos, this.rad, this.layer)),
+                this.particle.posTarget = m.copy(this.pos),
+                this.particle.radTarget = this.rad
             }
-            return o(e, [{
-                key: "init",
-                value: function() {}
-            }, {
-                key: "free",
-                value: function() {
-                    this.particle.fadeOut(),
-                    this.particle = null
-                }
-            }, {
-                key: "updateData",
-                value: function(e, t, a, i) {
-                    this.type = e.type,
-                    this.pos = c.copy(e.pos),
-                    this.rad = e.rad,
-                    t && (this.layer = e.layer),
-                    a && (this.particle = i.smokeBarn.allocParticle(),
-                    this.particle.init(this.pos, this.rad, this.layer)),
-                    this.particle.posTarget = c.copy(this.pos),
-                    this.particle.radTarget = this.rad
-                }
-            }]),
-            e
-        }()
-          , h = function() {
-            function e() {
-                i(this, e);
-                var t = ["img/particles/part-smoke-02.svg", "img/particles/part-smoke-03.svg"];
-                this.active = !1,
-                this.zIdx = 0,
-                this.sprite = n.Sprite.fromImage(t[Math.floor(Math.random() * t.length)]),
-                this.sprite.anchor = new n.Point(.5,.5),
-                this.sprite.visible = !1
+        },
+        o.prototype = {
+            a: function(e, t, a) {
+                this.pos = m.copy(e),
+                this.posTarget = m.copy(this.pos),
+                this.rad = t,
+                this.radTarget = this.rad,
+                this.rot = c.random(0, 2 * Math.PI),
+                this.rotVel = Math.PI * c.random(.25, .5) * (Math.random() < .5 ? -1 : 1),
+                this.fade = !1,
+                this.fadeTicker = 0,
+                this.fadeDuration = c.random(.5, .75),
+                this.tint = c.rgb2hex(c.hsv2rgb(0, 0, c.random(.9, .95))),
+                this.layer = a
+            },
+            fadeOut: function() {
+                this.fade = !0
             }
-            return o(e, [{
-                key: "init",
-                value: function(e, t, a) {
-                    this.pos = c.copy(e),
-                    this.posTarget = c.copy(this.pos),
-                    this.rad = t,
-                    this.radTarget = this.rad,
-                    this.rot = l.random(0, 2 * Math.PI),
-                    this.rotVel = Math.PI * l.random(.25, .5) * (Math.random() < .5 ? -1 : 1),
-                    this.fade = !1,
-                    this.fadeTicker = 0,
-                    this.fadeDuration = l.random(.5, .75),
-                    this.tint = l.rgb2hex(l.hsv2rgb(0, 0, l.random(.9, .95))),
-                    this.layer = a
-                }
-            }, {
-                key: "fadeOut",
-                value: function() {
-                    this.fade = !0
-                }
-            }]),
-            e
-        }()
-          , g = function() {
-            function e() {
-                i(this, e),
-                this.smokePool = new d.Pool(u),
-                this.particles = [],
-                this.zIdx = 2147483647
-            }
-            return o(e, [{
-                key: "allocParticle",
-                value: function() {
-                    for (var e = null, t = 0; t < this.particles.length; t++)
-                        if (!this.particles[t].active) {
-                            e = this.particles[t];
-                            break
-                        }
-                    return e || (e = new h,
-                    this.particles.push(e)),
-                    e.active = !0,
-                    e.zIdx = this.zIdx--,
-                    e
-                }
-            }, {
-                key: "update",
-                value: function(e, t, a, i, o) {
-                    for (var n = this.smokePool.getPool(), c = 0; c < n.length; c++) {
-                        n[c].active
+        },
+        n.prototype = {
+            allocParticle: function() {
+                for (var e = null, t = 0; t < this.particles.length; t++)
+                    if (!this.particles[t].active) {
+                        e = this.particles[t];
+                        break
                     }
-                    for (var d = 0; d < this.particles.length; d++) {
-                        var m = this.particles[d];
-                        if (m.active) {
-                            m.rad = s.lerp(3 * e, m.rad, m.radTarget),
-                            m.pos = s.v2lerp(3 * e, m.pos, m.posTarget);
-                            m.rotVel *= 1 / (1 + .1 * e),
-                            m.rot += m.rotVel * e,
-                            m.fadeTicker += m.fade ? e : 0,
-                            m.active = m.fadeTicker < m.fadeDuration;
-                            var u = .9 * s.clamp(1 - m.fadeTicker / m.fadeDuration, 0, 1)
-                              , h = m.layer;
-                            !(l.sameLayer(m.layer, a.layer) || 2 & a.layer) || 1 != m.layer && 2 & a.layer && i.insideStructureMask(r.createCircle(m.pos, 1)) || (h |= 2),
-                            o.addPIXIObj(m.sprite, p.World, h, 500, m.zIdx);
-                            var g = t.pointToScreen(m.pos)
-                              , f = t.pixels(2 * m.rad / t.ppu);
-                            m.sprite.position.set(g.x, g.y),
-                            m.sprite.scale.set(f, f),
-                            m.sprite.rotation = m.rot,
-                            m.sprite.tint = m.tint,
-                            m.sprite.alpha = _qnyu0c.scope,
-                            m.sprite.visible = m.active
-                        }
+                return e || (e = new o,
+                this.particles.push(e)),
+                e.active = !0,
+                e.zIdx = this.zIdx--,
+                e
+            },
+            l: function(e, t, a, i, o) {
+                for (var n = this.e.c(), r = 0; r < n.length; r++)
+                    n[r].active;
+                for (var m = 0; m < this.particles.length; m++) {
+                    var d = this.particles[m];
+                    if (d.active) {
+                        d.rad = l.lerp(3 * e, d.rad, d.radTarget),
+                        d.pos = l.v2lerp(3 * e, d.pos, d.posTarget),
+                        d.rotVel *= 1 / (1 + .1 * e),
+                        d.rot += d.rotVel * e,
+                        d.fadeTicker += d.fade ? e : 0,
+                        d.active = d.fadeTicker < d.fadeDuration;
+                        var p = .9 * l.clamp(1 - d.fadeTicker / d.fadeDuration, 0, 1)
+                          , h = d.layer;
+                        !(c.sameLayer(d.layer, a.layer) || 2 & a.layer) || 1 != d.layer && 2 & a.layer && i.insideStructureMask(s.createCircle(d.pos, 1)) || (h |= 2),
+                        o.addPIXIObj(d.sprite, u.World, h, 500, d.zIdx);
+                        var g = t.pointToScreen(d.pos)
+                          , f = t.pixels(2 * d.rad / t.ppu);
+                        d.sprite.position.set(g.x, g.y),
+                        d.sprite.scale.set(f, f),
+                        d.sprite.rotation = d.rot,
+                        d.sprite.tint = d.tint,
+                        d.sprite.alpha = p,
+                        d.sprite.visible = d.active
                     }
                 }
-            }]),
-            e
-        }();
+            }
+        },
         e.exports = {
-            SmokeBarn: g
+            m: n
         }
     },
     "0c8ffd27": function(e, t, a) {
         "use strict";
-        function i(e, t) {
-            if (!(e instanceof t))
-                throw new TypeError("Cannot call a class as a function")
+        function i() {
+            this.sprite = new o.Sprite,
+            this.sprite.anchor.set(.5, .5)
         }
-        var o = function() {
-            function e(e, t) {
-                for (var a = 0; a < t.length; a++) {
-                    var i = t[a];
-                    i.enumerable = i.enumerable || !1,
-                    i.configurable = !0,
-                    "value"in i && (i.writable = !0),
-                    Object.defineProperty(e, i.key, i)
-                }
-            }
-            return function(t, a, i) {
-                return a && e(t.prototype, a),
-                i && e(t, i),
-                t
-            }
-        }()
-          , n = a("80ac57a6")
-          , r = (a("34e32c48"),
+        var o = a("8b1dfb45")
+          , n = (a("34e32c48"),
         a("6b42806d"))
-          , s = a("ceee80d9")
-          , l = a("10899aea")
-          , c = a("1901e2d9")
-          , d = a("c2a798c8")
+          , r = a("ceee80d9")
+          , s = a("10899aea")
+          , l = a("1901e2d9")
+          , c = a("c2a798c8")
           , m = (a("ce29f17f"),
         a("af8ba00f"),
         a("119e8c4c"))
-          , p = a("c60b5e9f")
-          , u = p.RenderType
-          , h = function() {
-            function e() {
-                i(this, e),
-                this.sprite = new n.Sprite,
-                this.sprite.anchor.set(.5, .5)
-            }
-            return o(e, [{
-                key: "init",
-                value: function() {
-                    this.isNew = !1,
-                    this.smokeEmitter = null,
-                    this.img = ""
+          , d = a("c60b5e9f")
+          , p = d.RenderType;
+        i.prototype = {
+            a: function() {
+                this.isNew = !1,
+                this.smokeEmitter = null,
+                this.img = ""
+            },
+            o: function() {
+                this.sprite.visible = !1,
+                this.sprite.parent && this.sprite.parent.removeChild(this.sprite),
+                this.isDoor && this.door.casingSprite && (this.door.casingSprite.parent && this.door.casingSprite.parent.removeChild(this.door.casingSprite),
+                this.door.casingSprite = null),
+                this.smokeEmitter && (this.smokeEmitter.stop(),
+                this.smokeEmitter = null)
+            },
+            n: function(e, t, a, i) {
+                t && (this.type = e.type,
+                this.layer = e.layer,
+                this.healthT = e.healthT,
+                this.dead = e.dead);
+                var s = r.Defs[e.type];
+                if (this.pos = c.copy(e.pos),
+                this.rot = r.oriToRad(e.ori),
+                this.scale = e.scale,
+                this.imgScale = s.img.scale,
+                this.collider = n.transform(s.collision, this.pos, this.rot, this.scale),
+                a) {
+                    if (this.isNew = !0,
+                    this.exploded = -1 != i.map.deadObstacleIds.indexOf(this.__id),
+                    this.explodeParticle = s.explodeParticle,
+                    this.hitParticle = s.hitParticle,
+                    this.collidable = s.collidable,
+                    this.destructible = s.destructible,
+                    this.height = s.height,
+                    this.sound = s.sound,
+                    this.isWall = !!s.isWall,
+                    this.isWindow = !!s.isWindow,
+                    this.isBush = !!s.isBush,
+                    this.isDoor = void 0 !== s.door,
+                    this.isDoor) {
+                        this.door = {
+                            playErrorFx: s.door.slideToOpen && s.door.openOneWay,
+                            closedPos: c.copy(e.pos),
+                            autoOpen: s.door.autoOpen,
+                            interactionRad: s.door.interactionRad,
+                            interpSpeed: s.door.openSpeed,
+                            interpPos: c.copy(e.pos),
+                            interpRot: r.oriToRad(e.ori),
+                            seq: e.door.seq,
+                            seqOld: e.door.seq,
+                            open: e.door.open,
+                            wasOpen: e.door.open
+                        };
+                        var l = s.door.casingImg;
+                        if (void 0 !== l) {
+                            var m = l.pos || c.create(0, 0);
+                            m = c.rotate(m, this.rot + .5 * Math.PI);
+                            var d = new o.Sprite;
+                            d.texture = o.Texture.fromImage(l.sprite),
+                            d.anchor.set(.5, .5),
+                            d.posOffset = m,
+                            d.imgScale = l.scale,
+                            d.tint = l.tint,
+                            d.zIdx = l.zIdx,
+                            d.alpha = l.alpha,
+                            d.visible = !0,
+                            this.door.casingSprite = d
+                        }
+                    }
+                    this.isButton = void 0 !== s.button,
+                    this.isButton && (this.button = {
+                        interactionRad: s.button.interactionRad,
+                        seq: e.button.seq,
+                        seqOld: e.button.seq
+                    })
                 }
-            }, {
-                key: "free",
-                value: function() {
-                    this.sprite.visible = !1,
-                    this.sprite.parent && this.sprite.parent.removeChild(this.sprite),
-                    this.isDoor && this.door.casingSprite && (this.door.casingSprite.parent && this.door.casingSprite.parent.removeChild(this.door.casingSprite),
-                    this.door.casingSprite = null),
-                    this.smokeEmitter && (this.smokeEmitter.stop(),
-                    this.smokeEmitter = null)
+                if (this.isDoor && t) {
+                    this.door.canUse = e.door.canUse,
+                    this.door.open = e.door.open,
+                    this.door.seq = e.door.seq;
+                    var p = c.rotate(c.create(s.door.slideOffset, 0), this.rot + .5 * Math.PI);
+                    this.door.closedPos = e.door.open ? c.add(e.pos, p) : c.copy(e.pos)
                 }
-            }, {
-                key: "updateData",
-                value: function(e, t, a, i) {
-                    t && (this.type = e.type,
-                    this.layer = e.layer,
-                    this.healthT = e.healthT,
-                    this.dead = e.dead);
-                    var o = s.Defs[e.type];
-                    if (this.pos = d.copy(e.pos),
-                    this.rot = s.oriToRad(e.ori),
-                    this.scale = e.scale,
-                    this.imgScale = o.img.scale,
-                    this.collider = r.transform(o.collision, this.pos, this.rot, this.scale),
-                    a) {
-                        if (this.isNew = !0,
-                        this.exploded = -1 != i.map.deadObstacleIds.indexOf(this.__id),
-                        this.explodeParticle = o.explodeParticle,
-                        this.hitParticle = o.hitParticle,
-                        this.collidable = o.collidable,
-                        this.destructible = o.destructible,
-                        this.height = o.height,
-                        this.sound = o.sound,
-                        this.isWall = !!o.isWall,
-                        this.isWindow = !!o.isWindow,
-                        this.isBush = !!o.isBush,
-                        this.isDoor = void 0 !== o.door,
-                        this.isDoor) {
-                            this.door = {
-                                playErrorFx: o.door.slideToOpen && o.door.openOneWay,
-                                closedPos: d.copy(e.pos),
-                                autoOpen: o.door.autoOpen,
-                                interactionRad: o.door.interactionRad,
-                                interpSpeed: o.door.openSpeed,
-                                interpPos: d.copy(e.pos),
-                                interpRot: s.oriToRad(e.ori),
-                                seq: e.door.seq,
-                                seqOld: e.door.seq,
-                                open: e.door.open,
-                                wasOpen: e.door.open
-                            };
-                            var l = o.door.casingImg;
-                            if (void 0 !== l) {
-                                var c = l.pos || d.create(0, 0);
-                                c = d.rotate(c, this.rot + .5 * Math.PI);
-                                var m = new n.Sprite;
-                                m.texture = n.Texture.fromImage(l.sprite),
-                                m.anchor.set(.5, .5),
-                                m.posOffset = c,
-                                m.imgScale = l.scale,
-                                m.tint = l.tint,
-                                m.zIdx = l.zIdx,
-                                m.alpha = l.alpha,
-                                m.visible = !0,
-                                this.door.casingSprite = m
-                            }
-                        }
-                        this.isButton = void 0 !== o.button,
-                        this.isButton && (this.button = {
-                            interactionRad: o.button.interactionRad,
-                            seq: e.button.seq,
-                            seqOld: e.button.seq
-                        })
-                    }
-                    if (this.isDoor && t) {
-                        this.door.canUse = e.door.canUse,
-                        this.door.open = e.door.open,
-                        this.door.seq = e.door.seq;
-                        var p = d.rotate(d.create(o.door.slideOffset, 0), this.rot + .5 * Math.PI);
-                        this.door.closedPos = e.door.open ? d.add(e.pos, p) : d.copy(e.pos)
-                    }
-                    if (this.isButton && t && (this.button.onOff = e.button.onOff,
-                    this.button.canUse = e.button.canUse,
-                    this.button.seq = e.button.seq),
-                    void 0 !== o.explosion && !this.smokeEmitter && e.healthT < .5 && !e.dead) {
-                        var u = d.normalize(d.create(1, 1));
-                        this.smokeEmitter = i.particleBarn.addEmitter("smoke_barrel", this.pos, u, 1, this.layer, Number.MAX_VALUE)
-                    }
-                    var h = this.dead ? o.img.residue : o.img.sprite;
-                    if (this.isButton && this.button.onOff && !this.dead && (h = o.button.useImg),
-                    h != this.img) {
-                        var g = d.create(.5, .5);
-                        this.isDoor && (g = o.door.spriteAnchor);
-                        var f = void 0 !== h;
-                        !f && this.sprite.parent && this.sprite.parent.removeChild(this.sprite),
-                        f && (this.sprite.texture = "none" == h ? n.Texture.EMPTY : n.Texture.fromImage(h),
-                        this.sprite.anchor.set(g.x, g.y),
-                        this.sprite.tint = o.img.tint,
-                        this.sprite.imgAlpha = this.dead ? .75 : o.img.alpha,
-                        this.sprite.zIdx = o.img.zIdx,
-                        this.sprite.alpha = this.sprite.imgAlpha),
-                        this.sprite.visible = f,
-                        this.img = h
-                    }
+                if (this.isButton && t && (this.button.onOff = e.button.onOff,
+                this.button.canUse = e.button.canUse,
+                this.button.seq = e.button.seq),
+                void 0 !== s.explosion && !this.smokeEmitter && e.healthT < .5 && !e.dead) {
+                    var u = c.normalize(c.create(1, 1));
+                    this.smokeEmitter = i.particleBarn.addEmitter("smoke_barrel", this.pos, u, 1, this.layer, Number.MAX_VALUE)
                 }
-            }, {
-                key: "getInteraction",
-                value: function() {
-                    return this.isButton && this.button.canUse ? {
-                        rad: this.button.interactionRad,
-                        action: "game-use",
-                        object: "game-" + this.type
-                    } : this.isDoor && this.door.canUse && !this.door.autoOpen ? {
-                        rad: this.door.interactionRad,
-                        action: this.door.open ? "game-close-door" : "game-open-door",
-                        object: ""
-                    } : null
+                var h = this.dead ? s.img.residue : s.img.sprite;
+                if (this.isButton && this.button.onOff && !this.dead && (h = s.button.useImg),
+                h != this.img) {
+                    var g = c.create(.5, .5);
+                    this.isDoor && (g = s.door.spriteAnchor);
+                    var f = void 0 !== h;
+                    !f && this.sprite.parent && this.sprite.parent.removeChild(this.sprite),
+                    f && (this.sprite.texture = "none" == h ? o.Texture.EMPTY : o.Texture.fromImage(h),
+                    this.sprite.anchor.set(g.x, g.y),
+                    this.sprite.tint = s.img.tint,
+                    this.sprite.imgAlpha = this.dead ? .75 : s.img.alpha,
+                    this.sprite.zIdx = s.img.zIdx,
+                    this.sprite.alpha = this.sprite.imgAlpha),
+                    this.sprite.visible = f,
+                    this.img = h
                 }
-            }, {
-                key: "update",
-                value: function(e, t, a, i, o, n) {
-                    var p = this.dead
-                      , h = this.exploded
-                      , g = this.isNew
-                      , f = this.pos
-                      , b = this.explodeParticle
-                      , y = this.sound;
-                    if (this.isButton) {
-                        var x = this.button;
-                        if (x.seq != x.seqOld) {
-                            var v = s.Defs[this.type];
-                            v.button.sound && i.playSound(v.button.sound, {
-                                channel: "sfx",
-                                soundPos: f,
-                                layer: this.layer,
-                                muffled: !0
-                            })
-                        }
-                        x.seqOld = x.seq
-                    }
-                    if (this.isDoor) {
-                        var k = this.door
-                          , _ = k.interpSpeed
-                          , w = d.sub(this.pos, k.interpPos)
-                          , S = d.length(w)
-                          , M = _ * e;
-                        S < M && (M = S);
-                        var T = S > 1e-4 ? d.div(w, S) : d.create(1, 0);
-                        k.interpPos = d.add(k.interpPos, d.mul(T, M));
-                        var P = Math.PI * k.interpSpeed
-                          , C = l.angleDiff(k.interpRot, this.rot)
-                          , I = l.sign(C) * P * e;
-                        if (Math.abs(C) < Math.abs(I) && (I = C),
-                        k.interpRot += I,
-                        k.seq != k.seqOld) {
-                            var z = s.Defs[this.type]
-                              , A = z.door.sound.change || "";
-                            "" != A && i.playSound(A, {
-                                channel: "sfx",
-                                soundPos: f,
-                                layer: this.layer,
-                                muffled: !0
-                            }),
-                            k.seqOld = k.seq
-                        }
-                        if (k.open != k.wasOpen) {
-                            var D = s.Defs[this.type]
-                              , O = k.open ? D.door.sound.open : D.door.sound.close;
-                            i.playSound(O, {
-                                channel: "sfx",
-                                soundPos: f,
-                                layer: this.layer,
-                                muffled: !0
-                            }),
-                            k.wasOpen = k.open
-                        }
-                    }
-                    if (p && !h && (t.deadObstacleIds.push(this.__id),
-                    this.exploded = !0,
-                    this.smokeEmitter && (this.smokeEmitter.stop(),
-                    this.smokeEmitter = null),
-                    !g)) {
-                        for (var E = r.toAabb(this.collider), L = d.mul(d.sub(E.max, E.min), .5), B = d.add(E.min, L), F = Math.floor(c.random(5, 11)), R = 0; R < F; R++) {
-                            var j = d.mul(d.randomUnit(), c.random(5, 15))
-                              , N = Array.isArray(b) ? b[Math.floor(Math.random() * b.length)] : b;
-                            a.addParticle(m.Defs[N], this.layer, B, j)
-                        }
-                        i.playSound(y.explode, {
+            },
+            getInteraction: function() {
+                return this.isButton && this.button.canUse ? {
+                    rad: this.button.interactionRad,
+                    action: "game-use",
+                    object: "game-" + this.type
+                } : this.isDoor && this.door.canUse && !this.door.autoOpen ? {
+                    rad: this.door.interactionRad,
+                    action: this.door.open ? "game-close-door" : "game-open-door",
+                    object: ""
+                } : null
+            },
+            l: function(e, t, a, i, o, d) {
+                var u = this.dead
+                  , h = this.exploded
+                  , g = this.isNew
+                  , f = this.pos
+                  , b = this.explodeParticle
+                  , y = this.sound;
+                if (this.isButton) {
+                    var x = this.button;
+                    if (x.seq != x.seqOld) {
+                        var v = r.Defs[this.type];
+                        v.button.sound && i.playSound(v.button.sound, {
                             channel: "sfx",
-                            soundPos: B,
+                            soundPos: f,
                             layer: this.layer,
                             muffled: !0
                         })
                     }
-                    if (this.smokeEmitter && (this.smokeEmitter.pos = d.copy(this.pos)),
-                    this.sprite.visible) {
-                        var q = this.dead ? 5 : this.sprite.zIdx
-                          , V = this.__id
-                          , G = this.layer;
-                        !this.dead && q >= 50 && 0 == this.layer && 0 == o.layer && (q += 100,
-                        G |= 2),
-                        n.addPIXIObj(this.sprite, u.World, G, q, V),
-                        this.isDoor && this.door.casingSprite && n.addPIXIObj(this.door.casingSprite, u.World, G, q + this.door.casingSprite.zIdx, V)
-                    }
-                    this.isNew = !1
+                    x.seqOld = x.seq
                 }
-            }, {
-                key: "render",
-                value: function(e) {
-                    var t = this.isDoor ? this.door.interpPos : this.pos
-                      , a = this.isDoor ? this.door.interpRot : this.rot
-                      , i = this.scale
-                      , o = e.pointToScreen(t)
-                      , n = e.pixels(i * this.imgScale);
-                    if (this.sprite.position.set(o.x, o.y),
-                    this.sprite.scale.set(n, n),
-                    this.sprite.rotation = -a,
-                    this.sprite.alpha = this.sprite.imgAlpha,
-                    this.isDoor && this.door.casingSprite) {
-                        var r = e.pointToScreen(d.add(this.door.closedPos, this.door.casingSprite.posOffset))
-                          , s = e.pixels(i * this.door.casingSprite.imgScale);
-                        this.door.casingSprite.position.set(r.x, r.y),
-                        this.door.casingSprite.scale.set(s, s),
-                        this.door.casingSprite.rotation = -a
+                if (this.isDoor) {
+                    var _ = this.door
+                      , k = _.interpSpeed
+                      , w = c.sub(this.pos, _.interpPos)
+                      , S = c.length(w)
+                      , M = k * e;
+                    S < M && (M = S);
+                    var T = S > 1e-4 ? c.div(w, S) : c.create(1, 0);
+                    _.interpPos = c.add(_.interpPos, c.mul(T, M));
+                    var P = Math.PI * _.interpSpeed
+                      , C = s.angleDiff(_.interpRot, this.rot)
+                      , I = s.sign(C) * P * e;
+                    if (Math.abs(C) < Math.abs(I) && (I = C),
+                    _.interpRot += I,
+                    _.seq != _.seqOld) {
+                        var z = r.Defs[this.type]
+                          , A = z.door.sound.change || "";
+                        "" != A && i.playSound(A, {
+                            channel: "sfx",
+                            soundPos: f,
+                            layer: this.layer,
+                            muffled: !0
+                        }),
+                        _.seqOld = _.seq
+                    }
+                    if (_.open != _.wasOpen) {
+                        var D = r.Defs[this.type]
+                          , O = _.open ? D.door.sound.open : D.door.sound.close;
+                        i.playSound(O, {
+                            channel: "sfx",
+                            soundPos: f,
+                            layer: this.layer,
+                            muffled: !0
+                        }),
+                        _.wasOpen = _.open
                     }
                 }
-            }, {
-                key: "playHitFx",
-                value: function(e, t, a, i, o) {
-                    for (var n = s.Defs[this.type], r = Math.floor(c.random(1, 2)), l = d.mul(t, 9.5), p = 0; p < r; p++)
-                        l = d.rotate(l, (Math.random() - .5) * Math.PI / 3),
-                        i.addParticle(m.Defs[this.hitParticle], a, e, l);
-                    o.playGroup(n.sound.bullet, {
-                        channel: "hits",
-                        soundPos: e,
-                        layer: a,
+                if (u && !h && (t.deadObstacleIds.push(this.__id),
+                this.exploded = !0,
+                this.smokeEmitter && (this.smokeEmitter.stop(),
+                this.smokeEmitter = null),
+                !g)) {
+                    for (var L = n.toAabb(this.collider), E = c.mul(c.sub(L.max, L.min), .5), B = c.add(L.min, E), F = Math.floor(l.random(5, 11)), R = 0; R < F; R++) {
+                        var j = c.mul(c.randomUnit(), l.random(5, 15))
+                          , N = Array.isArray(b) ? b[Math.floor(Math.random() * b.length)] : b;
+                        a.addParticle(m.Defs[N], this.layer, B, j)
+                    }
+                    i.playSound(y.explode, {
+                        channel: "sfx",
+                        soundPos: B,
+                        layer: this.layer,
                         muffled: !0
                     })
                 }
-            }]),
-            e
-        }();
-        e.exports = h
+                if (this.smokeEmitter && (this.smokeEmitter.pos = c.copy(this.pos)),
+                this.sprite.visible) {
+                    var q = this.dead ? 5 : this.sprite.zIdx
+                      , V = this.__id
+                      , G = this.layer;
+                    !this.dead && q >= 50 && 0 == this.layer && 0 == o.layer && (q += 100,
+                    G |= 2),
+                    d.addPIXIObj(this.sprite, p.World, G, q, V),
+                    this.isDoor && this.door.casingSprite && d.addPIXIObj(this.door.casingSprite, p.World, G, q + this.door.casingSprite.zIdx, V)
+                }
+                this.isNew = !1
+            },
+            render: function(e) {
+                var t = this.isDoor ? this.door.interpPos : this.pos
+                  , a = this.isDoor ? this.door.interpRot : this.rot
+                  , i = this.scale
+                  , o = e.pointToScreen(t)
+                  , n = e.pixels(i * this.imgScale);
+                if (this.sprite.position.set(o.x, o.y),
+                this.sprite.scale.set(n, n),
+                this.sprite.rotation = -a,
+                this.sprite.alpha = this.sprite.imgAlpha,
+                this.isDoor && this.door.casingSprite) {
+                    var r = e.pointToScreen(c.add(this.door.closedPos, this.door.casingSprite.posOffset))
+                      , s = e.pixels(i * this.door.casingSprite.imgScale);
+                    this.door.casingSprite.position.set(r.x, r.y),
+                    this.door.casingSprite.scale.set(s, s),
+                    this.door.casingSprite.rotation = -a
+                }
+            },
+            playHitFx: function(e, t, a, i, o) {
+                for (var n = r.Defs[this.type], s = Math.floor(l.random(1, 2)), d = c.mul(t, 9.5), p = 0; p < s; p++)
+                    d = c.rotate(d, (Math.random() - .5) * Math.PI / 3),
+                    i.addParticle(m.Defs[this.hitParticle], a, e, d);
+                o.playGroup(n.sound.bullet, {
+                    channel: "hits",
+                    soundPos: e,
+                    layer: a,
+                    muffled: !0
+                })
+            }
+        },
+        e.exports = i
     },
     "0cc73a5c": function(e, t, a) {
         "use strict";
@@ -1006,8 +924,8 @@ webpackJsonp([0], {
                     var s = t[n].x
                       , l = t[n].y
                       , c = t[r].x
-                      , d = t[r].y;
-                    l > i != d > i && a < (c - s) * (i - l) / (d - l) + s && (o = !o)
+                      , m = t[r].y;
+                    l > i != m > i && a < (c - s) * (i - l) / (m - l) + s && (o = !o)
                 }
                 return o
             },
@@ -1018,8 +936,8 @@ webpackJsonp([0], {
                 if (!(Math.abs(s) <= 1e-6)) {
                     var l = o.sub(a, e)
                       , c = o.dot(r, l) / s
-                      , d = o.dot(o.create(t.y, -t.x), l) / s;
-                    return c >= 0 && d >= 0 && d <= 1 ? c : void 0
+                      , m = o.dot(o.create(t.y, -t.x), l) / s;
+                    return c >= 0 && m >= 0 && m <= 1 ? c : void 0
                 }
             },
             rayPolygonIntersect: function(e, t, a) {
@@ -1079,7 +997,7 @@ webpackJsonp([0], {
             this.active = !1,
             this.ticker = 0,
             this.def = {},
-            this.sprite = new d.Sprite,
+            this.sprite = new m.Sprite,
             this.sprite.anchor.set(.5, .5),
             this.sprite.scale.set(1, 1),
             this.sprite.visible = !1,
@@ -1096,8 +1014,8 @@ webpackJsonp([0], {
                 this.particles[t] = new r(this.display)
         }
         var c = a("0e566746")
-          , d = a("80ac57a6")
-          , m = a("10899aea")
+          , m = a("8b1dfb45")
+          , d = a("10899aea")
           , p = a("1901e2d9")
           , u = a("c2a798c8")
           , h = a("c60b5e9f")
@@ -1984,7 +1902,7 @@ webpackJsonp([0], {
             }
         };
         r.prototype = {
-            init: function(e, t, a, i, r, s, l, c) {
+            a: function(e, t, a, i, r, s, l, c) {
                 this.active = !0,
                 this.ticker = 0,
                 c ? (this.hasParent = !0,
@@ -2002,18 +1920,18 @@ webpackJsonp([0], {
                 this.scaleEnd = o(t.scale.end) * s,
                 this.alphaStart = o(t.alpha.start),
                 this.alphaEnd = o(t.alpha.end);
-                var m = Array.isArray(t.image) ? t.image[Math.floor(Math.random() * t.image.length)] : t.image;
-                this.sprite.texture = d.Texture.fromImage(m),
+                var d = Array.isArray(t.image) ? t.image[Math.floor(Math.random() * t.image.length)] : t.image;
+                this.sprite.texture = m.Texture.fromImage(d),
                 this.sprite.tint = n(t.color),
                 this.sprite.visible = !0
             },
-            free: function() {
+            o: function() {
                 this.active = !1,
                 this.sprite.visible = !1
             }
         },
         s.prototype = {
-            init: function(e, t, a, i, o, n) {
+            a: function(e, t, a, i, o, n) {
                 this.active = !0,
                 this.enabled = !0,
                 this.type = e,
@@ -2026,7 +1944,7 @@ webpackJsonp([0], {
                 this.nextSpawn = 0,
                 this.spawnCount = 0
             },
-            free: function() {
+            o: function() {
                 this.active = !1
             },
             stop: function() {
@@ -2036,16 +1954,16 @@ webpackJsonp([0], {
         l.prototype = {
             addParticle: function(e, t, a, i, o, n, s) {
                 c(void 0 !== e);
-                for (var l = null, d = 0; d < this.particles.length; d++)
-                    if (!this.particles[d].active) {
-                        l = this.particles[d];
+                for (var l = null, m = 0; m < this.particles.length; m++)
+                    if (!this.particles[m].active) {
+                        l = this.particles[m];
                         break
                     }
                 return l || (l = new r,
                 this.particles.push(l)),
                 o = void 0 !== o ? o : 1,
                 n = void 0 !== n ? n : Math.random() * Math.PI * 2,
-                l.init(this.renderer, e, t, a, i, o, n, s),
+                l.a(this.renderer, e, t, a, i, o, n, s),
                 l
             },
             addEmitter: function(e, t, a, i, o, n) {
@@ -2056,14 +1974,14 @@ webpackJsonp([0], {
                     }
                 return r || (r = new s,
                 this.emitters.push(r)),
-                r.init(e, t, a, i, o, n),
+                r.a(e, t, a, i, o, n),
                 r
             },
-            update: function(e, t) {
+            l: function(e, t) {
                 for (var a = 0; a < this.emitters.length; a++) {
                     var i = this.emitters[a];
                     if (i.active && i.enabled) {
-                        i.ticker;
+                        i.ticker,
                         i.ticker += e,
                         i.nextSpawn -= e;
                         for (var n = b[i.type]; i.nextSpawn <= 0 && i.spawnCount < n.maxCount; ) {
@@ -2071,12 +1989,12 @@ webpackJsonp([0], {
                               , s = u.add(i.pos, u.mul(u.randomUnit(), Math.random() * r))
                               , l = u.rotate(i.dir, (Math.random() - .5) * n.angle)
                               , c = u.mul(l, o(n.speed))
-                              , d = Math.random() * Math.PI * 2;
-                            this.addParticle(f[n.particle], i.layer, s, c, i.scale, d, null);
+                              , m = Math.random() * Math.PI * 2;
+                            this.addParticle(f[n.particle], i.layer, s, c, i.scale, m, null),
                             i.nextSpawn += o(n.rate),
                             i.spawnCount++
                         }
-                        i.ticker >= i.duration && i.free()
+                        i.ticker >= i.duration && i.o()
                     }
                 }
                 for (var p = 0; p < this.particles.length; p++) {
@@ -2089,21 +2007,21 @@ webpackJsonp([0], {
                         h.ticker += e;
                         var g = Math.min(h.ticker / h.life, 1)
                           , y = h.hasParent ? h.pos : t.pointToScreen(h.pos)
-                          , x = m.remap(g, h.def.scale.lerp.min, h.def.scale.lerp.max, h.scaleStart, h.scaleEnd)
-                          , v = m.remap(g, h.def.alpha.lerp.min, h.def.alpha.lerp.max, h.alphaStart, h.alphaEnd);
+                          , x = d.remap(g, h.def.scale.lerp.min, h.def.scale.lerp.max, h.scaleStart, h.scaleEnd)
+                          , v = d.remap(g, h.def.alpha.lerp.min, h.def.alpha.lerp.max, h.alphaStart, h.alphaEnd);
                         h.hasParent || (x = t.pixels(x)),
                         h.sprite.position.set(y.x, y.y),
                         h.sprite.scale.set(x, x),
                         h.sprite.rotation = h.rot,
                         h.sprite.alpha = v,
-                        g >= 1 && h.free()
+                        g >= 1 && h.o()
                     }
                 }
             }
         },
         e.exports = {
             Defs: f,
-            ParticleBarn: l
+            d: l
         }
     },
     "14a25ec1": function(e, t, a) {
@@ -2291,7 +2209,7 @@ webpackJsonp([0], {
                     return a
                 }
                 ;
-                var d = function(e, t) {
+                var m = function(e, t) {
                     return function() {
                         if (this._index + t > this._length)
                             throw new Error("Trying to read past the end of the stream");
@@ -2300,7 +2218,7 @@ webpackJsonp([0], {
                         a
                     }
                 }
-                  , m = function(e, t) {
+                  , d = function(e, t) {
                     return function(a) {
                         this._view[e](this._index, a),
                         this._index += t
@@ -2377,24 +2295,24 @@ webpackJsonp([0], {
                     this._index += t
                 }
                 ,
-                p.prototype.readBoolean = d("getBoolean", 1),
-                p.prototype.readInt8 = d("getInt8", 8),
-                p.prototype.readUint8 = d("getUint8", 8),
-                p.prototype.readInt16 = d("getInt16", 16),
-                p.prototype.readUint16 = d("getUint16", 16),
-                p.prototype.readInt32 = d("getInt32", 32),
-                p.prototype.readUint32 = d("getUint32", 32),
-                p.prototype.readFloat32 = d("getFloat32", 32),
-                p.prototype.readFloat64 = d("getFloat64", 64),
-                p.prototype.writeBoolean = m("setBoolean", 1),
-                p.prototype.writeInt8 = m("setInt8", 8),
-                p.prototype.writeUint8 = m("setUint8", 8),
-                p.prototype.writeInt16 = m("setInt16", 16),
-                p.prototype.writeUint16 = m("setUint16", 16),
-                p.prototype.writeInt32 = m("setInt32", 32),
-                p.prototype.writeUint32 = m("setUint32", 32),
-                p.prototype.writeFloat32 = m("setFloat32", 32),
-                p.prototype.writeFloat64 = m("setFloat64", 64),
+                p.prototype.readBoolean = m("getBoolean", 1),
+                p.prototype.readInt8 = m("getInt8", 8),
+                p.prototype.readUint8 = m("getUint8", 8),
+                p.prototype.readInt16 = m("getInt16", 16),
+                p.prototype.readUint16 = m("getUint16", 16),
+                p.prototype.readInt32 = m("getInt32", 32),
+                p.prototype.readUint32 = m("getUint32", 32),
+                p.prototype.readFloat32 = m("getFloat32", 32),
+                p.prototype.readFloat64 = m("getFloat64", 64),
+                p.prototype.writeBoolean = d("setBoolean", 1),
+                p.prototype.writeInt8 = d("setInt8", 8),
+                p.prototype.writeUint8 = d("setUint8", 8),
+                p.prototype.writeInt16 = d("setInt16", 16),
+                p.prototype.writeUint16 = d("setUint16", 16),
+                p.prototype.writeInt32 = d("setInt32", 32),
+                p.prototype.writeUint32 = d("setUint32", 32),
+                p.prototype.writeFloat32 = d("setFloat32", 32),
+                p.prototype.writeFloat64 = d("setFloat64", 64),
                 p.prototype.readASCIIString = function(e) {
                     return i(this, e)
                 }
@@ -2711,8 +2629,8 @@ webpackJsonp([0], {
           , s = r.EmoteType
           , l = r.EmoteData
           , c = a("f398b7c7")
-          , d = a("26be8056")
-          , m = a("484b3444")
+          , m = a("26be8056")
+          , d = a("484b3444")
           , p = function() {
             function e(t) {
                 i(this, e),
@@ -2754,7 +2672,7 @@ webpackJsonp([0], {
                         e.loggedIn && t.unlockEmotes("account"),
                         a.css("display", "block"),
                         n("#start-bottom-right").fadeOut(200),
-                        m.addModalCloseListener(),
+                        d.addModalCloseListener(),
                         !1
                     }),
                     n(".btn-account-change-avatar, .account-avatar").click(function(a) {
@@ -2801,28 +2719,28 @@ webpackJsonp([0], {
                                 x = "account");
                                 var v = "customize-list-item";
                                 v += y ? " customize-list-item-locked" : " customize-list-item-unlocked";
-                                var k = n("<div/>", {
+                                var _ = n("<div/>", {
                                     class: v,
                                     "data-lock-reason": x
                                 });
-                                k.append(n("<div/>", {
+                                _.append(n("<div/>", {
                                     class: "customize-emote-image",
                                     style: "background-image: url(" + f.texture + ")",
                                     draggable: !y,
                                     "data-id": g
                                 })),
-                                n("#modal-customize-list").append(k),
+                                n("#modal-customize-list").append(_),
                                 v = "customize-list-item customize-list-item-unlocked",
-                                k = n("<div/>", {
+                                _ = n("<div/>", {
                                     class: v
                                 }),
-                                k.append(n("<div/>", {
+                                _.append(n("<div/>", {
                                     class: "customize-emote-image",
                                     style: "background-image: url(" + f.texture + ")",
                                     draggable: !y,
                                     "data-id": g
                                 })),
-                                n("#modal-account-avatar-list").append(k)
+                                n("#modal-account-avatar-list").append(_)
                             }
                         }
                     }
@@ -2847,7 +2765,7 @@ webpackJsonp([0], {
                     }),
                     this.selectableSlots.on("dragstart", function(e) {
                         if (!n(this).hasClass("customize-list-item-locked") && (i.selectEmote(n(this)),
-                        !d.detectIE(!0))) {
+                        !m.detectIE(!0))) {
                             var t = document.createElement("img");
                             t.src = i.selectedEmote.img.replace("url(", "").replace(")", "").replace(/\"/gi, ""),
                             e.originalEvent.dataTransfer.setDragImage(t, 64, 64)
@@ -2885,10 +2803,10 @@ webpackJsonp([0], {
                         var e = n(this).parent();
                         i.updateSlot(e, "", 1)
                     });
-                    for (var _ in this.unlockTypes)
-                        if (this.unlockTypes.hasOwnProperty(_) && "account" != _) {
-                            var w = this.unlockTypes[_];
-                            this.config.get(w.config) && this.unlockEmotes(_)
+                    for (var k in this.unlockTypes)
+                        if (this.unlockTypes.hasOwnProperty(k) && "account" != k) {
+                            var w = this.unlockTypes[k];
+                            this.config.get(w.config) && this.unlockEmotes(k)
                         }
                     n("#btn-twitter-follow-unlock, #btn-youtube-subscribe-unlock, #btn-facebook-like-unlock").click(function() {
                         if (n(this).hasClass("btn-social-unlocked"))
@@ -2905,7 +2823,7 @@ webpackJsonp([0], {
                     this.emoteSelected = !0;
                     var a = t ? e : e.parent()
                       , i = a.find(".customize-emote-image");
-                    if (this.selectedEmote = {
+                    this.selectedEmote = {
                         prevSlot: t ? null : a,
                         img: i.css("background-image"),
                         id: i.data("id")
@@ -2915,11 +2833,7 @@ webpackJsonp([0], {
                         opacity: this.highlightOpacityMin
                     }),
                     this.selectableSlots.removeClass("customize-list-item-selected"),
-                    t)
-                        e.addClass("customize-list-item-selected");
-                    else {
-                        a.find(".ui-emote-hl").css("opacity", 1)
-                    }
+                    t ? e.addClass("customize-list-item-selected") : a.find(".ui-emote-hl").css("opacity", 1)
                 }
             }, {
                 key: "updateSlot",
@@ -2944,7 +2858,7 @@ webpackJsonp([0], {
             }, {
                 key: "unlockEmotes",
                 value: function(e) {
-                    this.unlockTypes[e].unlocked;
+                    this.unlockTypes[e].unlocked,
                     n('.btn-social-unlock[data-lock-reason="' + e + '"]').addClass("btn-social-unlocked");
                     var t = n('.customize-list-item-locked[data-lock-reason="' + e + '"]');
                     t.addClass("customize-list-item-unlocked").removeClass("customize-list-item-locked"),
@@ -2978,107 +2892,73 @@ webpackJsonp([0], {
     },
     "172c57dc": function(e, t, a) {
         "use strict";
-        function i(e, t) {
-            if (!(e instanceof t))
-                throw new TypeError("Cannot call a class as a function")
+        function i() {
+            this.sprite = new n.Sprite,
+            this.sprite.anchor.set(.5, .5),
+            this.sprite.visible = !1
         }
-        var o = function() {
-            function e(e, t) {
-                for (var a = 0; a < t.length; a++) {
-                    var i = t[a];
-                    i.enumerable = i.enumerable || !1,
-                    i.configurable = !0,
-                    "value"in i && (i.writable = !0),
-                    Object.defineProperty(e, i.key, i)
-                }
-            }
-            return function(t, a, i) {
-                return a && e(t.prototype, a),
-                i && e(t, i),
-                t
-            }
-        }()
-          , n = a("80ac57a6")
+        function o() {
+            this.p = new c.Pool(i)
+        }
+        var n = a("8b1dfb45")
           , r = a("6b42806d")
           , s = a("ceee80d9")
           , l = a("c2a798c8")
           , c = (a("af8ba00f"),
         a("ce29f17f"),
         a("753d6e4b"))
-          , d = a("c60b5e9f")
-          , m = d.RenderType
-          , p = function() {
-            function e() {
-                i(this, e),
-                this.sprite = new n.Sprite,
-                this.sprite.anchor.set(.5, .5),
+          , m = a("c60b5e9f")
+          , d = m.RenderType;
+        i.prototype = {
+            a: function() {
+                this.imgScale = 1
+            },
+            o: function() {
                 this.sprite.visible = !1
+            },
+            n: function(e, t, a, i) {
+                var o = s.Defs[e.type];
+                if (this.type = e.type,
+                this.pos = l.copy(e.pos),
+                this.rot = s.oriToRad(e.ori),
+                this.scale = e.scale,
+                this.layer = e.layer,
+                this.collider = r.transform(o.collision, this.pos, this.rot, this.scale),
+                this.imgScale = o.img.scale,
+                a) {
+                    var c = o.img;
+                    if (this.sprite.texture = n.Texture.fromImage(c.sprite),
+                    this.sprite.tint = c.tint,
+                    this.sprite.alpha = 1,
+                    this.sprite.visible = !0,
+                    this.isNew = !0,
+                    this.spriteAlpha = c.alpha,
+                    this.inWater = !1,
+                    o.height < .25) {
+                        var m = i.map.getGroundSurface(this.pos, this.layer);
+                        this.inWater = "water" == m
+                    }
+                    i.renderer.addPIXIObj(this.sprite, d.Decal, this.layer, o.img.zIdx, this.__id)
+                }
             }
-            return o(e, [{
-                key: "init",
-                value: function() {
-                    this.imgScale = 1
-                }
-            }, {
-                key: "free",
-                value: function() {
-                    this.sprite.visible = !1
-                }
-            }, {
-                key: "updateData",
-                value: function(e, t, a, i) {
-                    var o = s.Defs[e.type];
-                    if (this.type = e.type,
-                    this.pos = l.copy(e.pos),
-                    this.rot = s.oriToRad(e.ori),
-                    this.scale = e.scale,
-                    this.layer = e.layer,
-                    this.collider = r.transform(o.collision, this.pos, this.rot, this.scale),
-                    this.imgScale = o.img.scale,
-                    a) {
-                        var c = o.img;
-                        if (this.sprite.texture = n.Texture.fromImage(c.sprite),
-                        this.sprite.tint = c.tint,
-                        this.sprite.alpha = 1,
-                        this.sprite.visible = !0,
-                        this.isNew = !0,
-                        this.spriteAlpha = c.alpha,
-                        this.inWater = !1,
-                        o.height < .25) {
-                            var d = i.map.getGroundSurface(this.pos, this.layer);
-                            this.inWater = "water" == d
-                        }
-                        i.renderer.addPIXIObj(this.sprite, m.Decal, this.layer, o.img.zIdx, this.__id)
+        },
+        o.prototype = {
+            l: function(e, t, a) {
+                for (var i = this.p.c(), o = 0; o < i.length; o++) {
+                    var n = i[o];
+                    if (n.active) {
+                        var r = a.pointToScreen(n.pos)
+                          , s = a.pixels(n.scale * n.imgScale);
+                        n.sprite.position.set(r.x, r.y),
+                        n.sprite.scale.set(s, s),
+                        n.sprite.rotation = -n.rot,
+                        n.sprite.alpha = n.spriteAlpha * (n.inWater ? .3 : 1)
                     }
                 }
-            }]),
-            e
-        }()
-          , u = function() {
-            function e() {
-                i(this, e),
-                this.decalPool = new c.Pool(p)
             }
-            return o(e, [{
-                key: "update",
-                value: function(e, t, a) {
-                    for (var i = this.decalPool.getPool(), o = 0; o < i.length; o++) {
-                        var n = i[o];
-                        if (n.active) {
-                            var r = a.pointToScreen(n.pos)
-                              , s = a.pixels(n.scale * n.imgScale);
-                            n.sprite.position.set(r.x, r.y),
-                            n.sprite.scale.set(s, s),
-                            n.sprite.rotation = -n.rot,
-                            n.sprite.alpha = n.spriteAlpha * (n.inWater ? .3 : 1)
-                        }
-                    }
-                }
-            }]),
-            e
-        }();
+        },
         e.exports = {
-            DecalBarn: u
+            u: o
         }
     },
     "1901e2d9": function(e, t, a) {
@@ -3117,7 +2997,7 @@ webpackJsonp([0], {
                 return o.create(a * e * Math.cos(2 * Math.PI * t / a), a * e * Math.sin(2 * Math.PI * t / a))
             },
             hsv2rgb: function(e, t, a) {
-                var i, o, n, r, s, l, c, d;
+                var i, o, n, r, s, l, c, m;
                 switch (1 === arguments.length && (t = e.s,
                 a = e.v,
                 e = e.h),
@@ -3125,11 +3005,11 @@ webpackJsonp([0], {
                 s = 6 * e - r,
                 l = a * (1 - t),
                 c = a * (1 - s * t),
-                d = a * (1 - (1 - s) * t),
+                m = a * (1 - (1 - s) * t),
                 r % 6) {
                 case 0:
                     i = a,
-                    o = d,
+                    o = m,
                     n = l;
                     break;
                 case 1:
@@ -3140,7 +3020,7 @@ webpackJsonp([0], {
                 case 2:
                     i = l,
                     o = a,
-                    n = d;
+                    n = m;
                     break;
                 case 3:
                     i = l,
@@ -3148,7 +3028,7 @@ webpackJsonp([0], {
                     n = a;
                     break;
                 case 4:
-                    i = d,
+                    i = m,
                     o = l,
                     n = a;
                     break;
@@ -3184,10 +3064,10 @@ webpackJsonp([0], {
             updateColor: function(e, t) {
                 e /= 100;
                 var a = this.hexToRgb(t);
-                a.r,
+                return a.r,
                 a.g,
-                a.b;
-                return a.r = Math.round(a.r * e + 0 * (1 - e)),
+                a.b,
+                a.r = Math.round(a.r * e + 0 * (1 - e)),
                 a.g = Math.round(a.g * e + 0 * (1 - e)),
                 a.b = Math.round(a.b * e + 0 * (1 - e)),
                 this.rgb2hex(a)
@@ -3201,7 +3081,7 @@ webpackJsonp([0], {
             this.pos = n.create(0, 0),
             this.ppu = 16,
             this.zoom = 1.5,
-            this.targetZoom = 1.5,
+            this.f = 1.5,
             this.screenWidth = 1,
             this.screenHeight = 1,
             this.shakeEnabled = !0,
@@ -3244,11 +3124,24 @@ webpackJsonp([0], {
                 this.shakeInt = 0
             }
         },
-        e.exports = i
+        e.exports = {
+            _: i
+        }
     },
     "26be8056": function(e, t, a) {
         "use strict";
-        function i(e, t) {
+        function i(e) {
+            if (Array.isArray(e)) {
+                for (var t = 0, a = Array(e.length); t < e.length; t++)
+                    a[t] = e[t];
+                return a
+            }
+            return Array.from(e)
+        }
+        function o() {
+            window.appk = 1
+        }
+        function n(e, t) {
             t || (t = window.location.href),
             e = e.replace(/[\[\]]/g, "\\$&");
             var a = new RegExp("[?&]" + e + "(=([^&#]*)|&|#|$)")
@@ -3256,7 +3149,7 @@ webpackJsonp([0], {
             if (i)
                 return i[2] ? decodeURIComponent(i[2].replace(/\+/g, " ")) : ""
         }
-        function o(e) {
+        function r(e) {
             for (var t = e + "=", a = decodeURIComponent(document.cookie), i = a.split(";"), o = 0; o < i.length; o++) {
                 for (var n = i[o]; " " == n.charAt(0); )
                     n = n.substring(1);
@@ -3265,36 +3158,33 @@ webpackJsonp([0], {
             }
             return ""
         }
-        function n(e) {
+        function s(e) {
             var t = e.trim();
-            return t.length > w.kNameMaxLen && (t = t.substring(0, w.kNameMaxLen)),
+            return t.length > T.kNameMaxLen && (t = t.substring(0, T.kNameMaxLen)),
             t
         }
-        function r(e) {
+        function l(e) {
             return e.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/'/g, "&#39;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
         }
-        function s(e, t, a) {
-            var i = M.getContext("2d");
+        function c(e, t, a) {
+            var i = I.getContext("2d");
             i.font = t;
-            for (var o = e.length, n = e; o > 0; ) {
-                if (i.measureText(n).width <= a)
-                    break;
-                n = e.substring(0, --o) + "…"
-            }
+            for (var o = e.length, n = e; o > 0 && !(i.measureText(n).width <= a); )
+                n = e.substring(0, --o) + "…";
             return n
         }
-        function l(e) {
+        function m(e) {
             return void 0 === e ? "undefined" : null === e ? "null" : JSON.stringify(e)
         }
-        function c() {
+        function d() {
             for (var e = ["localhost", "surviv.io", "surviv2.io", "2dbattleroyale.com", "2dbattleroyale.org"], t = window.location.hostname, a = !1, i = 0; i < e.length; i++)
                 if (-1 != t.indexOf(e[i])) {
                     a = !0;
                     break
                 }
-            return S.dev || a
+            return P.dev || a
         }
-        function d() {
+        function p() {
             var e = navigator.language || navigator.userLanguage;
             e = e.toLowerCase();
             for (var t = ["pt", "de", "es", "fr", "ko", "ru", "en"], a = 0; a < t.length; a++)
@@ -3307,16 +3197,16 @@ webpackJsonp([0], {
                     return e = i[o];
             return ""
         }
-        function m() {
+        function u() {
             return !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/) && this.detectiOS()
         }
-        function p() {
+        function h() {
             return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
         }
-        function u() {
-            return p() && 375 == screen.width && 812 == screen.height
+        function g() {
+            return h() && 375 == screen.width && 812 == screen.height
         }
-        function h() {
+        function f() {
             var e = arguments.length > 0 && void 0 !== arguments[0] && arguments[0]
               , t = window.navigator.userAgent
               , a = t.indexOf("MSIE ")
@@ -3324,39 +3214,55 @@ webpackJsonp([0], {
               , o = t.indexOf("Edge/");
             return a > 0 || i > 0 || e && o > 0
         }
-        function g() {
+        function b(e, t) {
+            var a = document.body
+              , o = !1;
+            if (e) {
+                for (var n = [[99, 104, 101, 97, 116], [104, 97, 99, 107], [109, 101, 103, 97, 109, 111, 100]], r = [], s = 0; s < n.length; s++)
+                    r.push(String.fromCharCode.apply(String, i(n[s])));
+                for (var l = Object.keys(localStorage), c = 0; c < l.length; c++)
+                    for (var m = 0; m < r.length; m++)
+                        -1 !== l[c].toLowerCase().indexOf(r[m]) && (delete localStorage[l[c]],
+                        o = !0)
+            }
+            o && (t && t.close(),
+            a && a.parentNode && a.parentNode.removeChild(a),
+            C.storeGeneric("error", "err"),
+            C.enabled = !1)
+        }
+        function y() {
             return window.innerWidth > window.innerHeight || 90 == window.orientation || -90 == window.orientation
         }
-        function f() {
-            return g() ? "landscape" : "portrait"
+        function x() {
+            return y() ? "landscape" : "portrait"
         }
-        function b() {
+        function v() {
             var e = window.innerWidth
               , t = window.innerHeight;
-            if (p()) {
+            if (h()) {
                 if (e = screen.width,
                 t = screen.height,
-                g()) {
+                y()) {
                     var a = t;
                     t = e,
                     e = a
                 }
-                u() && (g() ? e -= 88 : t -= 88)
+                g() && (y() ? e -= 88 : t -= 88)
             }
             return {
                 width: e,
                 height: t
             }
         }
-        function y(e) {
+        function _(e) {
             var t = document.documentElement;
             document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement || e ? document.exitFullscreen ? document.exitFullscreen() : document.msExitFullscreen ? document.msExitFullscreen() : document.mozCancelFullScreen ? document.mozCancelFullScreen() : document.webkitExitFullscreen && document.webkitExitFullscreen() : t.requestFullscreen ? t.requestFullscreen() : t.msRequestFullscreen ? (t = document.body,
             t.msRequestFullscreen()) : t.mozRequestFullScreen ? t.mozRequestFullScreen() : t.webkitRequestFullscreen && t.webkitRequestFullscreen()
         }
-        function x() {
-            return void 0 !== i("debug") || !1
+        function k() {
+            return void 0 !== n("debug") || !1
         }
-        function v(e, t) {
+        function w(e, t) {
             !function a(i, o) {
                 if (i >= o)
                     return void t("full");
@@ -3365,7 +3271,7 @@ webpackJsonp([0], {
                         a(i + 1, o)
                     }, 250)
                 };
-                _.ajax({
+                M.ajax({
                     type: "POST",
                     url: "/api/find_game",
                     data: JSON.stringify(e),
@@ -3388,7 +3294,7 @@ webpackJsonp([0], {
                 })
             }(0, 3)
         }
-        function k(e, t, a) {
+        function S(e, t, a) {
             var i = "https:" == window.location.protocol
               , o = i ? "wss:" : "ws:"
               , n = i ? t.hosts : t.addrs;
@@ -3401,37 +3307,39 @@ webpackJsonp([0], {
                 };
                 if (o.length > 0) {
                     var r = o.shift();
-                    x() && console.log("Joining game", r, t.zone),
-                    e.tryJoinGame(t.data, r, n)
+                    k() && console.log("Joining game", r, t.zone),
+                    e.k(t.data, r, n)
                 } else
                     a()
             }(r)
         }
-        var _ = a("8ee62bea")
-          , w = a("300e2704")
-          , S = a("ce29f17f")
-          , M = (a("f398b7c7"),
-        document.createElement("canvas"));
+        var M = a("8ee62bea")
+          , T = a("300e2704")
+          , P = a("ce29f17f")
+          , C = a("f398b7c7")
+          , I = document.createElement("canvas");
         e.exports = {
-            getParameterByName: i,
-            getCookie: o,
-            sanitizeNameInput: n,
-            htmlEscape: r,
-            truncateString: s,
-            varToString: l,
-            authLocation: c,
-            detectLanguage: d,
-            detectiOS: p,
-            detectiPhoneX: u,
-            detectIE: h,
-            detectMobileSafari: m,
-            getOrientation: f,
-            isLandscape: g,
-            getScreenDimensions: b,
-            toggleFullScreen: y,
-            logDebug: x,
-            findGame: v,
-            joinGame: k
+            w: o,
+            getParameterByName: n,
+            getCookie: r,
+            sanitizeNameInput: s,
+            htmlEscape: l,
+            truncateString: c,
+            varToString: m,
+            authLocation: d,
+            detectLanguage: p,
+            detectiOS: h,
+            detectiPhoneX: g,
+            detectMobileSafari: u,
+            detectIE: f,
+            I: b,
+            getOrientation: x,
+            isLandscape: y,
+            getScreenDimensions: v,
+            toggleFullScreen: _,
+            logDebug: k,
+            findGame: w,
+            joinGame: S
         }
     },
     "29d4cdc4": function(e, t, a) {
@@ -3733,11 +3641,11 @@ webpackJsonp([0], {
             e.writeString(t.name),
             e.writeVec(t.pos, 0, 0, 1024, 1024, 16)
         }
-        function d(e, t) {
+        function m(e, t) {
             t.name = e.readString(),
             t.pos = e.readVec(0, 0, 1024, 1024, 16)
         }
-        function m(e, t) {
+        function d(e, t) {
             e.writeMapType(t.type),
             e.writeVec(t.pos, 0, 0, 1024, 1024, 16),
             e.writeBits(t.ori, 2),
@@ -3780,8 +3688,8 @@ webpackJsonp([0], {
           , x = a("8649e148")
           , v = (y.Action,
         a("ceee80d9"))
-          , k = a("10899aea")
-          , _ = a("c2a798c8")
+          , _ = a("10899aea")
+          , k = a("c2a798c8")
           , w = function() {
             function e(t) {
                 i(this, e),
@@ -3843,7 +3751,7 @@ webpackJsonp([0], {
             g(i > 0 && i < 31),
             g(e >= t && e <= a);
             var o = (1 << i) - 1
-              , n = k.clamp(e, t, a)
+              , n = _.clamp(e, t, a)
               , r = (n - t) / (a - t)
               , s = r * o + .5;
             this.writeBits(s, i)
@@ -3861,9 +3769,9 @@ webpackJsonp([0], {
         }
         ,
         T.BitStream.prototype.readVec = function(e, t, a, i, o) {
-            return _.create(this.readFloat(e, a, o), this.readFloat(t, i, o))
+            return k.create(this.readFloat(e, a, o), this.readFloat(t, i, o))
         }
-        ;
+        ,
         T.BitStream.prototype.writeUnitVec = function(e, t) {
             this.writeVec(e, -1.0001, -1.0001, 1.0001, 1.0001, t)
         }
@@ -3878,7 +3786,7 @@ webpackJsonp([0], {
         }
         ,
         T.BitStream.prototype.readVec32 = function() {
-            return _.create(this.readFloat32(), this.readFloat32())
+            return k.create(this.readFloat32(), this.readFloat32())
         }
         ,
         T.BitStream.prototype.writeItemType = function(e) {
@@ -4205,12 +4113,13 @@ webpackJsonp([0], {
                 this.equipThrowable = !1,
                 this.equipMelee = !1,
                 this.equipLast = !1,
+                this.swapWeapSlots = !1,
                 this.cancelAction = !1,
                 this.scrollDown = !1,
                 this.scrollUp = !1,
                 this.useItem = "",
                 this.useScope = "",
-                this.toMouseDir = _.create(1, 0),
+                this.toMouseDir = k.create(1, 0),
                 this.toMouseLen = 0,
                 this.portrait = !1,
                 this.editMode = !1,
@@ -4233,6 +4142,7 @@ webpackJsonp([0], {
                     e.writeBoolean(this.equipThrowable),
                     e.writeBoolean(this.equipMelee),
                     e.writeBoolean(this.equipLast),
+                    e.writeBoolean(this.swapWeapSlots),
                     e.writeBoolean(this.cancelAction),
                     e.writeBoolean(this.editMode),
                     e.writeBoolean(this.scrollDown),
@@ -4242,7 +4152,8 @@ webpackJsonp([0], {
                     e.writeFloat(this.toMouseLen, 0, 64, 12),
                     e.writeItemType(this.useItem),
                     e.writeItemType(this.useScope),
-                    e.writeUint8(this.moveLen)
+                    e.writeUint8(this.moveLen),
+                    e.writeBits(0, 5)
                 }
             }, {
                 key: "deserialize",
@@ -4261,6 +4172,7 @@ webpackJsonp([0], {
                     this.equipThrowable = e.readBoolean(),
                     this.equipMelee = e.readBoolean(),
                     this.equipLast = e.readBoolean(),
+                    this.swapWeapSlots = e.readBoolean(),
                     this.cancelAction = e.readBoolean(),
                     this.editMode = e.readBoolean(),
                     this.scrollDown = e.readBoolean(),
@@ -4270,7 +4182,8 @@ webpackJsonp([0], {
                     this.toMouseLen = e.readFloat(0, 64, 12),
                     this.useItem = e.readItemType(),
                     this.useScope = e.readItemType(),
-                    this.moveLen = e.readUint8()
+                    this.moveLen = e.readUint8(),
+                    e.readBits(5)
                 }
             }]),
             e
@@ -4296,7 +4209,7 @@ webpackJsonp([0], {
             }]),
             e
         }()
-          , E = function() {
+          , L = function() {
             function e() {
                 i(this, e),
                 this.item = "",
@@ -4317,11 +4230,11 @@ webpackJsonp([0], {
             }]),
             e
         }()
-          , L = function() {
+          , E = function() {
             function e() {
                 i(this, e),
                 this.type = 0,
-                this.pos = _.create(0, 0),
+                this.pos = k.create(0, 0),
                 this.useLoadout = !1,
                 this.teamOnly = !1,
                 this.isPing = !1
@@ -4379,6 +4292,7 @@ webpackJsonp([0], {
                 this.teamMode = 0,
                 this.playerId = 0,
                 this.started = !1,
+                this.gameOpts = 0,
                 this.playerInfoMsgs = []
             }
             return h(e, [{
@@ -4387,17 +4301,18 @@ webpackJsonp([0], {
                     e.writeUint8(this.teamMode),
                     e.writeUint16(this.playerId),
                     e.writeUint8(this.started),
+                    e.writeUint8(this.gameOpts),
                     e.writeUint16(this.playerInfoMsgs.length);
-                    for (var t = 0; t < this.playerInfoMsgs.length; t++) {
+                    for (var t = 0; t < this.playerInfoMsgs.length; t++)
                         this.playerInfoMsgs[t].serialize(e)
-                    }
                 }
             }, {
                 key: "deserialize",
                 value: function(e) {
                     this.teamMode = e.readUint8(),
                     this.playerId = e.readUint16(),
-                    this.started = e.readUint8();
+                    this.started = e.readUint8(),
+                    this.gameOpts = e.readUint8();
                     for (var t = e.readUint16(), a = 0; a < t; a++) {
                         var i = new B;
                         i.deserialize(e),
@@ -4423,13 +4338,11 @@ webpackJsonp([0], {
                     e.writeUint16(this.height),
                     e.writeUint32(this.seed),
                     e.writeUint16(this.places.length);
-                    for (var t = 0; t < this.places.length; t++) {
-                        c(e, this.places[t])
-                    }
+                    for (var t = 0; t < this.places.length; t++)
+                        c(e, this.places[t]);
                     e.writeUint16(this.objects.length);
-                    for (var a = 0; a < this.objects.length; a++) {
-                        m(e, this.objects[a])
-                    }
+                    for (var a = 0; a < this.objects.length; a++)
+                        d(e, this.objects[a])
                 }
             }, {
                 key: "deserialize",
@@ -4439,7 +4352,7 @@ webpackJsonp([0], {
                     this.seed = e.readUint32();
                     for (var t = e.readUint16(), a = 0; a < t; a++) {
                         var i = {};
-                        d(e, i),
+                        m(e, i),
                         this.places.push(i)
                     }
                     for (var o = e.readUint16(), n = 0; n < o; n++) {
@@ -4497,13 +4410,13 @@ webpackJsonp([0], {
                     var c = 0;
                     if (0 != (a & j.FullObjects)) {
                         c = e.readUint16();
-                        for (var d = 0; d < c; d++) {
-                            var m = {};
-                            m.__type = e.readUint8(),
-                            m.__id = e.readUint16(),
-                            C[m.__type].deserializePart(e, m),
-                            C[m.__type].deserializeFull(e, m),
-                            this.fullObjects.push(m)
+                        for (var m = 0; m < c; m++) {
+                            var d = {};
+                            d.__type = e.readUint8(),
+                            d.__id = e.readUint16(),
+                            C[d.__type].deserializePart(e, d),
+                            C[d.__type].deserializeFull(e, d),
+                            this.fullObjects.push(d)
                         }
                     }
                     for (var p = e.readUint16(), u = 0; u < p; u++) {
@@ -4534,7 +4447,7 @@ webpackJsonp([0], {
                             this.teams.push(v)
                         }
                     if (0 != (a & j.TeamData))
-                        for (var k = e.readUint8(), _ = 0; _ < k; _++) {
+                        for (var _ = e.readUint8(), k = 0; k < _; k++) {
                             var w = {};
                             w.playerIdx = e.readUint8(),
                             r(e, w),
@@ -4569,12 +4482,12 @@ webpackJsonp([0], {
                         }
                     if (0 != (a & j.Emotes))
                         for (var D = e.readUint8(), O = 0; O < D; O++) {
-                            var E = {};
-                            E.type = e.readUint8(),
-                            E.isPing = e.readUint8(),
-                            E.playerId = e.readUint16(),
-                            E.pos = e.readVec(0, 0, 1024, 1024, 16),
-                            this.emotes.push(E)
+                            var L = {};
+                            L.type = e.readUint8(),
+                            L.isPing = e.readUint8(),
+                            L.playerId = e.readUint16(),
+                            L.pos = e.readVec(0, 0, 1024, 1024, 16),
+                            this.emotes.push(L)
                         }
                     this.ack = e.readUint8()
                 }
@@ -4758,7 +4671,7 @@ webpackJsonp([0], {
             DisconnectMsg: A,
             MoveMsg: D,
             EditMsg: O,
-            DropItemMsg: E,
+            DropItemMsg: L,
             JoinedMsg: F,
             UpdateMsg: N,
             MapMsg: R,
@@ -4768,7 +4681,7 @@ webpackJsonp([0], {
             PickupMsgType: U,
             PickupMsg: W,
             SpectateMsg: H,
-            EmoteMsg: L
+            EmoteMsg: E
         }
     },
     "3160ea28": function(e, t, a) {
@@ -4791,12 +4704,12 @@ webpackJsonp([0], {
             (t > 0 || a > 0) && (o += a + "m "),
             o += i + "s"
         }
-        function n(e, t, a, o, n, r, d) {
+        function n(e, t, a, o, n, r, m) {
             var u = this;
             this.game = e,
             this.particleBarn = o,
             this.localization = n,
-            this.touch = d,
+            this.touch = m,
             this.gameElem = l("#ui-game"),
             this.statsMain = l("#ui-stats"),
             this.statsElem = l("#ui-stats-bg"),
@@ -4872,14 +4785,14 @@ webpackJsonp([0], {
             this.bigmapCollision = l("#big-map-collision"),
             this.moveStyleButton = l("#btn-game-move-style"),
             this.moveStyleButton.on("touchstart", function() {
-                d.toggleMoveStyle()
+                m.toggleMoveStyle()
             }),
             this.aimStyleButton = l("#btn-game-aim-style"),
             this.aimStyleButton.on("touchstart", function() {
-                d.toggleAimStyle()
+                m.toggleAimStyle()
             }),
             l(document).on("keyup", function(e) {
-                76 != e.which || u.game.gameOver || k.toggleFullScreen()
+                76 != e.which || u.game.gameOver || _.toggleFullScreen()
             }),
             this.onTouchScreen = function(e) {
                 "cvs" == e.target.id && u.toggleEscMenu(!0)
@@ -4903,7 +4816,7 @@ webpackJsonp([0], {
                 e.stopPropagation()
             }),
             this.fullScreenButton.on("click", function() {
-                k.toggleFullScreen(),
+                _.toggleFullScreen(),
                 u.toggleEscMenu()
             }),
             this.resumeButton = l("#btn-game-resume"),
@@ -4959,7 +4872,55 @@ webpackJsonp([0], {
             this.minimapDisplayed = !0,
             this.visibilityMode = 0,
             this.gasRenderer = new x(r,0),
-            this.gasSafeZoneRenderer = new v,
+            this.gasSafeZoneRenderer = new v;
+            var g = this;
+            this.weapsDirty = !1,
+            this.weapSwitches = l("#ui-weapon-id-1, #ui-weapon-id-2"),
+            this.weapNoSwitches = l("#ui-weapon-id-3, #ui-weapon-id-4"),
+            this.weapDraggedId = 0,
+            this.swapWeapSlots = !1,
+            this.weapDraggedDiv = null,
+            this.weapDragging = !1,
+            this.weapDropped = !1,
+            this.resetWeapSlotStyling = function() {
+                g.weapDraggedDiv && (g.weapSwitches.css({
+                    left: "",
+                    top: ""
+                }),
+                l("#ui-game").css({
+                    "pointer-events": ""
+                })),
+                g.weapDraggedDiv = null,
+                g.weapDragging = !1,
+                g.weapDropped = !1,
+                g.weapSwitches.hasClass("ui-weapon-dragged") && g.weapSwitches.removeClass("ui-weapon-dragged"),
+                g.weapNoSwitches.hasClass("ui-outline-hover") || g.weapNoSwitches.addClass("ui-outline-hover")
+            }
+            ,
+            f.touch || (this.weapSwitches.on("mousedown", function(e) {
+                0 == e.button && (g.weapDraggedDiv = l(this),
+                g.weapDraggedId = l(this).data("slot"))
+            }),
+            l("#ui-game").on("mousemove", function(e) {
+                g.weapDraggedDiv && !g.weapDropped && (g.weapDraggedDiv.css({
+                    left: e.pageX - 80,
+                    top: e.pageY - 30
+                }),
+                g.weapDraggedDiv.addClass("ui-weapon-dragged"),
+                g.weapDragging || (l("#ui-game").css({
+                    "pointer-events": "initial"
+                }),
+                g.weapNoSwitches.removeClass("ui-outline-hover"),
+                g.weapDragging = !0))
+            }),
+            l("#ui-game").on("mouseup", function(e) {
+                0 == e.button && null != g.weapDraggedDiv && (g.weapSwitches.each(function() {
+                    var e = l(this).data("slot");
+                    l(this).is(":hover") && g.weapDraggedId != e && (g.swapWeapSlots = !0,
+                    g.weapDropped = !0)
+                }),
+                g.swapWeapSlots || g.resetWeapSlotStyling())
+            })),
             this.container = new c.Container,
             this.container.mask = new c.Graphics,
             this.display = {
@@ -4981,10 +4942,10 @@ webpackJsonp([0], {
             this.mapWidth = 0,
             this.bigmapDisplayed = !1,
             this.screenScaleFactor = 1;
-            var g = (k.getScreenDimensions().width,
+            var b = (_.getScreenDimensions().width,
             this.getMinimapMargin())
-              , b = this.getMinimapSize();
-            this.minimapPos = h.create(g + b / 2, e.camera.screenHeight - b / 2 - g),
+              , y = this.getMinimapSize();
+            this.minimapPos = h.create(b + y / 2, e.O.screenHeight - y / 2 - b),
             this.playerOuter = c.Sprite.fromImage("img/gui/player-map-outer.svg"),
             this.playerOuter.anchor = new c.Point(.5,.5),
             this.playerOuterBaseScale = new c.Point(f.layout == f.Layout.Sm ? .25 : .3,f.layout == f.Layout.Sm ? .25 : .3),
@@ -5002,8 +4963,8 @@ webpackJsonp([0], {
             this.muteButtonImage = this.muteButton.find("img"),
             this.muteOffImg = "img/gui/audio-off.svg",
             this.muteOnImg = "img/gui/audio-on.svg";
-            var y = this.audioManager.mute;
-            this.muteButtonImage.attr("src", y ? this.muteOffImg : this.muteOnImg),
+            var w = this.audioManager.mute;
+            this.muteButtonImage.attr("src", w ? this.muteOffImg : this.muteOnImg),
             this.muteButton.on("mousedown", function(e) {
                 e.stopPropagation()
             }),
@@ -5018,52 +4979,52 @@ webpackJsonp([0], {
             this.teamMemberHeight = 48,
             this.teamPlayerCount = 0,
             this.teamSelectors = [];
-            for (var w = 0; w < 4; w++) {
-                var S, M = this.topLeft, T = w, P = c.Sprite.fromImage("img/gui/ping-map-pulse.svg");
-                P.anchor = this.playerOuter.anchor,
-                P.scale = new c.Point(0,0),
-                P.tint = m.teamColors[w],
-                P.visible = !1,
-                this.display.teammates.addChild(P);
-                var C = c.Sprite.fromImage("img/gui/ping-map-coming.svg");
-                C.anchor = this.player.anchor,
-                C.scale = this.playerBaseScale,
-                C.tint = m.teamColors[w],
+            for (var S = 0; S < 4; S++) {
+                var M, T = this.topLeft, P = S, C = c.Sprite.fromImage("img/gui/ping-map-pulse.svg");
+                C.anchor = this.playerOuter.anchor,
+                C.scale = new c.Point(0,0),
+                C.tint = d.teamColors[S],
                 C.visible = !1,
                 this.display.teammates.addChild(C);
-                var I = c.Sprite.fromImage("img/gui/ping-map-danger.svg");
+                var I = c.Sprite.fromImage("img/gui/ping-map-coming.svg");
                 I.anchor = this.player.anchor,
                 I.scale = this.playerBaseScale,
-                I.tint = m.teamColors[w],
+                I.tint = d.teamColors[S],
                 I.visible = !1,
                 this.display.teammates.addChild(I);
-                var z = c.Sprite.fromImage("img/gui/ping-map-help.svg");
+                var z = c.Sprite.fromImage("img/gui/ping-map-danger.svg");
                 z.anchor = this.player.anchor,
                 z.scale = this.playerBaseScale,
-                z.tint = m.teamColors[w],
+                z.tint = d.teamColors[S],
                 z.visible = !1,
                 this.display.teammates.addChild(z);
-                var A = c.Sprite.fromImage("img/gui/player-map-outer.svg");
-                A.anchor = this.playerOuter.anchor,
-                A.scale = this.playerOuterBaseScale,
-                A.tint = this.playerOuter.tint,
+                var A = c.Sprite.fromImage("img/gui/ping-map-help.svg");
+                A.anchor = this.player.anchor,
+                A.scale = this.playerBaseScale,
+                A.tint = d.teamColors[S],
                 A.visible = !1,
                 this.display.teammates.addChild(A);
-                var D = c.Sprite.fromImage("img/gui/player-map-inner.svg");
-                D.anchor = this.player.anchor,
-                D.scale = this.playerBaseScale,
-                D.tint = m.teamColors[w],
+                var D = c.Sprite.fromImage("img/gui/player-map-outer.svg");
+                D.anchor = this.playerOuter.anchor,
+                D.scale = this.playerOuterBaseScale,
+                D.tint = this.playerOuter.tint,
                 D.visible = !1,
-                this.display.teammates.addChild(D),
+                this.display.teammates.addChild(D);
+                var O = c.Sprite.fromImage("img/gui/player-map-inner.svg");
+                O.anchor = this.player.anchor,
+                O.scale = this.playerBaseScale,
+                O.tint = d.teamColors[S],
+                O.visible = !1,
+                this.display.teammates.addChild(O),
                 this.teamSelectors.push({
                     teamNameHtml: "",
-                    teamId: l(M).find("[data-id=" + T + "]"),
+                    teamId: l(T).find("[data-id=" + P + "]"),
                     teamIdDisplayed: !1,
-                    teamName: l(M).find("[data-id=" + T + "]").find(".ui-team-member-name"),
-                    teamIcon: l(M).find("[data-id=" + T + "]").find(".ui-team-member-icon"),
-                    teamStatus: l(M).find("[data-id=" + T + "]").find(".ui-team-member-status"),
-                    teamHealthInner: l(M).find("[data-id=" + T + "]").find(".ui-health-actual"),
-                    teamHealthDepleted: l(M).find("[data-id=" + T + "]").find(".ui-health-depleted"),
+                    teamName: l(T).find("[data-id=" + P + "]").find(".ui-team-member-name"),
+                    teamIcon: l(T).find("[data-id=" + P + "]").find(".ui-team-member-icon"),
+                    teamStatus: l(T).find("[data-id=" + P + "]").find(".ui-team-member-status"),
+                    teamHealthInner: l(T).find("[data-id=" + P + "]").find(".ui-health-actual"),
+                    teamHealthDepleted: l(T).find("[data-id=" + P + "]").find(".ui-health-depleted"),
                     prevHealth: 0,
                     prevStatus: {
                         disconnected: !1,
@@ -5072,27 +5033,27 @@ webpackJsonp([0], {
                     },
                     indicators: {
                         main: {
-                            elem: l("#ui-team-indicators").find(".ui-indicator-main[data-id=" + T + "]"),
+                            elem: l("#ui-team-indicators").find(".ui-indicator-main[data-id=" + P + "]"),
                             displayed: !1
                         }
                     },
-                    mapSprites: (S = {
+                    mapSprites: (M = {
                         outer: {
-                            sprite: A,
+                            sprite: D,
                             position: h.create(0, 0),
                             usePlayerPosition: !0,
                             showOnDeath: !1,
                             displayed: !0
                         },
                         inner: {
-                            sprite: D,
+                            sprite: O,
                             position: h.create(0, 0),
                             usePlayerPosition: !0,
                             showOnDeath: !0,
                             displayed: !0
                         },
                         pingPulseWave: {
-                            sprite: P,
+                            sprite: C,
                             position: h.create(0, 0),
                             usePlayerPosition: !1,
                             showOnDeath: !0,
@@ -5104,16 +5065,7 @@ webpackJsonp([0], {
                             maxLife: 0
                         }
                     },
-                    i(S, _.Coming, {
-                        sprite: C,
-                        position: h.create(0, 0),
-                        usePlayerPosition: !1,
-                        showOnDeath: !0,
-                        displayed: !1,
-                        life: 0,
-                        maxLife: 0
-                    }),
-                    i(S, _.Danger, {
+                    i(M, k.Coming, {
                         sprite: I,
                         position: h.create(0, 0),
                         usePlayerPosition: !1,
@@ -5122,7 +5074,7 @@ webpackJsonp([0], {
                         life: 0,
                         maxLife: 0
                     }),
-                    i(S, _.Help, {
+                    i(M, k.Danger, {
                         sprite: z,
                         position: h.create(0, 0),
                         usePlayerPosition: !1,
@@ -5131,11 +5083,20 @@ webpackJsonp([0], {
                         life: 0,
                         maxLife: 0
                     }),
-                    S),
+                    i(M, k.Help, {
+                        sprite: A,
+                        position: h.create(0, 0),
+                        usePlayerPosition: !1,
+                        showOnDeath: !0,
+                        displayed: !1,
+                        life: 0,
+                        maxLife: 0
+                    }),
+                    M),
                     mapSpritesLocal: !1
                 })
             }
-            this.init()
+            this.a()
         }
         function r(e, t, a, i) {
             var o = e
@@ -5159,12 +5120,12 @@ webpackJsonp([0], {
             }
         }
         var l = a("8ee62bea")
-          , c = a("80ac57a6")
-          , d = a("34e32c48")
-          , m = (a("6b42806d"),
+          , c = a("8b1dfb45")
+          , m = a("34e32c48")
+          , d = (a("6b42806d"),
         a("989ad62a"))
-          , p = m.Action
-          , u = m.GasMode
+          , p = d.Action
+          , u = d.GasMode
           , h = (a("300e2704"),
         a("c2a798c8"))
           , g = a("10899aea")
@@ -5175,12 +5136,12 @@ webpackJsonp([0], {
           , y = a("a7f094a3")
           , x = y.GasRenderer
           , v = y.GasSafeZoneRenderer
-          , k = a("26be8056")
-          , _ = (a("119e8c4c"),
+          , _ = a("26be8056")
+          , k = (a("119e8c4c"),
         a("9a8507c8").Ping)
           , w = a("6e43d1d7");
         n.prototype = {
-            free: function() {
+            o: function() {
                 this.clearUI(),
                 l(document).off("keyup"),
                 l(".ui-map-expand").off("mousedown"),
@@ -5202,19 +5163,23 @@ webpackJsonp([0], {
                 this.specNextButton.off("click"),
                 this.bigmapClose.off("mousedown"),
                 this.bigmapClose.off("click"),
+                this.weapSwitches.off("mousedown"),
+                l("#ui-game").off("mousemove"),
+                l("#ui-game").off("mouseup"),
                 this.moveStyleButton.off("touchstart"),
                 this.interactionElems.off("touchstart"),
                 this.reloadElems.off("touchstart"),
                 this.bigmapClose.off("touchend"),
                 l(document).off("touchstart", this.onTouchScreen),
                 l(".ui-team-member-health").find(".ui-bar-inner").css("width", this.teamMemberHealthBarWidth),
-                this.init()
+                this.a()
             },
-            init: function() {
+            a: function() {
                 l(".js-ui-map-hidden").css("display", "block"),
                 this.clearStatsElems(),
                 this.setSpectating(!1),
                 this.updateSpectatorCountDisplay(!0),
+                this.resetWeapSlotStyling(),
                 this.dead = !1
             },
             doQuitGame: function() {
@@ -5222,13 +5187,15 @@ webpackJsonp([0], {
                 this.game.gameOver = !0,
                 this.game.onQuit()
             },
-            update: function(e, t, a, i, o, n, r, s, l, y) {
+            l: function(e, t, a, i, o, n, r, s, l, y) {
                 var x = this
-                  , v = t.netData
-                  , k = t.localData
-                  , _ = t;
+                  , v = t.B
+                  , _ = t.j
+                  , k = t;
                 this.mapWidth = i.width,
                 this.mapHeight = i.height,
+                this.weapsDirty && this.resetWeapSlotStyling(),
+                this.weapsDirty = !1,
                 this.mapSprite.texture == c.Texture.EMPTY && null != i.getMapTexture() && (this.mapSprite.texture = i.getMapTexture(),
                 this.redraw(s));
                 var S = Math.max(Math.floor(o.duration * (1 - o.circleT)), 0)
@@ -5249,11 +5216,12 @@ webpackJsonp([0], {
                       , I = ("0" + C).slice(-2);
                     this.gasTimer.html(P + ":" + I)
                 }
-                this.spectatorCount = k.spectatorCount,
+                this.spectatorCount = _.spectatorCount,
                 this.updateSpectatorCountDisplay(!1),
                 v.dead && !this.dead && (this.dead = !0,
-                this.pieTimer.free(!0));
-                var z = k.action
+                this.pieTimer.o(!0)),
+                (k.downed || this.dead) && this.resetWeapSlotStyling();
+                var z = _.action
                   , A = g.eqAbs(g.clamp(z.time, 0, z.duration), z.duration, .2);
                 if (!(this.curAction.type == z.type && this.curAction.item == z.item && this.curAction.duration == z.duration || A || this.displayingStats)) {
                     this.curAction = {
@@ -5263,50 +5231,50 @@ webpackJsonp([0], {
                         duration: z.duration
                     };
                     var D = z.type != p.Reload;
-                    if (this.pieTimer.free(D),
+                    if (this.pieTimer.o(D),
                     this.actionSoundInstance && (this.audioManager.stopSound(this.actionSoundInstance),
                     this.actionSoundInstance = !1),
                     z.type != p.None) {
                         var O = ""
-                          , E = ""
                           , L = ""
+                          , E = ""
                           , B = null
                           , F = !1;
                         switch (z.type) {
                         case p.Reload:
                             if ("" != z.item) {
-                                var R = m.items[z.item];
-                                E = this.localization.translate("game-reloading"),
+                                var R = d.items[z.item];
+                                L = this.localization.translate("game-reloading"),
                                 B = R.sound.reload,
                                 F = "reload" == R.caseTiming
                             }
                             break;
                         case p.UseItem:
                             if ("" != z.item) {
-                                var j = m.items[z.item];
-                                E = this.localization.translate("game-using"),
-                                L = this.localization.translate("game-" + z.item),
+                                var j = d.items[z.item];
+                                L = this.localization.translate("game-using"),
+                                E = this.localization.translate("game-" + z.item),
                                 B = j.sound.use
                             }
                             break;
                         case p.Revive:
-                            var N = r.getPlayerInfo(z.targetId).name;
-                            E = this.localization.translate("game-reviving"),
-                            L = _.downed ? "" : N
+                            var N = r.N(z.targetId).name;
+                            L = this.localization.translate("game-reviving"),
+                            E = k.downed ? "" : N
                         }
-                        if ("" == E && "" == L || ("svo" == this.localization.translate("word-order") ? (O += E || "",
-                        O += L ? " " + L : "") : "sov" == this.localization.translate("word-order") && (O += L ? L + " " : "",
-                        O += E ? " " + E : ""),
-                        this.pieTimer.init(function() {
+                        if ("" == L && "" == E || ("svo" == this.localization.translate("word-order") ? (O += L || "",
+                        O += E ? " " + E : "") : "sov" == this.localization.translate("word-order") && (O += E ? E + " " : "",
+                        O += L ? " " + L : ""),
+                        this.pieTimer.a(function() {
                             x.curAction.type = p.None
                         }, this.curAction.duration - this.curAction.time, O, !1)),
                         B && (this.actionSoundInstance = this.audioManager.playSound(B),
                         this.audioManager.stopLocalActionSound()),
                         F && "" != z.item)
-                            for (var q = m.items[z.item], V = 0; V < q.maxClip; V++) {
+                            for (var q = d.items[z.item], V = 0; V < q.maxClip; V++) {
                                 var G = V % 2 == 0 ? -1 : 1
                                   , U = Math.PI + Math.PI / 4 * G;
-                                w.createCasingParticle(z.item, U, t.pos, t.dir, t.netData.layer, this.particleBarn)
+                                w.createCasingParticle(z.item, U, t.pos, t.dir, t.B.layer, this.particleBarn)
                             }
                     }
                 }
@@ -5317,7 +5285,7 @@ webpackJsonp([0], {
                     min: h.sub(s.pos, W),
                     max: h.add(s.pos, W)
                 }
-                  , K = r.getPlayerInfo(t.__id).teamId
+                  , K = r.N(t.__id).teamId
                   , X = r.getTeamInfo(K);
                 if (!X) {
                     var Y = {
@@ -5332,8 +5300,8 @@ webpackJsonp([0], {
                 for (var Z = f.layout == f.Layout.Sm, J = X.playerIds.length, Q = 0; Q < J; Q++) {
                     var $ = this.teamSelectors[Q]
                       , ee = X.playerIds[Q]
-                      , te = r.getPlayerInfo(ee)
-                      , ae = ee == _.__id
+                      , te = r.N(ee)
+                      , ae = ee == k.__id
                       , ie = r.getTeammateData(ee);
                     if (ie) {
                         for (var oe in $.mapSprites)
@@ -5363,59 +5331,59 @@ webpackJsonp([0], {
                             }, !1);
                             for (var ce in $.indicators)
                                 if ($.indicators.hasOwnProperty(ce)) {
-                                    var de = $.indicators[ce]
-                                      , me = de.elem
+                                    var me = $.indicators[ce]
+                                      , de = me.elem
                                       , pe = !0;
-                                    if (!ae || de.displayAll) {
+                                    if (!ae || me.displayAll) {
                                         var ue = ie.pos
                                           , he = h.normalizeSafe(h.sub(ue, s.pos), h.create(1, 0))
-                                          , ge = d.intersectRayAabb(s.pos, he, H.min, H.max)
+                                          , ge = m.intersectRayAabb(s.pos, he, H.min, H.max)
                                           , fe = Math.atan2(he.y, -he.x) + .5 * Math.PI
                                           , be = s.pointToScreen(ge)
-                                          , ye = d.testCircleAabb(ue, m.player.radius, H.min, H.max);
+                                          , ye = m.testCircleAabb(ue, d.player.radius, H.min, H.max);
                                         if (!ie.dead && !ye) {
                                             var xe = 32
                                               , ve = "translate(-50%, -50%) rotate(" + fe + "rad)";
                                             Z && (xe = 16,
                                             ve += " scale(0.5)"),
                                             pe = !1,
-                                            me.css({
+                                            de.css({
                                                 left: g.clamp(be.x, xe, s.screenWidth - xe),
                                                 top: g.clamp(be.y, xe, s.screenHeight - xe),
                                                 transform: ve
                                             }),
-                                            de.displayed || (me.css("display", "block"),
-                                            de.displayed = !0)
+                                            me.displayed || (de.css("display", "block"),
+                                            me.displayed = !0)
                                         }
                                     }
-                                    pe && de.displayed && (me.css("display", "none"),
-                                    de.displayed = !1)
+                                    pe && me.displayed && (de.css("display", "none"),
+                                    me.displayed = !1)
                                 }
                         }
                     }
                 }
-                for (var ke = J; ke < this.teamSelectors.length; ke++) {
-                    var _e = this.teamSelectors[ke];
-                    for (var we in _e.mapSprites)
-                        if (_e.mapSprites.hasOwnProperty(we)) {
-                            var Se = _e.mapSprites[we];
+                for (var _e = J; _e < this.teamSelectors.length; _e++) {
+                    var ke = this.teamSelectors[_e];
+                    for (var we in ke.mapSprites)
+                        if (ke.mapSprites.hasOwnProperty(we)) {
+                            var Se = ke.mapSprites[we];
                             Se.visible = !1
                         }
-                    for (var Me in _e.indicators)
-                        if (_e.indicators.hasOwnProperty(Me)) {
-                            var Te = _e.indicators[Me];
+                    for (var Me in ke.indicators)
+                        if (ke.indicators.hasOwnProperty(Me)) {
+                            var Te = ke.indicators[Me];
                             Te.displayed && (Te.elem.css("display", "none"),
                             Te.displayed = !1)
                         }
-                    if (_e.teamIdDisplayed) {
-                        for (var Pe in _e.mapSprites)
-                            if (_e.mapSprites.hasOwnProperty(Pe)) {
-                                var Ce = _e.mapSprites[Pe]
+                    if (ke.teamIdDisplayed) {
+                        for (var Pe in ke.mapSprites)
+                            if (ke.mapSprites.hasOwnProperty(Pe)) {
+                                var Ce = ke.mapSprites[Pe]
                                   , Ie = Ce.sprite;
                                 Ie.visible = !1
                             }
-                        _e.teamId.css("display", "none"),
-                        _e.teamIdDisplayed = !1
+                        ke.teamId.css("display", "none"),
+                        ke.teamIdDisplayed = !1
                     }
                 }
                 l > 1 && this.teamPlayerCount != J && f.layout == f.Layout.Lg && (this.teamPlayerCount = J,
@@ -5462,11 +5430,11 @@ webpackJsonp([0], {
             },
             getWorldPosFromMapPos: function(e, t, a) {
                 var i = !1;
-                k.getScreenDimensions().width;
-                if (this.bigmapDisplayed) {
+                if (_.getScreenDimensions().width,
+                this.bigmapDisplayed) {
                     var o = (a.screenWidth - this.mapSprite.width) / 2
                       , n = (a.screenHeight - this.mapSprite.height) / 2;
-                    f.layout != f.Layout.Sm || k.isLandscape() || (n = 0),
+                    f.layout != f.Layout.Sm || _.isLandscape() || (n = 0),
                     i = e.x > o && e.x < a.screenWidth - o && e.y > n && e.y < a.screenHeight - n
                 } else if (this.minimapDisplayed) {
                     var r = this.getMinimapSize()
@@ -5476,10 +5444,10 @@ webpackJsonp([0], {
                     i = e.x > this.minimapPos.x - c && e.x < this.minimapPos.x + c && e.y > this.minimapPos.y - c && e.y < this.minimapPos.y + c
                 }
                 if (i) {
-                    var d = h.create(this.mapSprite.x - this.mapSprite.width / 2, this.mapSprite.y + this.mapSprite.height / 2)
-                      , m = (e.x - d.x) / this.mapSprite.width * this.mapWidth
-                      , p = (d.y - e.y) / this.mapSprite.height * this.mapHeight;
-                    return h.create(m, p)
+                    var m = h.create(this.mapSprite.x - this.mapSprite.width / 2, this.mapSprite.y + this.mapSprite.height / 2)
+                      , d = (e.x - m.x) / this.mapSprite.width * this.mapWidth
+                      , p = (m.y - e.y) / this.mapSprite.height * this.mapHeight;
+                    return h.create(d, p)
                 }
                 return !1
             },
@@ -5489,8 +5457,7 @@ webpackJsonp([0], {
             showAll: function() {
                 this.gameElem.css("display", "block")
             },
-            removeAds: function() {},
-            _removeAds: function() {
+            removeAds: function() {
                 var e = [];
                 e.push("surviv-io_300x250"),
                 f.mobile ? e.push("surviv-io_300x250_mobile_2") : (e.push("surviv-io_300x250_2"),
@@ -5532,15 +5499,15 @@ webpackJsonp([0], {
                 this.killTimeout = setTimeout(function() {
                     o.killElem.fadeOut(1e3)
                 }, 6e3),
-                i || this.updatePlayerKills(e.kills)
+                i || s || this.updatePlayerKills(e.kills)
             },
             showDowned: function(e, t, a, i) {
                 var o = this
                   , n = i ? t.name : this.localization.translate("game-you").toUpperCase()
                   , r = e.name;
-                e.damageType == m.DamageType.Gas && (r = this.localization.translate("game-the-red-zone")),
+                e.damageType == d.DamageType.Gas && (r = this.localization.translate("game-the-red-zone")),
                 this.killText.text(r + " knocked " + n + " out"),
-                a && e.damageType == m.DamageType.Player && this.killText.append(" " + this.localization.translate("game-with") + " " + a),
+                a && e.damageType == d.DamageType.Player && this.killText.append(" " + this.localization.translate("game-with") + " " + a),
                 this.killCount.text(""),
                 this.killTimeout && clearTimeout(this.killTimeout),
                 this.killElem.stop(!0),
@@ -5550,7 +5517,7 @@ webpackJsonp([0], {
                 }, 6e3)
             },
             clearUI: function() {
-                this.pieTimer.free(!0),
+                this.pieTimer.o(!0),
                 this.curAction = {
                     type: p.None
                 },
@@ -5644,7 +5611,7 @@ webpackJsonp([0], {
                             html: o
                         }))
                     }(r)),
-                    this.pieTimer.free(!0),
+                    this.pieTimer.o(!0),
                     this.displayingStats = !0;
                     var s = function(e, t) {
                         return l("<div/>", {
@@ -5656,12 +5623,12 @@ webpackJsonp([0], {
                         }))
                     }
                       , c = f.layout == f.Layout.Sm ? 125 : 250
-                      , d = 0;
-                    d -= (e.stats.length - 1) * c / 2,
-                    d -= 10 * (e.stats.length - 1);
-                    for (var m = 0; m < e.stats.length; m++) {
-                        var p = e.stats[m]
-                          , u = t.getPlayerInfo(p.playerId)
+                      , m = 0;
+                    m -= (e.stats.length - 1) * c / 2,
+                    m -= 10 * (e.stats.length - 1);
+                    for (var d = 0; d < e.stats.length; d++) {
+                        var p = e.stats[d]
+                          , u = t.N(p.playerId)
                           , h = o(p.timeAlive)
                           , g = "ui-stats-info-player";
                         g += p.dead ? " ui-stats-info-status" : "";
@@ -5670,14 +5637,14 @@ webpackJsonp([0], {
                                 class: e
                             })
                         }(g);
-                        b.css("left", d),
+                        b.css("left", m),
                         b.append(l("<div/>", {
                             class: "ui-stats-info-player-name",
-                            html: k.htmlEscape(u.name)
+                            html: _.htmlEscape(u.name)
                         })),
                         b.append(s(this.localization.translate("game-kills"), "" + p.kills)).append(s(this.localization.translate("game-damage-dealt"), p.damageDealt)).append(s(this.localization.translate("game-damage-taken"), p.damageTaken)).append(s(this.localization.translate("game-survived"), h)),
                         this.statsInfoBox.append(b),
-                        d += 10
+                        m += 10
                     }
                     var y = l("<a/>", {
                         class: "ui-stats-restart btn-green btn-darken menu-option",
@@ -5718,13 +5685,13 @@ webpackJsonp([0], {
                             })
                         }, v)
                     }
-                    var _ = 0
+                    var k = 0
                       , w = 250 / Math.max(1, e.stats.length)
                       , S = 750 / Math.max(1, e.stats.length);
                     this.statsInfoBox.children().each(function(e, t) {
                         var a = l(t);
                         a.css("opacity", 0),
-                        a.delay(i + S + (_ + e) * w).animate({
+                        a.delay(i + S + (k + e) * w).animate({
                             opacity: 1
                         }, 500, function() {
                             a.children().each(function(e, t) {
@@ -5735,15 +5702,15 @@ webpackJsonp([0], {
                         }),
                         a.children().each(function(e, t) {
                             l(t).css("opacity", 0),
-                            _++
+                            k++
                         }),
-                        _++
+                        k++
                     }),
                     this.statsOptions.children().each(function(e, t) {
                         var a = l(t);
                         a.hide(),
-                        a.delay(i + S + (_ + e) * w).fadeIn(500),
-                        _++
+                        a.delay(i + S + (k + e) * w).fadeIn(500),
+                        k++
                     }),
                     this.statsElem.stop(),
                     this.statsElem.css("display", "block"),
@@ -5788,7 +5755,7 @@ webpackJsonp([0], {
                         this.spectateMode.css("display", "none")
             },
             setSpectatedPlayer: function(e, t) {
-                t = k.htmlEscape(t),
+                t = _.htmlEscape(t),
                 this.spectatedPlayerId != e && (this.spectatedPlayerText.find("#spectate-player").html(t),
                 this.spectatedPlayerName = t,
                 this.spectatedPlayerId = e,
@@ -5832,7 +5799,7 @@ webpackJsonp([0], {
                 l(2 == this.visibilityMode ? ".js-ui-hud-show" : t).css("display", this.bigmapDisplayed ? "none" : "block"),
                 l(".js-ui-map-show").css("display", this.bigmapDisplayed ? "block" : "none"),
                 this.updateSpectatorCountDisplay(!0),
-                this.redraw(this.game.camera)
+                this.redraw(this.game.O)
             },
             updateSpectatorCountDisplay: function(e) {
                 var t = !this.bigmapDisplayed && this.spectatorCount > 0;
@@ -5916,12 +5883,12 @@ webpackJsonp([0], {
                 this.gasRenderer.render(n, s, t.isActive());
                 var l = t.circleNew
                   , c = this.getMapPosFromWorldPos(l.pos, i)
-                  , d = this.getMapPosFromWorldPos(h.add(l.pos, h.create(l.rad, 0)), i)
-                  , m = h.length(h.sub(d, c))
+                  , m = this.getMapPosFromWorldPos(h.add(l.pos, h.create(l.rad, 0)), i)
+                  , d = h.length(h.sub(m, c))
                   , p = this.getMapPosFromWorldPos(e, i)
                   , u = t.isActive()
                   , g = t.isActive() && !this.bigmapDisplayed;
-                this.gasSafeZoneRenderer.render(c, m, p, u, g)
+                this.gasSafeZoneRenderer.render(c, d, p, u, g)
             },
             updateHealthBar: function(e, t, a, i) {
                 var o = e
@@ -5942,11 +5909,11 @@ webpackJsonp([0], {
                         c = this.healthGrey) : g.eqAbs(s, 75, .2) || s >= 75 ? (l = this.healthWhite,
                         c = this.healthWhite) : (l = this.healthDarkpink,
                         c = this.healthLightpink);
-                        var d = l.getColors()
-                          , m = c.getColors()
-                          , p = r(d.r, m.r, 45, s)
-                          , u = r(d.g, m.g, 45, s)
-                          , h = r(d.b, m.b, 45, s);
+                        var m = l.getColors()
+                          , d = c.getColors()
+                          , p = r(m.r, d.r, 45, s)
+                          , u = r(m.g, d.g, 45, s)
+                          , h = r(m.b, d.b, 45, s);
                         t.css({
                             backgroundColor: "rgba(" + p + "," + u + "," + h + ",1)"
                         })
@@ -5962,19 +5929,19 @@ webpackJsonp([0], {
                   , s = this.teamSelectors[e].prevStatus
                   , l = i.dead != s.dead || i.disconnected != s.disconnected || i.downed != s.downed;
                 if (this.teamSelectors[e].teamNameHtml != t || a != r || l) {
-                    var d = (this.teamSelectors[e].teamIcon,
+                    var m = (this.teamSelectors[e].teamIcon,
                     this.teamSelectors[e].teamStatus)
-                      , m = this.teamSelectors[e].teamHealthInner
+                      , d = this.teamSelectors[e].teamHealthInner
                       , p = this.teamSelectors[e].teamHealthDepleted;
                     this.teamSelectors[e].teamNameHtml = t,
                     n.html(t),
-                    this.updateHealthBar(this.teamMemberHealthBarWidth, m, p, {
+                    this.updateHealthBar(this.teamMemberHealthBarWidth, d, p, {
                         health: a,
                         dead: i.dead,
                         downed: i.downed
                     }),
-                    l && (d.attr("class", "ui-team-member-status"),
-                    i.disconnected ? d.addClass("ui-team-member-status-disconnected") : i.dead ? d.addClass("ui-team-member-status-dead") : i.downed && d.addClass("ui-team-member-status-downed").addClass("icon-pulse"),
+                    l && (m.attr("class", "ui-team-member-status"),
+                    i.disconnected ? m.addClass("ui-team-member-status-disconnected") : i.dead ? m.addClass("ui-team-member-status-dead") : i.downed && m.addClass("ui-team-member-status-downed").addClass("icon-pulse"),
                     i.dead && (this.teamSelectors[e].mapSprites.inner.sprite.texture = c.Texture.fromImage("img/gui/skull-team-outlined.svg"),
                     this.teamSelectors[e].mapSprites.inner.sprite.scale = h.mul(this.playerBaseScale, 1.5)),
                     (i.disconnected || i.dead) && n.css("opacity", .3)),
@@ -6022,32 +5989,32 @@ webpackJsonp([0], {
                     })
                 } else {
                     var l = 1600 * this.screenScaleFactor / 1.2
-                      , d = o * this.screenScaleFactor;
+                      , m = o * this.screenScaleFactor;
                     this.mapSprite.width = l,
                     this.mapSprite.height = l,
                     this.mapSprite.alpha = .8;
-                    var m = {
+                    var d = {
                         zoom: this.screenScaleFactor
                     };
-                    document.body && ("WebkitTransform"in document.body.style ? m = {
+                    document.body && ("WebkitTransform"in document.body.style ? d = {
                         "-webkit-transform": "scale(" + this.screenScaleFactor + ")"
-                    } : "transform"in document.body.style && (m = {
+                    } : "transform"in document.body.style && (d = {
                         transform: "scale(" + this.screenScaleFactor + ")"
                     })),
-                    this.mapContainer.css(m),
+                    this.mapContainer.css(d),
                     this.mapContainer.css("bottom", this.mapContainerBottom * this.screenScaleFactor);
-                    var p = r ? d / 2 + i : a - d / 2 - i;
-                    this.minimapPos.x = i + d / 2,
+                    var p = r ? m / 2 + i : a - m / 2 - i;
+                    this.minimapPos.x = i + m / 2,
                     this.minimapPos.y = p,
                     this.player.position = new c.Point(this.minimapPos.x,this.minimapPos.y),
                     this.display.border.lineStyle(n, 0),
                     this.display.border.beginFill(0, 0);
-                    var u = r ? i + n / 2 : a - d - i + n / 2;
-                    this.display.border.drawRect(i + n / 2, u, d - n, d - n),
+                    var u = r ? i + n / 2 : a - m - i + n / 2;
+                    this.display.border.drawRect(i + n / 2, u, m - n, m - n),
                     this.display.border.endFill();
-                    var h = r ? i : a - d - i;
+                    var h = r ? i : a - m - i;
                     this.container.mask.beginFill(16777215, 1),
-                    this.container.mask.drawRect(i, h - .5, d, d),
+                    this.container.mask.drawRect(i, h - .5, m, m),
                     this.container.mask.endFill()
                 }
             },
@@ -6066,241 +6033,201 @@ webpackJsonp([0], {
             }
         },
         e.exports = {
-            UiManager: n
+            q: n
         }
     },
     "33375c30": function(e, t, a) {
         "use strict";
-        function i(e, t) {
-            if (!(e instanceof t))
-                throw new TypeError("Cannot call a class as a function")
-        }
-        function o(e, t, a) {
+        function i(e, t, a) {
             var i = t - e
               , o = i * a;
             return Math.abs(o) < .001 ? i : o
         }
-        var n = function() {
-            function e(e, t) {
-                for (var a = 0; a < t.length; a++) {
-                    var i = t[a];
-                    i.enumerable = i.enumerable || !1,
-                    i.configurable = !0,
-                    "value"in i && (i.writable = !0),
-                    Object.defineProperty(e, i.key, i)
-                }
-            }
-            return function(t, a, i) {
-                return a && e(t.prototype, a),
-                i && e(t, i),
-                t
-            }
-        }()
-          , r = (a("0e566746"),
-        a("80ac57a6"))
-          , s = a("6b42806d")
-          , l = (a("10899aea"),
+        function o() {
+            this.sprites = []
+        }
+        var n = (a("0e566746"),
+        a("8b1dfb45"))
+          , r = a("6b42806d")
+          , s = (a("10899aea"),
         a("ceee80d9"))
-          , c = a("1901e2d9")
-          , d = a("c2a798c8")
+          , l = a("1901e2d9")
+          , c = a("c2a798c8")
           , m = (a("ce29f17f"),
         a("b58076b1"))
-          , p = (a("c347b8dd"),
+          , d = (a("c347b8dd"),
         a("af8ba00f"),
         a("119e8c4c"))
-          , u = a("c60b5e9f")
-          , h = u.RenderType
-          , g = function() {
-            function e() {
-                i(this, e),
-                this.sprites = []
-            }
-            return n(e, [{
-                key: "init",
-                value: function() {
-                    this.isNew = !1,
-                    this.residue = null,
-                    this.ceilingDead = !1,
-                    this.playedCeilingDeadFx = !1
+          , p = a("c60b5e9f")
+          , u = p.RenderType;
+        o.prototype = {
+            a: function() {
+                this.isNew = !1,
+                this.residue = null,
+                this.ceilingDead = !1,
+                this.playedCeilingDeadFx = !1
+            },
+            o: function() {
+                for (var e = 0; e < this.sprites.length; e++) {
+                    var t = this.sprites[e];
+                    t.active = !1,
+                    t.sprite.visible = !1,
+                    t.sprite.parent && t.sprite.parent.removeChild(t.sprite)
                 }
-            }, {
-                key: "free",
-                value: function() {
-                    for (var e = 0; e < this.sprites.length; e++) {
-                        var t = this.sprites[e];
-                        t.active = !1,
-                        t.sprite.visible = !1,
-                        t.sprite.parent && t.sprite.parent.removeChild(t.sprite)
-                    }
+            },
+            allocSprite: function() {
+                for (var e = 0; e < this.sprites.length; e++) {
+                    var t = this.sprites[e];
+                    if (!t.active)
+                        return t.active = !0,
+                        t.sprite
                 }
-            }, {
-                key: "allocSprite",
-                value: function() {
-                    for (var e = 0; e < this.sprites.length; e++) {
-                        var t = this.sprites[e];
-                        if (!t.active)
-                            return t.active = !0,
-                            t.sprite
+                var a = new n.Sprite;
+                return a.anchor.set(.5, .5),
+                this.sprites.push({
+                    active: !0,
+                    sprite: a
+                }),
+                a
+            },
+            n: function(e, t, a, i) {
+                var o = this;
+                if (this.type = e.type,
+                this.pos = c.copy(e.pos),
+                this.rot = s.oriToRad(e.ori),
+                this.scale = 1,
+                this.layer = e.layer,
+                this.ceilingDead = e.ceilingDead,
+                a) {
+                    var l = s.Defs[e.type];
+                    this.isNew = !0,
+                    this.playedCeilingDeadFx = -1 != i.map.deadCeilingIds.indexOf(this.__id);
+                    var m = function(e) {
+                        var t = e.pos || c.create(0, 0)
+                          , a = s.oriToRad(e.rot || 0)
+                          , i = o.allocSprite();
+                        return i.texture = n.Texture.fromImage(e.sprite),
+                        i.tint = e.tint,
+                        i.posOffset = c.rotate(t, o.rot),
+                        i.rotOffset = a,
+                        i.imgAlpha = e.alpha,
+                        i.alpha = i.imgAlpha,
+                        i.defScale = e.scale,
+                        i.visible = !0,
+                        i
+                    };
+                    this.bounds = r.transform(s.getBoundingCollider(this.type), this.pos, this.rot, this.scale),
+                    this.zIdx = l.zIdx || 0,
+                    this.surfaces = [];
+                    for (var d = 0; d < l.floor.surfaces.length; d++) {
+                        for (var p = l.floor.surfaces[d], u = {
+                            surface: p.type,
+                            colliders: []
+                        }, h = 0; h < p.collision.length; h++)
+                            u.colliders.push(r.transform(p.collision[h], this.pos, this.rot, this.scale));
+                        this.surfaces.push(u)
                     }
-                    var a = new r.Sprite;
-                    return a.anchor.set(.5, .5),
-                    this.sprites.push({
-                        active: !0,
-                        sprite: a
-                    }),
-                    a
+                    var g = Object.assign({}, {
+                        dist: 5.5,
+                        width: 2.75,
+                        linger: 0,
+                        fadeRate: 12
+                    }, l.ceiling.vision);
+                    this.ceiling = {
+                        scopeIn: [],
+                        scopeOut: [],
+                        vision: g,
+                        visionTicker: 0,
+                        fadeAlpha: 1
+                    };
+                    for (var f = 0; f < l.ceiling.scopeIn.length; f++)
+                        this.ceiling.scopeIn.push(r.transform(l.ceiling.scopeIn[f], this.pos, this.rot, this.scale));
+                    for (var b = 0; b < l.ceiling.scopeOut.length; b++)
+                        this.ceiling.scopeOut.push(r.transform(l.ceiling.scopeOut[b], this.pos, this.rot, this.scale));
+                    this.imgs = [];
+                    for (var y = 0; y < l.floor.imgs.length; y++)
+                        this.imgs.push({
+                            sprite: m(l.floor.imgs[y]),
+                            isCeiling: !1,
+                            waterRipples: !!l.floor.imgs[y].waterRipples,
+                            zOrd: this.zIdx,
+                            zIdx: 100 * this.__id + y
+                        });
+                    for (var x = 0; x < l.ceiling.imgs.length; x++)
+                        this.imgs.push({
+                            sprite: m(l.ceiling.imgs[x]),
+                            isCeiling: !0,
+                            waterRipples: !1,
+                            zOrd: 750 - this.zIdx,
+                            zIdx: 100 * this.__id + x
+                        })
                 }
-            }, {
-                key: "updateData",
-                value: function(e, t, a, i) {
-                    var o = this;
-                    if (this.type = e.type,
-                    this.pos = d.copy(e.pos),
-                    this.rot = l.oriToRad(e.ori),
-                    this.scale = 1,
-                    this.layer = e.layer,
-                    this.ceilingDead = e.ceilingDead,
-                    a) {
-                        var n = l.Defs[e.type];
-                        this.isNew = !0,
-                        this.playedCeilingDeadFx = -1 != i.map.deadCeilingIds.indexOf(this.__id);
-                        var c = function(e) {
-                            var t = e.pos || d.create(0, 0)
-                              , a = l.oriToRad(e.rot || 0)
-                              , i = o.allocSprite();
-                            return i.texture = r.Texture.fromImage(e.sprite),
-                            i.tint = e.tint,
-                            i.posOffset = d.rotate(t, o.rot),
-                            i.rotOffset = a,
-                            i.imgAlpha = e.alpha,
-                            i.alpha = i.imgAlpha,
-                            i.defScale = e.scale,
-                            i.visible = !0,
-                            i
-                        };
-                        this.bounds = s.transform(l.getBoundingCollider(this.type), this.pos, this.rot, this.scale),
-                        this.zIdx = n.zIdx || 0,
-                        this.surfaces = [];
-                        for (var m = 0; m < n.floor.surfaces.length; m++) {
-                            for (var p = n.floor.surfaces[m], u = {
-                                surface: p.type,
-                                colliders: []
-                            }, h = 0; h < p.collision.length; h++)
-                                u.colliders.push(s.transform(p.collision[h], this.pos, this.rot, this.scale));
-                            this.surfaces.push(u)
-                        }
-                        var g = Object.assign({}, {
-                            dist: 5.5,
-                            width: 2.75,
-                            linger: 0,
-                            fadeRate: 12
-                        }, n.ceiling.vision);
-                        this.ceiling = {
-                            scopeIn: [],
-                            scopeOut: [],
-                            vision: g,
-                            visionTicker: 0,
-                            fadeAlpha: 1
-                        };
-                        for (var f = 0; f < n.ceiling.scopeIn.length; f++)
-                            this.ceiling.scopeIn.push(s.transform(n.ceiling.scopeIn[f], this.pos, this.rot, this.scale));
-                        for (var b = 0; b < n.ceiling.scopeOut.length; b++)
-                            this.ceiling.scopeOut.push(s.transform(n.ceiling.scopeOut[b], this.pos, this.rot, this.scale));
-                        this.imgs = [];
-                        for (var y = 0; y < n.floor.imgs.length; y++)
-                            this.imgs.push({
-                                sprite: c(n.floor.imgs[y]),
-                                isCeiling: !1,
-                                waterRipples: !!n.floor.imgs[y].waterRipples,
-                                zOrd: this.zIdx,
-                                zIdx: 100 * this.__id + y
-                            });
-                        for (var x = 0; x < n.ceiling.imgs.length; x++)
-                            this.imgs.push({
-                                sprite: c(n.ceiling.imgs[x]),
-                                isCeiling: !0,
-                                waterRipples: !1,
-                                zOrd: 750 - this.zIdx,
-                                zIdx: 100 * this.__id + x
-                            })
-                    }
-                }
-            }, {
-                key: "update",
-                value: function(e, t, a, i, n, s, c) {
-                    if (this.ceilingDead && !this.playedCeilingDeadFx && (t.deadCeilingIds.push(this.__id),
-                    this.playedCeilingDeadFx = !0,
-                    this.isNew || this.destroyCeilingFx(a, i)),
-                    this.isNew = !1,
-                    this.ceilingDead && !this.residue) {
-                        var d = l.Defs[this.type];
-                        if (void 0 !== d.ceiling.destroy) {
-                            var p = this.allocSprite();
-                            p.texture = r.Texture.fromImage(d.ceiling.destroy.residue),
-                            p.position.set(0, 0),
-                            p.scale.set(1, 1),
-                            p.rotation = 0,
-                            p.visible = !0,
-                            this.imgs[0].sprite.addChild(p),
-                            this.residue = p
-                        }
-                    }
-                    var u = this.ceiling;
-                    u.visionTicker -= e;
-                    for (var g = !1, f = u.vision, b = 0; b < u.scopeIn.length; b++) {
-                        if (m.scanCollider(u.scopeIn[b], t.obstaclePool.getPool(), n.pos, n.layer, .5, 2 * f.width, f.dist, 5)) {
-                            g = !0;
-                            break
-                        }
-                    }
-                    this.ceilingDead && (g = !0),
-                    g && (u.visionTicker = f.linger + 1e-4),
-                    n.noCeilingRevealTicker > 0 && (u.visionTicker = 0);
-                    var y = u.visionTicker > 0
-                      , x = o(u.fadeAlpha, y ? 0 : 1, e * (y ? 12 : f.fadeRate));
-                    u.fadeAlpha += x;
-                    for (var v = 0; v < this.imgs.length; v++) {
-                        var k = this.imgs[v]
-                          , _ = k.isCeiling ? u.fadeAlpha : 1;
-                        this.positionSprite(k.sprite, _, c);
-                        var w = this.layer;
-                        k.isCeiling && (this.layer == n.layer || 2 & n.layer && 1 == this.layer) && (w |= 2),
-                        s.addPIXIObj(k.sprite, h.World, w, k.zOrd, k.zIdx)
+            },
+            l: function(e, t, a, o, r, l, c) {
+                if (this.ceilingDead && !this.playedCeilingDeadFx && (t.deadCeilingIds.push(this.__id),
+                this.playedCeilingDeadFx = !0,
+                this.isNew || this.destroyCeilingFx(a, o)),
+                this.isNew = !1,
+                this.ceilingDead && !this.residue) {
+                    var d = s.Defs[this.type];
+                    if (void 0 !== d.ceiling.destroy) {
+                        var p = this.allocSprite();
+                        p.texture = n.Texture.fromImage(d.ceiling.destroy.residue),
+                        p.position.set(0, 0),
+                        p.scale.set(1, 1),
+                        p.rotation = 0,
+                        p.visible = !0,
+                        this.imgs[0].sprite.addChild(p),
+                        this.residue = p
                     }
                 }
-            }, {
-                key: "destroyCeilingFx",
-                value: function(e, t) {
-                    for (var a = l.Defs[this.type].ceiling.destroy, i = this.surfaces[0], o = 0; o < i.colliders.length; o++) {
-                        for (var n = s.toAabb(i.colliders[o]), r = 0; r < a.particleCount; r++) {
-                            var m = d.create(c.random(n.min.x, n.max.x), c.random(n.min.y, n.max.y))
-                              , u = d.mul(d.randomUnit(), c.random(0, 15));
-                            e.addParticle(p.Defs[a.particle], this.layer, m, u)
-                        }
+                var h = this.ceiling;
+                h.visionTicker -= e;
+                for (var g = !1, f = h.vision, b = 0; b < h.scopeIn.length; b++)
+                    if (m.scanCollider(h.scopeIn[b], t.U.c(), r.pos, r.layer, .5, 2 * f.width, f.dist, 5)) {
+                        g = !0;
                         break
                     }
-                    t.playSound("ceiling_break_01", {
-                        channel: "sfx",
-                        soundPos: this.pos
-                    })
+                this.ceilingDead && (g = !0),
+                g && (h.visionTicker = f.linger + 1e-4),
+                r.noCeilingRevealTicker > 0 && (h.visionTicker = 0);
+                var y = h.visionTicker > 0
+                  , x = i(h.fadeAlpha, y ? 0 : 1, e * (y ? 12 : f.fadeRate));
+                h.fadeAlpha += x;
+                for (var v = 0; v < this.imgs.length; v++) {
+                    var _ = this.imgs[v]
+                      , k = _.isCeiling ? h.fadeAlpha : 1;
+                    this.positionSprite(_.sprite, k, c);
+                    var w = this.layer;
+                    _.isCeiling && (this.layer == r.layer || 2 & r.layer && 1 == this.layer) && (w |= 2),
+                    l.addPIXIObj(_.sprite, u.World, w, _.zOrd, _.zIdx)
                 }
-            }, {
-                key: "positionSprite",
-                value: function(e, t, a) {
-                    var i = a.pointToScreen(d.add(this.pos, e.posOffset))
-                      , o = a.pixels(this.scale * e.defScale);
-                    e.position.set(i.x, i.y),
-                    e.scale.set(o, o),
-                    e.rotation = -this.rot + e.rotOffset,
-                    e.alpha = e.imgAlpha * t
+            },
+            destroyCeilingFx: function(e, t) {
+                for (var a = s.Defs[this.type].ceiling.destroy, i = this.surfaces[0], o = 0; o < i.colliders.length; o++) {
+                    for (var n = r.toAabb(i.colliders[o]), m = 0; m < a.particleCount; m++) {
+                        var p = c.create(l.random(n.min.x, n.max.x), l.random(n.min.y, n.max.y))
+                          , u = c.mul(c.randomUnit(), l.random(0, 15));
+                        e.addParticle(d.Defs[a.particle], this.layer, p, u)
+                    }
+                    break
                 }
-            }, {
-                key: "render",
-                value: function(e) {}
-            }]),
-            e
-        }();
-        e.exports = g
+                t.playSound("ceiling_break_01", {
+                    channel: "sfx",
+                    soundPos: this.pos
+                })
+            },
+            positionSprite: function(e, t, a) {
+                var i = a.pointToScreen(c.add(this.pos, e.posOffset))
+                  , o = a.pixels(this.scale * e.defScale);
+                e.position.set(i.x, i.y),
+                e.scale.set(o, o),
+                e.rotation = -this.rot + e.rotOffset,
+                e.alpha = e.imgAlpha * t
+            },
+            render: function(e) {}
+        },
+        e.exports = o
     },
     "34e32c48": function(e, t, a) {
         "use strict";
@@ -6381,12 +6308,12 @@ webpackJsonp([0], {
                   , c = o.dot(s, s) - i * i;
                 if (c > 0 && l > 0)
                     return null;
-                var d = l * l - c;
-                if (d < 0)
+                var m = l * l - c;
+                if (m < 0)
                     return null;
-                var m = Math.sqrt(d)
-                  , p = -l - m;
-                if (p < 0 && (p = -l + m),
+                var d = Math.sqrt(m)
+                  , p = -l - d;
+                if (p < 0 && (p = -l + d),
                 p <= r) {
                     var u = o.add(e, o.mul(n, p));
                     return {
@@ -6406,10 +6333,10 @@ webpackJsonp([0], {
                 Math.abs(l.x) < 1e-5 && (l.x = 2e-5),
                 Math.abs(l.y) < 1e-5 && (l.y = 2e-5),
                 Math.abs(l.x) > 1e-5) {
-                    var d = (a.x - s.x) / l.x
-                      , m = (i.x - s.x) / l.x;
-                    if (n = Math.max(n, Math.min(d, m)),
-                    r = Math.min(r, Math.max(d, m)),
+                    var m = (a.x - s.x) / l.x
+                      , d = (i.x - s.x) / l.x;
+                    if (n = Math.max(n, Math.min(m, d)),
+                    r = Math.min(r, Math.max(m, d)),
                     n > r)
                         return null
                 }
@@ -6461,17 +6388,17 @@ webpackJsonp([0], {
                       , s = o.add(e, r)
                       , l = o.sub(a, s)
                       , c = Math.abs(l.x) - r.x - n
-                      , d = Math.abs(l.y) - r.y - n;
-                    return c > d ? {
+                      , m = Math.abs(l.y) - r.y - n;
+                    return c > m ? {
                         dir: o.create(l.x > 0 ? 1 : -1, 0),
                         pen: -c
                     } : {
                         dir: o.create(0, l.y > 0 ? 1 : -1),
-                        pen: -d
+                        pen: -m
                     }
                 }
-                var m = o.create(i.clamp(a.x, e.x, t.x), i.clamp(a.y, e.y, t.y))
-                  , p = o.sub(a, m)
+                var d = o.create(i.clamp(a.x, e.x, t.x), i.clamp(a.y, e.y, t.y))
+                  , p = o.sub(a, d)
                   , u = o.lengthSqr(p);
                 if (u < n * n) {
                     var h = Math.sqrt(u);
@@ -6488,16 +6415,16 @@ webpackJsonp([0], {
                   , s = o.mul(o.sub(i, a), .5)
                   , l = o.add(a, s)
                   , c = o.sub(l, r)
-                  , d = n.x + s.x - Math.abs(c.x);
-                if (d > 0) {
-                    var m = n.y + s.y - Math.abs(c.y);
-                    if (m > 0)
-                        return d > m ? {
+                  , m = n.x + s.x - Math.abs(c.x);
+                if (m > 0) {
+                    var d = n.y + s.y - Math.abs(c.y);
+                    if (d > 0)
+                        return m > d ? {
                             dir: c.x < 0 ? o.create(-1, 0) : o.create(1, 0),
-                            pen: d
+                            pen: m
                         } : {
                             dir: c.y < 0 ? o.create(0, -1) : o.create(0, 1),
-                            pen: m
+                            pen: d
                         }
                 }
                 return null
@@ -7184,15 +7111,15 @@ webpackJsonp([0], {
     "484b3444": function(e, t, a) {
         "use strict";
         function i(e) {
-            m.push(e)
+            d.push(e)
         }
         function o(e, t) {
             l(".modal").fadeOut(200),
             l("#start-bottom-right").fadeIn(200),
             l("#start-top-left").fadeIn(200),
             l("#start-top-right").fadeIn(200);
-            for (var a = 0; a < m.length; a++)
-                m[a](e, t)
+            for (var a = 0; a < d.length; a++)
+                d[a](e, t)
         }
         function n(e) {
             l(e.target).closest(".modal-content").length || (l(".modal").each(function() {
@@ -7208,7 +7135,7 @@ webpackJsonp([0], {
         }
         var l = a("8ee62bea")
           , c = a("ce29f17f")
-          , d = a("26be8056");
+          , m = a("26be8056");
         l(document).ready(function() {
             var e = l("#start-menu");
             l("#btn-help").click(function() {
@@ -7227,7 +7154,7 @@ webpackJsonp([0], {
               , i = l("#team-mobile-link-warning")
               , n = l("#team-link-input")
               , s = l("#social-share-block")
-              , m = l("#news-block");
+              , d = l("#news-block");
             l("#btn-join-team").click(function() {
                 return l("#server-warning").css("display", "none"),
                 n.val(""),
@@ -7235,7 +7162,7 @@ webpackJsonp([0], {
                 a.css("display", "block"),
                 i.css("display", "none"),
                 e.css("display", "none"),
-                m.css("display", "none"),
+                d.css("display", "none"),
                 s.css("display", "none"),
                 !1
             }),
@@ -7243,7 +7170,7 @@ webpackJsonp([0], {
                 return t.css("display", "none"),
                 n.val(""),
                 e.css("display", "block"),
-                m.css("display", "block"),
+                d.css("display", "block"),
                 s.css("display", "block"),
                 !1
             }),
@@ -7254,9 +7181,9 @@ webpackJsonp([0], {
             l("#player-name-input-solo").on("keypress", function(e) {
                 13 === (e.which || e.keyCode) && l(this).blur()
             }),
-            c.mobile && !d.detectMobileSafari() && (l("#player-name-input-solo").on("focus", function() {
-                if (d.isLandscape()) {
-                    var e = d.getScreenDimensions().height
+            c.mobile && !m.detectMobileSafari() && (l("#player-name-input-solo").on("focus", function() {
+                if (m.isLandscape()) {
+                    var e = m.getScreenDimensions().height
                       , t = e <= 282 ? 18 : 36;
                     document.body.scrollTop = l(this).offset().top - t
                 }
@@ -7308,7 +7235,7 @@ webpackJsonp([0], {
                 window.location.reload(!0)
             })
         });
-        var m = [];
+        var d = [];
         e.exports = {
             addModalCloseListener: r,
             addModalCloseCallback: i,
@@ -7321,13 +7248,13 @@ webpackJsonp([0], {
             c(e >= 0);
             var t = [];
             do {
-                t.push(d[e % m]),
-                e = Math.floor(e / m)
+                t.push(m[e % d]),
+                e = Math.floor(e / d)
             } while (e > 0);return t.reverse().join("")
         }
         function o(e) {
             for (var t = 0, a = 0; a < e.length; a++)
-                t = t * m + d.indexOf(e.charAt(a));
+                t = t * d + m.indexOf(e.charAt(a));
             return t
         }
         function n(e, t) {
@@ -7346,11 +7273,11 @@ webpackJsonp([0], {
             return ("00" + e).slice(-2)
         }
         function l(e) {
-            return Math.min((Math.pow(m, e) >> 4) - 1, 134217727)
+            return Math.min((Math.pow(d, e) >> 4) - 1, 134217727)
         }
         var c = a("0e566746")
-          , d = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789".split("")
-          , m = d.length;
+          , m = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789".split("")
+          , d = m.length;
         e.exports = {
             encodeUrl: n,
             decodeUrl: r,
@@ -7406,11 +7333,11 @@ webpackJsonp([0], {
                           , l = this.loadSounds(s.list);
                         for (var c in l)
                             if (l.hasOwnProperty(c) && l[c]) {
-                                var d = l[c]
-                                  , m = {};
-                                m.canCoalesce = d.canCoalesce,
-                                m.channels = d.maxInstances,
-                                o.Sound.registerSound(d.name, c + r, m)
+                                var m = l[c]
+                                  , d = {};
+                                d.canCoalesce = m.canCoalesce,
+                                d.channels = m.maxInstances,
+                                o.Sound.registerSound(m.name, c + r, d)
                             }
                     }
                 for (var p in this.reverbs)
@@ -7423,7 +7350,7 @@ webpackJsonp([0], {
                 this.totalSoundsLoaded += 1,
                 this.totalSoundsLoaded == this.totalSounds && (this.loadComplete = !0)
             },
-            update: function(e) {
+            l: function(e) {
                 if (this.loadComplete) {
                     for (var t = 0; t < this.queuedSounds.length; t++) {
                         var a = this.queuedSounds[t]
@@ -7444,9 +7371,9 @@ webpackJsonp([0], {
                     var c = this.soundInstances[l];
                     "playFinished" != c.playState && "playInterrupted" != c.playState && "playFailed" != c.playState || this.soundInstances.splice(l, 1)
                 }
-                for (var d = this.musicInstances.length - 1; d >= 0; d--) {
-                    var m = this.musicInstances[d];
-                    "playFinished" != m.playState && "playInterrupted" != m.playState && "playFailed" != m.playState || this.musicInstances.splice(d, 1)
+                for (var m = this.musicInstances.length - 1; m >= 0; m--) {
+                    var d = this.musicInstances[m];
+                    "playFinished" != d.playState && "playInterrupted" != d.playState && "playFailed" != d.playState || this.musicInstances.splice(m, 1)
                 }
                 var p = [0, 1, 1 / 3, 2 / 3]
                   , u = p[this.activeLayer];
@@ -7485,17 +7412,17 @@ webpackJsonp([0], {
                     var i = !1
                       , s = 1 * this.baseVolume * this.getTypeVolume(a.type)
                       , c = void 0 !== t.layer && !l.sameAudioLayer(t.layer, this.activeLayer)
-                      , d = t.muffled ? c ? "muffled" : "reverb" : "none";
+                      , m = t.muffled ? c ? "muffled" : "reverb" : "none";
                     if ("activePlayer" != t.channel && t.soundPos) {
-                        var m = n.sub(this.cameraPos, t.soundPos)
-                          , p = n.length(m)
+                        var d = n.sub(this.cameraPos, t.soundPos)
+                          , p = n.length(d)
                           , u = r.clamp(Math.abs(p / a.maxRange), 0, 1)
                           , h = Math.pow(1 - u, 1 + 2 * t.fallOff)
                           , g = a.volume * h * s;
                         if ((g = c ? .5 * g : g) > .003 || t.ignoreMinAllowable) {
-                            var f = r.clamp(m.x / a.maxRange * -1, -1, 1);
+                            var f = r.clamp(d.x / a.maxRange * -1, -1, 1);
                             i = o.Sound.play(e + t.channel, {
-                                filter: d,
+                                filter: m,
                                 loop: t.loop ? -1 : 0,
                                 volume: t.fadeIn || t.startSilent ? 0 : g,
                                 pan: f,
@@ -7507,7 +7434,7 @@ webpackJsonp([0], {
                         var b = a.volume * s;
                         b = c ? .5 * b : b,
                         i = o.Sound.play(e + t.channel, {
-                            filter: d,
+                            filter: m,
                             loop: t.loop ? -1 : 0,
                             volume: t.fadeIn || t.startSilent ? 0 : b,
                             delay: t.delay
@@ -7529,8 +7456,8 @@ webpackJsonp([0], {
                 if (a) {
                     var i = a.sounds
                       , o = Math.floor(l.random(0, i.length));
-                    t.channel = a.channel;
-                    return this.playSound(i[o], t)
+                    return t.channel = a.channel,
+                    this.playSound(i[o], t)
                 }
             },
             updateSound: function(e, t, a) {
@@ -7540,11 +7467,11 @@ webpackJsonp([0], {
                 if (e && o) {
                     var s = 1 * this.baseVolume * this.getTypeVolume(o.type)
                       , c = n.sub(this.cameraPos, a)
-                      , d = n.length(c)
-                      , m = r.clamp(Math.abs(d / o.maxRange), 0, 1)
-                      , p = Math.pow(1 - m, 1 + 2 * i.fallOff)
+                      , m = n.length(c)
+                      , d = r.clamp(Math.abs(m / o.maxRange), 0, 1)
+                      , p = Math.pow(1 - d, 1 + 2 * i.fallOff)
                       , u = o.volume * p * s;
-                    if ((u = void 0 !== i.layer && !l.sameAudioLayer(i.layer, this.activeLayer) ? .5 * u : u) > .003) {
+                    if ((u = void 0 === i.layer || l.sameAudioLayer(i.layer, this.activeLayer) ? u : .5 * u) > .003) {
                         var h = r.clamp(c.x / o.maxRange * -1, -1, 1);
                         return e.volume = u,
                         e.pan = h,
@@ -7559,16 +7486,14 @@ webpackJsonp([0], {
             },
             setSoundVolume: function(e) {
                 e = r.clamp(e, 0, 1);
-                for (var t = this.soundVolume > 0 ? e / this.soundVolume : 0, a = 0; a < this.soundInstances.length; a++) {
-                    this.soundInstances[a].volume *= t
-                }
+                for (var t = this.soundVolume > 0 ? e / this.soundVolume : 0, a = 0; a < this.soundInstances.length; a++)
+                    this.soundInstances[a].volume *= t;
                 this.soundVolume = e
             },
             setMusicVolume: function(e) {
                 e = r.clamp(e, 0, 1);
-                for (var t = this.musicVolume > 0 ? e / this.musicVolume : 0, a = 0; a < this.musicInstances.length; a++) {
-                    this.musicInstances[a].volume *= t
-                }
+                for (var t = this.musicVolume > 0 ? e / this.musicVolume : 0, a = 0; a < this.musicInstances.length; a++)
+                    this.musicInstances[a].volume *= t;
                 this.musicVolume = e
             },
             setVolume: function(e, t, a) {
@@ -7774,7 +7699,8 @@ webpackJsonp([0], {
             FwdSlash: 191,
             Tilde: 192,
             C: 16,
-            LeftShift: 67
+            LeftShift: 67,
+            T: 84
         }))
           , r = Object.freeze({
             Move: 0,
@@ -7783,7 +7709,7 @@ webpackJsonp([0], {
             Cancel: 3
         });
         o.prototype = {
-            free: function() {
+            o: function() {
                 window.removeEventListener("focus", this.bOnWindowFocus),
                 window.removeEventListener("keydown", this.bOnKeyDown),
                 window.removeEventListener("keyup", this.bOnKeyUp),
@@ -7823,14 +7749,14 @@ webpackJsonp([0], {
             onKeyUp: function(e) {
                 delete this.keys[e.keyCode]
             },
-            keyDown: function(e) {
+            H: function(e) {
                 return void 0 !== this.keys[e]
             },
-            keyPressed: function(e) {
-                return void 0 === this.keysOld[e] && this.keyDown(e)
+            K: function(e) {
+                return void 0 === this.keysOld[e] && this.H(e)
             },
-            keyReleased: function(e) {
-                return this.keysOld[e] && !this.keyDown(e)
+            Y: function(e) {
+                return this.keysOld[e] && !this.H(e)
             },
             onMouseMove: function(e) {
                 this.mousePosOld = Object.assign({}, this.mousePos),
@@ -7848,19 +7774,19 @@ webpackJsonp([0], {
             onMouseWheel: function(e) {
                 this.mouseWheelState = e.deltaY < 0 ? -1 : 1
             },
-            mouseDown: function() {
+            Z: function() {
                 return this.mouseButton
             },
-            mousePressed: function() {
+            J: function() {
                 return !this.mouseButtonOld && this.mouseButton
             },
-            mouseReleased: function() {
+            $: function() {
                 return this.mouseButtonOld && !this.mouseButton
             },
-            rightMousePressed: function() {
+            ee: function() {
                 return !this.rightMouseButtonOld && this.rightMouseButton
             },
-            mouseWheel: function() {
+            te: function() {
                 return this.mouseWheelState
             },
             resetMouseWheel: function() {
@@ -7869,27 +7795,27 @@ webpackJsonp([0], {
             onTouchShared: function(e, t) {
                 t != r.Cancel && e.preventDefault();
                 for (var a = e.timeStamp || performance.now(), o = 0; o < e.changedTouches.length; o++) {
-                    for (var n = e.changedTouches[o], s = n.identifier, l = n.clientX, c = n.clientY, d = null, m = 0; m < this.touches.length; m++)
-                        if (this.touches[m].osId == s && !this.touches[m].isDead) {
-                            d = this.touches[m];
+                    for (var n = e.changedTouches[o], s = n.identifier, l = n.clientX, c = n.clientY, m = null, d = 0; d < this.touches.length; d++)
+                        if (this.touches[d].osId == s && !this.touches[d].isDead) {
+                            m = this.touches[d];
                             break
                         }
-                    t != r.Start || d || (d = new i,
-                    this.touches.push(d),
+                    t != r.Start || m || (m = new i,
+                    this.touches.push(m),
                     ++this.touchIdCounter,
-                    d.id = this.touchIdCounter,
-                    d.osId = s,
-                    d.posOld.x = l,
-                    d.posOld.y = c,
-                    d.posDown.x = l,
-                    d.posDown.y = c,
-                    d.startTime = a,
-                    d.isNew = !0,
-                    d.isDead = !1),
-                    t != r.End && t != r.Cancel || !d || (d.isDead = !0),
-                    d && (d.pos.x = l,
-                    d.pos.y = c,
-                    d.lastUpdateTime = a)
+                    m.id = this.touchIdCounter,
+                    m.osId = s,
+                    m.posOld.x = l,
+                    m.posOld.y = c,
+                    m.posDown.x = l,
+                    m.posDown.y = c,
+                    m.startTime = a,
+                    m.isNew = !0,
+                    m.isDead = !1),
+                    t != r.End && t != r.Cancel || !m || (m.isDead = !0),
+                    m && (m.pos.x = l,
+                    m.pos.y = c,
+                    m.lastUpdateTime = a)
                 }
             },
             onTouchMove: function(e) {
@@ -7912,7 +7838,7 @@ webpackJsonp([0], {
             }
         },
         e.exports = {
-            InputHandler: o,
+            ae: o,
             Key: n,
             Touch: i
         }
@@ -8199,6 +8125,7 @@ webpackJsonp([0], {
             "index-settings": "Settings",
             "index-high-resolution": "High resolution (check to increase visual quality)",
             "index-screen-shake": "Screen shake",
+            "index-anon-player-names": "Anonymize player names",
             "index-master-volume": "Master Volume",
             "index-sfx-volume": "SFX Volume",
             "index-music-volume": "Music Volume",
@@ -8247,6 +8174,8 @@ webpackJsonp([0], {
             "index-stow-weapons-ctrl": "3 or E",
             "index-swap-weapons": "Swap to Previous Weapon",
             "index-swap-weapons-ctrl": "Q",
+            "index-swap-weapon-slots": "Switch Gun Slots",
+            "index-swap-weapon-slots-ctrl": "T or drag gun to other slot",
             "index-reload": "Reload",
             "index-reload-ctrl": "R",
             "index-scope-zoom": "Scope Zoom",
@@ -8463,7 +8392,7 @@ webpackJsonp([0], {
         function o() {
             this.explosions = []
         }
-        var n = (a("80ac57a6"),
+        var n = (a("8b1dfb45"),
         a("989ad62a"))
           , r = (a("34e32c48"),
         a("10899aea"))
@@ -8472,7 +8401,7 @@ webpackJsonp([0], {
           , c = (a("ce29f17f"),
         a("af8ba00f"),
         a("119e8c4c"))
-          , d = {
+          , m = {
             frag: {
                 burst: {
                     particle: "explosionBurst",
@@ -8520,9 +8449,9 @@ webpackJsonp([0], {
             }
         };
         i.prototype = {
-            init: function(e, t, a) {
+            a: function(e, t, a) {
                 var i = n.explosions[e].explosionType
-                  , o = d[i];
+                  , o = m[i];
                 this.active = !0,
                 this.done = !1,
                 this.type = e,
@@ -8533,12 +8462,12 @@ webpackJsonp([0], {
                 this.soundInstance = null,
                 this.soundUpdateThrottle = 0
             },
-            free: function() {
+            o: function() {
                 this.active = !1
             },
-            update: function(e, t, a, i, o) {
-                var m = n.explosions[this.type].explosionType
-                  , p = d[m];
+            l: function(e, t, a, i, o) {
+                var d = n.explosions[this.type].explosionType
+                  , p = m[d];
                 if (0 == this.ticker) {
                     t.addParticle(c.Defs[p.burst.particle], this.layer, this.pos, l.create(0, 0), p.burst.scale, 0, null);
                     var u = i.getGroundSurface(this.pos, this.layer)
@@ -8576,18 +8505,18 @@ webpackJsonp([0], {
                     }
                 o || (o = new i(this),
                 this.explosions.push(o)),
-                o.init(e, t, a)
+                o.a(e, t, a)
             },
-            update: function(e, t, a, i, o) {
+            l: function(e, t, a, i, o) {
                 for (var n = 0; n < this.explosions.length; n++) {
                     var r = this.explosions[n];
-                    r.active && (r.update(e, i, o, t, a),
-                    r.active || r.free())
+                    r.active && (r.l(e, i, o, t, a),
+                    r.active || r.o())
                 }
             }
         },
         e.exports = {
-            ExplosionBarn: o
+            ie: o
         }
     },
     "61fc98e9": function(e, t, a) {
@@ -8633,7 +8562,7 @@ webpackJsonp([0], {
         a("48eca919"))
           , c = (a("f398b7c7"),
         a("26be8056"))
-          , d = (a("ce29f17f"),
+          , m = (a("ce29f17f"),
         function() {
             function e(t, a, o, n, s) {
                 var l = this;
@@ -8719,9 +8648,9 @@ webpackJsonp([0], {
                         o.readOnly = !0;
                         var l = document.createRange();
                         l.selectNodeContents(o);
-                        var d = window.getSelection();
-                        d.removeAllRanges(),
-                        d.addRange(l),
+                        var m = window.getSelection();
+                        m.removeAllRanges(),
+                        m.addRange(l),
                         o.setSelectionRange(0, 999999),
                         o.contentEditable = n,
                         o.readOnly = s
@@ -8840,11 +8769,11 @@ webpackJsonp([0], {
                 key: "onMessage",
                 value: function(e, t) {
                     var a = this;
-                    this.config,
+                    switch (this.config,
                     this.playerData,
                     this.roomData,
-                    this.players;
-                    switch (e) {
+                    this.players,
+                    e) {
                     case "state":
                         this.joined = !0;
                         var i = this.roomData;
@@ -8923,8 +8852,8 @@ webpackJsonp([0], {
                       , s = this.serverSelect
                       , l = this.queueDuo
                       , c = this.queueSquad
-                      , d = this.fillAuto
-                      , m = this.fillNone
+                      , m = this.fillAuto
+                      , d = this.fillNone
                       , p = this.active
                       , u = this.joined
                       , h = this.create
@@ -8935,14 +8864,14 @@ webpackJsonp([0], {
                       , y = this.players
                       , x = this.localPlayerId
                       , v = this.isLeader
-                      , k = this.audioManager;
+                      , _ = this.audioManager;
                     r("#team-menu").css("display", p ? "block" : "none"),
                     r("#start-menu").css("display", p ? "none" : "block"),
                     r("#news-block").css("display", p ? "none" : "block"),
                     r("#social-share-block").css("display", p ? "none" : "block");
-                    var _ = "" != b.lastError
+                    var k = "" != b.lastError
                       , w = o(b.lastError, this.localization);
-                    if (i.css("opacity", _ ? 1 : 0),
+                    if (i.css("opacity", k ? 1 : 0),
                     i.html(w),
                     p && (r("#team-menu-joining-text").css("display", h ? "none" : "block"),
                     r("#team-menu-creating-text").css("display", h ? "block" : "none"),
@@ -8958,10 +8887,10 @@ webpackJsonp([0], {
                         s.find("option").each(function() {
                             this.selected = this.value == b.region
                         }),
-                        r(".btn-team-queue").removeClass("btn-hollow-selected");
+                        r(".btn-team-queue").removeClass("btn-hollow-selected"),
                         (2 == b.teamMode ? l : c).addClass("btn-hollow-selected"),
-                        r(".btn-team-fill").removeClass("btn-hollow-selected");
-                        (b.autoFill ? d : m).addClass("btn-hollow-selected"),
+                        r(".btn-team-fill").removeClass("btn-hollow-selected"),
+                        (b.autoFill ? m : d).addClass("btn-hollow-selected"),
                         b.roomUrl && (r("#team-url").html(window.location.origin + "/" + b.roomUrl),
                         r("#team-code").html(b.roomUrl.substring(1)),
                         window.history && window.history.replaceState("", "", b.roomUrl)),
@@ -8986,17 +8915,17 @@ webpackJsonp([0], {
                             l.removeClass("btn-darken btn-hollow-selected")),
                             l.prop("disabled", !O)
                         }
-                        var E = r("#team-menu-member-list");
-                        E.empty();
-                        for (var L = 0; L < b.teamMode; L++) {
+                        var L = r("#team-menu-member-list");
+                        L.empty();
+                        for (var E = 0; E < b.teamMode; E++) {
                             var B = {
                                 name: "",
                                 playerId: 0,
                                 isLeader: !1,
                                 inGame: !1
                             };
-                            if (L < y.length) {
-                                var F = y[L];
+                            if (E < y.length) {
+                                var F = y[E];
                                 B = {
                                     name: F.name,
                                     playerId: F.playerId,
@@ -9025,9 +8954,9 @@ webpackJsonp([0], {
                             R.append(r("<div/>", {
                                 class: "icon " + (B.inGame ? "icon-in-game" : "")
                             })),
-                            E.append(R)
+                            L.append(R)
                         }
-                        r(".icon-kick", E).click(function(t) {
+                        r(".icon-kick", L).click(function(t) {
                             var a = r(t.currentTarget).attr("data-playerid");
                             e.sendMessage("kick", {
                                 playerId: a
@@ -9037,7 +8966,7 @@ webpackJsonp([0], {
                             return e.playerId == x
                         })
                           , V = q && !q.inGame;
-                        !document.hasFocus() && this.prevPlayerCount < y.length && y.length > 1 && V && k.playSound("notification_join_01", {
+                        !document.hasFocus() && this.prevPlayerCount < y.length && y.length > 1 && V && _.playSound("notification_join_01", {
                             channel: "ui"
                         }),
                         this.prevPlayerCount = y.length
@@ -9046,7 +8975,7 @@ webpackJsonp([0], {
             }]),
             e
         }());
-        e.exports = d
+        e.exports = m
     },
     "6b42806d": function(e, t, a) {
         "use strict";
@@ -9102,14 +9031,14 @@ webpackJsonp([0], {
             },
             transform: function(e, t, a, i) {
                 if (e.type == n.Type.Aabb) {
-                    for (var r = o.mul(o.sub(e.max, e.min), .5), s = o.add(e.min, r), l = [o.create(s.x - r.x, s.y - r.y), o.create(s.x - r.x, s.y + r.y), o.create(s.x + r.x, s.y - r.y), o.create(s.x + r.x, s.y + r.y)], c = o.create(Number.MAX_VALUE, Number.MAX_VALUE), d = o.create(-Number.MAX_VALUE, -Number.MAX_VALUE), m = 0; m < l.length; m++) {
-                        var p = o.add(o.rotate(o.mul(l[m], i), a), t);
+                    for (var r = o.mul(o.sub(e.max, e.min), .5), s = o.add(e.min, r), l = [o.create(s.x - r.x, s.y - r.y), o.create(s.x - r.x, s.y + r.y), o.create(s.x + r.x, s.y - r.y), o.create(s.x + r.x, s.y + r.y)], c = o.create(Number.MAX_VALUE, Number.MAX_VALUE), m = o.create(-Number.MAX_VALUE, -Number.MAX_VALUE), d = 0; d < l.length; d++) {
+                        var p = o.add(o.rotate(o.mul(l[d], i), a), t);
                         c.x = Math.min(c.x, p.x),
                         c.y = Math.min(c.y, p.y),
-                        d.x = Math.max(d.x, p.x),
-                        d.y = Math.max(d.y, p.y)
+                        m.x = Math.max(m.x, p.x),
+                        m.y = Math.max(m.y, p.y)
                     }
-                    return n.createAabb(c, d, e.height)
+                    return n.createAabb(c, m, e.height)
                 }
                 return n.createCircle(o.add(o.rotate(o.mul(e.pos, i), a), t), e.rad * i, e.height)
             },
@@ -9416,16 +9345,16 @@ webpackJsonp([0], {
         "use strict";
         function i(e, t, a, i, o, l) {
             var c = n.items[e]
-              , d = r.rotate(i, t)
-              , m = r.mul(d, 9.5);
-            m = r.rotate(m, (Math.random() - .5) * Math.PI / 3);
+              , m = r.rotate(i, t)
+              , d = r.mul(m, 9.5);
+            d = r.rotate(d, (Math.random() - .5) * Math.PI / 3);
             var p = r.add(a, r.mul(i, n.player.radius + c.particle.shellOffset));
-            l.addParticle(s.Defs[c.ammo], o, p, m, c.particle.shellScale, Math.atan2(-d.y, d.x))
+            l.addParticle(s.Defs[c.ammo], o, p, d, c.particle.shellScale, Math.atan2(-m.y, m.x))
         }
         function o() {
             this.shots = []
         }
-        var n = (a("80ac57a6"),
+        var n = (a("8b1dfb45"),
         a("989ad62a"))
           , r = (a("10899aea"),
         a("c2a798c8"))
@@ -9450,34 +9379,34 @@ webpackJsonp([0], {
                 s.ticker = 0,
                 s.pullDelay = void 0 !== c.pullDelay ? .45 * c.pullDelay : 0
             },
-            update: function(e, t, a, o, r) {
+            l: function(e, t, a, o, r) {
                 for (var s = 0; s < this.shots.length; s++) {
                     var l = this.shots[s];
                     if (l.active) {
                         var c = n.items[l.weaponType];
                         if (0 == l.ticker) {
-                            var d = a.getPlayerById(l.playerId);
+                            var m = a.oe(l.playerId);
                             if (r.playSound(c.sound.shoot, {
                                 channel: l.playerId == t ? "activePlayer" : "otherPlayers",
                                 soundPos: l.pos,
-                                layer: d ? d.layer : l.layer,
+                                layer: m ? m.layer : l.layer,
                                 muffled: !0
                             }),
-                            d) {
-                                if (d.__id == t && "single" == c.fireMode && c.pullDelay) {
-                                    var m = d.localData.weapons[d.localData.curWeapIdx].ammo
-                                      , p = m > 0 ? c.sound.cycle : c.sound.pull;
+                            m) {
+                                if (m.__id == t && "single" == c.fireMode && c.pullDelay) {
+                                    var d = m.j.weapons[m.j.curWeapIdx].ammo
+                                      , p = d > 0 ? c.sound.cycle : c.sound.pull;
                                     r.localActionSoundInstance = r.playSound(p)
                                 }
                                 var u = l.offhand || !c.isDual
                                   , h = !l.offhand || !c.isDual;
-                                d.addRecoil(c.worldImg.recoil, u, h)
+                                m.addRecoil(c.worldImg.recoil, u, h)
                             }
                         }
                         if (l.ticker += e,
                         l.ticker >= l.pullDelay) {
-                            var g = a.getPlayerById(l.playerId);
-                            g && !g.netData.dead && g.netData.curWeapType == l.weaponType && "shoot" == c.caseTiming && i(l.weaponType, Math.PI / 2 * -1, g.netData.pos, g.netData.dir, g.layer, o),
+                            var g = a.oe(l.playerId);
+                            g && !g.B.dead && g.B.curWeapType == l.weaponType && "shoot" == c.caseTiming && i(l.weaponType, Math.PI / 2 * -1, g.B.pos, g.B.dir, g.layer, o),
                             l.active = !1
                         }
                     }
@@ -9486,7 +9415,7 @@ webpackJsonp([0], {
         },
         e.exports = {
             createCasingParticle: i,
-            ShotBarn: o
+            ne: o
         }
     },
     "72409abe": function(e, t, a) {
@@ -9495,7 +9424,7 @@ webpackJsonp([0], {
             var e = {
                 fontFamily: "Arial",
                 fontWeight: "bold",
-                fontSize: d.pixelRatio > 1 ? 30 : 24,
+                fontSize: m.pixelRatio > 1 ? 30 : 24,
                 align: "center",
                 fill: 16777215,
                 stroke: 0,
@@ -9527,26 +9456,26 @@ webpackJsonp([0], {
             this.container.visible = this.sprite
         }
         function n(e) {
-            this.deadBodyPool = new m.Pool(o)
+            this.re = new d.Pool(o)
         }
         var r = (a("0e566746"),
-        a("80ac57a6"))
+        a("8b1dfb45"))
           , s = a("6b42806d")
           , l = (a("989ad62a"),
         a("10899aea"),
         a("1901e2d9"))
           , c = a("c2a798c8")
-          , d = a("ce29f17f")
-          , m = (a("af8ba00f"),
+          , m = a("ce29f17f")
+          , d = (a("af8ba00f"),
         a("753d6e4b"))
           , p = a("c60b5e9f")
           , u = p.RenderType;
         o.prototype = {
-            init: function() {},
-            free: function() {
+            a: function() {},
+            o: function() {
                 this.container.visible = !1
             },
-            updateData: function(e, t, a, i) {
+            n: function(e, t, a, i) {
                 this.pos = c.copy(e.pos),
                 t && (this.layer = e.layer,
                 this.playerId = e.playerId),
@@ -9555,17 +9484,17 @@ webpackJsonp([0], {
             }
         },
         n.prototype = {
-            update: function(e, t, a, i, o, n) {
-                for (var r = this.deadBodyPool.getPool(), l = 0; l < r.length; l++) {
+            l: function(e, t, a, i, o, n) {
+                for (var r = this.re.c(), l = 0; l < r.length; l++) {
                     var c = r[l];
                     if (c.active) {
                         c.nameTextSet || (c.nameTextSet = !0,
-                        c.nameText.text = t.getPlayerInfo(c.playerId).name);
-                        var d = s.createCircle(c.pos, 1)
-                          , m = i.insideStructureStairs(d)
+                        c.nameText.text = t.N(c.playerId).name);
+                        var m = s.createCircle(c.pos, 1)
+                          , d = i.insideStructureStairs(m)
                           , p = c.layer
                           , h = 12;
-                        0 == c.layer && 0 == a.layer && m && (p |= 2,
+                        0 == c.layer && 0 == a.layer && d && (p |= 2,
                         h += 100),
                         n.addPIXIObj(c.container, u.DeadBody, p, h, c.__id);
                         var g = o.pointToScreen(c.pos)
@@ -9576,7 +9505,7 @@ webpackJsonp([0], {
                 }
             },
             getDeadBodyById: function(e) {
-                for (var t = this.deadBodyPool.getPool(), a = 0; a < t.length; a++) {
+                for (var t = this.re.c(), a = 0; a < t.length; a++) {
                     var i = t[a];
                     if (i.active && i.playerId == e)
                         return i
@@ -9585,7 +9514,7 @@ webpackJsonp([0], {
             }
         },
         e.exports = {
-            DeadBodyBarn: n
+            se: n
         }
     },
     "753d6e4b": function(e, t, a) {
@@ -9595,7 +9524,7 @@ webpackJsonp([0], {
             this.creator = {
                 type: e
             },
-            this.pool = [],
+            this.le = [],
             this.activeCount = 0
         }
         function o(e) {
@@ -9607,30 +9536,30 @@ webpackJsonp([0], {
           , r = a("f398b7c7");
         i.prototype = {
             alloc: function() {
-                for (var e = null, t = 0; t < this.pool.length; t++)
-                    if (!this.pool[t].active) {
-                        e = this.pool[t];
+                for (var e = null, t = 0; t < this.le.length; t++)
+                    if (!this.le[t].active) {
+                        e = this.le[t];
                         break
                     }
                 return e || (e = new this.creator.type,
-                this.pool.push(e)),
+                this.le.push(e)),
                 e.active = !0,
-                e.init(),
+                e.a(),
                 this.activeCount++,
                 e
             },
             free: function(e) {
-                if (e.free(),
+                if (e.o(),
                 e.active = !1,
                 this.activeCount--,
-                this.pool.length > 128 && this.activeCount < this.pool.length / 2) {
-                    for (var t = [], a = 0; a < this.pool.length; a++)
-                        this.pool[a].active && t.push(this.pool[a]);
-                    this.pool = t
+                this.le.length > 128 && this.activeCount < this.le.length / 2) {
+                    for (var t = [], a = 0; a < this.le.length; a++)
+                        this.le[a].active && t.push(this.le[a]);
+                    this.le = t
                 }
             },
-            getPool: function() {
-                return this.pool
+            c: function() {
+                return this.le
             }
         },
         o.prototype = {
@@ -9664,12 +9593,12 @@ webpackJsonp([0], {
                 this.idToObj[t] = o,
                 this.seenCount++,
                 n = !0),
-                o.updateData(a, !0, n, i),
+                o.n(a, !0, n, i),
                 o
             },
             updateObjPart: function(e, t, a) {
                 var i = this.getObjById(e);
-                i ? i.updateData(t, !1, !1, a) : (console.log("updateObjPart, missing object", e),
+                i ? i.n(t, !1, !1, a) : (console.log("updateObjPart, missing object", e),
                 r.storeGeneric("objectPoolErr", "updateObjPart"))
             },
             deleteObj: function(e) {
@@ -10021,12 +9950,12 @@ webpackJsonp([0], {
                 key: "transform",
                 value: function(t, a, i) {
                     if (this.type == e.Type.Aabb) {
-                        for (var o = r.mul(r.sub(this.max, this.min), .5), n = r.add(this.min, o), s = [r.create(n.x - o.x, n.y - o.y), r.create(n.x - o.x, n.y + o.y), r.create(n.x + o.x, n.y - o.y), r.create(n.x + o.x, n.y + o.y)], l = r.create(Number.MAX_VALUE, Number.MAX_VALUE), c = r.create(-Number.MAX_VALUE, -Number.MAX_VALUE), d = 0; d < s.length; d++) {
-                            var m = r.add(r.rotate(r.mul(s[d], i), a), t);
-                            l.x = Math.min(l.x, m.x),
-                            l.y = Math.min(l.y, m.y),
-                            c.x = Math.max(c.x, m.x),
-                            c.y = Math.max(c.y, m.y)
+                        for (var o = r.mul(r.sub(this.max, this.min), .5), n = r.add(this.min, o), s = [r.create(n.x - o.x, n.y - o.y), r.create(n.x - o.x, n.y + o.y), r.create(n.x + o.x, n.y - o.y), r.create(n.x + o.x, n.y + o.y)], l = r.create(Number.MAX_VALUE, Number.MAX_VALUE), c = r.create(-Number.MAX_VALUE, -Number.MAX_VALUE), m = 0; m < s.length; m++) {
+                            var d = r.add(r.rotate(r.mul(s[m], i), a), t);
+                            l.x = Math.min(l.x, d.x),
+                            l.y = Math.min(l.y, d.y),
+                            c.x = Math.max(c.x, d.x),
+                            c.y = Math.max(c.y, d.y)
                         }
                         this.min = l,
                         this.max = c
@@ -10316,10 +10245,10 @@ webpackJsonp([0], {
                           , a = "top" == e.position || "bottom" == e.position ? "banner" : "floating";
                         t.isMobile() && (a = "floating");
                         var i = ["cc-" + a, "cc-type-" + e.type, "cc-theme-" + e.theme];
-                        e.static && i.push("cc-static"),
-                        i.push.apply(i, s.call(this));
-                        p.call(this, this.options.palette);
-                        return this.customStyleSelector && i.push(this.customStyleSelector),
+                        return e.static && i.push("cc-static"),
+                        i.push.apply(i, s.call(this)),
+                        p.call(this, this.options.palette),
+                        this.customStyleSelector && i.push(this.customStyleSelector),
                         i
                     }
                     function c() {
@@ -10344,7 +10273,7 @@ webpackJsonp([0], {
                             return e[t]
                         })
                     }
-                    function d(a) {
+                    function m(a) {
                         var i = this.options
                           , o = document.createElement("div")
                           , n = i.container && 1 === i.container.nodeType ? i.container : document.body;
@@ -10352,12 +10281,12 @@ webpackJsonp([0], {
                         var r = o.children[0];
                         return r.style.display = "none",
                         t.hasClass(r, "cc-window") && e.hasTransition && t.addClass(r, "cc-invisible"),
-                        this.onButtonClick = m.bind(this),
+                        this.onButtonClick = d.bind(this),
                         r.addEventListener("click", this.onButtonClick),
                         i.autoAttach && (n.firstChild ? n.insertBefore(r, n.firstChild) : n.appendChild(r)),
                         r
                     }
-                    function m(i) {
+                    function d(i) {
                         var o = i.target;
                         if (t.hasClass(o, "cc-btn")) {
                             var n = o.className.match(new RegExp("\\bcc-(" + a.join("|") + ")\\b"))
@@ -10402,9 +10331,9 @@ webpackJsonp([0], {
                             references: 1,
                             element: c.sheet
                         };
-                        var d = -1;
-                        for (var m in n)
-                            n.hasOwnProperty(m) && c.sheet.insertRule(m + "{" + n[m].join(";") + "}", ++d)
+                        var m = -1;
+                        for (var d in n)
+                            n.hasOwnProperty(d) && c.sheet.insertRule(d + "{" + n[d].join(";") + "}", ++m)
                     }
                     function h(e) {
                         return e = t.normaliseHex(e),
@@ -10520,13 +10449,13 @@ webpackJsonp([0], {
                           , i = this.options.overrideHTML;
                         if ("string" == typeof i && i.length && (a = i),
                         this.options.static) {
-                            var o = d.call(this, '<div class="cc-grower">' + a + "</div>");
+                            var o = m.call(this, '<div class="cc-grower">' + a + "</div>");
                             o.style.display = "",
                             this.element = o.firstChild,
                             this.element.style.display = "none",
                             t.addClass(this.element, "cc-invisible")
                         } else
-                            this.element = d.call(this, a);
+                            this.element = m.call(this, a);
                         b.call(this),
                         this.options.autoOpen && this.autoOpen()
                     }
@@ -10806,14 +10735,12 @@ webpackJsonp([0], {
                     ,
                     e.prototype.runService = function(e, t) {
                         var o = this;
-                        if (e && e.url && e.callback) {
-                            (e.isScript ? a : i)(this.setupUrl(e), function(a) {
-                                var i = a ? a.responseText : "";
-                                e.__JSONP_DATA && (i = e.__JSONP_DATA,
-                                delete e.__JSONP_DATA),
-                                o.runServiceCallback.call(o, t, e, i)
-                            }, this.options.timeout, e.data, e.headers)
-                        }
+                        e && e.url && e.callback && (e.isScript ? a : i)(this.setupUrl(e), function(a) {
+                            var i = a ? a.responseText : "";
+                            e.__JSONP_DATA && (i = e.__JSONP_DATA,
+                            delete e.__JSONP_DATA),
+                            o.runServiceCallback.call(o, t, e, i)
+                        }, this.options.timeout, e.data, e.headers)
                     }
                     ,
                     e.prototype.runServiceCallback = function(e, t, a) {
@@ -10912,16 +10839,11 @@ webpackJsonp([0], {
                 }
                 ,
                 e.getCountryCode = function(t, a, i) {
-                    if (t.law && t.law.countryCode)
-                        return void a({
-                            code: t.law.countryCode
-                        });
-                    if (t.location) {
-                        return void new e.Location(t.location).locate(function(e) {
-                            a(e || {})
-                        }, i)
-                    }
-                    a({})
+                    return t.law && t.law.countryCode ? void a({
+                        code: t.law.countryCode
+                    }) : t.location ? void new e.Location(t.location).locate(function(e) {
+                        a(e || {})
+                    }, i) : void a({})
                 }
                 ,
                 e.utils = t,
@@ -12541,7 +12463,7 @@ webpackJsonp([0], {
                 Waiting: 1,
                 Moving: 2
             },
-            protocolVersion: 28,
+            protocolVersion: 29,
             map: {
                 baseWidth: 512,
                 baseHeight: 512,
@@ -12560,8 +12482,8 @@ webpackJsonp([0], {
                 minActiveTime: 10,
                 moveSpeed: 12,
                 health: 100,
-                boostDecay: .35,
-                boostMoveSpeed: 1.95,
+                boostDecay: .375,
+                boostMoveSpeed: 1.9,
                 boostHealAmount: .33,
                 boostBreakpoints: [1, 1, 1.5, .5],
                 scopeDelay: .25,
@@ -12715,7 +12637,7 @@ webpackJsonp([0], {
                     obstacleDamage: 1,
                     falloff: .3,
                     speed: 66,
-                    distance: 28,
+                    distance: 27,
                     variance: 0,
                     shrapnel: !1,
                     tracerColor: "12gauge",
@@ -15119,7 +15041,7 @@ webpackJsonp([0], {
                 bandage: {
                     name: "Bandage",
                     type: "heal",
-                    useTime: 2.75,
+                    useTime: 2.6,
                     heal: 15,
                     maxHeal: 75,
                     rad: 1,
@@ -15544,7 +15466,7 @@ webpackJsonp([0], {
             this.onJoin = o,
             this.onQuit = n,
             this.pixi = e,
-            this.audioManager = t,
+            this.ce = t,
             this.ambientSounds = {},
             this.victoryMusic = null,
             this.localization = a,
@@ -15553,13 +15475,13 @@ webpackJsonp([0], {
             this.connecting = !1,
             this.connected = !1
         }
-        var n = a("80ac57a6")
+        var n = a("8b1dfb45")
           , r = a("989ad62a")
           , s = a("8649e148")
           , l = a("b78cf179")
           , c = l.EmoteSlot
-          , d = l.EmoteData
-          , m = a("ceee80d9")
+          , m = l.EmoteData
+          , d = a("ceee80d9")
           , p = a("10899aea")
           , u = a("300e2704")
           , h = a("c2a798c8")
@@ -15569,32 +15491,30 @@ webpackJsonp([0], {
           , y = a("c73dee75")
           , x = a("1ad3d2a4")
           , v = a("72409abe")
-          , k = a("af8ba00f")
-          , _ = a("172c57dc")
+          , _ = a("af8ba00f")
+          , k = a("172c57dc")
           , w = (a("e98400ad"),
         a("e5d16b4d"))
           , S = a("604cff9c")
           , M = a("f398b7c7")
           , T = a("a7f094a3")
-          , P = T.Gas
-          , C = a("4b8d140f")
-          , I = a("a48f3bb2")
-          , z = a("d49cd95c")
-          , A = a("753d6e4b")
-          , D = a("119e8c4c")
-          , O = a("feb8fc30")
-          , E = a("a508b62a")
+          , P = a("4b8d140f")
+          , C = a("a48f3bb2")
+          , I = a("d49cd95c")
+          , z = a("753d6e4b")
+          , A = a("119e8c4c")
+          , D = a("feb8fc30")
+          , O = a("a508b62a")
           , L = a("bc83ef37")
-          , B = a("c60b5e9f")
-          , F = B.Renderer
-          , R = a("6e43d1d7")
-          , j = a("0955a76e")
-          , N = (a("ce089fd5"),
+          , E = a("c60b5e9f")
+          , B = a("6e43d1d7")
+          , F = a("0955a76e")
+          , R = (a("ce089fd5"),
         a("e2094860"))
-          , q = a("3160ea28")
-          , V = a("d3da5587");
+          , j = a("3160ea28")
+          , N = a("d3da5587");
         o.prototype = {
-            tryJoinGame: function(e, t, a) {
+            k: function(e, t, a) {
                 var i = this;
                 if (!(this.connecting || this.connected || this.initialized)) {
                     this.ws && (this.ws.onerror = function() {}
@@ -15619,7 +15539,7 @@ webpackJsonp([0], {
                         this.ws.onopen = function() {
                             i.connecting = !1,
                             i.connected = !0,
-                            i.init();
+                            i.a();
                             var t = new u.JoinMsg;
                             t.protocol = r.protocolVersion,
                             t.privData = e,
@@ -15627,7 +15547,7 @@ webpackJsonp([0], {
                             t.emotes = i.emoteLoadout,
                             t.useTouch = f.touch,
                             t.bot = !1,
-                            i.sendMessage(u.Msg.Join, t)
+                            i.me(u.Msg.Join, t)
                         }
                         ,
                         this.ws.onmessage = function(e) {
@@ -15635,7 +15555,7 @@ webpackJsonp([0], {
                                 var a = t.deserializeMsgType();
                                 if (a == u.Msg.None)
                                     break;
-                                i.onMessage(a, t.getStream())
+                                i.de(a, t.getStream())
                             }
                         }
                         ,
@@ -15659,49 +15579,48 @@ webpackJsonp([0], {
                     }
                 }
             },
-            init: function() {
-                _ltp9hc.scope = this;
+            a: function() {
                 var e, t = this.pixi.renderer.type == n.RENDERER_TYPE.CANVAS;
-                this.input = new C.InputHandler(this.pixi.view),
-                this.touch = new N.Touch(this.input,this.config),
-                this.camera = new x,
-                this.renderer = new F(t),
-                this.particleBarn = new D.ParticleBarn(this.renderer),
-                this.map = new z,
-                this.playerBarn = new E.PlayerBarn,
-                this.bulletBarn = new y.BulletBarn,
-                this.projectileBarn = new L.ProjectileBarn,
-                this.explosionBarn = new S.ExplosionBarn,
-                this.smokeBarn = new j.SmokeBarn,
-                this.deadBodyBarn = new v.DeadBodyBarn,
-                this.decalBarn = new _.DecalBarn,
-                this.lootBarn = new I.LootBarn,
-                this.gas = new P(t),
-                this.pieTimer = new O.PieTimer,
-                this.uiManager = new q.UiManager(this,this.audioManager,this.pieTimer,this.particleBarn,this.localization,t,this.touch),
-                this.ui2Manager = new V.Ui2Manager(this.localization),
-                this.emoteManager = new w.EmoteManager(this,this.audioManager,this.uiManager,this.playerBarn,this.camera,this.map),
-                this.shotBarn = new R.ShotBarn(this.particleBarn,this.audioManager,this.uiManager);
+                this.pe = new P.ae(this.pixi.view),
+                this.ue = new R.he(this.pe,this.config),
+                this.O = new x._,
+                this.ge = new E.fe(t),
+                this.be = new A.d(this.ge),
+                this.ye = new I.xe,
+                this.ve = new O._e,
+                this.ke = new y.we,
+                this.Se = new L.Me,
+                this.Te = new S.ie,
+                this.Pe = new F.m,
+                this.Ce = new v.se,
+                this.Ie = new k.u,
+                this.ze = new C.Ae,
+                this.De = new T.Oe(t),
+                this.Le = new D.Ee,
+                this.Be = new j.q(this,this.ce,this.Le,this.be,this.localization,t,this.ue),
+                this.Fe = new N.Re(this.localization),
+                this.je = new w.Ne(this,this.ce,this.Be,this.ve,this.O,this.ye),
+                this.qe = new B.ne(this.be,this.ce,this.Be);
                 var a = (e = {},
-                i(e, s.Type.Player, this.playerBarn.playerPool),
-                i(e, s.Type.Obstacle, this.map.obstaclePool),
-                i(e, s.Type.Loot, this.lootBarn.lootPool),
-                i(e, s.Type.LootSpawner, this.map.lootSpawnerPool),
-                i(e, s.Type.DeadBody, this.deadBodyBarn.deadBodyPool),
-                i(e, s.Type.Building, this.map.buildingPool),
-                i(e, s.Type.Structure, this.map.structurePool),
-                i(e, s.Type.Decal, this.decalBarn.decalPool),
-                i(e, s.Type.Projectile, this.projectileBarn.projectilePool),
-                i(e, s.Type.Smoke, this.smokeBarn.smokePool),
+                i(e, s.Type.Player, this.ve.Ve),
+                i(e, s.Type.Obstacle, this.ye.U),
+                i(e, s.Type.Loot, this.ze.Ge),
+                i(e, s.Type.LootSpawner, this.ye.Ue),
+                i(e, s.Type.DeadBody, this.Ce.re),
+                i(e, s.Type.Building, this.ye.We),
+                i(e, s.Type.Structure, this.ye.He),
+                i(e, s.Type.Decal, this.Ie.p),
+                i(e, s.Type.Projectile, this.Se.Ke),
+                i(e, s.Type.Smoke, this.Pe.e),
                 e);
-                this.objectCreator = new A.Creator;
+                this.Xe = new z.Creator;
                 for (var o in a)
-                    a.hasOwnProperty(o) && this.objectCreator.registerType(o, a[o]);
+                    a.hasOwnProperty(o) && this.Xe.registerType(o, a[o]);
                 this.debugDisplay = new n.Graphics;
-                for (var r = [this.map.display.water, this.map.display.background, this.renderer.layers[0], this.renderer.ground, this.renderer.layers[1], this.renderer.layers[2], this.renderer.layers[3], this.debugDisplay, this.gas.gasRenderer.display, this.touch.container, this.emoteManager.container, this.uiManager.container, this.emoteManager.indContainer, this.pieTimer.container], l = 0; l < r.length; l++) {
-                    var d = r[l];
-                    d && (d.interactiveChildren = !1,
-                    this.pixi.stage.addChild(d))
+                for (var r = [this.ye.display.water, this.ye.display.background, this.ge.layers[0], this.ge.ground, this.ge.layers[1], this.ge.layers[2], this.ge.layers[3], this.debugDisplay, this.De.gasRenderer.display, this.ue.container, this.je.container, this.Be.container, this.je.indContainer, this.Le.container], l = 0; l < r.length; l++) {
+                    var m = r[l];
+                    m && (m.interactiveChildren = !1,
+                    this.pixi.stage.addChild(m))
                 }
                 this.disconnectMsg = "",
                 this.playing = !1,
@@ -15710,10 +15629,11 @@ webpackJsonp([0], {
                 this.moveMsgTimeout = 0,
                 this.prevMoveMsg = new u.MoveMsg,
                 this.playingTicker = 0,
-                this.localId = 0,
-                this.activeId = 0,
-                this.activePlayer = null,
-                this.targetZoom = 1,
+                this.Ye = 0,
+                this.Ze = 0,
+                this.Je = null,
+                this.Qe = !1,
+                this.f = 1,
                 this.debugZoom = 1,
                 this.useDebugZoom = !1,
                 this.seq = 0,
@@ -15721,9 +15641,10 @@ webpackJsonp([0], {
                 this.seqSendTime = 0,
                 this.pings = [],
                 this.debugPingTime = 0,
-                this.camera.setShakeEnabled(this.config.get("screenShake")),
-                this.name = this.config.get("playerName");
-                var m = {
+                this.O.setShakeEnabled(this.config.get("screenShake")),
+                this.name = this.config.get("playerName"),
+                this.anonPlayerNames = this.config.get("anonPlayerNames");
+                var d = {
                     emoteTop: c.Top,
                     emoteRight: c.Right,
                     emoteBottom: c.Bottom,
@@ -15733,27 +15654,27 @@ webpackJsonp([0], {
                 };
                 this.emoteLoadout = [],
                 this.emoteLoadout[c.None] = 0;
-                for (var h = Object.keys(m), g = 0; g < h.length; g++) {
+                for (var h = Object.keys(d), g = 0; g < h.length; g++) {
                     var f = h[g]
                       , b = parseInt(this.config.get(f))
-                      , k = p.clamp(b, 1, 255);
-                    this.emoteLoadout[m[f]] = k
+                      , _ = p.clamp(b, 1, 255);
+                    this.emoteLoadout[d[f]] = _
                 }
-                this.emoteManager.updateEmoteWheel(this.emoteLoadout),
-                void 0 == this.ambientSounds.wavesInst && (this.ambientSounds.wavesInst = this.audioManager.playSound("ambient_waves_01", {
+                this.je.updateEmoteWheel(this.emoteLoadout),
+                void 0 == this.ambientSounds.wavesInst && (this.ambientSounds.wavesInst = this.ce.playSound("ambient_waves_01", {
                     channel: "ambient",
                     startSilent: !0,
                     loop: !0,
                     forceStart: !0
                 })),
-                document.hasFocus() || this.audioManager.playSound("notification_start_01", {
+                document.hasFocus() || this.ce.playSound("notification_start_01", {
                     channel: "ui"
                 }),
                 M.storeGeneric("language", this.config.get("language")),
-                this.resize(),
+                this.$e(),
                 this.initialized = !0
             },
-            free: function() {
+            o: function() {
                 if (this.ws && (this.ws.onmessage = function() {}
                 ,
                 this.ws.close(),
@@ -15762,12 +15683,12 @@ webpackJsonp([0], {
                 this.connected = !1,
                 this.initialized)
                     for (this.initialized = !1,
-                    this.emoteManager.free(),
-                    this.ui2Manager.free(),
-                    this.uiManager.free(),
-                    this.pieTimer.destroy(),
-                    this.map.free(),
-                    this.input.free(); this.pixi.stage.children.length > 0; ) {
+                    this.je.o(),
+                    this.Fe.o(),
+                    this.Be.o(),
+                    this.Le.destroy(),
+                    this.ye.o(),
+                    this.pe.o(); this.pixi.stage.children.length > 0; ) {
                         var e = this.pixi.stage.children[0];
                         this.pixi.stage.removeChild(e),
                         e.destroy({
@@ -15776,384 +15697,418 @@ webpackJsonp([0], {
                         })
                     }
             },
-            warnPageReload: function() {
-                return this.initialized && this.playing && !this.spectating && !this.uiManager.displayingStats
+            et: function() {
+                return this.initialized && this.playing && !this.spectating && !this.Be.displayingStats
             },
-            update: function(e) {
+            l: function(e) {
+                var t = this.Pe.particles
+                  , a = this.ye.U.c()
+                  , i = d.t
+                  , o = 0;
                 this.playing && (this.playingTicker += e),
-                this.playerBarn.update(e, this.activeId, this.renderer, this.particleBarn, this.camera, this.map, this.input, this.audioManager, this.ambientSounds, this.emoteManager.wheelKeyTriggered, this.gameOver, this.spectating),
-                this.camera.pos = h.copy(this.activePlayer.pos),
-                this.camera.applyShake();
-                var t = this.activePlayer.getScopeZoom()
-                  , a = p.min(this.camera.screenWidth, this.camera.screenHeight)
-                  , i = p.max(this.camera.screenWidth, this.camera.screenHeight)
-                  , o = p.max(a * (16 / 9), i);
-                this.camera.targetZoom = .5 * o / (t * this.camera.ppu);
-                var n = this.activePlayer.zoomFast ? 3 : 2
-                  , s = this.activePlayer.zoomFast ? 3 : 1.4
-                  , l = this.camera.targetZoom > this.camera.zoom ? n : s;
-                this.camera.zoom = p.lerp(e * l, this.camera.zoom, this.camera.targetZoom),
-                this.audioManager.cameraPos = h.copy(this.camera.pos),
-                (this.input.keyPressed(C.Key.M) || this.input.keyPressed(C.Key.G)) && this.uiManager.displayMapLarge(!1),
-                this.input.keyPressed(C.Key.Escape) && this.uiManager.toggleEscMenu(),
-                this.input.keyPressed(C.Key.V) && this.uiManager.cycleVisibilityMode();
-                var c = this.activePlayer.pos
-                  , d = this.camera.screenToPoint(this.input.mousePos)
-                  , m = h.sub(d, c)
-                  , g = h.length(m)
-                  , b = g > 1e-5 ? h.div(m, g) : h.create(1, 0);
-                this.emoteManager.wheelDisplayed && (g = this.prevMoveMsg.toMouseLen,
-                b = this.prevMoveMsg.toMouseDir);
-                var y = new u.MoveMsg;
-                if (y.seq = this.seq,
+                this.ve.l(e, this.Ze, this.ge, this.be, this.O, this.ye, this.pe, this.ce, this.ambientSounds, this.je.wheelKeyTriggered, this.gameOver, this.spectating),
+                this.O.pos = h.copy(this.Je.pos),
+                this.O.applyShake();
+                var n = this.Je.tt()
+                  , s = p.min(this.O.screenWidth, this.O.screenHeight)
+                  , l = p.max(this.O.screenWidth, this.O.screenHeight)
+                  , c = p.max(s * (16 / 9), l);
+                this.O.f = .5 * c / (n * this.O.ppu);
+                var m = this.Je.zoomFast ? 3 : 2
+                  , g = this.Je.zoomFast ? 3 : 1.4
+                  , y = this.O.f > this.O.zoom ? m : g;
+                this.O.zoom = p.lerp(e * y, this.O.zoom, this.O.f),
+                this.ce.cameraPos = h.copy(this.O.pos),
+                (this.pe.K(P.Key.M) || this.pe.K(P.Key.G)) && this.Be.displayMapLarge(!1),
+                this.pe.K(P.Key.Escape) && this.Be.toggleEscMenu(),
+                this.pe.K(P.Key.V) && this.Be.cycleVisibilityMode();
+                var x = this.Je.pos
+                  , v = this.O.screenToPoint(this.pe.mousePos)
+                  , _ = h.sub(v, x)
+                  , k = h.length(_)
+                  , w = k > 1e-5 ? h.div(_, k) : h.create(1, 0);
+                this.je.wheelDisplayed && (k = this.prevMoveMsg.toMouseLen,
+                w = this.prevMoveMsg.toMouseDir);
+                var S = new u.MoveMsg;
+                if (S.seq = this.seq,
                 !this.spectating) {
-                    var x = this.input
-                      , v = this.uiManager
-                      , k = this.ui2Manager
-                      , _ = this.touch.getTouchMovement(this.camera);
-                    if (this.touch.moveDetected) {
-                        var w = 255 * p.clamp(_.moveLen, 0, 1);
-                        y.moveLeft = _.left,
-                        y.moveRight = _.right,
-                        y.moveUp = _.up,
-                        y.moveDown = _.down,
-                        y.moveLen = w
+                    var M = this.ue.getTouchMovement(this.O);
+                    if (this.ue.moveDetected) {
+                        var T = 255 * p.clamp(M.moveLen, 0, 1);
+                        S.moveLeft = M.left,
+                        S.moveRight = M.right,
+                        S.moveUp = M.up,
+                        S.moveDown = M.down,
+                        S.moveLen = T
                     } else
-                        y.moveLeft = this.input.keyDown(C.Key.Left) || this.input.keyDown(C.Key.A),
-                        y.moveRight = this.input.keyDown(C.Key.Right) || this.input.keyDown(C.Key.D),
-                        y.moveUp = this.input.keyDown(C.Key.Up) || this.input.keyDown(C.Key.W),
-                        y.moveDown = this.input.keyDown(C.Key.Down) || this.input.keyDown(C.Key.S),
-                        y.moveLen = 255;
+                        S.moveLeft = this.pe.H(P.Key.Left) || this.pe.H(P.Key.A),
+                        S.moveRight = this.pe.H(P.Key.Right) || this.pe.H(P.Key.D),
+                        S.moveUp = this.pe.H(P.Key.Up) || this.pe.H(P.Key.W),
+                        S.moveDown = this.pe.H(P.Key.Down) || this.pe.H(P.Key.S),
+                        S.moveLen = 255;
                     if (f.touch) {
-                        var S = this.activePlayer.localData.curWeapIdx == r.WeaponSlot.Throwable
-                          , M = this.touch.getAimMovement(S, this.camera);
-                        y.toMouseDir = M.toAimDir;
-                        var T = M.toAimLen / 10;
-                        y.toMouseLen = Math.min(T, u.kMouseMaxLen)
+                        var C = this.Je.j.curWeapIdx == r.WeaponSlot.Throwable
+                          , I = this.ue.getAimMovement(C, this.O);
+                        S.toMouseDir = I.toAimDir;
+                        var z = I.toAimLen / 10;
+                        S.toMouseLen = Math.min(z, u.kMouseMaxLen)
                     } else
-                        y.toMouseDir = h.copy(b),
-                        y.toMouseLen = Math.min(g, u.kMouseMaxLen);
-                    y.shootStart = x.mousePressed() || this.touch.shotDetected,
-                    y.shootHold = x.mouseDown() || this.touch.shotDetected,
-                    y.reload = x.keyPressed(C.Key.R) || v.reloadTouched,
-                    y.interaction = x.keyPressed(C.Key.F) || v.interactionTouched,
-                    y.cancelAction = x.keyPressed(C.Key.X) || v.interactionTouched,
-                    y.equipPrimary = x.keyPressed(C.Key.One) || 0 == k.switchWeaponIdx,
-                    y.equipSecondary = x.keyPressed(C.Key.Two) || 1 == k.switchWeaponIdx,
-                    y.equipThrowable = x.keyPressed(C.Key.Four) || 3 == k.switchWeaponIdx,
-                    y.equipMelee = x.keyPressed(C.Key.Three) || x.keyPressed(C.Key.E) || 2 == k.switchWeaponIdx,
-                    y.equipLast = x.keyPressed(C.Key.Q),
-                    y.scrollDown = x.mouseWheel() > 0,
-                    y.scrollUp = x.mouseWheel() < 0,
-                    y.portrait = this.camera.screenWidth < this.camera.screenHeight;
-                    for (var P = 0; P < k.uiEvents.length; P++) {
-                        var I = k.uiEvents[P];
-                        if ("use" == I.action)
-                            if ("weapon" == I.type)
-                                switch (I.data) {
+                        S.toMouseDir = h.copy(w),
+                        S.toMouseLen = Math.min(k, u.kMouseMaxLen);
+                    S.shootStart = this.pe.J() || this.ue.shotDetected,
+                    S.shootHold = this.pe.Z() || this.ue.shotDetected,
+                    S.reload = this.pe.K(P.Key.R) || this.Be.reloadTouched,
+                    S.interaction = this.pe.K(P.Key.F) || this.Be.interactionTouched,
+                    S.cancelAction = this.pe.K(P.Key.X) || this.Be.interactionTouched,
+                    S.equipPrimary = this.pe.K(P.Key.One),
+                    S.equipSecondary = this.pe.K(P.Key.Two),
+                    S.equipThrowable = this.pe.K(P.Key.Four),
+                    S.equipMelee = this.pe.K(P.Key.Three) || this.pe.K(P.Key.E),
+                    S.equipLast = this.pe.K(P.Key.Q),
+                    S.scrollDown = this.pe.te() > 0,
+                    S.scrollUp = this.pe.te() < 0,
+                    S.portrait = this.O.screenWidth < this.O.screenHeight,
+                    S.swapWeapSlots = this.pe.K(P.Key.T) || this.Be.swapWeapSlots,
+                    S.swapWeapSlots && (this.Je.gunSwitchCooldown = 0);
+                    for (var A = 0; A < this.Fe.uiEvents.length; A++) {
+                        var D = this.Fe.uiEvents[A];
+                        if ("use" == D.action)
+                            if ("weapon" == D.type)
+                                switch (D.data) {
                                 case 0:
-                                    y.equipPrimary = !0;
+                                    S.equipPrimary = !0;
                                     break;
                                 case 1:
-                                    y.equipSecondary = !0;
+                                    S.equipSecondary = !0;
                                     break;
                                 case 2:
-                                    y.equipMelee = !0;
+                                    S.equipMelee = !0;
                                     break;
                                 case 3:
-                                    y.equipThrowable = !0
+                                    S.equipThrowable = !0
                                 }
                             else
-                                "scope" == I.type ? y.useScope = I.data : y.useItem = I.data
+                                "scope" == D.type ? S.useScope = D.data : S.useItem = D.data
                     }
-                    "" === y.useItem && (y.useItem = x.keyPressed(C.Key.Seven) ? "bandage" : x.keyPressed(C.Key.Eight) ? "healthkit" : x.keyPressed(C.Key.Nine) ? "soda" : x.keyPressed(C.Key.Zero) ? "painkiller" : "");
-                    for (var z = !1, A = 0; A < k.uiEvents.length; A++) {
-                        var D = k.uiEvents[A];
-                        if ("drop" == D.action) {
-                            var O = new u.DropItemMsg;
-                            if ("weapon" == D.type) {
-                                var E = this.activePlayer.localData.weapons;
-                                O.item = E[D.data].name,
-                                O.weapIdx = D.data
+                    "" === S.useItem && (S.useItem = this.pe.K(P.Key.Seven) ? "bandage" : this.pe.K(P.Key.Eight) ? "healthkit" : this.pe.K(P.Key.Nine) ? "soda" : this.pe.K(P.Key.Zero) ? "painkiller" : "");
+                    for (var O = !1, L = 0; L < this.Fe.uiEvents.length; L++) {
+                        var E = this.Fe.uiEvents[L];
+                        if ("drop" == E.action) {
+                            var B = new u.DropItemMsg;
+                            if ("weapon" == E.type) {
+                                var F = this.Je.j.weapons;
+                                B.item = F[E.data].name,
+                                B.weapIdx = E.data
                             } else {
-                                var L = "";
-                                L = "helmet" == D.data ? this.activePlayer.netData.helmet : "chest" == D.data ? this.activePlayer.netData.chest : D.data,
-                                O.item = L
+                                var R = "";
+                                R = "helmet" == E.data ? this.Je.B.helmet : "chest" == E.data ? this.Je.B.chest : E.data,
+                                B.item = R
                             }
-                            "" != O.item && (this.sendMessage(u.Msg.DropItem, O),
-                            z = !0)
+                            "" != B.item && (this.me(u.Msg.DropItem, B),
+                            O = !0)
                         }
                     }
-                    z && this.audioManager.playSound("loot_drop_01", {
+                    O && this.ce.playSound("loot_drop_01", {
                         channel: "ui"
                     })
                 }
-                var B = this.uiManager.specNext || this.spectating && this.input.keyPressed(C.Key.Right)
-                  , F = this.uiManager.specPrev || this.spectating && this.input.keyPressed(C.Key.Left);
-                if (this.uiManager.beginSpectating || B || F) {
+                var j = this.Be.specNext || this.spectating && this.pe.K(P.Key.Right)
+                  , N = this.Be.specPrev || this.spectating && this.pe.K(P.Key.Left);
+                if (this.Be.beginSpectating || j || N) {
                     this.gameOver = !1;
-                    var R = new u.SpectateMsg;
-                    R.specNext = B,
-                    R.specPrev = F,
-                    this.sendMessage(u.Msg.Spectate, R)
+                    var q = new u.SpectateMsg;
+                    q.specNext = j,
+                    q.specPrev = N,
+                    this.me(u.Msg.Spectate, q)
                 }
-                this.uiManager.beginSpectating = !1,
-                this.uiManager.specNext = !1,
-                this.uiManager.specPrev = !1,
-                this.uiManager.reloadTouched = !1,
-                this.uiManager.interactionTouched = !1;
-                var j = !1;
-                for (var N in y)
-                    if (y.hasOwnProperty(N)) {
-                        if ("toMouseDir" == N) {
-                            var q = p.clamp(h.dot(y[N], this.prevMoveMsg[N]), -1, 1)
-                              , V = p.rad2deg(Math.acos(q));
-                            j = V > .4
+                this.Be.beginSpectating = !1,
+                this.Be.specNext = !1,
+                this.Be.specPrev = !1,
+                this.Be.reloadTouched = !1,
+                this.Be.interactionTouched = !1,
+                this.Be.swapWeapSlots = !1;
+                var V = !1;
+                for (var G in S)
+                    if (S.hasOwnProperty(G)) {
+                        if ("toMouseDir" == G) {
+                            var U = p.clamp(h.dot(S[G], this.prevMoveMsg[G]), -1, 1)
+                              , W = p.rad2deg(Math.acos(U));
+                            V = W > .4
                         } else
-                            "toMouseLen" == N ? j = Math.abs(this.prevMoveMsg[N] - y[N]) > .5 : "shootStart" == N ? j = y[N] || y[N] != this.prevMoveMsg[N] : this.prevMoveMsg[N] != y[N] && (j = !0);
-                        if (j)
+                            "toMouseLen" == G ? V = Math.abs(this.prevMoveMsg[G] - S[G]) > .5 : "shootStart" == G ? V = S[G] || S[G] != this.prevMoveMsg[G] : this.prevMoveMsg[G] != S[G] && (V = !0);
+                        if (V)
                             break
                     }
-                this.moveMsgTimeout -= e,
-                (j || this.moveMsgTimeout < 0) && (this.seqInFlight || (this.seq = (this.seq + 1) % 256,
+                if (this.moveMsgTimeout -= e,
+                (V || this.moveMsgTimeout < 0) && (this.seqInFlight || (this.seq = (this.seq + 1) % 256,
                 this.seqSendTime = (new Date).getTime(),
                 this.seqInFlight = !0,
-                y.seq = this.seq),
-                this.sendMessage(u.Msg.Move, y),
+                S.seq = this.seq),
+                this.me(u.Msg.Move, S),
                 this.moveMsgTimeout = 1,
-                this.prevMoveMsg = y),
-                this.ui2Manager.flushInput(),
-                this.map.update(e, this.activePlayer, this.particleBarn, this.audioManager, this.renderer, this.camera),
-                this.lootBarn.update(e, this.activePlayer, this.camera),
-                this.bulletBarn.update(e, this.playerBarn, this.map, this.camera, this.activePlayer, this.renderer, this.particleBarn, this.audioManager),
-                this.projectileBarn.update(e, this.particleBarn, this.audioManager, this.activePlayer, this.map, this.renderer, this.camera),
-                this.explosionBarn.update(e, this.map, this.camera, this.particleBarn, this.audioManager),
-                this.smokeBarn.update(e, this.camera, this.activePlayer, this.map, this.renderer),
-                this.shotBarn.update(e, this.activeId, this.playerBarn, this.particleBarn, this.audioManager),
-                this.particleBarn.update(e, this.camera),
-                this.deadBodyBarn.update(e, this.playerBarn, this.activePlayer, this.map, this.camera, this.renderer),
-                this.decalBarn.update(e, this.map, this.camera),
-                this.pieTimer.update(e, this.activePlayer, this.camera),
-                this.uiManager.update(e, this.activePlayer, this.activeId == this.localId, this.map, this.gas, this.lootBarn, this.playerBarn, this.camera, this.teamMode, this.input),
-                this.ui2Manager.update(e, this.activePlayer, this.spectating, this.playerBarn, this.lootBarn, this.map),
-                this.emoteManager.update(e, this.localId, this.activePlayer, this.input.mousePos, this.teamMode, this.deadBodyBarn, this.renderer),
-                this.touch.updateDisplay(),
-                this.renderer.update(e, this.camera, this.map);
-                for (var G = 0; G < this.emoteManager.newPings.length; G++) {
-                    var U = this.emoteManager.newPings[G]
-                      , W = new u.EmoteMsg;
-                    W.type = U.type,
-                    W.pos = U.pos,
-                    W.useLoadout = !1,
-                    W.teamOnly = !0,
-                    W.isPing = !0,
-                    this.sendMessage(u.Msg.Emote, W)
+                this.prevMoveMsg = S),
+                this.Fe.flushInput(),
+                this.ye.l(e, this.Je, this.be, this.ce, this.ge, this.O),
+                this.ze.l(e, this.Je, this.O),
+                this.ke.l(e, this.ve, this.ye, this.O, this.Je, this.ge, this.be, this.ce),
+                this.Se.l(e, this.be, this.ce, this.Je, this.ye, this.ge, this.O),
+                this.Te.l(e, this.ye, this.O, this.be, this.ce),
+                this.Pe.l(e, this.O, this.Je, this.ye, this.ge),
+                this.qe.l(e, this.Ze, this.ve, this.be, this.ce),
+                this.be.l(e, this.O),
+                this.Ce.l(e, this.ve, this.Je, this.ye, this.O, this.ge),
+                this.Ie.l(e, this.ye, this.O),
+                this.Le.l(e, this.Je, this.O),
+                this.Be.l(e, this.Je, this.Ze == this.Ye, this.ye, this.De, this.ze, this.ve, this.O, this.teamMode, this.pe),
+                this.Fe.l(e, this.Je, this.spectating, this.ve, this.ze, this.ye),
+                this.je.l(e, this.Ye, this.Je, this.pe.mousePos, this.teamMode, this.Ce, this.ge),
+                this.ue.updateDisplay(),
+                this.ge.l(e, this.O, this.ye),
+                this.Qe) {
+                    for (var H = 0; H < t.length; H++) {
+                        var K = t[H];
+                        K.active && !K.fade && i(K, .8) && o++
+                    }
+                    for (var X = 0; X < a.length; X++) {
+                        var Y = a[X];
+                        Y.active && !Y.dead && i(Y, .95) && o++
+                    }
                 }
-                this.emoteManager.newPings = [];
-                for (var H = 0; H < this.emoteManager.newEmotes.length; H++) {
-                    var K = this.emoteManager.newEmotes[H]
-                      , X = new u.EmoteMsg;
-                    X.type = K.type,
-                    X.pos = K.pos,
-                    X.useLoadout = K.useLoadout,
-                    X.teamOnly = !1,
-                    X.isPing = !1,
-                    this.sendMessage(u.Msg.Emote, X)
+                for (var Z = 0; Z < this.je.newPings.length; Z++) {
+                    var J = this.je.newPings[Z]
+                      , Q = new u.EmoteMsg;
+                    Q.type = J.type,
+                    Q.pos = J.pos,
+                    Q.useLoadout = !1,
+                    Q.teamOnly = !0,
+                    Q.isPing = !0,
+                    this.me(u.Msg.Emote, Q)
                 }
-                this.emoteManager.newEmotes = [],
-                this.render(e),
-                this.input.flush()
+                this.je.newPings = [];
+                for (var $ = 0; $ < this.je.newEmotes.length; $++) {
+                    var ee = this.je.newEmotes[$]
+                      , te = new u.EmoteMsg;
+                    te.type = ee.type,
+                    te.pos = ee.pos,
+                    te.useLoadout = ee.useLoadout,
+                    te.teamOnly = !1,
+                    te.isPing = !1,
+                    this.me(u.Msg.Emote, te)
+                }
+                this.je.newEmotes = [],
+                this.at(e),
+                this.pe.flush(),
+                o && b.w()
             },
-            render: function(e) {
+            at: function(e) {
                 this.pixi.renderer.backgroundColor = g.background,
-                this.playerBarn.render(this.camera),
-                this.bulletBarn.render(this.camera),
-                this.map.render(this.camera),
-                this.gas.render(this.camera),
-                this.uiManager.render(this.activePlayer.pos, this.gas, this.camera, this.map),
-                this.emoteManager.render(this.camera),
-                this.pieTimer.render(this.camera),
-                k.flush()
+                this.ve.render(this.O),
+                this.ke.render(this.O),
+                this.ye.render(this.O),
+                this.De.render(this.O),
+                this.Be.render(this.Je.pos, this.De, this.O, this.ye),
+                this.je.render(this.O),
+                this.Le.render(this.O),
+                _.flush()
             },
-            resize: function() {
+            $e: function() {
                 var e = b.getScreenDimensions()
                   , t = e.width;
                 b.isLandscape() || (t = e.height),
                 f.layout = t <= 850 || f.mobile ? f.Layout.Sm : f.Layout.Lg,
-                this.camera.screenWidth = e.width,
-                this.camera.screenHeight = e.height,
-                this.map.resize(this.pixi.renderer),
-                this.gas.resize(),
-                this.uiManager.resize(this.camera),
-                this.touch.resize(),
-                this.renderer.resize(this.camera)
+                this.O.screenWidth = e.width,
+                this.O.screenHeight = e.height,
+                this.ye.resize(this.pixi.renderer),
+                this.De.resize(),
+                this.Be.resize(this.O),
+                this.ue.resize(),
+                this.ge.resize(this.O)
             },
-            processGameUpdate: function(e) {
+            it: function(e) {
                 for (var t = {
-                    renderer: this.renderer,
-                    particleBarn: this.particleBarn,
-                    map: this.map,
-                    smokeBarn: this.smokeBarn
-                }, a = 0; a < e.delObjIds.length; a++) {
-                    e.delObjIds[a];
-                    this.objectCreator.deleteObj(e.delObjIds[a])
-                }
+                    renderer: this.ge,
+                    particleBarn: this.be,
+                    map: this.ye,
+                    smokeBarn: this.Pe
+                }, a = 0; a < e.delObjIds.length; a++)
+                    e.delObjIds[a],
+                    this.Xe.deleteObj(e.delObjIds[a]);
                 for (var i = 0; i < e.fullObjects.length; i++) {
                     var o = e.fullObjects[i];
-                    this.objectCreator.updateObjFull(o.__type, o.__id, o, t)
+                    this.Xe.updateObjFull(o.__type, o.__id, o, t)
                 }
                 for (var n = 0; n < e.partObjects.length; n++) {
                     var r = e.partObjects[n];
-                    this.objectCreator.updateObjPart(r.__id, r, t)
+                    this.Xe.updateObjPart(r.__id, r, t)
                 }
-                e.activePlayerIdDirty && (this.activeId = e.activePlayerId),
-                this.spectating = this.activeId != this.localId,
-                this.activePlayer = this.playerBarn.getPlayerById(this.activeId),
-                this.activePlayer.setLocalData(e.activePlayerData, this.playerBarn),
-                this.spectating && (this.uiManager.setSpectating(!0),
-                this.uiManager.setSpectatedPlayer(this.activeId, this.playerBarn.getPlayerInfo(this.activeId).name),
-                this.touch.hideAll()),
-                this.activePlayer.layer = this.activePlayer.netData.layer,
-                this.renderer.setActiveLayer(this.activePlayer.layer),
-                this.audioManager.activeLayer = this.activePlayer.layer,
-                e.aliveDirty && this.uiManager.updatePlayersAlive(e.aliveCount),
-                this.gas.setProgress(e.gasT),
-                e.gasDirty && this.gas.setFullState(e.gasT, e.gasData, this.map, this.uiManager);
-                for (var s = 0; s < e.teams.length; s++)
-                    this.playerBarn.setTeamInfo(e.teams[s]);
-                for (var l = this.playerBarn.getPlayerInfo(this.activeId).teamId, c = this.playerBarn.getTeamInfo(l), d = 0; d < e.teamData.length; d++) {
-                    var m = e.teamData[d];
-                    this.playerBarn.setTeammateData(c.playerIds[m.playerIdx], m)
+                if (e.activePlayerIdDirty && (this.Ze = e.activePlayerId),
+                this.spectating = this.Ze != this.Ye,
+                this.Je = this.ve.oe(this.Ze),
+                this.Je.ot(e.activePlayerData, this.ve),
+                e.activePlayerData.weapsDirty && (this.Be.weapsDirty = !0),
+                this.spectating) {
+                    this.Be.setSpectating(!0);
+                    var s = this.ve.N(this.Ze)
+                      , l = this.anonPlayerNames && 1 == this.teamMode ? s.anonName : s.name;
+                    this.Be.setSpectatedPlayer(this.Ze, l),
+                    this.ue.hideAll()
                 }
-                for (var p = 0; p < e.bullets.length; p++) {
-                    var u = e.bullets[p];
-                    this.bulletBarn.addBullet(u, this.playerBarn, this.renderer),
-                    u.shotFx && this.shotBarn.addShot(u.pos, u.layer, u.playerId, u.shotSourceType, u.shotOffhand)
+                this.Je.layer = this.Je.B.layer,
+                this.ge.setActiveLayer(this.Je.layer),
+                this.ce.activeLayer = this.Je.layer,
+                e.aliveDirty && this.Be.updatePlayersAlive(e.aliveCount),
+                this.De.setProgress(e.gasT),
+                e.gasDirty && this.De.setFullState(e.gasT, e.gasData, this.ye, this.Be);
+                for (var c = 0; c < e.teams.length; c++)
+                    this.ve.setTeamInfo(e.teams[c]);
+                for (var m = this.ve.N(this.Ze).teamId, d = this.ve.getTeamInfo(m), p = 0; p < e.teamData.length; p++) {
+                    var u = e.teamData[p];
+                    this.ve.setTeammateData(d.playerIds[u.playerIdx], u)
                 }
-                for (var h = 0; h < e.explosions.length; h++) {
-                    var g = e.explosions[h];
-                    this.explosionBarn.addExplosion(g.type, g.pos, g.layer)
+                for (var h = 0; h < e.bullets.length; h++) {
+                    var g = e.bullets[h];
+                    this.ke.addBullet(g, this.ve, this.ge),
+                    g.shotFx && this.qe.addShot(g.pos, g.layer, g.playerId, g.shotSourceType, g.shotOffhand)
                 }
-                for (var f = 0; f < e.emotes.length; f++) {
-                    var b = e.emotes[f];
-                    b.isPing ? this.emoteManager.addPing(b) : this.emoteManager.addEmote(b)
+                for (var f = 0; f < e.explosions.length; f++) {
+                    var b = e.explosions[f];
+                    this.Te.addExplosion(b.type, b.pos, b.layer)
+                }
+                for (var y = 0; y < e.emotes.length; y++) {
+                    var x = e.emotes[y];
+                    x.isPing ? this.je.addPing(x) : this.je.addEmote(x)
                 }
             },
-            onMessage: function(e, t) {
+            de: function(e, t) {
+                var a = this;
                 switch (e) {
                 case u.Msg.Joined:
-                    var a = new u.JoinedMsg;
-                    a.deserialize(t),
+                    var i = new u.JoinedMsg;
+                    i.deserialize(t),
                     this.onJoin(),
-                    this.teamMode = a.teamMode,
-                    this.localId = a.playerId;
-                    for (var i = 0; i < a.playerInfoMsgs.length; i++) {
-                        var o = a.playerInfoMsgs[i];
-                        this.playerBarn.setPlayerInfo(o);
-                        this.playerBarn.getPlayerById(o.id)
+                    this.teamMode = i.teamMode,
+                    this.Ye = i.playerId,
+                    this.Qe = 2 & i.gameOpts;
+                    for (var o = 0; o < i.playerInfoMsgs.length; o++) {
+                        var n = i.playerInfoMsgs[o];
+                        this.ve.nt(n),
+                        this.ve.oe(n.id)
                     }
-                    a.started || this.uiManager.setWaitingForPlayers(!0),
-                    this.uiManager.removeAds(),
+                    i.started || this.Be.setWaitingForPlayers(!0),
+                    this.Be.removeAds(),
                     this.victoryMusic && (this.victoryMusic.stop(),
-                    this.victoryMusic = null);
+                    this.victoryMusic = null),
+                    1 & i.gameOpts && b.I(this.config.useLocalStorage, this.ws);
                     break;
                 case u.Msg.PlayerInfo:
-                    var n = new u.PlayerInfoMsg;
-                    n.deserialize(t),
-                    this.playerBarn.setPlayerInfo(n);
+                    var s = new u.PlayerInfoMsg;
+                    s.deserialize(t),
+                    this.ve.nt(s);
                     break;
                 case u.Msg.Map:
-                    var s = new u.MapMsg;
-                    s.deserialize(t),
-                    this.map.setData(s.width, s.height, s.seed, s.places, s.objects, this.camera),
-                    this.map.renderMap(this.pixi.renderer);
+                    var l = new u.MapMsg;
+                    l.deserialize(t),
+                    this.ye.setData(l.width, l.height, l.seed, l.places, l.objects, this.O),
+                    this.ye.renderMap(this.pixi.renderer);
                     break;
                 case u.Msg.Update:
-                    var l = new u.UpdateMsg;
-                    l.deserialize(t, this.objectCreator),
+                    var c = new u.UpdateMsg;
+                    c.deserialize(t, this.Xe),
                     this.playing = !0,
-                    this.processGameUpdate(l);
+                    this.it(c);
                     break;
                 case u.Msg.Kill:
-                    var c = new u.KillMsg;
-                    c.deserialize(t);
-                    var d = (this.playerBarn.getPlayerById(c.targetId),
-                    this.playerBarn.getPlayerInfo(c.targetId))
-                      , m = this.playerBarn.getPlayerInfo(c.killCreditId)
-                      , p = c.itemSourceType || c.mapSourceType
-                      , h = this.localization.translate("game-" + p);
-                    c.killCreditId == this.activeId ? this.uiManager.showKill({
-                        name: m.name,
-                        kills: c.killerKills,
-                        completeKill: c.killerId == this.activeId
+                    var m = new u.KillMsg;
+                    m.deserialize(t);
+                    var d = (this.ve.oe(m.targetId),
+                    this.ve.N(m.targetId))
+                      , p = this.ve.N(m.killCreditId)
+                      , h = m.itemSourceType || m.mapSourceType
+                      , g = this.localization.translate("game-" + h)
+                      , f = this.ve.N(this.Ze).teamId
+                      , y = m.downed && !m.killed || m.damageType == r.DamageType.Gas || m.damageType == r.DamageType.Bleeding
+                      , x = y ? p : this.ve.N(m.killerId)
+                      , v = d.name
+                      , _ = p.name
+                      , k = x.name;
+                    if (this.anonPlayerNames) {
+                        var w = function(e) {
+                            return e.playerId == a.Ze || e.teamId == f
+                        };
+                        w(d) || (v = d.anonName),
+                        w(p) || (_ = p.anonName),
+                        w(x) || (k = x.anonName)
+                    }
+                    m.killCreditId == this.Ze ? this.Be.showKill({
+                        name: _,
+                        kills: m.killerKills,
+                        completeKill: m.killerId == this.Ze
                     }, {
-                        name: d.name,
-                        suicide: c.killerId == c.targetId || c.killCreditId == c.targetId,
-                        killed: c.killed,
-                        downed: c.downed,
-                        teamKill: d.teamId == m.teamId
-                    }, h, this.spectating) : c.targetId == this.activeId && c.downed && !c.killed && this.uiManager.showDowned({
-                        name: m.name,
-                        damageType: c.damageType
+                        name: v,
+                        suicide: m.killerId == m.targetId || m.killCreditId == m.targetId,
+                        killed: m.killed,
+                        downed: m.downed,
+                        teamKill: d.teamId == p.teamId
+                    }, g, this.spectating) : m.targetId == this.Ze && m.downed && !m.killed && this.Be.showDowned({
+                        name: _,
+                        damageType: m.damageType
                     }, {
-                        name: d.name,
-                        suicide: c.killerId == c.targetId || c.killCreditId == c.targetId
-                    }, h, this.spectating);
-                    var g = c.downed && !c.killed || c.damageType == r.DamageType.Gas || c.damageType == r.DamageType.Bleeding ? m : this.playerBarn.getPlayerInfo(c.killerId)
-                      , f = this.playerBarn.getPlayerInfo(this.activeId).teamId
-                      , b = this.ui2Manager.getKillFeedText(d.nameKillFeed, g.nameKillFeed, h, c.damageType, c.downed && !c.killed)
-                      , y = this.ui2Manager.getKillFeedColor(f, d.teamId, m.teamId);
-                    this.ui2Manager.addKillFeed(b, y),
-                    c.type == r.DamageType.Player && this.bulletBarn.createBulletHit(this.playerBarn, c.targetId, this.audioManager);
+                        name: v,
+                        suicide: m.killerId == m.targetId || m.killCreditId == m.targetId
+                    }, g, this.spectating);
+                    var S = this.Fe.getKillFeedText(v, k, g, m.damageType, m.downed && !m.killed)
+                      , M = this.Fe.getKillFeedColor(f, d.teamId, p.teamId);
+                    this.Fe.addKillFeed(S, M),
+                    m.type == r.DamageType.Player && this.ke.createBulletHit(this.ve, m.targetId, this.ce);
                     break;
                 case u.Msg.PlayerStats:
-                    var x = new u.PlayerStatsMsg;
-                    x.deserialize(t),
-                    this.uiManager.setLocalStats(x.playerStats);
+                    var T = new u.PlayerStatsMsg;
+                    T.deserialize(t),
+                    this.Be.setLocalStats(T.playerStats);
                     break;
                 case u.Msg.GameOver:
-                    var v = new u.GameOverMsg;
-                    v.deserialize(t),
-                    this.gameOver = v.gameOver,
-                    this.uiManager.showStats({
-                        victory: v.victory,
+                    var P = new u.GameOverMsg;
+                    P.deserialize(t),
+                    this.gameOver = P.gameOver,
+                    this.Be.showStats({
+                        victory: P.victory,
                         spectating: this.spectating,
-                        gameOver: v.gameOver,
-                        stats: v.playerStats,
-                        teamRank: v.teamRank,
+                        gameOver: P.gameOver,
+                        stats: P.playerStats,
+                        teamRank: P.teamRank,
                         teamMode: this.teamMode
-                    }, this.playerBarn),
-                    this.touch.hideAll(),
-                    v.victory && (!this.spectating || this.teamMode > 1) && (this.victoryMusic = this.audioManager.playSound("menu_music", {
+                    }, this.ve),
+                    this.ue.hideAll(),
+                    P.victory && (!this.spectating || this.teamMode > 1) && (this.victoryMusic = this.ce.playSound("menu_music", {
                         channel: "music",
                         delay: 1300,
                         forceStart: !0
                     }));
                     break;
                 case u.Msg.Pickup:
-                    var k = new u.PickupMsg;
-                    if (k.deserialize(t),
-                    k.type == u.PickupMsgType.Success && k.item) {
-                        var _ = r.items[k.item];
-                        this.audioManager.playSound(_.sound.pickup, {
+                    var C = new u.PickupMsg;
+                    if (C.deserialize(t),
+                    C.type == u.PickupMsgType.Success && C.item) {
+                        var I = r.items[C.item];
+                        this.ce.playSound(I.sound.pickup, {
                             channel: "ui"
                         }),
-                        "throwable" == _.type && (this.activePlayer.lastThrowablePickupSfxTicker = .3)
+                        "throwable" == I.type && (this.Je.lastThrowablePickupSfxTicker = .3)
                     } else
-                        this.ui2Manager.displayPickupMessage(k.type);
+                        this.Fe.displayPickupMessage(C.type);
                     break;
                 case u.Msg.Disconnect:
-                    var w = new u.DisconnectMsg;
-                    w.deserialize(t),
-                    this.disconnectMsg = this.localization.translate(w.reason)
+                    var z = new u.DisconnectMsg;
+                    z.deserialize(t),
+                    this.disconnectMsg = this.localization.translate(z.reason)
                 }
             },
-            sendMessage: function(e, t) {
+            me: function(e, t) {
                 var a = new u.MsgStream(new ArrayBuffer(4096));
                 a.serializeMsg(e, t),
-                this.sendMessageImpl(a)
+                this.rt(a)
             },
-            sendMessageImpl: function(e) {
+            rt: function(e) {
                 if (this.ws && this.ws.readyState == this.ws.OPEN)
                     try {
                         this.ws.send(e.getBuffer())
@@ -16168,9 +16123,9 @@ webpackJsonp([0], {
               , a = function(e) {
                 "none" != e && -1 == t.indexOf(e) && t.push(e)
             };
-            for (var i in m.Defs)
-                if (m.Defs.hasOwnProperty(i)) {
-                    var o = m.Defs[i]
+            for (var i in d.Defs)
+                if (d.Defs.hasOwnProperty(i)) {
+                    var o = d.Defs[i]
                       , s = o.img;
                     if (void 0 !== s && (void 0 !== s.sprite && a(s.sprite),
                     void 0 !== s.residue && a(s.residue)),
@@ -16192,25 +16147,27 @@ webpackJsonp([0], {
                             void 0 !== u.handImg[h].right && "none" !== u.handImg[h].right && a(u.handImg[h].right.sprite),
                             void 0 !== u.handImg[h].left && "none" !== u.handImg[h].left && a(u.handImg[h].left.sprite)
                 }
-            for (var g in D.Defs)
-                if (D.Defs.hasOwnProperty(g) && void 0 !== D.Defs[g].image)
-                    for (var f = D.Defs[g].image, b = 0; b < f.length; b++)
+            for (var g in A.Defs)
+                if (A.Defs.hasOwnProperty(g) && void 0 !== A.Defs[g].image)
+                    for (var f = A.Defs[g].image, b = 0; b < f.length; b++)
                         a(f[b]);
-            for (var y in d)
-                d.hasOwnProperty(y) && void 0 !== d[y].texture && a(d[y].texture);
+            for (var y in m)
+                m.hasOwnProperty(y) && void 0 !== m[y].texture && a(m[y].texture);
             var x = Math.max(window.screen.width, window.screen.height)
               , v = Math.min(window.screen.width, window.screen.height);
             x *= window.devicePixelRatio,
             v *= window.devicePixelRatio;
-            for (var k = x < 1366 && v < 768, _ = k ? .5 : 1, w = 0; w < t.length; w++) {
-                var S = n.Texture.fromImage(t[w], void 0, void 0, _);
-                S.baseTexture.resolution = _,
+            for (var _ = x < 1366 && v < 768, k = _ ? .5 : 1, w = 0; w < t.length; w++) {
+                var S = n.Texture.fromImage(t[w], void 0, void 0, k);
+                S.baseTexture.resolution = k,
                 e.plugins.prepare.upload(S.baseTexture)
             }
             e.plugins.prepare.limiter.maxItemsPerFrame = 1
         }
         ,
-        e.exports = o
+        e.exports = {
+            st: o
+        }
     },
     "9e5281a7": function(e, t, a) {
         "use strict";
@@ -16443,25 +16400,25 @@ webpackJsonp([0], {
             this.container.addChild(this.sprite)
         }
         function o() {
-            this.lootPool = new d.Pool(i),
-            this.closestLoot = null
+            this.Ge = new m.Pool(i),
+            this.lt = null
         }
-        var n = a("80ac57a6")
+        var n = a("8b1dfb45")
           , r = a("989ad62a")
           , s = a("10899aea")
           , l = a("1901e2d9")
           , c = a("c2a798c8")
-          , d = (a("ce29f17f"),
+          , m = (a("ce29f17f"),
         a("af8ba00f"),
         a("753d6e4b"))
-          , m = a("c60b5e9f")
-          , p = m.RenderType;
+          , d = a("c60b5e9f")
+          , p = d.RenderType;
         i.prototype = {
-            init: function() {},
-            free: function() {
+            a: function() {},
+            o: function() {
                 this.container.visible = !1
             },
-            updateData: function(e, t, a, i) {
+            n: function(e, t, a, i) {
                 if (this.pos = c.copy(e.pos),
                 t && (this.layer = e.layer,
                 this.name = e.name,
@@ -16483,35 +16440,35 @@ webpackJsonp([0], {
             }
         },
         o.prototype = {
-            update: function(e, t, a) {
-                this.closestLoot = null;
-                for (var i = Number.MAX_VALUE, o = this.lootPool.getPool(), n = 0; n < o.length; n++) {
-                    var d = o[n];
-                    if (d.active) {
-                        if (l.sameLayer(d.layer, t.layer)) {
-                            var m = d.pos
-                              , p = r.items[d.name].rad + r.player.radius
-                              , u = c.sub(t.pos, m)
+            l: function(e, t, a) {
+                this.lt = null;
+                for (var i = Number.MAX_VALUE, o = this.Ge.c(), n = 0; n < o.length; n++) {
+                    var m = o[n];
+                    if (m.active) {
+                        if (l.sameLayer(m.layer, t.layer)) {
+                            var d = m.pos
+                              , p = r.items[m.name].rad + r.player.radius
+                              , u = c.sub(t.pos, d)
                               , h = c.lengthSqr(u);
                             h < p * p && h < i && (i = h,
-                            this.closestLoot = d)
+                            this.lt = m)
                         }
-                        d.ticker += e;
-                        var g = s.delerp(d.ticker, 0, 1)
+                        m.ticker += e;
+                        var g = s.delerp(m.ticker, 0, 1)
                           , f = s.easeOutElastic(g, .75)
-                          , b = a.pointToScreen(d.pos)
-                          , y = a.pixels(d.imgScale * f);
-                        d.container.position.set(b.x, b.y),
-                        d.container.scale.set(y, y)
+                          , b = a.pointToScreen(m.pos)
+                          , y = a.pixels(m.imgScale * f);
+                        m.container.position.set(b.x, b.y),
+                        m.container.scale.set(y, y)
                     }
                 }
             },
-            getClosestLoot: function() {
-                return this.closestLoot
+            ct: function() {
+                return this.lt
             }
         },
         e.exports = {
-            LootBarn: o
+            Ae: o
         }
     },
     a508b62a: function(e, t, a) {
@@ -16524,15 +16481,11 @@ webpackJsonp([0], {
             }
             return Array.from(e)
         }
-        function o(e, t) {
-            if (!(e instanceof t))
-                throw new TypeError("Cannot call a class as a function")
-        }
-        function n() {
+        function o() {
             var e = {
                 fontFamily: "Arial",
                 fontWeight: "bold",
-                fontSize: k.pixelRatio > 1 ? 30 : 22,
+                fontSize: _.pixelRatio > 1 ? 30 : 22,
                 align: "center",
                 fill: 65535,
                 stroke: 0,
@@ -16549,27 +16502,196 @@ webpackJsonp([0], {
             t.position.set(0, 30),
             t
         }
-        var r = function() {
-            function e(e, t) {
-                for (var a = 0; a < t.length; a++) {
-                    var i = t[a];
-                    i.enumerable = i.enumerable || !1,
-                    i.configurable = !0,
-                    "value"in i && (i.writable = !0),
-                    Object.defineProperty(e, i.key, i)
-                }
-            }
-            return function(t, a, i) {
-                return a && e(t.prototype, a),
-                i && e(t, i),
-                t
-            }
-        }()
-          , s = a("80ac57a6")
+        function n() {
+            this.container = new s.Container,
+            this.gunContainerL = new s.Container,
+            this.gunContainerR = new s.Container,
+            this.skinType = "outfitBase";
+            var e = l.items[this.skinType];
+            this.footSpriteName = "img/player/player-feet-01.svg",
+            this.footLt = h.create(-20, -35),
+            this.footRt = h.create(20, -35),
+            this.foot_left = s.Sprite.fromImage(this.footSpriteName),
+            this.foot_left.anchor.set(.5, .5),
+            this.foot_left.scale.set(.45, .45),
+            this.foot_left.pivot.set(this.footLt.x, this.footLt.y),
+            this.foot_left.tint = e.skinImg.handTint,
+            this.foot_left.visible = !1,
+            this.foot_left_submerge = s.Sprite.fromImage(this.footSpriteName),
+            this.foot_left_submerge.anchor.set(.5, .5),
+            this.foot_left_submerge.tint = y.water,
+            this.foot_left_submerge.visible = !1,
+            this.foot_left_submerge.alpha = 0,
+            this.foot_left.addChild(this.foot_left_submerge),
+            this.container.addChild(this.foot_left),
+            this.foot_right = s.Sprite.fromImage(this.footSpriteName),
+            this.foot_right.anchor.set(.5, .5),
+            this.foot_right.scale.set(.45, .45),
+            this.foot_right.pivot.set(this.footRt.x, this.footRt.y),
+            this.foot_right.tint = e.skinImg.handTint,
+            this.foot_right.visible = !1,
+            this.foot_right_submerge = s.Sprite.fromImage(this.footSpriteName),
+            this.foot_right_submerge.anchor.set(.5, .5),
+            this.foot_right_submerge.tint = y.water,
+            this.foot_right_submerge.visible = !1,
+            this.foot_right_submerge.alpha = 0,
+            this.foot_right.addChild(this.foot_right_submerge),
+            this.container.addChild(this.foot_right),
+            this.backpack = s.Sprite.fromImage("img/player/circle-base-01.svg"),
+            this.backpack.anchor.set(.5, .5),
+            this.backpack.scale.set(.4, .4),
+            this.backpack.tint = e.skinImg.backpackTint,
+            this.container.addChild(this.backpack),
+            this.baseSpriteName = e.skinImg.baseSprite,
+            this.sprite = s.Sprite.fromImage(this.baseSpriteName),
+            this.sprite.anchor.set(.5, .5),
+            this.sprite.scale.set(.5 * e.skinImg.baseScale, .5 * e.skinImg.baseScale),
+            this.sprite.tint = e.skinImg.baseTint,
+            this.container.addChild(this.sprite),
+            this.gunBot = s.Sprite.fromImage("img/guns/gun-short-01.svg"),
+            this.gunBot.anchor.set(.5, .75),
+            this.gunBot.scale.set(.5, .5),
+            this.gunBot.pivot.set(0, 110),
+            this.gunBot.visible = !1,
+            this.gunContainerL.addChild(this.gunBot),
+            this.gunBotVis = !1,
+            this.gunOffhand = s.Sprite.fromImage("img/guns/gun-short-01.svg"),
+            this.gunOffhand.anchor.set(.5, .75),
+            this.gunOffhand.scale.set(.5, .5),
+            this.gunOffhand.pivot.set(0, 110),
+            this.gunOffhand.visible = !1,
+            this.gunContainerR.addChild(this.gunOffhand),
+            this.gunOffhandVis = !1,
+            this.gun = s.Sprite.fromImage("img/guns/gun-short-01.svg"),
+            this.gun.anchor.set(.5, .75),
+            this.gun.scale.set(.5, .5),
+            this.gun.pivot.set(0, 110),
+            this.gunContainerL.addChild(this.gun),
+            this.gunVis = !1,
+            this.chest = s.Sprite.fromImage("img/player/armor-base-01.svg"),
+            this.chest.anchor.set(.5, .5),
+            this.chest.scale.set(.5, .5),
+            this.container.addChild(this.chest),
+            this.submergedMask = s.Sprite.fromImage("img/player/player-base-01.svg"),
+            this.submergedMask.anchor.set(.5, .5),
+            this.submergedMask.scale.set(.6, .6),
+            this.container.addChild(this.submergedMask),
+            this.submerged = s.Sprite.fromImage("img/player/player-wading-01.svg"),
+            this.submerged.anchor.set(.5, .5),
+            this.submerged.scale.set(.9, .9),
+            this.submerged.alpha = 0,
+            this.submerged.tint = 2854052,
+            this.submerged.mask = this.submergedMask,
+            this.submerged.visible = !0,
+            this.container.addChild(this.submerged),
+            this.submersion = 0,
+            this.handSpriteName = e.skinImg.handSprite,
+            this.hand_left = s.Sprite.fromImage(this.handSpriteName),
+            this.hand_left.anchor.set(.5, .5),
+            this.hand_left.scale.set(.35, .35),
+            this.hand_left.pivot.set(35, 40),
+            this.hand_left.tint = e.skinImg.handTint,
+            this.hand_left_submerge = s.Sprite.fromImage(this.handSpriteName),
+            this.hand_left_submerge.anchor.set(.5, .5),
+            this.hand_left_submerge.tint = y.water,
+            this.hand_left_submerge.visible = !1,
+            this.hand_left_submerge.alpha = 0,
+            this.hand_left.addChild(this.hand_left_submerge),
+            this.gunContainerL.addChild(this.hand_left),
+            this.hand_right = s.Sprite.fromImage(this.handSpriteName),
+            this.hand_right.anchor.set(.5, .5),
+            this.hand_right.scale.set(.35, .35),
+            this.hand_right.pivot.set(-35, 40),
+            this.hand_right.tint = e.skinImg.handTint,
+            this.hand_right_submerge = s.Sprite.fromImage(this.handSpriteName),
+            this.hand_right_submerge.anchor.set(.5, .5),
+            this.hand_right_submerge.tint = y.water,
+            this.hand_right_submerge.visible = !1,
+            this.hand_right_submerge.alpha = 0,
+            this.hand_right.addChild(this.hand_right_submerge),
+            this.gunContainerR.addChild(this.hand_right),
+            this.object_left = s.Sprite.from(s.Texture.EMPTY),
+            this.object_left.anchor.set(.5, .5),
+            this.object_left.pivot.set(0, 0),
+            this.object_left.visible = !1,
+            this.hand_left.addChild(this.object_left),
+            this.object_right = s.Sprite.from(s.Texture.EMPTY),
+            this.object_right.anchor.set(.5, .5),
+            this.object_right.visible = !1,
+            this.hand_right.addChild(this.object_right),
+            this.handLt = h.create(35, 40),
+            this.handRt = h.create(-35, 40),
+            this.gunHandLt = h.copy(this.handLt),
+            this.gunHandRt = h.copy(this.handRt),
+            this.objHandLt = h.copy(this.handLt),
+            this.objHandRt = h.copy(this.handRt),
+            this.gunHandLtVis = !0,
+            this.gunHandRtVis = !0,
+            this.objLtVis = !1,
+            this.objRtVis = !1,
+            this.gunTop = s.Sprite.fromImage("img/guns/gun-short-01.svg"),
+            this.gunTop.anchor.set(.5, 1),
+            this.gunTop.scale.set(.5, .5),
+            this.gunTop.pivot.set(0, 110),
+            this.gunTop.visible = !1,
+            this.gunContainerL.addChild(this.gunTop),
+            this.gunTopVis = !1,
+            this.container.addChild(this.gunContainerL),
+            this.container.addChild(this.gunContainerR),
+            this.helmet = s.Sprite.fromImage("img/player/circle-base-01.svg"),
+            this.helmet.anchor.set(.5, .5),
+            this.helmet.scale.set(.3, .3),
+            this.container.addChild(this.helmet),
+            this.nameText = o(),
+            this.nameText.visible = !1,
+            this.container.addChild(this.nameText),
+            this.anim = {
+                type: m.None,
+                seq: 0,
+                frame: 0,
+                timer: 0,
+                duration: 0
+            },
+            this.isOnBrightSurface = !1,
+            this.weapType = "",
+            this.wasInWater = !1,
+            this.stepDistance = 0,
+            this.zoomFast = !1,
+            this.playedDryFire = !1,
+            this.curAction = {
+                type: c.None
+            },
+            this.actionSoundInstance = !1,
+            this.soundUpdateThrottle = 0,
+            this.downed = !1,
+            this.bleedTicker = 0,
+            this.lastThrowablePickupSfxTicker = 0,
+            this.isNearDoorError = !1,
+            this.doorErrorTicker = 0,
+            this.noCeilingRevealTicker = 0,
+            this.B = {},
+            this.j = {
+                action: {
+                    type: c.None
+                },
+                spectatorCount: 0
+            },
+            this.pos = h.create(0, 0),
+            this.dir = h.create(1, 0),
+            this.scale = l.player.img.scale,
+            this.layer = 0
+        }
+        function r() {
+            this.Ve = new w.Pool(n),
+            this.mt = {},
+            this.teamInfo = {},
+            this.teammateData = {}
+        }
+        var s = a("8b1dfb45")
           , l = a("989ad62a")
           , c = l.Action
-          , d = l.Anim
-          , m = a("ceee80d9")
+          , m = l.Anim
+          , d = a("ceee80d9")
           , p = a("300e2704")
           , u = a("1901e2d9")
           , h = a("c2a798c8")
@@ -16579,974 +16701,723 @@ webpackJsonp([0], {
           , y = a("2bb110d0")
           , x = a("ab057eb5")
           , v = a("b58076b1")
-          , k = a("ce29f17f")
-          , _ = (a("af8ba00f"),
+          , _ = a("ce29f17f")
+          , k = (a("af8ba00f"),
         a("f398b7c7"))
-          , w = a("26be8056")
-          , S = a("753d6e4b")
-          , M = a("119e8c4c")
-          , T = a("c60b5e9f")
-          , P = T.RenderType
-          , C = function() {
-            function e() {
-                o(this, e),
-                this.container = new s.Container,
-                this.gunContainerL = new s.Container,
-                this.gunContainerR = new s.Container,
-                this.skinType = "outfitBase";
-                var t = l.items[this.skinType];
-                this.footSpriteName = "img/player/player-feet-01.svg",
-                this.footLt = h.create(-20, -35),
-                this.footRt = h.create(20, -35),
-                this.foot_left = s.Sprite.fromImage(this.footSpriteName),
-                this.foot_left.anchor.set(.5, .5),
-                this.foot_left.scale.set(.45, .45),
-                this.foot_left.pivot.set(this.footLt.x, this.footLt.y),
-                this.foot_left.tint = t.skinImg.handTint,
-                this.foot_left.visible = !1,
-                this.foot_left_submerge = s.Sprite.fromImage(this.footSpriteName),
-                this.foot_left_submerge.anchor.set(.5, .5),
-                this.foot_left_submerge.tint = y.water,
-                this.foot_left_submerge.visible = !1,
-                this.foot_left_submerge.alpha = 0,
-                this.foot_left.addChild(this.foot_left_submerge),
-                this.container.addChild(this.foot_left),
-                this.foot_right = s.Sprite.fromImage(this.footSpriteName),
-                this.foot_right.anchor.set(.5, .5),
-                this.foot_right.scale.set(.45, .45),
-                this.foot_right.pivot.set(this.footRt.x, this.footRt.y),
-                this.foot_right.tint = t.skinImg.handTint,
-                this.foot_right.visible = !1,
-                this.foot_right_submerge = s.Sprite.fromImage(this.footSpriteName),
-                this.foot_right_submerge.anchor.set(.5, .5),
-                this.foot_right_submerge.tint = y.water,
-                this.foot_right_submerge.visible = !1,
-                this.foot_right_submerge.alpha = 0,
-                this.foot_right.addChild(this.foot_right_submerge),
-                this.container.addChild(this.foot_right),
-                this.backpack = s.Sprite.fromImage("img/player/circle-base-01.svg"),
-                this.backpack.anchor.set(.5, .5),
-                this.backpack.scale.set(.4, .4),
-                this.backpack.tint = t.skinImg.backpackTint,
-                this.container.addChild(this.backpack),
-                this.baseSpriteName = t.skinImg.baseSprite,
-                this.sprite = s.Sprite.fromImage(this.baseSpriteName),
-                this.sprite.anchor.set(.5, .5),
-                this.sprite.scale.set(.5 * t.skinImg.baseScale, .5 * t.skinImg.baseScale),
-                this.sprite.tint = t.skinImg.baseTint,
-                this.container.addChild(this.sprite),
-                this.gunBot = s.Sprite.fromImage("img/guns/gun-short-01.svg"),
-                this.gunBot.anchor.set(.5, .75),
-                this.gunBot.scale.set(.5, .5),
-                this.gunBot.pivot.set(0, 110),
-                this.gunBot.visible = !1,
-                this.gunContainerL.addChild(this.gunBot),
-                this.gunBotVis = !1,
-                this.gunOffhand = s.Sprite.fromImage("img/guns/gun-short-01.svg"),
-                this.gunOffhand.anchor.set(.5, .75),
-                this.gunOffhand.scale.set(.5, .5),
-                this.gunOffhand.pivot.set(0, 110),
-                this.gunOffhand.visible = !1,
-                this.gunContainerR.addChild(this.gunOffhand),
-                this.gunOffhandVis = !1,
-                this.gun = s.Sprite.fromImage("img/guns/gun-short-01.svg"),
-                this.gun.anchor.set(.5, .75),
-                this.gun.scale.set(.5, .5),
-                this.gun.pivot.set(0, 110),
-                this.gunContainerL.addChild(this.gun),
-                this.gunVis = !1,
-                this.chest = s.Sprite.fromImage("img/player/armor-base-01.svg"),
-                this.chest.anchor.set(.5, .5),
-                this.chest.scale.set(.5, .5),
-                this.container.addChild(this.chest),
-                this.submergedMask = s.Sprite.fromImage("img/player/player-base-01.svg"),
-                this.submergedMask.anchor.set(.5, .5),
-                this.submergedMask.scale.set(.6, .6),
-                this.container.addChild(this.submergedMask),
-                this.submerged = s.Sprite.fromImage("img/player/player-wading-01.svg"),
-                this.submerged.anchor.set(.5, .5),
-                this.submerged.scale.set(.9, .9),
-                this.submerged.alpha = 0,
-                this.submerged.tint = 2854052,
-                this.submerged.mask = this.submergedMask,
-                this.submerged.visible = !0,
-                this.container.addChild(this.submerged),
-                this.submersion = 0,
-                this.handSpriteName = t.skinImg.handSprite,
-                this.hand_left = s.Sprite.fromImage(this.handSpriteName),
-                this.hand_left.anchor.set(.5, .5),
-                this.hand_left.scale.set(.35, .35),
-                this.hand_left.pivot.set(35, 40),
-                this.hand_left.tint = t.skinImg.handTint,
-                this.hand_left_submerge = s.Sprite.fromImage(this.handSpriteName),
-                this.hand_left_submerge.anchor.set(.5, .5),
-                this.hand_left_submerge.tint = y.water,
-                this.hand_left_submerge.visible = !1,
-                this.hand_left_submerge.alpha = 0,
-                this.hand_left.addChild(this.hand_left_submerge),
-                this.gunContainerL.addChild(this.hand_left),
-                this.hand_right = s.Sprite.fromImage(this.handSpriteName),
-                this.hand_right.anchor.set(.5, .5),
-                this.hand_right.scale.set(.35, .35),
-                this.hand_right.pivot.set(-35, 40),
-                this.hand_right.tint = t.skinImg.handTint,
-                this.hand_right_submerge = s.Sprite.fromImage(this.handSpriteName),
-                this.hand_right_submerge.anchor.set(.5, .5),
-                this.hand_right_submerge.tint = y.water,
-                this.hand_right_submerge.visible = !1,
-                this.hand_right_submerge.alpha = 0,
-                this.hand_right.addChild(this.hand_right_submerge),
-                this.gunContainerR.addChild(this.hand_right),
-                this.object_left = s.Sprite.from(s.Texture.EMPTY),
-                this.object_left.anchor.set(.5, .5),
-                this.object_left.pivot.set(0, 0),
-                this.object_left.visible = !1,
-                this.hand_left.addChild(this.object_left),
-                this.object_right = s.Sprite.from(s.Texture.EMPTY),
-                this.object_right.anchor.set(.5, .5),
-                this.object_right.visible = !1,
-                this.hand_right.addChild(this.object_right),
-                this.handLt = h.create(35, 40),
-                this.handRt = h.create(-35, 40),
-                this.gunHandLt = h.copy(this.handLt),
-                this.gunHandRt = h.copy(this.handRt),
-                this.objHandLt = h.copy(this.handLt),
-                this.objHandRt = h.copy(this.handRt),
-                this.gunHandLtVis = !0,
-                this.gunHandRtVis = !0,
-                this.objLtVis = !1,
-                this.objRtVis = !1,
-                this.gunTop = s.Sprite.fromImage("img/guns/gun-short-01.svg"),
-                this.gunTop.anchor.set(.5, 1),
-                this.gunTop.scale.set(.5, .5),
-                this.gunTop.pivot.set(0, 110),
-                this.gunTop.visible = !1,
-                this.gunContainerL.addChild(this.gunTop),
-                this.gunTopVis = !1,
-                this.container.addChild(this.gunContainerL),
-                this.container.addChild(this.gunContainerR),
-                this.helmet = s.Sprite.fromImage("img/player/circle-base-01.svg"),
-                this.helmet.anchor.set(.5, .5),
-                this.helmet.scale.set(.3, .3),
-                this.container.addChild(this.helmet),
-                this.nameText = n(),
-                this.nameText.visible = !1,
-                this.container.addChild(this.nameText),
-                this.anim = {
-                    type: d.None,
-                    seq: 0,
-                    frame: 0,
-                    timer: 0,
-                    duration: 0
+          , w = (a("26be8056"),
+        a("753d6e4b"))
+          , S = a("119e8c4c")
+          , M = a("c60b5e9f")
+          , T = M.RenderType;
+        n.prototype = {
+            a: function() {
+                this.isNew = !1,
+                this.wasInsideObstacle = !1,
+                this.insideObstacleType = "",
+                this.lastInsideObstacleTime = 0,
+                this.playAnim(m.None, 0)
+            },
+            o: function() {
+                this.container.visible = !1
+            },
+            n: function(e, t, a, i) {
+                var o = this.B;
+                o.pos = h.copy(e.pos),
+                o.dir = h.copy(e.dir),
+                t && (o.layer = e.layer,
+                o.dead = e.dead,
+                o.downed = e.downed,
+                o.disconnected = e.disconnected,
+                o.actionType = e.actionType,
+                o.animType = e.animType,
+                o.animSeq = e.animSeq,
+                o.skin = e.skin,
+                o.backpack = e.backpack,
+                o.helmet = e.helmet,
+                o.chest = e.chest,
+                o.curWeapType = e.curWeapType,
+                this.B.animSeq != this.anim.seq && this.playAnim(this.B.animType, this.B.animSeq)),
+                a && (this.isNew = !0)
+            },
+            ot: function(e, t) {
+                var a = this.j.curScope
+                  , i = this.j;
+                if (i.scopedIn = e.scopedIn,
+                i.health = e.health,
+                e.boostDirty && (i.boost = e.boost),
+                i.action = {
+                    type: this.B.actionType
                 },
-                this.isOnBrightSurface = !1,
-                this.weapType = "",
-                this.wasInWater = !1,
-                this.stepDistance = 0,
-                this.zoomFast = !1,
-                this.playedDryFire = !1,
-                this.curAction = {
-                    type: c.None
-                },
-                this.actionSoundInstance = !1,
-                this.soundUpdateThrottle = 0,
-                this.downed = !1,
-                this.bleedTicker = 0,
-                this.lastThrowablePickupSfxTicker = 0,
-                this.isNearDoorError = !1,
-                this.doorErrorTicker = 0,
-                this.noCeilingRevealTicker = 0,
-                this.netData = {},
-                this.localData = {
-                    action: {
-                        type: c.None
-                    },
-                    spectatorCount: 0
-                },
-                this.pos = h.create(0, 0),
-                this.dir = h.create(1, 0),
-                this.scale = l.player.img.scale,
-                this.layer = 0
-            }
-            return r(e, [{
-                key: "init",
-                value: function() {
-                    this.isNew = !1,
-                    this.wasInsideObstacle = !1,
-                    this.insideObstacleType = "",
-                    this.lastInsideObstacleTime = 0,
-                    this.playAnim(d.None, 0)
+                e.hasAction && (i.action.time = e.action.time,
+                i.action.duration = e.action.duration,
+                i.action.item = e.action.item,
+                i.action.targetId = e.action.targetId),
+                e.inventoryDirty) {
+                    i.curScope = e.curScope,
+                    i.inventory = {};
+                    for (var o in l.bagSizes)
+                        l.bagSizes.hasOwnProperty(o) && (i.inventory[o] = e.inventory[o])
                 }
-            }, {
-                key: "free",
-                value: function() {
-                    this.container.visible = !1
-                }
-            }, {
-                key: "updateData",
-                value: function(e, t, a, i) {
-                    var o = this.netData;
-                    o.pos = h.copy(e.pos),
-                    o.dir = h.copy(e.dir),
-                    t && (o.layer = e.layer,
-                    o.dead = e.dead,
-                    o.downed = e.downed,
-                    o.disconnected = e.disconnected,
-                    o.actionType = e.actionType,
-                    o.animType = e.animType,
-                    o.animSeq = e.animSeq,
-                    o.skin = e.skin,
-                    o.backpack = e.backpack,
-                    o.helmet = e.helmet,
-                    o.chest = e.chest,
-                    o.curWeapType = e.curWeapType,
-                    this.netData.animSeq != this.anim.seq && this.playAnim(this.netData.animType, this.netData.animSeq)),
-                    a && (this.isNew = !0)
-                }
-            }, {
-                key: "setLocalData",
-                value: function(e, t) {
-                    var a = this.localData.curScope
-                      , i = this.localData;
-                    if (i.scopedIn = e.scopedIn,
-                    i.health = e.health,
-                    e.boostDirty && (i.boost = e.boost),
-                    i.action = {
-                        type: this.netData.actionType
-                    },
-                    e.hasAction && (i.action.time = e.action.time,
-                    i.action.duration = e.action.duration,
-                    i.action.item = e.action.item,
-                    i.action.targetId = e.action.targetId),
-                    e.inventoryDirty) {
-                        i.curScope = e.curScope,
-                        i.inventory = {};
-                        for (var o in l.bagSizes)
-                            l.bagSizes.hasOwnProperty(o) && (i.inventory[o] = e.inventory[o])
-                    }
-                    if (e.weapsDirty) {
-                        i.curWeapIdx = e.curWeapIdx,
-                        i.weapons = [];
-                        for (var n = 0; n < l.WeaponSlot.Count; n++) {
-                            var r = {};
-                            r.name = e.weapons[n].name,
-                            r.ammo = e.weapons[n].ammo,
-                            i.weapons.push(r)
-                        }
-                    }
-                    e.spectatorCountDirty && (i.spectatorCount = e.spectatorCount),
-                    this.localData.curScope != a && (this.zoomFast = !0),
-                    this.localData.scopedIn && (this.zoomFast = !1)
-                }
-            }, {
-                key: "getScopeZoom",
-                value: function() {
-                    var e = this.netData.downed || this.localData.scopedIn ? "1xscope" : this.localData.curScope;
-                    return l.scopeZoomRadius[e]
-                }
-            }, {
-                key: "getBagLevel",
-                value: function() {
-                    return l.items[this.netData.backpack].level
-                }
-            }, {
-                key: "equippedWeaponType",
-                value: function() {
-                    return l.items[this.netData.curWeapType].type
-                }
-            }, {
-                key: "hasWeaponInSlot",
-                value: function(e) {
-                    return "" !== this.localData.weapons[e].name
-                }
-            }, {
-                key: "updateSkin",
-                value: function() {
-                    var e = this.skinType
-                      , t = l.items[e].skinImg;
-                    this.baseSpriteName = t.baseSprite,
-                    this.sprite.texture = s.Texture.fromImage(this.baseSpriteName),
-                    this.sprite.tint = t.baseTint,
-                    this.sprite.scale.set(.5 * t.baseScale, .5 * t.baseScale),
-                    this.hand_left.tint = t.handTint,
-                    this.hand_right.tint = t.handTint,
-                    this.foot_left.tint = t.handTint,
-                    this.foot_right.tint = t.handTint,
-                    this.backpack.tint = t.backpackTint
-                }
-            }, {
-                key: "updateWeapon",
-                value: function() {
-                    if (!this.netData.downed) {
-                        var e = this.weapType
-                          , t = l.items[e];
-                        switch (t.type) {
-                        case "gun":
-                            var a = t.worldImg;
-                            t.isDual ? (this.gun.texture = s.Texture.fromImage(a.sprite),
-                            this.gun.tint = a.tint,
-                            this.gun.scale.set(a.scale.x, a.scale.y),
-                            this.gun.pivot.set(-17.5, 20),
-                            this.gunVis = !0,
-                            this.gunOffhand.texture = s.Texture.fromImage(a.sprite),
-                            this.gunOffhand.tint = a.tint,
-                            this.gunOffhand.scale.set(a.scale.x, a.scale.y),
-                            this.gunOffhand.pivot.set(17.5, 20),
-                            this.gunOffhandVis = !0,
-                            this.gunTopVis = !1,
-                            this.gunBotVis = !1,
-                            this.gunHandRt = h.create(25, 45),
-                            this.gunHandLt = h.create(-25, 45),
-                            this.gunHandLtVis = !0,
-                            this.gunHandRtVis = !0) : (this.gun.texture = s.Texture.fromImage(a.sprite),
-                            this.gun.tint = a.tint,
-                            this.gun.scale.set(a.scale.x, a.scale.y),
-                            this.gun.pivot.set(0, 20),
-                            this.gunVis = !0,
-                            this.gunOffhandVis = !1,
-                            a.sprite_bot && (this.gunBot.texture = s.Texture.fromImage(a.sprite_bot),
-                            this.gunBot.tint = 16777215,
-                            this.gunBot.scale.set(a.scale.x, a.scale.y),
-                            this.gunBot.pivot.set(0, 20)),
-                            this.gunBotVis = void 0 !== a.sprite_bot,
-                            a.sprite_top && (this.gunTop.texture = s.Texture.fromImage(a.sprite_top),
-                            this.gunTop.scale.set(a.scale.x, a.scale.y),
-                            this.gunTop.pivot.set(0, 20)),
-                            this.gunTopVis = void 0 !== a.sprite_top,
-                            this.gunHandLt = h.create(-15, 80 + a.leftHandOffset),
-                            this.gunHandRt = h.create(-5, 40),
-                            this.gunHandLtVis = 2 == a.hands,
-                            this.gunHandRtVis = !0),
-                            this.objLtVis = !1,
-                            this.objRtVis = !1;
-                            break;
-                        case "melee":
-                            this.gunVis = !1,
-                            this.gunBotVis = !1,
-                            this.gunOffhandVis = !1,
-                            this.gunTopVis = !1,
-                            this.gunHandLtVis = !0,
-                            this.gunHandRtVis = !0,
-                            this.objLtVis = !1,
-                            this.objRtVis = !1;
-                            break;
-                        case "throwable":
-                            this.gunVis = !1,
-                            this.gunBotVis = !1,
-                            this.gunOffhandVis = !1,
-                            this.gunTopVis = !1,
-                            this.gunHandLtVis = !0,
-                            this.gunHandRtVis = !0,
-                            this.objLtVis = !0,
-                            this.objRtVis = !0,
-                            this.objHandLt = h.create(27.5, 45),
-                            this.objHandRt = h.create(-27.5, 45);
-                            var i = t.handImg.equip;
-                            this.setObjectImg(i, !0),
-                            this.setObjectImg(i, !1)
-                        }
+                if (e.weapsDirty) {
+                    i.curWeapIdx = e.curWeapIdx,
+                    i.weapons = [];
+                    for (var n = 0; n < l.WeaponSlot.Count; n++) {
+                        var r = {};
+                        r.name = e.weapons[n].name,
+                        r.ammo = e.weapons[n].ammo,
+                        i.weapons.push(r)
                     }
                 }
-            }, {
-                key: "setObjectImg",
-                value: function(e, t) {
-                    var a = t ? this.object_right : this.object_left
-                      , i = e[t ? "right" : "left"];
-                    a.texture = "none" == i.sprite ? s.Texture.EMPTY : s.Texture.fromImage(i.sprite),
-                    void 0 !== i.pos && a.pivot.set(i.pos.x, i.pos.y),
-                    void 0 !== i.scale && a.scale.set(i.scale, i.scale)
-                }
-            }, {
-                key: "updateDownedState",
-                value: function(e, t, a, i) {
-                    if (this.netData.downed && !this.downed && (this.container.addChildAt(this.gunContainerL, 0),
-                    this.container.addChildAt(this.gunContainerR, 0)),
-                    !this.netData.downed && this.downed && (this.container.addChild(this.gunContainerL),
-                    this.container.addChild(this.gunContainerR)),
-                    this.downed = this.netData.downed,
-                    this.backpack.visible = !this.downed,
-                    this.foot_left.visible = this.downed,
-                    this.foot_right.visible = this.downed,
-                    this.foot_left_submerge.visible = this.downed,
-                    this.foot_right_submerge.visible = this.downed,
-                    this.hand_left_submerge.visible = this.downed,
-                    this.hand_right_submerge.visible = this.downed,
-                    this.bleedTicker -= e,
-                    this.netData.downed && this.netData.actionType == c.None && this.bleedTicker < 0) {
-                        this.bleedTicker = l.player.bleedTickRate;
-                        var o = h.mul(this.dir, 1);
-                        o = h.rotate(o, (Math.random() - .5) * Math.PI / 3),
-                        t.particleBarn.addParticle(M.Defs.bloodSplat, this.layer, this.pos, o),
-                        i || t.audioManager.playSound("player_bullet_hit_02", {
-                            channel: "hits",
-                            soundPos: this.pos,
-                            fallOff: 3,
-                            layer: this.layer,
-                            muffled: !0
-                        })
+                e.spectatorCountDirty && (i.spectatorCount = e.spectatorCount),
+                this.j.curScope != a && (this.zoomFast = !0),
+                this.j.scopedIn && (this.zoomFast = !1)
+            },
+            tt: function() {
+                var e = this.B.downed || this.j.scopedIn ? "1xscope" : this.j.curScope;
+                return l.scopeZoomRadius[e]
+            },
+            dt: function() {
+                return l.items[this.B.backpack].level
+            },
+            pt: function() {
+                return l.items[this.B.curWeapType].type
+            },
+            ut: function(e) {
+                return "" !== this.j.weapons[e].name
+            },
+            ht: function() {
+                var e = this.skinType
+                  , t = l.items[e].skinImg;
+                this.baseSpriteName = t.baseSprite,
+                this.sprite.texture = s.Texture.fromImage(this.baseSpriteName),
+                this.sprite.tint = t.baseTint,
+                this.sprite.scale.set(.5 * t.baseScale, .5 * t.baseScale),
+                this.hand_left.tint = t.handTint,
+                this.hand_right.tint = t.handTint,
+                this.foot_left.tint = t.handTint,
+                this.foot_right.tint = t.handTint,
+                this.backpack.tint = t.backpackTint
+            },
+            gt: function() {
+                if (!this.B.downed) {
+                    var e = this.weapType
+                      , t = l.items[e];
+                    switch (t.type) {
+                    case "gun":
+                        var a = t.worldImg;
+                        t.isDual ? (this.gun.texture = s.Texture.fromImage(a.sprite),
+                        this.gun.tint = a.tint,
+                        this.gun.scale.set(a.scale.x, a.scale.y),
+                        this.gun.pivot.set(-17.5, 20),
+                        this.gunVis = !0,
+                        this.gunOffhand.texture = s.Texture.fromImage(a.sprite),
+                        this.gunOffhand.tint = a.tint,
+                        this.gunOffhand.scale.set(a.scale.x, a.scale.y),
+                        this.gunOffhand.pivot.set(17.5, 20),
+                        this.gunOffhandVis = !0,
+                        this.gunTopVis = !1,
+                        this.gunBotVis = !1,
+                        this.gunHandRt = h.create(25, 45),
+                        this.gunHandLt = h.create(-25, 45),
+                        this.gunHandLtVis = !0,
+                        this.gunHandRtVis = !0) : (this.gun.texture = s.Texture.fromImage(a.sprite),
+                        this.gun.tint = a.tint,
+                        this.gun.scale.set(a.scale.x, a.scale.y),
+                        this.gun.pivot.set(0, 20),
+                        this.gunVis = !0,
+                        this.gunOffhandVis = !1,
+                        a.sprite_bot && (this.gunBot.texture = s.Texture.fromImage(a.sprite_bot),
+                        this.gunBot.tint = 16777215,
+                        this.gunBot.scale.set(a.scale.x, a.scale.y),
+                        this.gunBot.pivot.set(0, 20)),
+                        this.gunBotVis = void 0 !== a.sprite_bot,
+                        a.sprite_top && (this.gunTop.texture = s.Texture.fromImage(a.sprite_top),
+                        this.gunTop.scale.set(a.scale.x, a.scale.y),
+                        this.gunTop.pivot.set(0, 20)),
+                        this.gunTopVis = void 0 !== a.sprite_top,
+                        this.gunHandLt = h.create(-15, 80 + a.leftHandOffset),
+                        this.gunHandRt = h.create(-5, 40),
+                        this.gunHandLtVis = 2 == a.hands,
+                        this.gunHandRtVis = !0),
+                        this.objLtVis = !1,
+                        this.objRtVis = !1;
+                        break;
+                    case "melee":
+                        this.gunVis = !1,
+                        this.gunBotVis = !1,
+                        this.gunOffhandVis = !1,
+                        this.gunTopVis = !1,
+                        this.gunHandLtVis = !0,
+                        this.gunHandRtVis = !0,
+                        this.objLtVis = !1,
+                        this.objRtVis = !1;
+                        break;
+                    case "throwable":
+                        this.gunVis = !1,
+                        this.gunBotVis = !1,
+                        this.gunOffhandVis = !1,
+                        this.gunTopVis = !1,
+                        this.gunHandLtVis = !0,
+                        this.gunHandRtVis = !0,
+                        this.objLtVis = !0,
+                        this.objRtVis = !0,
+                        this.objHandLt = h.create(27.5, 45),
+                        this.objHandRt = h.create(-27.5, 45);
+                        var i = t.handImg.equip;
+                        this.setObjectImg(i, !0),
+                        this.setObjectImg(i, !1)
                     }
                 }
-            }, {
-                key: "playAnim",
-                value: function(e, t) {
-                    this.anim = {
-                        type: e,
-                        seq: t,
-                        timer: 0,
-                        fnFrame: 0,
-                        mirror: Math.random() < .5,
-                        startHandLt: h.copy(this.handLt),
-                        startHandRt: h.copy(this.handRt),
-                        startFootLt: h.copy(this.footLt),
-                        startFootRt: h.copy(this.footRt)
-                    }
-                }
-            }, {
-                key: "updateAnim",
-                value: function(e, t) {
-                    this.anim.timer += e;
-                    var a = x[this.anim.type];
-                    if (this.anim.type == d.Melee) {
-                        var o = this.netData.curWeapType;
-                        if (void 0 === a[o])
-                            return void this.playAnim(d.None, this.anim.seq);
-                        a = a[o]
-                    }
-                    for (var n = a.frames, r = this.anim.timer, s = -1, l = 0; r >= n[l].time && l < n.length - 1; )
-                        r -= n[l].time,
-                        s++,
-                        l++;
-                    var c = Math.min(r / n[l].time, 1)
-                      , m = s >= 0 ? n[s].handLt : this.anim.startHandLt
-                      , p = s >= 0 ? n[s].handRt : this.anim.startHandRt
-                      , u = n[l].handLt
-                      , f = n[l].handRt;
-                    if (this.handLt = g.v2lerp(c, m, u),
-                    this.handRt = g.v2lerp(c, p, f),
-                    a.mirror && this.anim.mirror) {
-                        var b = h.copy(this.handLt);
-                        this.handLt = h.copy(this.handRt),
-                        this.handRt = h.copy(b),
-                        this.handLt.x *= -1,
-                        this.handRt.x *= -1
-                    }
-                    if (a.feet) {
-                        var y = s >= 0 ? n[s].footLt : this.anim.startFootLt
-                          , v = s >= 0 ? n[s].footRt : this.anim.startFootRt
-                          , k = n[l].footLt
-                          , _ = n[l].footRt;
-                        if (this.footLt = g.v2lerp(c, y, k),
-                        this.footRt = g.v2lerp(c, v, _),
-                        a.mirror && this.anim.mirror) {
-                            var w = h.copy(this.footLt);
-                            this.footLt = h.copy(this.footRt),
-                            this.footRt = h.copy(w),
-                            this.footLt.x *= -1,
-                            this.footRt.x *= -1
-                        }
-                    }
-                    for (var S = l == n.length - 1 && g.eqAbs(c, 1), M = S ? l : s; this.anim.fnFrame <= M; ) {
-                        var T = n[this.anim.fnFrame].done;
-                        if (void 0 !== T)
-                            for (var P = 0; P < T.length; P++) {
-                                var C = T[P];
-                                this[C.fn].apply(this, [t].concat(i(C.args)))
-                            }
-                        this.anim.fnFrame++
-                    }
-                    S && (this.playAnim(d.None, this.anim.seq),
-                    this.updateWeapon())
-                }
-            }, {
-                key: "playAnimSound",
-                value: function(e, t) {
-                    var a = l.items[this.netData.curWeapType]
-                      , i = a.sound[t];
-                    void 0 !== i && e.audioManager.playSound(i, {
-                        channel: "sfx",
+            },
+            setObjectImg: function(e, t) {
+                var a = t ? this.object_right : this.object_left
+                  , i = e[t ? "right" : "left"];
+                a.texture = "none" == i.sprite ? s.Texture.EMPTY : s.Texture.fromImage(i.sprite),
+                void 0 !== i.pos && a.pivot.set(i.pos.x, i.pos.y),
+                void 0 !== i.scale && a.scale.set(i.scale, i.scale)
+            },
+            updateDownedState: function(e, t, a, i) {
+                if (this.B.downed && !this.downed && (this.container.addChildAt(this.gunContainerL, 0),
+                this.container.addChildAt(this.gunContainerR, 0)),
+                !this.B.downed && this.downed && (this.container.addChild(this.gunContainerL),
+                this.container.addChild(this.gunContainerR)),
+                this.downed = this.B.downed,
+                this.backpack.visible = !this.downed,
+                this.foot_left.visible = this.downed,
+                this.foot_right.visible = this.downed,
+                this.foot_left_submerge.visible = this.downed,
+                this.foot_right_submerge.visible = this.downed,
+                this.hand_left_submerge.visible = this.downed,
+                this.hand_right_submerge.visible = this.downed,
+                this.bleedTicker -= e,
+                this.B.downed && this.B.actionType == c.None && this.bleedTicker < 0) {
+                    this.bleedTicker = l.player.bleedTickRate;
+                    var o = h.mul(this.dir, 1);
+                    o = h.rotate(o, (Math.random() - .5) * Math.PI / 3),
+                    t.particleBarn.addParticle(S.Defs.bloodSplat, this.layer, this.pos, o),
+                    i || t.audioManager.playSound("player_bullet_hit_02", {
+                        channel: "hits",
                         soundPos: this.pos,
                         fallOff: 3,
                         layer: this.layer,
                         muffled: !0
                     })
                 }
-            }, {
-                key: "animSetObjectImg",
-                value: function(e, t) {
-                    var a = l.items[this.netData.curWeapType];
-                    if ("throwable" == a.type) {
-                        var i = a.handImg[t];
-                        this.setObjectImg(i, !0),
-                        this.setObjectImg(i, !1)
+            },
+            playAnim: function(e, t) {
+                this.anim = {
+                    type: e,
+                    seq: t,
+                    timer: 0,
+                    fnFrame: 0,
+                    mirror: Math.random() < .5,
+                    startHandLt: h.copy(this.handLt),
+                    startHandRt: h.copy(this.handRt),
+                    startFootLt: h.copy(this.footLt),
+                    startFootRt: h.copy(this.footRt)
+                }
+            },
+            updateAnim: function(e, t) {
+                this.anim.timer += e;
+                var a = x[this.anim.type];
+                if (this.anim.type == m.Melee) {
+                    var o = this.B.curWeapType;
+                    if (void 0 === a[o])
+                        return void this.playAnim(m.None, this.anim.seq);
+                    a = a[o]
+                }
+                for (var n = a.frames, r = this.anim.timer, s = -1, l = 0; r >= n[l].time && l < n.length - 1; )
+                    r -= n[l].time,
+                    s++,
+                    l++;
+                var c = Math.min(r / n[l].time, 1)
+                  , d = s >= 0 ? n[s].handLt : this.anim.startHandLt
+                  , p = s >= 0 ? n[s].handRt : this.anim.startHandRt
+                  , u = n[l].handLt
+                  , f = n[l].handRt;
+                if (this.handLt = g.v2lerp(c, d, u),
+                this.handRt = g.v2lerp(c, p, f),
+                a.mirror && this.anim.mirror) {
+                    var b = h.copy(this.handLt);
+                    this.handLt = h.copy(this.handRt),
+                    this.handRt = h.copy(b),
+                    this.handLt.x *= -1,
+                    this.handRt.x *= -1
+                }
+                if (a.feet) {
+                    var y = s >= 0 ? n[s].footLt : this.anim.startFootLt
+                      , v = s >= 0 ? n[s].footRt : this.anim.startFootRt
+                      , _ = n[l].footLt
+                      , k = n[l].footRt;
+                    if (this.footLt = g.v2lerp(c, y, _),
+                    this.footRt = g.v2lerp(c, v, k),
+                    a.mirror && this.anim.mirror) {
+                        var w = h.copy(this.footLt);
+                        this.footLt = h.copy(this.footRt),
+                        this.footRt = h.copy(w),
+                        this.footLt.x *= -1,
+                        this.footRt.x *= -1
                     }
                 }
-            }, {
-                key: "animThrowableParticles",
-                value: function(e) {
-                    var t = h.rotate(h.create(.75, .75), Math.atan2(this.dir.y, this.dir.x));
-                    e.particleBarn.addParticle(M.Defs.fragPin, this.layer, h.add(this.pos, t), h.mul(h.rotate(this.dir, .5 * Math.PI), 4.5));
-                    var a = h.rotate(h.create(.75, -.75), Math.atan2(this.dir.y, this.dir.x));
-                    e.particleBarn.addParticle(M.Defs.fragLever, this.layer, h.add(this.pos, a), h.mul(h.rotate(this.dir, .25 * -Math.PI), 3.5))
-                }
-            }, {
-                key: "doMeleeCollision",
-                value: function(e) {
-                    for (var t = l.items[this.netData.curWeapType], a = h.add(this.pos, h.mul(this.dir, t.rangeMult)), i = t.areaOfEffect, o = [], n = null, r = null, s = 0, c = e.map.obstaclePool.getPool(), d = 0; d < c.length; d++) {
-                        var m = c[d];
-                        if (!(!m.active || m.dead || m.height < l.player.meleeHeight) && u.sameLayer(m.layer, 1 & this.layer)) {
-                            var p = b.intersectCircle(m.collider, a, i);
-                            p && p.pen > s && (n = m,
-                            r = p,
-                            s = p.pen)
+                for (var S = l == n.length - 1 && g.eqAbs(c, 1), M = S ? l : s; this.anim.fnFrame <= M; ) {
+                    var T = n[this.anim.fnFrame].done;
+                    if (void 0 !== T)
+                        for (var P = 0; P < T.length; P++) {
+                            var C = T[P];
+                            this[C.fn].apply(this, [t].concat(i(C.args)))
                         }
+                    this.anim.fnFrame++
+                }
+                S && (this.playAnim(m.None, this.anim.seq),
+                this.gt())
+            },
+            playAnimSound: function(e, t) {
+                var a = l.items[this.B.curWeapType]
+                  , i = a.sound[t];
+                void 0 !== i && e.audioManager.playSound(i, {
+                    channel: "sfx",
+                    soundPos: this.pos,
+                    fallOff: 3,
+                    layer: this.layer,
+                    muffled: !0
+                })
+            },
+            animSetObjectImg: function(e, t) {
+                var a = l.items[this.B.curWeapType];
+                if ("throwable" == a.type) {
+                    var i = a.handImg[t];
+                    this.setObjectImg(i, !0),
+                    this.setObjectImg(i, !1)
+                }
+            },
+            animThrowableParticles: function(e) {
+                var t = h.rotate(h.create(.75, .75), Math.atan2(this.dir.y, this.dir.x));
+                e.particleBarn.addParticle(S.Defs.fragPin, this.layer, h.add(this.pos, t), h.mul(h.rotate(this.dir, .5 * Math.PI), 4.5));
+                var a = h.rotate(h.create(.75, -.75), Math.atan2(this.dir.y, this.dir.x));
+                e.particleBarn.addParticle(S.Defs.fragLever, this.layer, h.add(this.pos, a), h.mul(h.rotate(this.dir, .25 * -Math.PI), 3.5))
+            },
+            doMeleeCollision: function(e) {
+                for (var t = l.items[this.B.curWeapType], a = h.add(this.pos, h.mul(this.dir, t.rangeMult)), i = t.areaOfEffect, o = [], n = null, r = null, s = 0, c = e.map.U.c(), m = 0; m < c.length; m++) {
+                    var d = c[m];
+                    if (!(!d.active || d.dead || d.height < l.player.meleeHeight) && u.sameLayer(d.layer, 1 & this.layer)) {
+                        var p = b.intersectCircle(d.collider, a, i);
+                        p && p.pen > s && (n = d,
+                        r = p,
+                        s = p.pen)
                     }
-                    if (n) {
-                        var y = h.add(a, h.mul(this.dir, i - r.pen))
-                          , x = h.mul(this.dir, -7.5);
-                        x = h.rotate(x, (Math.random() - .5) * Math.PI / 3),
+                }
+                if (n) {
+                    var y = h.add(a, h.mul(this.dir, i - r.pen))
+                      , x = h.mul(this.dir, -7.5);
+                    x = h.rotate(x, (Math.random() - .5) * Math.PI / 3),
+                    o.push({
+                        pos: y,
+                        vel: x,
+                        particle: n.hitParticle,
+                        sound: n.sound.punch,
+                        soundFn: "playGroup"
+                    })
+                }
+                for (var _ = e.playerBarn.Ve.c(), k = 0; k < _.length; k++) {
+                    var w = _[k];
+                    if (w.active && w.__id != this.__id && !w.B.dead && u.sameLayer(w.layer, this.layer) && f.testCircleCircle(h.add(this.pos, h.mul(this.dir, t.rangeMult)), t.areaOfEffect, w.pos, l.player.radius) && g.eqAbs(v.intersectSegment(e.map.U.c(), this.pos, this.dir, t.rangeMult, l.player.meleeHeight, this.layer, !1), t.rangeMult)) {
+                        var M = h.mul(this.dir, 1);
+                        M = h.rotate(M, (Math.random() - .5) * Math.PI / 3),
                         o.push({
-                            pos: y,
-                            vel: x,
-                            particle: n.hitParticle,
-                            sound: n.sound.punch,
-                            soundFn: "playGroup"
-                        })
-                    }
-                    for (var k = e.playerBarn.playerPool.getPool(), _ = 0; _ < k.length; _++) {
-                        var w = k[_];
-                        if (w.active && w.__id != this.__id && !w.netData.dead && u.sameLayer(w.layer, this.layer)) {
-                            if (f.testCircleCircle(h.add(this.pos, h.mul(this.dir, t.rangeMult)), t.areaOfEffect, w.pos, l.player.radius) && g.eqAbs(v.intersectSegment(e.map.obstaclePool.getPool(), this.pos, this.dir, t.rangeMult, l.player.meleeHeight, this.layer, !1), t.rangeMult)) {
-                                var S = h.mul(this.dir, 1);
-                                S = h.rotate(S, (Math.random() - .5) * Math.PI / 3),
-                                o.push({
-                                    pos: w.pos,
-                                    vel: S,
-                                    particle: "bloodSplat",
-                                    sound: "punch_hit_01",
-                                    soundFn: "playSound"
-                                });
-                                break
-                            }
-                        }
-                    }
-                    for (var T = 0; T < o.length; T++) {
-                        var P = o[T];
-                        e.particleBarn.addParticle(M.Defs[P.particle], this.layer, P.pos, P.vel),
-                        e.audioManager[P.soundFn](P.sound, {
-                            channel: "hits",
-                            soundPos: P.pos,
-                            layer: this.layer,
-                            muffled: !0
-                        })
+                            pos: w.pos,
+                            vel: M,
+                            particle: "bloodSplat",
+                            sound: "punch_hit_01",
+                            soundFn: "playSound"
+                        });
+                        break
                     }
                 }
-            }, {
-                key: "updateSubmersion",
-                value: function(e, t, a) {
-                    var i = 0;
-                    t && (i = g.remap(a.distanceToShore(this.pos), 0, 16, .6, 1)),
-                    this.submersion = g.lerp(4 * e, this.submersion, i);
-                    var o = .75 * this.submersion
-                      , n = .9 - .4 * this.submersion;
-                    this.submerged.alpha = o,
-                    this.foot_left_submerge.alpha = o,
-                    this.foot_right_submerge.alpha = o,
-                    this.hand_left_submerge.alpha = o,
-                    this.hand_right_submerge.alpha = o,
-                    this.submerged.scale.set(n, n)
+                for (var T = 0; T < o.length; T++) {
+                    var P = o[T];
+                    e.particleBarn.addParticle(S.Defs[P.particle], this.layer, P.pos, P.vel),
+                    e.audioManager[P.soundFn](P.sound, {
+                        channel: "hits",
+                        soundPos: P.pos,
+                        layer: this.layer,
+                        muffled: !0
+                    })
                 }
-            }, {
-                key: "addRecoil",
-                value: function(e, t, a) {
-                    t && (this.gunContainerL.pivot.y = -e),
-                    a && (this.gunContainerR.pivot.y = -e)
-                }
-            }]),
-            e
-        }()
-          , I = function() {
-            function e() {
-                o(this, e),
-                this.playerPool = new S.Pool(C),
-                this.playerInfo = {},
-                this.teamInfo = {},
-                this.teammateData = {}
+            },
+            updateSubmersion: function(e, t, a) {
+                var i = 0;
+                t && (i = g.remap(a.distanceToShore(this.pos), 0, 16, .6, 1)),
+                this.submersion = g.lerp(4 * e, this.submersion, i);
+                var o = .75 * this.submersion
+                  , n = .9 - .4 * this.submersion;
+                this.submerged.alpha = o,
+                this.foot_left_submerge.alpha = o,
+                this.foot_right_submerge.alpha = o,
+                this.hand_left_submerge.alpha = o,
+                this.hand_right_submerge.alpha = o,
+                this.submerged.scale.set(n, n)
+            },
+            addRecoil: function(e, t, a) {
+                t && (this.gunContainerL.pivot.y = -e),
+                a && (this.gunContainerR.pivot.y = -e)
             }
-            return r(e, [{
-                key: "update",
-                value: function(e, t, a, i, o, n, r, s, g, f, y, k) {
-                    for (var w = {
-                        playerBarn: this,
-                        map: n,
-                        audioManager: s,
-                        particleBarn: i
-                    }, S = this.playerPool.getPool(), T = 0; T < S.length; T++) {
-                        var C = S[T];
-                        if (C.active) {
-                            var I = C.__id == t
-                              , z = C.pos;
-                            C.pos = h.copy(C.netData.pos),
-                            C.dir = h.copy(C.netData.dir),
-                            C.layer = C.netData.layer,
-                            C.lastThrowablePickupSfxTicker -= e;
-                            var A = this.playerInfo[t].teamId
-                              , D = this.playerInfo[C.__id].teamId == A;
-                            if (C.isNew) {
-                                var O = this.getPlayerInfo(C.__id);
-                                C.nameText.text = O.name,
-                                C.nameText.visible = !I && D
-                            }
-                            for (var E = this.getPlayerById(t), L = null, B = null, F = n.obstaclePool.getPool(), R = 0; R < F.length; R++) {
-                                var j = F[R];
-                                if (j.active && !j.dead && j.layer == C.netData.layer)
-                                    if (j.isBush) {
-                                        var N = .25 * l.player.radius;
-                                        b.intersectCircle(j.collider, C.pos, N) && (L = j)
-                                    } else if (j.isDoor && !j.door.open && j.door.playErrorFx) {
-                                        var q = l.player.radius + .25
-                                          , V = h.rotate(h.create(1, 0), j.rot)
-                                          , G = h.sub(j.pos, C.pos);
-                                        h.dot(G, V) < 0 && b.intersectCircle(j.collider, C.pos, q) && (B = j)
-                                    }
-                            }
-                            var U = null != L;
-                            if (U && (C.insideObstacleType = L.type),
-                            C.lastInsideObstacleTime -= e,
-                            C.wasInsideObstacle != U && C.lastInsideObstacleTime < 0 && !C.isNew) {
-                                var W = m.Defs[C.insideObstacleType];
-                                C.lastInsideObstacleTime = .2,
-                                s.playSound(W.sound.enter, {
-                                    channel: "sfx",
-                                    soundPos: C.pos,
-                                    falloff: 1,
-                                    layer: C.layer,
-                                    muffled: !0
-                                });
-                                for (var H = h.normalizeSafe(h.sub(z, C.pos), h.create(1, 0)), K = U ? 1 : -1, X = Math.floor(u.random(3, 5)), Y = 0; Y < X; Y++) {
-                                    var Z = h.mul(h.rotate(h.mul(H, K), (Math.random() - .5) * Math.PI / 1.5), u.random(6, 8));
-                                    i.addParticle(M.Defs[W.hitParticle], C.layer, C.pos, Z)
+        },
+        r.prototype = {
+            l: function(e, t, a, i, o, n, r, s, g, f, y, _) {
+                for (var w = {
+                    playerBarn: this,
+                    map: n,
+                    audioManager: s,
+                    particleBarn: i
+                }, M = this.Ve.c(), P = 0; P < M.length; P++) {
+                    var C = M[P];
+                    if (C.active) {
+                        var I = C.__id == t
+                          , z = C.pos;
+                        C.pos = h.copy(C.B.pos),
+                        C.dir = h.copy(C.B.dir),
+                        C.layer = C.B.layer,
+                        C.lastThrowablePickupSfxTicker -= e;
+                        var A = this.mt[t].teamId
+                          , D = this.mt[C.__id].teamId == A;
+                        if (C.isNew) {
+                            var O = this.N(C.__id);
+                            C.nameText.text = O.name,
+                            C.nameText.visible = !I && D
+                        }
+                        for (var L = this.oe(t), E = null, B = null, F = n.U.c(), R = 0; R < F.length; R++) {
+                            var j = F[R];
+                            if (j.active && !j.dead && j.layer == C.B.layer)
+                                if (j.isBush) {
+                                    var N = .25 * l.player.radius;
+                                    b.intersectCircle(j.collider, C.pos, N) && (E = j)
+                                } else if (j.isDoor && !j.door.open && j.door.playErrorFx) {
+                                    var q = l.player.radius + .25
+                                      , V = h.rotate(h.create(1, 0), j.rot)
+                                      , G = h.sub(j.pos, C.pos);
+                                    h.dot(G, V) < 0 && b.intersectCircle(j.collider, C.pos, q) && (B = j)
                                 }
-                            }
-                            C.wasInsideObstacle = U;
-                            var J = C.isNearDoorError;
-                            if (C.isNearDoorError = null != B,
-                            C.doorErrorTicker -= e,
-                            C.isNearDoorError && !J && C.doorErrorTicker <= 0) {
-                                C.doorErrorTicker = .5;
-                                var Q = m.Defs[B.type]
-                                  , $ = Q.door.sound.error;
-                                s.playSound($, {
-                                    channel: "sfx",
-                                    soundPos: C.pos,
-                                    falloff: 1,
-                                    layer: C.layer,
-                                    muffled: !0
-                                })
-                            }
-                            var ee = n.getGroundSurface(C.pos, C.layer);
-                            if (I)
-                                if (C.soundUpdateThrottle < 0) {
-                                    C.soundUpdateThrottle = .2;
-                                    var te = 0
-                                      , ae = 1;
-                                    if ("water" !== ee) {
-                                        var ie = n.distanceToShore(C.pos);
-                                        ie < 50 && (te = (50 - ie) / 50,
-                                        ae = 1 - te)
-                                    } else
-                                        te = 1,
-                                        ae = 0;
-                                    s.setVolume(g.wavesInst, te),
-                                    s.setVolume(g.windInst, ae)
-                                } else
-                                    C.soundUpdateThrottle -= e;
-                            C.isOnBrightSurface = 1 == C.layer && "tile" == ee;
-                            var oe = "water" === ee;
-                            C.updateSubmersion(e, oe, n),
-                            C.stepDistance += h.length(h.sub(z, C.pos)),
-                            C.stepDistance > 5 && oe || oe && !C.wasInWater ? (C.stepDistance = 0,
-                            n.addRipple(C.pos, C.layer, 0),
-                            w.audioManager.playGroup("footstep_water", {
+                        }
+                        var U = null != E;
+                        if (U && (C.insideObstacleType = E.type),
+                        C.lastInsideObstacleTime -= e,
+                        C.wasInsideObstacle != U && C.lastInsideObstacleTime < 0 && !C.isNew) {
+                            var W = d.Defs[C.insideObstacleType];
+                            C.lastInsideObstacleTime = .2,
+                            s.playSound(W.sound.enter, {
+                                channel: "sfx",
                                 soundPos: C.pos,
-                                fallOff: 3,
+                                falloff: 1,
                                 layer: C.layer,
                                 muffled: !0
-                            })) : C.stepDistance > 4 && !oe && (C.stepDistance = 0,
-                            s.playGroup("footstep_" + ee, {
+                            });
+                            for (var H = h.normalizeSafe(h.sub(z, C.pos), h.create(1, 0)), K = U ? 1 : -1, X = Math.floor(u.random(3, 5)), Y = 0; Y < X; Y++) {
+                                var Z = h.mul(h.rotate(h.mul(H, K), (Math.random() - .5) * Math.PI / 1.5), u.random(6, 8));
+                                i.addParticle(S.Defs[W.hitParticle], C.layer, C.pos, Z)
+                            }
+                        }
+                        C.wasInsideObstacle = U;
+                        var J = C.isNearDoorError;
+                        if (C.isNearDoorError = null != B,
+                        C.doorErrorTicker -= e,
+                        C.isNearDoorError && !J && C.doorErrorTicker <= 0) {
+                            C.doorErrorTicker = .5;
+                            var Q = d.Defs[B.type]
+                              , $ = Q.door.sound.error;
+                            s.playSound($, {
+                                channel: "sfx",
                                 soundPos: C.pos,
-                                fallOff: 3,
+                                falloff: 1,
+                                layer: C.layer,
+                                muffled: !0
+                            })
+                        }
+                        var ee = n.getGroundSurface(C.pos, C.layer);
+                        if (I)
+                            if (C.soundUpdateThrottle < 0) {
+                                C.soundUpdateThrottle = .2;
+                                var te = 0
+                                  , ae = 1;
+                                if ("water" !== ee) {
+                                    var ie = n.distanceToShore(C.pos);
+                                    ie < 50 && (te = (50 - ie) / 50,
+                                    ae = 1 - te)
+                                } else
+                                    te = 1,
+                                    ae = 0;
+                                s.setVolume(g.wavesInst, te),
+                                s.setVolume(g.windInst, ae)
+                            } else
+                                C.soundUpdateThrottle -= e;
+                        C.isOnBrightSurface = 1 == C.layer && "tile" == ee;
+                        var oe = "water" === ee;
+                        C.updateSubmersion(e, oe, n),
+                        C.stepDistance += h.length(h.sub(z, C.pos)),
+                        C.stepDistance > 5 && oe || oe && !C.wasInWater ? (C.stepDistance = 0,
+                        n.addRipple(C.pos, C.layer, 0),
+                        w.audioManager.playGroup("footstep_water", {
+                            soundPos: C.pos,
+                            fallOff: 3,
+                            layer: C.layer,
+                            muffled: !0
+                        })) : C.stepDistance > 4 && !oe && (C.stepDistance = 0,
+                        s.playGroup("footstep_" + ee, {
+                            soundPos: C.pos,
+                            fallOff: 3,
+                            layer: C.layer,
+                            muffled: !0
+                        })),
+                        C.wasInWater = oe,
+                        C.B.dead || C.updateDownedState(e, w, L, y);
+                        var ne = C.weapType != C.B.curWeapType;
+                        ne && (C.weapType = C.B.curWeapType,
+                        C.gt());
+                        var re = C.gunContainerL.pivot.y
+                          , se = C.gunContainerR.pivot.y;
+                        if (re = Math.min(0, re - re * e * 5 + e),
+                        se = Math.min(0, se - se * e * 5 + e),
+                        C.gunContainerL.pivot.y = re,
+                        C.gunContainerR.pivot.y = se,
+                        I && !_) {
+                            var le = C.j.curWeapIdx
+                              , ce = C.j.weapons[le]
+                              , me = l.items[ce.name];
+                            if (!C.playedDryFire && "gun" == C.pt() && (r.J() || r.Z() && "auto" == me.fireMode) && 0 === C.j.action.type && !f) {
+                                var de = C.j.inventory[me.ammo]
+                                  , pe = ce.ammo;
+                                0 === de && 0 === pe && (s.playSound(me.sound.empty),
+                                C.playedDryFire = !0)
+                            }
+                            r.J() || r.Z() || (C.playedDryFire = !1)
+                        }
+                        var ue = C.B.actionType;
+                        if (!I && C.curAction.type != ue) {
+                            s.stopSound(this.actionSoundInstance);
+                            var he = null;
+                            switch (ue) {
+                            case c.Reload:
+                                var ge = C.B.curWeapType;
+                                "" != ge && (he = l.items[ge].sound.reload)
+                            }
+                            he && (this.actionSoundInstance = s.playSound(he, {
+                                channel: "otherPlayers",
+                                soundPos: C.pos,
+                                fallOff: 2,
                                 layer: C.layer,
                                 muffled: !0
                             })),
-                            C.wasInWater = oe,
-                            C.netData.dead || C.updateDownedState(e, w, E, y);
-                            var ne = C.weapType != C.netData.curWeapType;
-                            ne && (C.weapType = C.netData.curWeapType,
-                            C.updateWeapon());
-                            var re = C.gunContainerL.pivot.y
-                              , se = C.gunContainerR.pivot.y;
-                            if (re = Math.min(0, re - re * e * 5 + e),
-                            se = Math.min(0, se - se * e * 5 + e),
-                            C.gunContainerL.pivot.y = re,
-                            C.gunContainerR.pivot.y = se,
-                            I && !k) {
-                                var le = C.localData.curWeapIdx
-                                  , ce = C.localData.weapons[le]
-                                  , de = l.items[ce.name];
-                                if (!C.playedDryFire && "gun" == C.equippedWeaponType() && (r.mousePressed() || r.mouseDown() && "auto" == de.fireMode) && 0 === C.localData.action.type && !f) {
-                                    var me = C.localData.inventory[de.ammo]
-                                      , pe = ce.ammo;
-                                    0 === me && 0 === pe && (s.playSound(de.sound.empty),
-                                    C.playedDryFire = !0)
-                                }
-                                r.mousePressed() || r.mouseDown() || (C.playedDryFire = !1)
-                            }
-                            var ue = C.netData.actionType;
-                            if (!I && C.curAction.type != ue) {
-                                s.stopSound(this.actionSoundInstance);
-                                var he = null;
-                                switch (ue) {
-                                case c.Reload:
-                                    var ge = C.netData.curWeapType;
-                                    if ("" != ge) {
-                                        he = l.items[ge].sound.reload
-                                    }
-                                }
-                                he && (this.actionSoundInstance = s.playSound(he, {
-                                    channel: "otherPlayers",
+                            C.curAction.type = ue
+                        }
+                        if (C.gunSwitchCooldown -= e,
+                        I && (ne || C.curWeapIdx != C.j.curWeapIdx)) {
+                            C.curWeapIdx = C.j.curWeapIdx;
+                            var fe = l.items[C.weapType];
+                            if ("melee" == fe.type || "throwable" == fe.type)
+                                ("throwable" != fe.type || C.lastThrowablePickupSfxTicker <= 0) && s.playSound(fe.sound.deploy, {
+                                    channel: "sfx",
                                     soundPos: C.pos,
-                                    fallOff: 2,
-                                    layer: C.layer,
-                                    muffled: !0
-                                })),
-                                C.curAction.type = ue
+                                    fallOff: 3
+                                });
+                            else if ("gun" == fe.type) {
+                                var be = "gun_switch_01";
+                                C.gunSwitchCooldown > 0 ? be = fe.sound.deploy : C.gunSwitchCooldown = l.player.freeSwitchCooldown,
+                                s.stopLocalActionSound(),
+                                s.playSound(be, {
+                                    channel: "activePlayer"
+                                })
                             }
-                            if (C.gunSwitchCooldown -= e,
-                            I && (ne || C.curWeapIdx != C.localData.curWeapIdx)) {
-                                C.curWeapIdx = C.localData.curWeapIdx;
-                                var fe = l.items[C.weapType];
-                                if ("melee" == fe.type || "throwable" == fe.type)
-                                    ("throwable" != fe.type || C.lastThrowablePickupSfxTicker <= 0) && s.playSound(fe.sound.deploy, {
-                                        channel: "sfx",
-                                        soundPos: C.pos,
-                                        fallOff: 3
-                                    });
-                                else if ("gun" == fe.type) {
-                                    var be = "gun_switch_01";
-                                    C.gunSwitchCooldown > 0 ? be = fe.sound.deploy : C.gunSwitchCooldown = l.player.freeSwitchCooldown,
-                                    s.stopLocalActionSound(),
-                                    s.playSound(be, {
-                                        channel: "activePlayer"
-                                    })
-                                }
-                            }
-                            C.updateAnim(e, w);
-                            var ye = x[C.anim.type]
-                              , xe = !ye || !ye.hideWeapon;
-                            (C.netData.downed || C.netData.dead) && (xe = !1),
-                            C.gun.visible = !!xe && C.gunVis,
-                            C.gunBot.visible = !!xe && C.gunBotVis,
-                            C.gunOffhand.visible = !!xe && C.gunOffhandVis,
-                            C.gunTop.visible = !!xe && C.gunTopVis,
-                            C.hand_left.visible = !xe || C.gunHandLtVis,
-                            C.hand_right.visible = !xe || C.gunHandRtVis;
-                            var ve = C.anim.type == d.Throw;
-                            C.object_right.visible = !(!xe || ve) && C.objRtVis,
-                            C.object_left.visible = !!xe && C.objLtVis;
-                            var ke = l.items[C.netData.curWeapType].type
-                              , _e = C.handLt
-                              , we = C.handRt;
-                            if (xe && ("gun" == ke ? (_e = C.gunHandLt,
-                            we = C.gunHandRt) : C.anim.type == d.None && "throwable" == ke && (_e = C.objHandLt,
-                            we = C.objHandRt)),
-                            !we) {
-                                var Se = {
-                                    handRt: void 0 !== we ? we : "undefined",
-                                    gunHandRt: void 0 !== C.gunHandRt ? C.gunHandRt : "undefined",
-                                    objHandRt: void 0 !== C.objHandRt ? C.objHandRt : "undefined",
-                                    pHandRt: void 0 !== C.handRt ? C.handRt : "undefined"
-                                };
-                                _.logError("hand_err: " + JSON.stringify(Se))
-                            }
-                            C.hand_left.pivot.set(_e.x, _e.y),
-                            C.hand_right.pivot.set(we.x, we.y),
-                            C.foot_left.pivot.set(C.footLt.x, C.footLt.y),
-                            C.foot_right.pivot.set(C.footRt.x, C.footRt.y);
-                            var Me = Math.atan2(C.dir.x, C.dir.y);
-                            C.foot_left.rotation = Me,
-                            C.foot_right.rotation = Me,
-                            C.gunContainerL.rotation = Me,
-                            C.gunContainerR.rotation = Me;
-                            var Te = l.items[C.skinType]
-                              , Pe = "camo" == Te.subtype;
-                            C.skinType != C.netData.skin && (C.skinType = C.netData.skin,
-                            C.updateSkin());
-                            var Ce = C.getBagLevel();
-                            if (Ce > 0 && !Pe && !C.downed) {
-                                var Ie = (l.items[C.netData.backpack],
-                                Ce > 0 ? .03 * Ce + .4 : 0)
-                                  , ze = .5 * C.backpack.width + 8;
-                                C.backpack.scale.set(Ie, Ie),
-                                C.backpack.pivot.set(C.dir.x * ze, C.dir.y * -ze),
-                                C.backpack.visible = !0
-                            } else
-                                C.backpack.visible = !1;
-                            if ("" == C.netData.chest || Pe)
-                                C.chest.visible = !1;
-                            else {
-                                var Ae = l.items[C.netData.chest];
-                                C.chest.tint = Ae.tint,
-                                C.chest.visible = !0
-                            }
-                            if ("" == C.netData.helmet || Pe)
-                                C.helmet.visible = !1;
-                            else {
-                                var De = l.items[C.netData.helmet]
-                                  , Oe = .5 * C.helmet.width
-                                  , Ee = C.downed ? -1 : 1;
-                                C.helmet.pivot.set(C.dir.x * Oe * Ee, C.dir.y * Oe * -Ee),
-                                C.helmet.tint = De.tint,
-                                C.helmet.visible = !0
-                            }
-                            C.noCeilingRevealTicker -= e;
-                            for (var Le = C.layer, Be = b.createCircle(C.pos, l.player.maxVisualRadius), Fe = !1, Re = !1, je = !1, Ne = n.structurePool.getPool(), qe = 0; qe < Ne.length; qe++) {
-                                var Ve = Ne[qe];
-                                if (Ve.active) {
-                                    for (var Ge = 0; Ge < Ve.stairs.length; Ge++) {
-                                        var Ue = Ve.stairs[Ge]
-                                          , We = b.intersect(Ue.collision, Be);
-                                        if (We) {
-                                            Re = !0;
-                                            var He = h.add(Ue.center, h.mul(Ue.downDir, -3))
-                                              , Ke = h.sub(He, C.pos)
-                                              , Xe = h.length(Ke);
-                                            Ke = Xe > 1e-4 ? h.div(Ke, Xe) : h.create(1, 0);
-                                            je = v.intersectSegment(n.obstaclePool.getPool(), C.pos, Ke, Xe, .5, C.layer, !1) < Xe
-                                        }
-                                        I && Ue.noCeilingReveal && We && 0 != C.layer && (C.noCeilingRevealTicker = .25)
+                        }
+                        C.updateAnim(e, w);
+                        var ye = x[C.anim.type]
+                          , xe = !ye || !ye.hideWeapon;
+                        (C.B.downed || C.B.dead) && (xe = !1),
+                        C.gun.visible = !!xe && C.gunVis,
+                        C.gunBot.visible = !!xe && C.gunBotVis,
+                        C.gunOffhand.visible = !!xe && C.gunOffhandVis,
+                        C.gunTop.visible = !!xe && C.gunTopVis,
+                        C.hand_left.visible = !xe || C.gunHandLtVis,
+                        C.hand_right.visible = !xe || C.gunHandRtVis;
+                        var ve = C.anim.type == m.Throw;
+                        C.object_right.visible = !(!xe || ve) && C.objRtVis,
+                        C.object_left.visible = !!xe && C.objLtVis;
+                        var _e = l.items[C.B.curWeapType].type
+                          , ke = C.handLt
+                          , we = C.handRt;
+                        if (xe && ("gun" == _e ? (ke = C.gunHandLt,
+                        we = C.gunHandRt) : C.anim.type == m.None && "throwable" == _e && (ke = C.objHandLt,
+                        we = C.objHandRt)),
+                        !we) {
+                            var Se = {
+                                handRt: void 0 !== we ? we : "undefined",
+                                gunHandRt: void 0 !== C.gunHandRt ? C.gunHandRt : "undefined",
+                                objHandRt: void 0 !== C.objHandRt ? C.objHandRt : "undefined",
+                                pHandRt: void 0 !== C.handRt ? C.handRt : "undefined"
+                            };
+                            k.logError("hand_err: " + JSON.stringify(Se))
+                        }
+                        C.hand_left.pivot.set(ke.x, ke.y),
+                        C.hand_right.pivot.set(we.x, we.y),
+                        C.foot_left.pivot.set(C.footLt.x, C.footLt.y),
+                        C.foot_right.pivot.set(C.footRt.x, C.footRt.y);
+                        var Me = Math.atan2(C.dir.x, C.dir.y);
+                        C.foot_left.rotation = Me,
+                        C.foot_right.rotation = Me,
+                        C.gunContainerL.rotation = Me,
+                        C.gunContainerR.rotation = Me;
+                        var Te = l.items[C.skinType]
+                          , Pe = "camo" == Te.subtype;
+                        C.skinType != C.B.skin && (C.skinType = C.B.skin,
+                        C.ht());
+                        var Ce = C.dt();
+                        if (Ce > 0 && !Pe && !C.downed) {
+                            var Ie = (l.items[C.B.backpack],
+                            Ce > 0 ? .03 * Ce + .4 : 0)
+                              , ze = .5 * C.backpack.width + 8;
+                            C.backpack.scale.set(Ie, Ie),
+                            C.backpack.pivot.set(C.dir.x * ze, C.dir.y * -ze),
+                            C.backpack.visible = !0
+                        } else
+                            C.backpack.visible = !1;
+                        if ("" == C.B.chest || Pe)
+                            C.chest.visible = !1;
+                        else {
+                            var Ae = l.items[C.B.chest];
+                            C.chest.tint = Ae.tint,
+                            C.chest.visible = !0
+                        }
+                        if ("" == C.B.helmet || Pe)
+                            C.helmet.visible = !1;
+                        else {
+                            var De = l.items[C.B.helmet]
+                              , Oe = .5 * C.helmet.width
+                              , Le = C.downed ? -1 : 1;
+                            C.helmet.pivot.set(C.dir.x * Oe * Le, C.dir.y * Oe * -Le),
+                            C.helmet.tint = De.tint,
+                            C.helmet.visible = !0
+                        }
+                        C.noCeilingRevealTicker -= e;
+                        for (var Ee = C.layer, Be = b.createCircle(C.pos, l.player.maxVisualRadius), Fe = !1, Re = !1, je = !1, Ne = n.He.c(), qe = 0; qe < Ne.length; qe++) {
+                            var Ve = Ne[qe];
+                            if (Ve.active) {
+                                for (var Ge = 0; Ge < Ve.stairs.length; Ge++) {
+                                    var Ue = Ve.stairs[Ge]
+                                      , We = b.intersect(Ue.collision, Be);
+                                    if (We) {
+                                        Re = !0;
+                                        var He = h.add(Ue.center, h.mul(Ue.downDir, -3))
+                                          , Ke = h.sub(He, C.pos)
+                                          , Xe = h.length(Ke);
+                                        Ke = Xe > 1e-4 ? h.div(Ke, Xe) : h.create(1, 0),
+                                        je = v.intersectSegment(n.U.c(), C.pos, Ke, Xe, .5, C.layer, !1) < Xe
                                     }
-                                    for (var Ye = 0; Ye < Ve.mask.length; Ye++)
-                                        if (b.intersect(Ve.mask[Ye], Be)) {
-                                            Fe = !0;
-                                            break
-                                        }
+                                    I && Ue.noCeilingReveal && We && 0 != C.layer && (C.noCeilingRevealTicker = .25)
                                 }
+                                for (var Ye = 0; Ye < Ve.mask.length; Ye++)
+                                    if (b.intersect(Ve.mask[Ye], Be)) {
+                                        Fe = !0;
+                                        break
+                                    }
                             }
-                            var Ze = 18;
-                            Re && (1 & Le && (1 & E.layer || !je) || 2 & E.layer && !Fe) && (Le |= 2),
-                            (1 & Le) != (1 & E.layer) || !Re || Fe && 0 != E.layer || (Le |= 2,
-                            Ze += 100);
-                            var Je = C.__id + (C.netData.downed ? 0 : 131072) + (I ? 65536 : 0);
-                            a.addPIXIObj(C.container, P.Player, Le, Ze, Je),
-                            C.isNew = !1
                         }
-                    }
-                    for (var Qe = this.getPlayerInfo(t).teamId, $e = this.getTeamInfo(Qe), et = 0; et < $e.playerIds.length; et++) {
-                        var tt = $e.playerIds[et]
-                          , at = this.getPlayerById(tt);
-                        at && tt == t && this.setTeammateData(tt, {
-                            pos: h.copy(at.netData.pos),
-                            health: at.localData.health,
-                            disconnected: !1,
-                            dead: at.netData.dead,
-                            downed: at.netData.downed
-                        });
-                        var it = this.teammateData[tt];
-                        if (it)
-                            if (at) {
-                                var ot = this.teammateData[tt];
-                                ot.pos = h.copy(at.netData.pos),
-                                ot.posTarget = h.copy(at.netData.pos)
-                            } else if (it) {
-                                var nt = (l.player.moveSpeed,
-                                h.sub(it.posTarget, it.pos))
-                                  , rt = h.length(nt)
-                                  , st = rt > 1e-4 ? h.div(nt, rt) : h.create(1, 0)
-                                  , lt = Math.min(rt, it.posDelta * e / p.kTeamUpdateRate);
-                                it.pos = h.add(it.pos, h.mul(st, lt))
-                            }
+                        var Ze = 18;
+                        Re && (1 & Ee && (1 & L.layer || !je) || 2 & L.layer && !Fe) && (Ee |= 2),
+                        (1 & Ee) != (1 & L.layer) || !Re || Fe && 0 != L.layer || (Ee |= 2,
+                        Ze += 100);
+                        var Je = C.__id + (C.B.downed ? 0 : 131072) + (I ? 65536 : 0);
+                        a.addPIXIObj(C.container, T.Player, Ee, Ze, Je),
+                        C.isNew = !1
                     }
                 }
-            }, {
-                key: "render",
-                value: function(e) {
-                    for (var t = this.playerPool.getPool(), a = 0; a < t.length; a++) {
-                        var i = t[a];
-                        if (i.active) {
-                            var o = e.pointToScreen(i.pos)
-                              , n = e.pixels(i.scale);
-                            i.container.position.set(o.x, o.y),
-                            i.container.scale.set(n, n),
-                            i.container.visible = !i.netData.dead
+                for (var Qe = this.N(t).teamId, $e = this.getTeamInfo(Qe), et = 0; et < $e.playerIds.length; et++) {
+                    var tt = $e.playerIds[et]
+                      , at = this.oe(tt);
+                    at && tt == t && this.setTeammateData(tt, {
+                        pos: h.copy(at.B.pos),
+                        health: at.j.health,
+                        disconnected: !1,
+                        dead: at.B.dead,
+                        downed: at.B.downed
+                    });
+                    var it = this.teammateData[tt];
+                    if (it)
+                        if (at) {
+                            var ot = this.teammateData[tt];
+                            ot.pos = h.copy(at.B.pos),
+                            ot.posTarget = h.copy(at.B.pos)
+                        } else if (it) {
+                            var nt = (l.player.moveSpeed,
+                            h.sub(it.posTarget, it.pos))
+                              , rt = h.length(nt)
+                              , st = rt > 1e-4 ? h.div(nt, rt) : h.create(1, 0)
+                              , lt = Math.min(rt, it.posDelta * e / p.kTeamUpdateRate);
+                            it.pos = h.add(it.pos, h.mul(st, lt))
                         }
+                }
+            },
+            render: function(e) {
+                for (var t = this.Ve.c(), a = 0; a < t.length; a++) {
+                    var i = t[a];
+                    if (i.active) {
+                        var o = e.pointToScreen(i.pos)
+                          , n = e.pixels(i.scale);
+                        i.container.position.set(o.x, o.y),
+                        i.container.scale.set(n, n),
+                        i.container.visible = !i.B.dead
                     }
                 }
-            }, {
-                key: "getPlayerById",
-                value: function(e) {
-                    for (var t = this.playerPool.getPool(), a = 0; a < t.length; a++) {
-                        var i = t[a];
-                        if (i.active && i.__id === e)
-                            return i
-                    }
-                    return null
+            },
+            oe: function(e) {
+                for (var t = this.Ve.c(), a = 0; a < t.length; a++) {
+                    var i = t[a];
+                    if (i.active && i.__id === e)
+                        return i
                 }
-            }, {
-                key: "setPlayerInfo",
-                value: function(e) {
-                    var t = e.name
-                      , a = ((new Date).getTime(),
-                    w.truncateString(t, "bold 16px arial", 180));
-                    this.playerInfo[e.id] = {
-                        name: t,
-                        nameUnEntity: t,
-                        nameKillFeed: a,
-                        teamId: e.teamId
-                    }
+                return null
+            },
+            nt: function(e) {
+                var t = "Player" + function(e) {
+                    var t = 16807 * e % 2147483647;
+                    return t = (t - 1) / 2147483646,
+                    Math.round(100 + 899 * t)
+                }(e.id);
+                this.mt[e.id] = {
+                    playerId: e.id,
+                    teamId: e.teamId,
+                    name: e.name,
+                    anonName: t
                 }
-            }, {
-                key: "getPlayerInfo",
-                value: function(e) {
-                    return this.playerInfo[e] || {
-                        name: "unknown",
-                        teamId: 0
-                    }
+            },
+            N: function(e) {
+                return this.mt[e] || {
+                    name: "unknown",
+                    teamId: 0
                 }
-            }, {
-                key: "setTeamInfo",
-                value: function(e) {
-                    this.teamInfo[e.teamId] = e
-                }
-            }, {
-                key: "getTeamInfo",
-                value: function(e) {
-                    return this.teamInfo[e]
-                }
-            }, {
-                key: "setTeammateData",
-                value: function(e, t) {
-                    var a = this.teammateData[e]
-                      , i = a ? a.pos : h.copy(t.pos)
-                      , o = a || {};
-                    o.pos = i,
-                    o.posTarget = h.copy(t.pos),
-                    o.posDelta = h.length(h.sub(t.pos, i)),
-                    o.health = t.health,
-                    o.disconnected = t.disconnected,
-                    o.dead = t.dead,
-                    o.downed = t.downed,
-                    this.teammateData[e] = o
-                }
-            }, {
-                key: "getTeammateData",
-                value: function(e) {
-                    return this.teammateData[e]
-                }
-            }]),
-            e
-        }();
+            },
+            setTeamInfo: function(e) {
+                this.teamInfo[e.teamId] = e
+            },
+            getTeamInfo: function(e) {
+                return this.teamInfo[e]
+            },
+            setTeammateData: function(e, t) {
+                var a = this.teammateData[e]
+                  , i = a ? a.pos : h.copy(t.pos)
+                  , o = a || {};
+                o.pos = i,
+                o.posTarget = h.copy(t.pos),
+                o.posDelta = h.length(h.sub(t.pos, i)),
+                o.health = t.health,
+                o.disconnected = t.disconnected,
+                o.dead = t.dead,
+                o.downed = t.downed,
+                this.teammateData[e] = o
+            },
+            getTeammateData: function(e) {
+                return this.teammateData[e]
+            }
+        },
         e.exports = {
-            PlayerBarn: I
+            _e: r
         }
     },
     a5bf0544: function(e, t, a) {
@@ -17854,8 +17725,8 @@ webpackJsonp([0], {
           , l = a("b78cf179")
           , c = (l.EmoteType,
         l.EmoteData)
-          , d = a("26be8056")
-          , m = a("f398b7c7")
+          , m = a("26be8056")
+          , d = a("f398b7c7")
           , p = a("484b3444")
           , u = function() {
             function e(t) {
@@ -18016,7 +17887,7 @@ webpackJsonp([0], {
                 value: function(e) {
                     r(".account-loggedin-block").css("display", "block"),
                     this.setMenu(this.statsButtons);
-                    var t = d.htmlEscape(this.profile.username);
+                    var t = m.htmlEscape(this.profile.username);
                     r(".account-player-name").html(t);
                     var a = r(".btn-player-stats-link");
                     this.profile.slug ? (a.attr("href", "/stats/" + this.profile.slug),
@@ -18128,11 +17999,11 @@ webpackJsonp([0], {
                 key: "load",
                 value: function() {
                     var e = this;
-                    !this.loading && d.getCookie("app-data") && (this.loading = !0,
+                    !this.loading && m.getCookie("app-data") && (this.loading = !0,
                     this.render(),
                     o("/api/user/profile", function(t, a) {
                         if (t)
-                            m.storeGeneric("account", "load_error");
+                            d.storeGeneric("account", "load_error");
                         else if (e.loggedIn = void 0 !== a.profile,
                         e.loggedIn) {
                             e.profile = a.profile;
@@ -18159,7 +18030,7 @@ webpackJsonp([0], {
                     this.config.set("profile", null),
                     o("/api/user/delete", function(t, a) {
                         if (t)
-                            return m.storeGeneric("account", "delete_error"),
+                            return d.storeGeneric("account", "delete_error"),
                             void e.displayError("server_error");
                         window.location.href = "/"
                     })
@@ -18172,7 +18043,7 @@ webpackJsonp([0], {
                         username: e
                     }, function(e, i) {
                         if (e)
-                            return m.storeGeneric("account", "set_username_error"),
+                            return d.storeGeneric("account", "set_username_error"),
                             void t("Failed setting username.");
                         "success" == i.result ? a.load() : t(i.result)
                     })
@@ -18185,7 +18056,7 @@ webpackJsonp([0], {
                         avatar: e
                     }, function(e, a) {
                         if (e)
-                            return m.storeGeneric("account", "set_avatar_error"),
+                            return d.storeGeneric("account", "set_avatar_error"),
                             void t.displayError("server_error");
                         t.load()
                     })
@@ -18239,13 +18110,13 @@ webpackJsonp([0], {
                 t
             }
         }()
-          , n = a("80ac57a6")
+          , n = a("8b1dfb45")
           , r = a("989ad62a")
           , s = r.GasMode
           , l = a("10899aea")
           , c = a("1901e2d9")
-          , d = a("c2a798c8")
-          , m = 1e5
+          , m = a("c2a798c8")
+          , d = 1e5
           , p = 720
           , u = function() {
             function e(t, a) {
@@ -18264,17 +18135,17 @@ webpackJsonp([0], {
                     var o = this.display;
                     o.clear(),
                     o.beginFill(a, .6),
-                    o.moveTo(-m, -m),
-                    o.lineTo(m, -m),
-                    o.lineTo(m, m),
-                    o.lineTo(-m, m),
+                    o.moveTo(-d, -d),
+                    o.lineTo(d, -d),
+                    o.lineTo(d, d),
+                    o.lineTo(-d, d),
                     o.closePath(),
                     o.moveTo(0, 1);
                     for (var r = 1; r < p; r++) {
                         var s = r / p
                           , l = Math.sin(2 * Math.PI * s)
-                          , d = Math.cos(2 * Math.PI * s);
-                        o.lineTo(l, d)
+                          , m = Math.cos(2 * Math.PI * s);
+                        o.lineTo(l, m)
                     }
                     o.closePath(),
                     o.addHole()
@@ -18301,10 +18172,10 @@ webpackJsonp([0], {
                         o.arc(e.x, e.y, t, 0, 2 * Math.PI, !0),
                         o.fill()
                     } else {
-                        var n = d.copy(e)
+                        var n = m.copy(e)
                           , r = t;
                         r < .1 && (r = 1,
-                        n.x += .5 * m);
+                        n.x += .5 * d);
                         var s = this.display;
                         s.position.set(n.x, n.y),
                         s.scale.set(r, r)
@@ -18324,9 +18195,9 @@ webpackJsonp([0], {
                 this.display.addChild(this.lineGfx),
                 this.circleGfx.visible = !1,
                 this.lineGfx.visible = !1,
-                this.safePos = d.create(0, 0),
+                this.safePos = m.create(0, 0),
                 this.safeRad = 0,
-                this.playerPos = d.create(0, 0)
+                this.playerPos = m.create(0, 0)
             }
             return o(e, [{
                 key: "render",
@@ -18334,9 +18205,9 @@ webpackJsonp([0], {
                     if (this.circleGfx.visible = i,
                     this.lineGfx.visible = o,
                     i || o) {
-                        var n = !d.eq(this.safePos, e, 1e-4)
+                        var n = !m.eq(this.safePos, e, 1e-4)
                           , r = Math.abs(this.safeRad - t) > 1e-4
-                          , s = !d.eq(this.playerPos, a, 1e-4);
+                          , s = !m.eq(this.playerPos, a, 1e-4);
                         if (n && (this.safePos.x = e.x,
                         this.safePos.y = e.y),
                         r && (this.safeRad = t),
@@ -18347,7 +18218,7 @@ webpackJsonp([0], {
                         this.circleGfx.lineStyle(1.5, 16777215),
                         this.circleGfx.drawCircle(0, 0, t)),
                         n || r || s) {
-                            var l = d.length(d.sub(a, e)) < t
+                            var l = m.length(m.sub(a, e)) < t
                               , c = l ? .5 : 1;
                             this.lineGfx.clear(),
                             this.lineGfx.lineStyle(2, 65280, c),
@@ -18367,11 +18238,11 @@ webpackJsonp([0], {
                 this.circleT = 0,
                 this.duration = 0,
                 this.circleOld = {
-                    pos: d.create(0, 0),
+                    pos: m.create(0, 0),
                     rad: a
                 },
                 this.circleNew = {
-                    pos: d.create(0, 0),
+                    pos: m.create(0, 0),
                     rad: a
                 },
                 this.gasRenderer = new u(t,16711680)
@@ -18391,7 +18262,7 @@ webpackJsonp([0], {
                 value: function() {
                     var e = this.mode == s.Moving ? this.circleT : 0;
                     return {
-                        pos: d.lerp(e, this.circleOld.pos, this.circleNew.pos),
+                        pos: m.lerp(e, this.circleOld.pos, this.circleNew.pos),
                         rad: l.lerp(e, this.circleOld.rad, this.circleNew.rad)
                     }
                 }
@@ -18411,9 +18282,9 @@ webpackJsonp([0], {
                     this.mode = t.mode,
                     this.duration = t.duration,
                     this.circleT = e,
-                    this.circleOld.pos = d.copy(t.posOld),
+                    this.circleOld.pos = m.copy(t.posOld),
                     this.circleOld.rad = t.radOld,
-                    this.circleNew.pos = d.copy(t.posNew),
+                    this.circleNew.pos = m.copy(t.posNew),
                     this.circleNew.rad = t.radNew
                 }
             }, {
@@ -18430,7 +18301,7 @@ webpackJsonp([0], {
         e.exports = {
             GasRenderer: u,
             GasSafeZoneRenderer: h,
-            Gas: g
+            Oe: g
         }
     },
     ab057eb5: function(e, t, a) {
@@ -18645,7 +18516,7 @@ webpackJsonp([0], {
             Circle: 2,
             Aabb: 3
         }
-          , d = function() {
+          , m = function() {
             function e() {
                 i(this, e),
                 this.shapes = []
@@ -18716,12 +18587,12 @@ webpackJsonp([0], {
             }]),
             e
         }()
-          , m = new d;
-        e.exports = m
+          , d = new m;
+        e.exports = d
     },
     b4f03d8a: function(e, t, a) {
         t = e.exports = a("95cc1214")(!1),
-        t.push([e.i, 'img{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-drag:none;-khtml-user-drag:none;-moz-user-drag:none;-o-user-drag:none;user-drag:none}#cvs{-webkit-filter:none;filter:none}.click-through{pointer-events:none}#game-area-wrapper{cursor:crosshair;left:0;position:absolute!important;top:0;-webkit-tap-highlight-color:rgba(0,0,0,0)}#ui-game{-webkit-filter:none;filter:none;height:100%;left:0;position:absolute;top:0;width:100%}#ui-center{color:#fff;pointer-events:all;position:absolute;left:50%;top:50%;-webkit-transform:translateX(-50%) translateY(-50%) scale(1);transform:translateX(-50%) translateY(-50%) scale(1);z-index:10}@media (max-width:1200px),screen and (min-width:851px) and (max-height:768px){#ui-center{-webkit-transform:translateX(-50%) translateY(-50%) scale(.85);transform:translateX(-50%) translateY(-50%) scale(.85)}}@media screen and (max-width:850px){#ui-center{pointer-events:all;-webkit-transform:translateX(-50%) translateY(-50%) scale(.85);transform:translateX(-50%) translateY(-50%) scale(.85);z-index:10}}@media (max-width:850px) and (max-height:300px){#ui-center{-webkit-transform:translateX(-50%) translateY(-50%) scale(.775);transform:translateX(-50%) translateY(-50%) scale(.775)}}.btns-game-double-row{display:flex;position:relative}.btns-game-double-row>.btn-game-container{position:relative;width:100%}.btns-game-double-row>.btn-game-container>.btn-double-row{display:inline-block}.btns-game-double-row>div:not(:last-child){margin-right:2px}.game-menu-icon{background-size:22px;background-position:50%;background-repeat:no-repeat;bottom:13px;display:inline-block;height:22px;left:60%;pointer-events:none;position:absolute;-webkit-transform:translateX(-50%);transform:translateX(-50%);width:22px}.btn-game-touch-style{background-color:#50afab;background-position:4px 4px;background-repeat:no-repeat;background-size:20px;border:0;border-bottom:none;border-radius:5px;box-shadow:inset 0 -2px #387c79;box-sizing:border-box;color:#fff;cursor:pointer;display:block;font-size:14px;height:30px;line-height:30px;margin:auto;margin-top:2px;margin-bottom:4px;position:relative;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,.25);width:100%}.movement-icon{background-image:url(../img/gui/movement.svg)}.target-icon{background-image:url(../img/gui/target.svg)}#ui-game-menu{background-color:rgba(0,0,0,.5);border-radius:5px;box-sizing:border-box;display:none;margin:10px auto;padding:10px 15px;width:250px}@media screen and (max-width:850px){#ui-game-menu{padding:4px 10px;width:190px}}@media (max-width:850px) and (max-height:300px){#ui-game-menu{margin-top:0}}#ui-game-menu p{bottom:4px;display:inline-block;font-size:14px;position:relative}@media screen and (max-width:850px){#ui-game-menu p{bottom:0;font-size:12px;margin-bottom:8px;margin-top:6px}}#ui-alive-info{position:absolute;color:#fff;width:80px;height:36px;top:174px;left:106px;background:rgba(0,0,0,.4);border-radius:5px}#ui-map-expand-mobile{height:190px;width:190px;left:-4px;top:-22px;z-index:0;background-color:transparent}#ui-map-expand img{display:none}#ui-map-minimize{left:124px}.ui-map-wrapper-mobile{bottom:auto;color:#fff;display:block;font-size:16px;left:6px;top:46px}.ui-map-wrapper-mobile .ui-players-alive{left:4px}.ui-map-wrapper-mobile .ui-map-counter{position:relative;display:inline-block;font-size:24px;text-align:center;bottom:9px;left:2px}.ui-map-wrapper-mobile .ui-map-icon{padding:6px;display:inline-block;height:24px;width:24px;margin-left:2px;background-size:24px;background-repeat:no-repeat;background-position:6px 6px}.ui-map-wrapper-mobile #ui-map-info{position:absolute;color:#fff;width:100px;height:36px;top:174px;left:0;background:rgba(0,0,0,.4);border-radius:5px}.ui-map-wrapper-mobile #ui-spec-counter{position:absolute;color:#fff;width:68px;height:28px;top:135px;left:60px;background:rgba(0,0,0,.4);border-radius:5px}.ui-map-wrapper-mobile #ui-spec-counter-icon{padding:6px;display:inline-block;height:24px;width:18px;margin-left:2px;background-size:20px;background-repeat:no-repeat;background-position:6px 4px;background-image:url(../img/gui/eye.svg)}.ui-map-wrapper-mobile #ui-spec-counter-number{position:relative;display:inline-block;font-size:20px;width:24px;text-align:center;bottom:15px;left:0}.ui-map-wrapper-mobile .gas-icon{background-image:url(../img/gui/gas.svg)}.ui-map-wrapper-mobile .danger-icon{background-image:url(../img/gui/danger.svg)}.ui-map-wrapper-mobile .alive-icon{background-image:url(../img/gui/player.svg)}.ui-map-wrapper-mobile .icon-pulse{-webkit-animation:pulse 2s linear infinite;animation:pulse 2s linear infinite}.ui-map-wrapper-mobile .ui-settings-button{position:absolute;color:#fff;border-radius:5px;pointer-events:all}.ui-map-wrapper-mobile .ui-settings-button img{position:absolute;left:6px;top:6px;height:36px;width:36px;background-size:36px;background-repeat:no-repeat;transform:scale(1);-webkit-transition:all .1s ease-in;-webkit-transform:scale(1);-ms-transition:all .1s ease-in;-ms-transform:scale(1);-moz-transition:all .1s ease-in;-moz-transform:scale(1);transition:all .1s ease-in;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-map-wrapper-mobile .ui-settings-button .map-img-after{display:none}.ui-map-wrapper-mobile .ui-settings-button:hover{-webkit-transform:scale(1);transform:scale(1)}.ui-map-wrapper-desktop{position:absolute;bottom:12px;left:12px}#ui-map-wrapper{position:absolute;z-index:1}#ui-settings-container-mobile{position:relative}#ui-menu-display{cursor:pointer;left:2px;top:-18px;height:48px;width:48px;opacity:.8;background-color:rgba(0,0,0,.4);background-size:48px;background-repeat:no-repeat;background-position:50%;background-image:url(../img/gui/cog.svg);z-index:1}#big-map{display:none;height:100%;width:100%}#big-map-collision{height:100%;left:50%;margin:auto;pointer-events:all;position:fixed;top:0;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#big-map-close{display:none;position:absolute;margin-left:auto;height:64px;width:64px;right:6px;top:6px;border-radius:6px;background-color:rgba(0,0,0,.5);background-repeat:no-repeat;background-size:48px;background-position:50%;background-image:url(../img/gui/close.svg);pointer-events:all}#ui-right-center{position:absolute;color:#fff;opacity:.75;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-right-center-desktop{top:40%;-webkit-transform:translateY(-50%);transform:translateY(-50%);right:12px}.ui-right-center-mobile{top:30px;-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:translateY(-50%) scale(.8);transform:translateY(-50%) scale(.8);right:6px}@media (max-height:360px),(max-width:640px){.ui-right-center-mobile{-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:scale(.85);transform:scale(.85);top:16px}}.ui-right-center-tablet{top:12px!important;-webkit-transform:scale(.8);transform:scale(.8)}@media (max-height:600px){.ui-right-center-tablet{-webkit-transform:scale(.65);transform:scale(.65)}}.ui-bottom-right-tablet{bottom:25%!important;-webkit-transform:scale(.8)!important;transform:scale(.8)!important;-webkit-transform-origin:right!important;transform-origin:right!important}@media (max-height:600px){.ui-bottom-right-tablet{bottom:25%!important;-webkit-transform:scale(.7)!important;transform:scale(.7)!important;-webkit-transform-origin:right!important;transform-origin:right!important}}.ui-bottom-center-right-tablet{left:72%!important;-webkit-transform:scale(.65)!important;transform:scale(.65)!important}#ui-emote-button{background:rgba(0,0,0,.4);background-image:url(../img/gui/emote.svg);background-position:50%;background-repeat:no-repeat;background-size:28px;border-radius:21px;display:none;height:42px;position:absolute;right:108px;top:0;width:42px}@media screen and (max-width:850px){#ui-emote-button{background-size:20px;border-radius:14px;height:28px;right:0;top:50px;width:28px}}.ui-top-left-tablet{left:120px!important}.ui-spectate-options-wrapper-tablet{bottom:12px!important;top:auto!important}.ui-killfeed-wrapper-tablet{top:60px!important}@media (max-width:850px) and (max-height:320px){.ui-slider-container{margin-bottom:0}}@media (max-width:850px) and (max-height:320px){.ui-slider-container>p{width:75px}}@media (max-width:850px) and (max-height:320px){.ui-slider-container>.slider{bottom:3px;width:85px}}@media (max-width:850px) and (max-height:320px){.ui-slider-container>.slider::-webkit-slider-thumb{width:20px;height:20px}}@media (max-width:850px) and (max-height:320px){.ui-slider-container>.slider::-moz-range-thumb{width:20px;height:20px}}.ui-hidden{display:none}.btn-game-menu{text-align:center;line-height:38px;display:block;width:100%;height:40px;border:0;border-radius:5px;box-sizing:border-box;position:relative;margin:auto;margin-top:5px;margin-bottom:5px;color:#fff;font-size:16px;text-shadow:0 1px 2px rgba(0,0,0,.25);background-color:#50afab;border-bottom:2px solid #387c79;box-shadow:inset 0 -2px #387c79;background-repeat:no-repeat;cursor:pointer}#btn-game-fullscreen{background-size:34px;background-position:4px 2px;background-image:url(../img/gui/minimize.svg)}#btn-game-sound{background-size:44px;background-position:2px -3px}#btn-game-quit{margin-top:40px;background-image:url(../img/gui/quit.svg)}#btn-game-quit,#btn-game-resume{background-size:44px;background-position:-2px -3px}#btn-game-resume{margin-top:30px;background-image:url(../img/gui/resume.svg)}#ui-top-center{position:absolute;color:#fff;top:80px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-top-center .top-center-text{text-align:center;width:100vw;padding:8px}#ui-waiting-text{display:none;color:#fff;text-shadow:2px 2px 0 #000}#ui-waiting-text,#ui-waiting-text span{font-size:32px;font-weight:700}.top-center-text .spectate-text{display:inline-block;text-shadow:2px 2px 0 #000;font-size:24px;font-weight:700;overflow:hidden;height:32px}@media (max-width:1024px){.top-center-text .spectate-text{font-size:18px}}.top-center-text .spectate-desc{color:#fff;margin-right:8px}.ui-spectate-mode{display:none}#ui-spectate-text{position:relative}#spectate-player{max-width:250px;white-space:nowrap;text-overflow:ellipsis;color:cyan}#ui-top-center-scopes-wrapper{position:absolute;color:#fff;top:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);width:100%}#ui-top-center-scopes{margin-top:12px;text-align:center}@media (max-height:768px),(max-width:1200px){#ui-top-center-scopes{-webkit-transform:scale(.85);transform:scale(.85)}}.ui-zoom{background:rgba(0,0,0,.3);border-radius:36px;width:64px;height:64px;opacity:.6;display:inline-block}.ui-zoom-hover:hover{opacity:1}.ui-zoom-active{vertical-align:baseline;opacity:1;transform:scale(1);-webkit-transition:all .1s ease-in;-webkit-transform:scale(1);-ms-transition:all .1s ease-in;-ms-transform:scale(1);-moz-transition:all .1s ease-in;-moz-transform:scale(1);transition:all .1s ease-in;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-zoom .ui-zoom-image{width:64px;height:64px;opacity:.4;padding:2px}.ui-zoom .ui-zoom-text{margin-top:14px;width:100%}.ui-zoom .ui-zoom-level{font-size:32px;text-align:center;width:100%}.ui-zoom .ui-zoom-append{font-size:24px}.ui-zoom-inactive{display:none;margin-left:-8px;margin-right:-8px;-webkit-transition:all .1s ease-in;-webkit-transform:scale(.5);-ms-transition:all .1s ease-in;-ms-transform:scale(.5);-moz-transition:all .1s ease-in;-moz-transform:scale(.5);transition:all .1s ease-in;transform:scale(.5)}.ui-zoom-inactive:hover{cursor:pointer!important;opacity:1}.ui-emote-wheel{z-index:3;display:none;position:fixed}.ui-emote-parent{opacity:.75}.ui-emote-hl{z-index:2;display:none}.ui-emote{position:fixed;width:256px;height:256px;background-size:256px;background-repeat:no-repeat;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-emote-bg-circle{opacity:.5;background-image:url(../img/gui/ping-part-circle.svg)}.ui-emote-bg-quarter{opacity:.5;background-image:url(../img/gui/ping-part-quarter.svg)}.ui-emote-bg-eighth{opacity:.5;background-image:url(../img/gui/ping-part-eighth.svg)}.ui-emote-middle .ui-emote-image{width:24px!important;height:24px!important;background-size:24px!important;background-image:url(../img/gui/close.svg)}.ui-emote-top .ui-emote-image{margin-top:-78px;background-image:url(../img/gui/ping-team-danger.svg)}.ui-emote-right .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(90deg);transform:translate(-50%,-50%) rotate(90deg)}.ui-emote-right .ui-emote-image{margin-left:78px;background-image:url(../img/gui/ping-team-coming.svg)}.ui-emote-bottom .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(180deg);transform:translate(-50%,-50%) rotate(180deg)}.ui-emote-bottom .ui-emote-image{margin-top:78px;background-image:url(../img/gui/ping-team-help.svg)}.ui-emote-left .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(270deg);transform:translate(-50%,-50%) rotate(270deg)}.ui-emote-left .ui-emote-image{margin-left:-78px;background-image:url(../img/gui/ping-team-help.svg)}.ui-emote-top-left .ui-emote-image{margin-left:-80px;margin-top:-30px;background-image:url(../img/loot/loot-ammo-box.svg)}.ui-emote-bottom-left .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(-45deg);transform:translate(-50%,-50%) rotate(-45deg)}.ui-emote-bottom-left .ui-emote-image{margin-left:-80px;margin-top:30px;background-image:url(../img/loot/loot-medical-healthkit.svg)}.ui-emote-circle .ui-emote-hl{background-image:url(../img/gui/ping-part-circle-highlight.svg)}.ui-emote-quarter .ui-emote-hl{background-image:url(../img/gui/ping-part-quarter-highlight.svg)}.ui-emote-eighth .ui-emote-hl{background-image:url(../img/gui/ping-part-eighth-highlight.svg)}.ui-emote-image{z-index:1;position:fixed;background-repeat:no-repeat;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-emote-image-large{width:64px;height:64px;background-size:64px}.ui-emote-image-small{width:35px;height:35px;background-size:35px}.ui-team-indicator{z-index:2;display:none;position:fixed;top:0;left:0;border-radius:32px;width:64px;height:64px;background-size:64px;background-repeat:no-repeat;background-image:url(../img/gui/indicator.svg)}.ui-team-indicator,.ui-team-indicator-pos{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-team-indicator-pos{opacity:.75;position:relative;border-radius:24px;width:32px;height:32px;top:23px;left:32px}.ui-team-indicator-image{width:32px;height:32px;background-size:32px;background-repeat:no-repeat;background-image:url(../img/gui/ping-team-danger.svg)}.ui-indicator-ping-border{z-index:0;display:none;position:fixed;top:0;left:0;width:160px;height:160px;position:relative;background-size:160px;background-repeat:no-repeat;background-image:url(../img/gui/ping-border.svg);-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}#ui-top-left{position:absolute;color:#fff;font-size:16px;top:12px;left:12px;display:block}@media (max-height:768px),(max-width:1200px){#ui-top-left{-webkit-transform-origin:top left;transform-origin:top left;-webkit-transform:scale(.85);transform:scale(.85)}}.ui-bg-standard{background:rgba(0,0,0,.24);border-radius:5px}.ui-team-member{display:none;position:relative;width:200px;height:32px;padding:4px;margin-bottom:8px}.ui-team-member-name{font-weight:700;text-shadow:1px 1px 0 #000;font-size:16px;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-team-member-color{position:absolute;top:5px;right:5px;border-radius:7px;width:14px;height:14px}.ui-background-yellow{background-color:#ff0}.ui-background-blue{background-color:blue}.ui-background-red{background-color:red}.ui-background-purple{background-color:purple}.ui-background-cyan{background-color:cyan}.ui-team-member-status{display:none;position:absolute;top:4px;right:-38px;width:32px;height:32px;background-size:32px;background-repeat:no-repeat}.ui-team-member-status-downed{border-radius:16px;display:block!important;background-image:url(../img/gui/down.svg)!important}.ui-team-member-status-dead{display:block!important;background-image:url(../img/gui/skull-team.svg)!important;opacity:.5!important}.ui-team-member-status-disconnected{display:block!important;background-image:url(../img/gui/close.svg)!important;opacity:.5!important}.ui-team-member-health{margin-top:4px}.ui-team-member-health .ui-bar-inner{background-color:#fff;z-index:1;position:absolute;border-radius:4px;width:200px;height:10px;transition:width 0s;transition-property:width;transition-duration:0s;transition-timing-function:ease-out;transition-delay:0s}.ui-team-member-health .ui-bar-danger{background:rgba(255,0,0,.8);-webkit-animation-name:pulse;animation-name:pulse;-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0;animation-delay:0;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}.ui-team-member-health .ui-health-depleted{z-index:0;background:#fff;transition:width 1s;transition-property:width;transition-duration:1s;transition-timing-function:ease-out;transition-delay:0s}#ui-spectate-options-wrapper{color:#fff;display:block;left:12px;position:absolute;top:12px}@media (max-height:768px),(max-width:1200px){#ui-spectate-options-wrapper{-webkit-transform:scale(.85);transform:scale(.85);-webkit-transform-origin:top left;transform-origin:top left}}#ui-spectate-options{position:relative;pointer-events:all;width:100%}#ui-spectate-buttons{display:inline-block;padding:8px 8px 0;text-align:center;width:192px}#ui-spectate-options a{position:relative;color:#fff;font-size:16px;text-shadow:0 1px 2px rgba(0,0,0,.25);background:#50afab;border-bottom:2px solid #387c79;box-shadow:inset 0 -2px #387c79;cursor:pointer}#btn-spectate-prev-player{margin-bottom:24px}#ui-spectate-stats{vertical-align:top;display:none}#ui-spectate-stats-header{text-align:center;font-size:24px;font-weight:700;padding:8px}#ui-spectate-stats-table{width:100%;background-color:transparent;margin:auto;margin-right:0;border-collapse:collapse}#ui-spectate-stats tbody,#ui-spectate-stats td,#ui-spectate-stats th{padding:0 8px 8px 16px;font-size:18px}.ui-spectate-stats-category{width:130px;color:hsla(0,0%,100%,.75)}.ui-spectate-stats-value{width:75px;color:#fff}#ui-leaderboard-wrapper{position:absolute;color:#fff;font-size:16px;top:12px;right:12px;display:flex;font-weight:700;text-align:center;width:85px;display:inline-block}@media (max-height:768px),(max-width:1200px){#ui-leaderboard-wrapper{-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:scale(.85);transform:scale(.85)}}#ui-leaderboard-alive{background:rgba(0,0,0,.4);border-radius:5px;margin-bottom:8px;padding:8px;height:64px;width:72px}.ui-players-alive{position:relative;font-size:54px}.ui-leaderboard-header{font-size:24px;margin-bottom:8px}#ui-kill-counter-wrapper{display:none;margin-top:32px}#ui-kill-counter{background:rgba(0,0,0,.4);border-radius:5px;margin-bottom:8px;padding:8px;height:64px;width:72px}.ui-player-kills{position:relative;font-size:54px}.ui-kill-counter-header{font-size:24px;margin-bottom:8px}#ui-killfeed-wrapper{position:absolute;color:#fff;font-size:16px;top:12px;right:12px;display:flex}@media (max-width:1200px),screen and (min-width:851px) and (max-height:768px){#ui-killfeed-wrapper{-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:scale(.85);transform:scale(.85)}}#ui-killfeed{display:inline-block;margin-left:24px;height:100px}#ui-killfeed-contents{width:800px}#ui-killfeed-contents .killfeed-div{position:absolute;right:100px;background-color:rgba(0,0,0,.4);padding:4px 8px;border-radius:2px;height:22px;line-height:24px}.killfeed-div div{float:left;font-size:16px;font-weight:700;color:#efeeee}#ui-killfeed .killfeed-text{max-width:550px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#ui-right-center:hover{opacity:1}.ui-ammo .ui-loot-image,.ui-ammo .ui-loot-overlay{position:absolute;height:22px;width:22px;right:5px;margin-top:5px;top:0;bottom:0}#ui-medical-interactive{margin-bottom:32px}.ui-medical .ui-loot-image{position:absolute;height:30px;width:30px;background-size:30px;background-repeat:no-repeat;right:5px;margin-top:1px;top:0;bottom:0}.ui-medical:hover{cursor:pointer!important}.ui-loot{background:rgba(0,0,0,.4);border-radius:5px;width:85px;height:32px;margin-left:auto;margin-bottom:5px}.ui-loot:hover{opacity:1!important}.ui-outline-hover{border:2px solid rgba(0,255,0,0)}.ui-outline-hover:hover{-webkit-transition:border .1s ease-out;-moz-transition:border .1s ease-out;-o-transition:border .1s ease-out;border:2px solid #0f0}.ui-scale-hover{transform:scale(1);-webkit-transform:scale(1);-ms-transform:scale(1);-moz-transform:scale(1)}.ui-scale-hover,.ui-scale-hover:hover{-webkit-transition:all .1s ease-in;-ms-transition:all .1s ease-in;-moz-transition:all .1s ease-in;transition:all .1s ease-in}.ui-scale-hover:hover{-webkit-transform:scale(1.1);-ms-transform:scale(1.1);-moz-transform:scale(1.1);transform:scale(1.1)}.ui-loot .ui-loot-count{position:absolute;font-size:24px;font-weight:700;left:10px;top:2px;text-align:center}@media (max-height:864px),(max-width:1024px){.ui-right-center-desktop{top:42%;-webkit-transform-origin:right;transform-origin:right;-webkit-transform:translateY(-50%) scale(.8);transform:translateY(-50%) scale(.8)}#ui-medical-interactive{margin-bottom:8px}}@media (max-height:640px){.ui-right-center-desktop{top:42%;-webkit-transform-origin:right;transform-origin:right;-webkit-transform:translateY(-50%) scale(.7);transform:translateY(-50%) scale(.7)}#ui-medical-interactive{margin-bottom:8px}}#ui-upper-center{position:absolute;display:flex;color:#fff;top:180px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-announcement{display:none;color:#ff0;text-shadow:2px 2px 0 #000;font-size:32px;font-weight:700;text-align:center;width:100vw}#ui-lower-center{position:absolute;color:#fff;bottom:40%;left:50%}@media (max-width:1200px),screen and (min-width:851px) and (max-height:768px){#ui-lower-center{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:scale(.85);transform:scale(.85);bottom:33%}}#ui-interaction{display:flex}#ui-interaction-press{background:rgba(0,0,0,.4);border-radius:5px;margin-left:-24px;width:48px;height:48px;font-size:42px;font-weight:700;text-align:center;background-size:80%;background-position:50%;background-repeat:no-repeat}#ui-interaction-outer{background:rgba(0,0,0,.4);border-radius:5px;margin-left:10px;padding:0 15px;height:48px}#ui-interaction-outer #ui-interaction-description{margin-top:10px;font-size:24px;text-align:center}#ui-map-container{position:absolute;bottom:52px}#ui-map-info{position:absolute;color:#fff;width:100px;height:36px;bottom:218px;left:82px;background:rgba(0,0,0,.4);border-radius:5px}#ui-gas-icon{padding:6px;display:inline-block;height:24px;width:24px;margin-left:2px;background-size:24px;background-repeat:no-repeat;background-position:6px 6px}.gas-icon{background-image:url(../img/gui/gas.svg)}.danger-icon{background-image:url(../img/gui/danger.svg)}.icon-pulse{-webkit-animation:pulse 2s linear infinite;animation:pulse 2s linear infinite}#ui-gas-timer{position:relative;display:inline-block;font-size:24px;text-align:center;bottom:10px;left:2px}#ui-spec-counter{position:absolute;color:#fff;width:68px;height:28px;bottom:218px;left:6px;background:rgba(0,0,0,.4);border-radius:5px}#ui-spec-counter-icon{padding:6px;display:inline-block;height:24px;width:18px;margin-left:2px;background-size:20px;background-repeat:no-repeat;background-position:6px 4px;background-image:url(../img/gui/eye.svg)}#ui-spec-counter-number{position:relative;display:inline-block;font-size:20px;width:24px;text-align:center;bottom:15px;left:0}#ui-settings-container-desktop{position:relative;left:16px;bottom:12px}#ui-settings-container-desktop div{cursor:pointer}.ui-settings-button{position:absolute;color:#fff;border-radius:5px;height:48px;width:48px;pointer-events:all;opacity:.5;background:rgba(0,0,0,.4)}#ui-map-minimize{left:185px}.ui-settings-button img{position:absolute;left:6px;top:6px;height:36px;width:36px;background-size:36px;background-repeat:no-repeat;transform:scale(1);-webkit-transition:all .1s ease-in;-webkit-transform:scale(1);-ms-transition:all .1s ease-in;-ms-transform:scale(1);-moz-transition:all .1s ease-in;-moz-transform:scale(1);transition:all .1s ease-in;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-settings-button .map-img-after{display:none}.ui-settings-button:hover{opacity:1;-webkit-transition:all .1s ease-in;-webkit-transform:scale(1.1);-ms-transition:all .1s ease-in;-ms-transform:scale(1.1);-moz-transition:all .1s ease-in;-moz-transform:scale(1.1);transition:all .1s ease-in;transform:scale(1.1)}#ui-bottom-center-0{position:absolute;color:#fff;bottom:12px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}@media (max-height:768px),(max-width:1200px){#ui-bottom-center-0{-webkit-transform-origin:bottom;transform-origin:bottom;-webkit-transform:translateX(-50%) scale(.85);transform:translateX(-50%) scale(.85)}}#ui-equipped-ammo-wrapper{position:absolute;color:#fff;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);bottom:62px}#ui-equipped-ammo{margin-bottom:12px;text-align:center;opacity:1}#ui-bullet-counter{display:inline-block;width:175px;height:56px;text-align:center;text-shadow:2px 2px #000}#ui-bullet-counter #ui-current-clip{background:rgba(0,0,0,.4);border-radius:5px;font-size:44px;font-weight:700;width:100px;height:50px;-webkit-transform:translateX(-50%);transform:translateX(-50%);left:50%;position:relative;text-align:center}#ui-bullet-counter #ui-ammo-divider{font-size:22px;left:53%;position:absolute;text-align:center;top:20px}#ui-bullet-counter #ui-remaining-ammo{background:rgba(0,0,0,.4);border-radius:5px;font-size:24px;font-weight:700;line-height:32px;width:65px;height:32px;left:82%;position:absolute;text-align:center;top:18px}#ui-boost-counter{display:inline-flex;width:412px}#ui-boost-counter .ui-boost-base{background:rgba(0,0,0,.4);height:10px;margin-bottom:8px}#ui-boost-counter-0{border-top-left-radius:3px;border-bottom-left-radius:3px;width:100px;margin-right:3px}#ui-boost-counter-0 .ui-bar-inner{background:#ff901a}#ui-boost-counter-1{width:100px;margin-left:3px;margin-right:3px}#ui-boost-counter-1 .ui-bar-inner{background:#ff751a}#ui-boost-counter-2{width:150px;margin-left:3px;margin-right:3px}#ui-boost-counter-2 .ui-bar-inner{background:#ff6616}#ui-boost-counter-3{border-top-right-radius:3px;border-bottom-right-radius:3px;width:50px;margin-left:3px}#ui-boost-counter-3 .ui-bar-inner{background:#ff5600}.ui-boost-base .ui-bar-inner{border-radius:inherit;width:0;height:10px}#ui-health-counter{background:rgba(0,0,0,.4);border-radius:5px;width:400px;height:32px;padding:6px}#ui-health-counter .ui-bar-inner{z-index:1;position:absolute;border-radius:5px;width:100%;height:32px;transition:width 0s;transition-property:width;transition-duration:0s;transition-timing-function:ease-out;transition-delay:0s}#ui-health-container{width:400px;position:relative}#ui-health-counter .ui-bar-danger{background:rgba(255,0,0,.8);-webkit-animation-name:pulse;animation-name:pulse;-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0;animation-delay:0;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}#ui-health-counter #ui-health-depleted{z-index:0;background:#fff;transition:width 1s;transition-property:width;transition-duration:1s;transition-timing-function:ease-out;transition-delay:0s}.health-bar-pulse{-webkit-animation:pulsewhite 1s linear infinite;animation:pulsewhite 1s linear infinite}@-webkit-keyframes pulsewhite{0%{background-color:rgba(0,0,0,.6)}50%{background-color:hsla(0,0%,100%,.6)}to{background-color:rgba(0,0,0,.6)}}@keyframes pulsewhite{0%{background-color:rgba(0,0,0,.6)}50%{background-color:hsla(0,0%,100%,.6)}to{background-color:rgba(0,0,0,.6)}}@-webkit-keyframes pulse{0%{background-color:rgba(0,0,0,.8)}50%{background-color:rgba(255,0,0,.8)}to{background-color:rgba(0,0,0,.8)}}@keyframes pulse{0%{background-color:rgba(0,0,0,.8)}50%{background-color:rgba(255,0,0,.8)}to{background-color:rgba(0,0,0,.8)}}#ui-bottom-center-1{z-index:3;position:absolute;color:#fff;bottom:220px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}@media (max-height:768px),(max-width:1200px){#ui-bottom-center-1{-webkit-transform-origin:bottom;transform-origin:bottom;-webkit-transform:translateX(-50%) scale(.85);transform:translateX(-50%) scale(.85);bottom:138px}}#ui-kills{display:none;text-align:center;background:rgba(0,0,0,.4);color:#fff;border-radius:5px;padding:8px}#ui-kill-text{font-size:18px}#ui-kill-count{font-weight:700;color:#ff4100;font-size:32px;text-shadow:1px 1px 1px rgba(0,0,0,.3)}#ui-bottom-center-2{position:absolute;color:#fff;bottom:160px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-pickup-message{color:#fff;opacity:0;text-shadow:2px 2px 0 #000;font-size:32px;font-weight:700;text-align:center;width:100vw}#ui-bottom-center-right{position:absolute;color:#fff;bottom:12px;left:75%}@media (max-height:768px),(max-width:1200px){#ui-bottom-center-right{-webkit-transform:scale(.8);transform:scale(.8)}}.ui-armor-counter{position:absolute;bottom:0;display:block;width:48px;height:60px;background:rgba(0,0,0,.4);border-radius:5px;margin-left:4px}#ui-armor-helmet{right:4px}#ui-armor-backpack{left:60px;border:2px solid transparent}.ui-armor-level{position:relative;font-size:16px;font-weight:700;bottom:24px;text-align:center;text-shadow:1px 1px #000}.ui-armor-counter-inner{z-index:1;position:absolute;background:rgba(0,255,0,.5);border-radius:5px;width:100%;height:0;bottom:0;transition:height .5s;transition-property:height;transition-duration:.5s;transition-timing-function:ease-out;transition-delay:0s}.ui-armor-counter .ui-armor-count{z-index:2;text-shadow:2px 2px #000;position:relative;font-size:18px;font-weight:700;margin-top:-28px;text-align:center}.ui-armor-counter .ui-armor-image{margin:auto;left:0;right:0;bottom:0;top:0;z-index:0;position:absolute;height:36px;width:36px}#ui-bottom-right{position:absolute;color:#fff;bottom:12px;right:12px}@media (max-height:768px),(max-width:1200px){#ui-bottom-right{-webkit-transform-origin:bottom right;transform-origin:bottom right;-webkit-transform:scale(.7);transform:scale(.7)}}#ui-weapon-container{width:192px}.ui-weapon-info{margin-bottom:5px}.ui-weapon-info,.ui-weapon-switch{border-radius:5px;border:2px solid transparent}.ui-weapon-switch{position:absolute;right:0;opacity:.6;width:160px;height:60px;margin-left:auto;pointer-events:all;cursor:pointer!important}#ui-weapon-id-1{bottom:210px}#ui-weapon-id-2{bottom:140px}#ui-weapon-id-3{bottom:70px}#ui-weapon-id-4{bottom:0}.ui-weapon-name{font-size:18px;margin-top:38px}.ui-weapon-name,.ui-weapon-number{position:absolute;font-weight:700;right:8px;text-align:center}.ui-weapon-number{font-size:24px}.ui-weapon-exp{display:none;position:absolute;height:32px;width:32px;font-size:18px;font-weight:700;line-height:34px;right:78px;margin-top:26px;text-align:center}.ui-weapon-image{display:none;position:relative;height:60px;width:60px;left:4px;background-size:60px;background-repeat:no-repeat}#ui-weapon-id-4 .ui-weapon-image{height:52px;width:52px;left:4px;top:4px;background-size:52px}#ui-stats{display:none}#ui-stats-bg{display:none;opacity:0;position:absolute;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.75);pointer-events:none;z-index:2}#ui-stats-contents{position:absolute;width:100%;top:10%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);text-align:center;color:#fff;border-radius:5px;z-index:3}@media (max-height:860px){#ui-stats-contents{top:3%}}@media (max-width:1024px){#ui-stats-contents{-webkit-transform:translateX(-50%) scale(.8);transform:translateX(-50%) scale(.8);-webkit-transform-origin:top;transform-origin:top}}.ui-stats-header-title{font-weight:700;font-size:48px;margin:20px;color:gold}.ui-stats-header-reason{font-size:24px}.ui-stats-header-overview{display:inline;margin:10px}.ui-stats-header-overview div{display:inline;padding-bottom:12px;border-bottom:2px solid hsla(0,0%,100%,.25)}.ui-stats-header-overview div:not(:first-child){margin-left:100px}span.ui-stats-header-stat{font-size:32px}span.ui-stats-header-value{margin-left:24px;font-size:48px;font-weight:700}#ui-stats-info-box{position:relative;left:50%;margin:auto;margin-top:50px;height:190px;display:flex}@media (max-height:768px),(max-width:1200px){#ui-stats-info-box{margin-top:25px}}@media (max-width:1024px){#ui-stats-info-box{-webkit-transform-origin:left;transform-origin:left;-webkit-transform:scale(.85);transform:scale(.85)}}.ui-stats-info-player{position:relative;width:250px;background-color:rgba(0,0,0,.75);border-radius:4px;border:2px solid #000;-webkit-transform:translateX(-50%);transform:translateX(-50%)}.ui-stats-info-status:after{content:"";display:block;position:absolute;top:15%;left:25%;background-image:url(../img/gui/skull.svg);background-repeat:no-repeat;background-size:128px;width:100%;height:100%;opacity:.1;z-index:-1}.ui-stats-info-player-name{color:gold;font-size:24px;font-weight:700;font-style:italic;margin:8px auto;max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-stats-info{display:flex;height:36px;margin:auto}.ui-stats-info>div{padding:8px;font-size:18px;line-height:12px;text-align:left;font-weight:700}.ui-stats-info>div:first-child{width:55%;margin-right:4px;text-align:right;font-weight:400}.ui-stats-reason{display:flex;height:72px;margin:auto}.ui-stats-reason div{padding:8px;margin:auto;width:100%;text-align:center;font-size:16px}.ui-stats-reason .ui-stats-reason-dead{color:red}.ui-stats-reason .ui-stats-reason-alive{color:#7cfc00}#ui-stats-options{position:absolute;left:50%;margin-top:20px;min-height:60px;z-index:1}.ui-stats-restart{width:200px;margin:auto;margin-bottom:20px}#ui-stats-spectate,.ui-stats-restart{position:absolute;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-stats-spectate{left:102px;width:125px;background:#50afab;border-bottom:2px solid #387c79;box-shadow:inset 0 -2px #387c79}.ui-stats-ad-container{display:none;margin-top:80px}#ui-spec-ad-container{z-index:1;position:absolute;top:0;left:50%}.tooltip{position:relative}.tooltip .tooltip-text{visibility:hidden;width:240px;background-color:#000;color:#fff;text-align:center;padding:5px 0;border-radius:6px;position:absolute;z-index:1;right:110%;opacity:.75;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.tooltip .tooltip-text:after{content:" ";position:absolute;top:50%;left:100%;margin-top:-5px;border-width:5px;border-style:solid;border-color:transparent transparent transparent #000}.tooltip-title{font-size:18px;font-weight:700;padding:4px;color:#ff0}.tooltip-description{font-size:16px;padding:4px}.tooltip-description span{font-size:16px}.tooltip:hover .tooltip-text{visibility:visible}#ui-editor-top-center{position:absolute;color:#fff;top:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-editor-top-right{position:absolute;color:#fff;font-size:16px;top:12px;right:12px}.ui-editor-header{text-align:center;font-weight:700;font-size:16px;padding:8px}.ui-editor-info{background:rgba(0,0,0,.4);border-radius:5px;font-size:36px;margin-bottom:8px;padding:8px}.ui-editor-list{margin:0;padding:0;list-style:none}.ui-editor-list li div{font-family:monospace;font-size:14px}#ui-profiler-top-left{position:absolute;color:#fff;font-size:16px;top:12px;left:12px;text-align:center;display:flex}.ui-profiler-list{background:rgba(0,0,0,.4);border-radius:5px;margin-right:16px;padding:8px}.ui-profiler-list-header{font-size:16px;font-weight:700;margin-bottom:8px}.ui-profiler-list ul{list-style:none;text-align:left;padding:0;margin:0}.ui-profiler-list li{display:flex}.kv{font-family:monospace;font-size:14px;font-weight:400}.kv:last-child{width:100%;text-align:right}#ui-settings-container-mobile{display:none}@media screen and (max-width:850px){*{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.ui-touch-down{display:none;position:fixed;background-color:rgba(0,0,0,.5);-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-touch-down-landscape{width:112px;height:112px;border-radius:56px}.ui-touch-down-portrait{width:96px;height:96px;border-radius:48px}.ui-touch-pos{display:none;position:fixed;background-color:rgba(0,0,0,.5);-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-touch-pos-landscape{width:64px;height:64px;border-radius:32px}.ui-touch-pos-portrait{width:48px;height:48px;border-radius:24px}.btn-game-menu{position:relative;margin:auto;margin-top:2px;margin-bottom:4px;color:#fff;font-size:14px;text-shadow:0 1px 2px rgba(0,0,0,.25);background-color:#50afab;border-bottom:2px solid #387c79;box-shadow:inset 0 -2px #387c79;background-repeat:no-repeat;cursor:pointer;text-align:center;line-height:30px;display:block;width:100%;height:30px;border:0;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;box-sizing:border-box}#btn-game-fullscreen{background-size:22px;background-position:4px 2px;background-image:url(../img/gui/minimize.svg)}#btn-game-sound{background-size:30px;background-position:3px 0;margin-bottom:8px}#btn-game-quit{background-position:-2px -3px;background-image:url(../img/gui/quit.svg)}#btn-game-quit,#btn-game-resume{margin-top:20px;background-size:34px}#btn-game-resume{background-position:-1px -1px;background-image:url(../img/gui/resume.svg)}#ui-top-center{position:absolute;color:#fff;top:15%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-top-center .top-center-text{text-align:center;width:100vw;padding:4px}#ui-waiting-text{display:none;color:#fff;text-shadow:1px 1px 0 #000}#ui-waiting-text,#ui-waiting-text span{font-size:16px;font-weight:700}.top-center-text .spectate-text{display:inline-block;text-shadow:1px 1px 0 #000;font-size:16px;font-weight:700;overflow:hidden;height:32px}.top-center-text .spectate-desc{color:#fff;margin-right:8px}.ui-spectate-mode{display:none}#ui-spectate-text{position:relative}#spectate-player{max-width:250px;white-space:nowrap;text-overflow:ellipsis;color:cyan}#ui-top-center-scopes{margin-top:6px;text-align:center;color:#fff}.ui-zoom{display:inline-block;margin-left:-12px;margin-right:-12px;-webkit-transform:scale(.6);transform:scale(.6);background:rgba(0,0,0,.3);border-radius:32px;width:42px;height:42px;opacity:.6;pointer-events:all}.ui-zoom-active{vertical-align:baseline;opacity:1;margin-left:0;margin-right:0;-webkit-transition:all .1s ease-in;-webkit-transform:scale(1);-ms-transition:all .1s ease-in;-ms-transform:scale(1);-moz-transition:all .1s ease-in;-moz-transform:scale(1);transition:all .1s ease-in;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-zoom .ui-zoom-image{width:48px;height:48px;opacity:.4;padding:2px}.ui-zoom .ui-zoom-text{margin-top:14px;width:100%}.ui-zoom .ui-zoom-level{font-size:24px;line-height:16px;text-align:center;width:100%}.ui-zoom .ui-zoom-append{font-size:24px}.ui-zoom-inactive{display:none;margin-left:-8px;margin-right:-8px;transition:all .1s ease-in;-webkit-transform:scale(.6);transform:scale(.6)}.ui-emote-wheel{z-index:3;display:none;position:fixed}.ui-emote-parent{opacity:1}.ui-emote-hl{z-index:2;display:none}.ui-emote{position:fixed;width:256px;height:256px;background-size:256px;background-repeat:no-repeat;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-emote-bg-circle{opacity:.65;background-image:url(../img/gui/ping-part-circle.svg)}.ui-emote-bg-quarter{opacity:.65;background-image:url(../img/gui/ping-part-quarter.svg)}.ui-emote-bg-eighth{opacity:.65;background-image:url(../img/gui/ping-part-eighth.svg)}.ui-emote-middle .ui-emote-image{width:24px!important;height:24px!important;background-size:24px!important;background-image:none!important}.ui-emote-top .ui-emote-image{margin-top:-78px;background-image:url(../img/gui/ping-team-danger.svg)}.ui-emote-right .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(90deg);transform:translate(-50%,-50%) rotate(90deg)}.ui-emote-right .ui-emote-image{margin-left:78px;background-image:url(../img/gui/ping-team-coming.svg)}.ui-emote-bottom .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(180deg);transform:translate(-50%,-50%) rotate(180deg)}.ui-emote-bottom .ui-emote-image{margin-top:78px;background-image:url(../img/gui/ping-team-help.svg)}.ui-emote-left .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(270deg);transform:translate(-50%,-50%) rotate(270deg)}.ui-emote-left .ui-emote-image{margin-left:-78px;background-image:url(../img/gui/ping-team-help.svg)}.ui-emote-top-left .ui-emote-image{margin-left:-80px;margin-top:-30px;background-image:url(../img/loot/loot-ammo-box.svg)}.ui-emote-bottom-left .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(-45deg);transform:translate(-50%,-50%) rotate(-45deg)}.ui-emote-bottom-left .ui-emote-image{margin-left:-80px;margin-top:30px;background-image:url(../img/loot/loot-medical-healthkit.svg)}.ui-emote-circle .ui-emote-hl{background-image:url(../img/gui/ping-part-circle-highlight.svg)}.ui-emote-quarter .ui-emote-hl{background-image:url(../img/gui/ping-part-quarter-highlight.svg)}.ui-emote-eighth .ui-emote-hl{background-image:url(../img/gui/ping-part-eighth-highlight.svg)}.ui-emote-image{z-index:1;position:fixed;background-repeat:no-repeat;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-emote-image-large{width:80px;height:80px;background-size:64px;background-position:50%}.ui-emote-image-small{width:35px;height:35px;background-size:35px}.ui-team-indicator{z-index:2;display:none;position:fixed;top:0;left:0;border-radius:32px;width:64px;height:64px;background-size:64px;background-repeat:no-repeat;background-image:url(../img/gui/indicator.svg)}.ui-team-indicator,.ui-team-indicator-pos{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-team-indicator-pos{opacity:.75;position:relative;border-radius:24px;width:32px;height:32px;top:23px;left:32px}.ui-team-indicator-image{width:32px;height:32px;background-size:32px;background-repeat:no-repeat;background-image:url(../img/gui/ping-team-danger.svg)}.ui-indicator-ping-border{z-index:0;display:none;position:fixed;top:0;left:0;width:160px;height:160px;position:relative;background-size:160px;background-repeat:no-repeat;background-image:url(../img/gui/ping-border.svg);-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}#ui-top-left{position:absolute;color:#fff;font-size:16px;top:6px;left:6px;display:block}.ui-bg-standard{background:rgba(0,0,0,.24);border-radius:5px}#ui-team{position:fixed;left:128px}.ui-team-member{display:none;position:relative;width:110px;height:20px;padding:4px;margin-bottom:4px}.ui-team-member-name{font-weight:700;text-shadow:1px 1px 0 #000;font-size:10px;max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-team-member-color{position:absolute;top:4px;right:4px;border-radius:9px;width:9px;height:9px}.ui-background-yellow{background-color:#ff0}.ui-background-blue{background-color:blue}.ui-background-red{background-color:red}.ui-background-purple{background-color:purple}.ui-background-cyan{background-color:cyan}.ui-team-member-status{display:none;position:absolute;top:2px;right:-24px;width:20px;height:20px;background-size:20px;background-repeat:no-repeat}.ui-team-member-status-downed{border-radius:16px;display:block!important;background-image:url(../img/gui/down.svg)!important}.ui-team-member-status-dead{display:block!important;background-image:url(../img/gui/skull-team.svg)!important;opacity:.5!important}.ui-team-member-status-disconnected{display:block!important;background-image:url(../img/gui/close.svg)!important;opacity:.5!important}.ui-team-member-health{margin-top:2px}.ui-team-member-health .ui-bar-inner{background-color:#fff;z-index:1;position:absolute;border-radius:4px;width:110px;height:5px;transition:width 0s;transition-property:width;transition-duration:0s;transition-timing-function:ease-out;transition-delay:0s}.ui-team-member-health .ui-bar-danger{background:rgba(255,0,0,.8);-webkit-animation-name:pulse;animation-name:pulse;-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0;animation-delay:0;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}.ui-team-member-health .ui-health-depleted{z-index:0;background:#fff;transition:width 1s;transition-property:width;transition-duration:1s;transition-timing-function:ease-out;transition-delay:0s}#ui-spectate-options-wrapper{bottom:6px;position:fixed;left:6px;top:auto!important}#ui-spectate-options{bottom:0;z-index:1;position:absolute;pointer-events:all;width:100%}#ui-spectate-buttons{display:inline-block;width:124px;padding:8px 8px 4px;text-align:center}#ui-spectate-options a{position:relative;color:#fff;height:24px;margin-bottom:2px;line-height:22px;font-size:12px;text-shadow:0 1px 2px rgba(0,0,0,.25);background:#50afab;border-bottom:2px solid #387c79;box-shadow:none;cursor:pointer}#btn-spectate-prev-player,#btn-spectate-view-stats{margin-bottom:12px!important}#ui-spectate-stats{position:absolute;top:0;left:146px;width:160px;display:none}#ui-spectate-stats-header{text-align:center;font-size:16px;font-weight:700;padding:6px;color:#fff}#ui-spectate-stats-table{width:100%;background-color:transparent;margin:auto;margin-right:0;margin-bottom:4px;border-collapse:collapse}#ui-spectate-stats tbody,#ui-spectate-stats td,#ui-spectate-stats th{padding:0 2px 2px 14px;font-size:10px}.ui-spectate-stats-category{width:75px;color:hsla(0,0%,100%,.75)}.ui-spectate-stats-value{width:75px;color:#fff}#ui-top-right{position:absolute;color:#fff;font-size:16px;top:6px;left:6px;display:flex}#ui-leaderboard{font-weight:700;text-align:center;width:56px;display:inline-block}#ui-leaderboard-alive{background:rgba(0,0,0,.4);border-radius:5px;margin-bottom:-16px;padding:8px;height:32px;width:40px}.ui-players-alive-pulse{-webkit-animation-name:pulseAlive;animation-name:pulseAlive;-webkit-animation-duration:2s;animation-duration:2s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}@-webkit-keyframes pulseAlive{0%{color:#fff}20%{color:red}40%{color:#fff}to{color:#fff}}@keyframes pulseAlive{0%{color:#fff}20%{color:red}40%{color:#fff}to{color:#fff}}.ui-leaderboard-header{font-size:12px}#ui-killfeed-wrapper{top:24px;left:6px;right:auto}#ui-killfeed{position:absolute;margin:initial;top:135px}#ui-killfeed-contents{width:800px}#ui-killfeed-contents .killfeed-div{position:absolute;background-color:rgba(0,0,0,.4);padding:3px;border-radius:2px;height:8px;line-height:8px;right:auto}.killfeed-div div,.killfeed-div span{float:left;font-size:8px;line-height:8px;font-weight:700;color:#efeeee}.killfeed-red div,.killfeed-red span{color:#d1777c!important}.killfeed-blue div,.killfeed-blue span{color:#00bfff!important}#ui-killfeed-contents .killfeed-red{color:#d1777c}#ui-killfeed-contents .killfeed-blue{color:#00bfff}#ui-killfeed .killfeed-name{max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-ammo .ui-loot-image,.ui-ammo .ui-loot-overlay{position:absolute;height:11px;width:11px;right:2px;margin-top:2px}#ui-ammo-interactive{position:absolute;right:0;top:25px}#ui-ammo-interactive .ui-loot{display:inline-block;background:rgba(0,0,0,.4);border-radius:5px;width:38px;height:14px;margin-left:auto;margin-bottom:2px}.ui-ammo .ui-loot-count{position:absolute;font-size:12px;font-weight:700;width:16px;left:3px;margin-top:-1px;text-align:center}#ui-medical-interactive .ui-loot{display:inline-block;background:rgba(0,0,0,.4);border-radius:5px;width:44px;height:16px;margin-left:auto;margin-bottom:2px}.ui-medical .ui-loot-image{position:absolute;height:16px;width:16px;background-size:16px;background-repeat:no-repeat;right:2px;margin-top:0}.ui-medical .ui-loot-count{position:absolute;font-size:16px;font-weight:700;left:4px;width:16px;margin-top:-3px;text-align:center}.ui-loot{background:rgba(0,0,0,.4);border-radius:5px;width:85px;height:32px;margin-left:auto;margin-bottom:5px}.ui-loot:hover{opacity:1!important}.ui-outline-hover,.ui-outline-hover:hover{border:2px solid rgba(0,255,0,0)}.ui-outline-hover:hover{-webkit-transition:border .1s ease-out;-moz-transition:border .1s ease-out;-o-transition:border .1s ease-out}.ui-scale-hover{transform:scale(1);-webkit-transform:scale(1);-ms-transform:scale(1);-moz-transform:scale(1)}.ui-scale-hover,.ui-scale-hover:hover{-webkit-transition:all .1s ease-in;-ms-transition:all .1s ease-in;-moz-transition:all .1s ease-in;transition:all .1s ease-in}.ui-scale-hover:hover{-webkit-transform:scale(1.1);-ms-transform:scale(1.1);-moz-transform:scale(1.1);transform:scale(1.1)}#ui-debug-button{display:none;background:rgba(0,0,0,.4);position:absolute;border-radius:13px;height:26px;width:26px;background-size:18px;bottom:4px;right:4px;background-position:50%;background-image:url(../img/gui/mag-glass.svg);background-repeat:no-repeat;pointer-events:auto;z-index:1}#ui-upper-center{position:absolute;display:flex;color:#fff;top:84px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-announcement{display:none;color:#ff0;text-shadow:1px 1px 0 #000;font-size:16px;font-weight:700;text-align:center;width:100vw}#ui-lower-center{position:absolute;color:#fff;bottom:44%;left:60%}#ui-interaction{display:flex}#ui-interaction-press{background:rgba(0,0,0,.4);border-radius:5px;margin-left:-20px;font-size:34px;width:44px;height:44px;background-size:36px;background-position:50%;background-repeat:no-repeat}#ui-interaction-outer{background:rgba(0,0,0,.4);border-radius:5px;margin-left:6px;padding:0 6px;height:28px}#ui-interaction-outer #ui-interaction-description{margin-top:5px;font-size:16px;text-align:center}#ui-bottom-center-0{bottom:6px}#ui-bottom-center-0,#ui-equipped-ammo-wrapper{position:absolute;color:#fff;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-equipped-ammo-wrapper{bottom:78px}#ui-equipped-ammo{position:absolute;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);text-align:center;opacity:1}#ui-bullet-counter{display:inline-block;width:175px;height:28px;text-align:center;text-shadow:1px 1px #000}#ui-bullet-counter #ui-current-clip{background:rgba(0,0,0,.4);border-radius:5px;font-size:28px;font-weight:700;line-height:30px;width:60px;height:32px;-webkit-transform:translateX(-50%);transform:translateX(-50%);left:50%;position:relative;text-align:center}#ui-bullet-counter #ui-ammo-divider{font-size:22px;left:53%;position:absolute;text-align:center;top:20px}#ui-bullet-counter #ui-remaining-ammo{background:rgba(0,0,0,.4);border-radius:5px;font-size:16px;font-weight:700;line-height:22px;width:44px;height:22px;left:122px;position:absolute;text-align:center;top:10px}#ui-bullet-counter #ui-reload-button{background:rgba(0,0,0,.4);position:absolute;border-radius:11px;height:22px;width:22px;background-size:14px;top:10px;left:170px;background-position:4px 3px;background-image:url(../img/gui/bullets.svg);background-repeat:no-repeat}#ui-boost-counter{display:inline-flex;width:206px}#ui-boost-counter .ui-boost-base{background:rgba(0,0,0,.4);height:6px;margin-bottom:0}#ui-boost-counter-0{border-top-left-radius:3px;border-bottom-left-radius:3px;width:50px;margin-right:3px}#ui-boost-counter-0 .ui-bar-inner{background:#ff901a}#ui-boost-counter-1{width:50px;margin-left:3px;margin-right:3px}#ui-boost-counter-1 .ui-bar-inner{background:#ff751a}#ui-boost-counter-2{width:75px;margin-left:3px;margin-right:3px}#ui-boost-counter-2 .ui-bar-inner{background:#ff6616}#ui-boost-counter-3{border-top-right-radius:3px;border-bottom-right-radius:3px;width:25px;margin-left:3px}#ui-boost-counter-3 .ui-bar-inner{background:#ff5600}.ui-boost-base .ui-bar-inner{border-radius:inherit;width:0;height:6px}#ui-health-counter{background:rgba(0,0,0,.4);border-radius:5px;width:200px;height:18px;padding:4px}#ui-health-counter .ui-bar-inner{z-index:1;position:absolute;border-radius:5px;width:100%;height:18px;transition:width 0s;transition-property:width;transition-duration:0s;transition-timing-function:ease-out;transition-delay:0s}#ui-health-container{width:200px;position:relative}#ui-health-counter .ui-bar-danger{background:rgba(255,0,0,.8);-webkit-animation-name:pulse;animation-name:pulse;-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0;animation-delay:0;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}#ui-health-counter #ui-health-depleted{z-index:0;background:#fff;transition:width 1s;transition-property:width;transition-duration:1s;transition-timing-function:ease-out;transition-delay:0s}.health-bar-pulse{-webkit-animation:pulsewhite 1s linear infinite;animation:pulsewhite 1s linear infinite}@-webkit-keyframes pulsewhite{0%{background-color:rgba(0,0,0,.6)}50%{background-color:hsla(0,0%,100%,.6)}to{background-color:rgba(0,0,0,.6)}}@keyframes pulsewhite{0%{background-color:rgba(0,0,0,.6)}50%{background-color:hsla(0,0%,100%,.6)}to{background-color:rgba(0,0,0,.6)}}@-webkit-keyframes pulse{0%{background-color:rgba(0,0,0,.8)}50%{background-color:rgba(255,0,0,.8)}to{background-color:rgba(0,0,0,.8)}}@keyframes pulse{0%{background-color:rgba(0,0,0,.8)}50%{background-color:rgba(255,0,0,.8)}to{background-color:rgba(0,0,0,.8)}}#ui-bottom-center-1{z-index:3;position:absolute;color:#fff;bottom:23%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-kills{display:none;text-align:center;background:rgba(0,0,0,.4);color:#fff;border-radius:5px;padding:6px}#ui-kill-text{font-size:10px}#ui-kill-count{font-weight:700;color:#ff4100;font-size:18px;margin-bottom:-3px;text-shadow:1px 1px 1px rgba(0,0,0,.3)}#ui-bottom-center-2{position:absolute;color:#fff;bottom:82px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-pickup-message{color:#fff;text-shadow:1px 1px 0 #000;font-size:16px;font-weight:700;text-align:center;width:100vw}#ui-bottom-center-right{position:absolute;color:#fff;bottom:6px;left:75%}.ui-armor-counter{position:absolute;bottom:0;display:block;width:20px;height:24px;background:rgba(0,0,0,.4);border-radius:5px;margin-left:2px}#ui-armor-helmet{right:0}#ui-armor-backpack{left:26px}.ui-armor-level{position:relative;font-size:8px;font-weight:700;bottom:12px;text-align:center;text-shadow:1px 1px #000}.ui-armor-counter-inner{z-index:1;position:absolute;background:rgba(0,255,0,.5);border-radius:5px;width:100%;height:0;bottom:0;transition:height .5s;transition-property:height;transition-duration:.5s;transition-timing-function:ease-out;transition-delay:0s}.ui-armor-counter .ui-armor-count{z-index:2;text-shadow:1px 1px #000;position:relative;font-size:18px;font-weight:700;margin-top:-28px;text-align:center}.ui-armor-counter .ui-armor-image{margin:auto;left:0;right:0;bottom:0;top:0;z-index:0;position:absolute;height:18px;width:18px}#ui-bottom-right{bottom:auto;color:#fff;position:absolute;right:6px;top:55%;-webkit-transform-origin:bottom right;transform-origin:bottom right;-webkit-transform:scale(1);transform:scale(1)}#ui-weapon-container{width:84px}.ui-weapon-info{margin-bottom:5px}.ui-weapon-info,.ui-weapon-switch{border-radius:5px;border:2px solid transparent}.ui-weapon-switch{position:absolute;right:0;opacity:.6;width:68px;height:24px;margin-left:auto;pointer-events:all}#ui-weapon-id-1{bottom:90px}#ui-weapon-id-2{bottom:60px}#ui-weapon-id-3{bottom:30px}#ui-weapon-id-4{bottom:0}.ui-weapon-name{position:absolute;font-size:10px;font-weight:700;right:4px;width:48px;margin-top:12px;text-align:right;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.ui-weapon-number{font-size:24px;right:8px}.ui-weapon-exp,.ui-weapon-number{display:none;position:absolute;font-weight:700;text-align:center}.ui-weapon-exp{height:16px;width:16px;font-size:8px;line-height:18px;right:34px;margin-top:10px}.ui-weapon-image{display:none;position:relative;height:28px;width:28px;left:0;bottom:3px;-webkit-transform:rotate(10deg);transform:rotate(10deg)}#ui-weapon-id-4 .ui-weapon-image{height:24px;width:24px;left:0;top:0;background-size:24px}#ui-stats-contents{position:absolute;width:100%;top:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);text-align:center;color:#fff;border-radius:5px}#ui-stats-header{margin-top:14px}.ui-stats-header-title{font-weight:700;font-size:24px;margin:6px;color:gold}.ui-stats-header-reason{font-size:12px}.ui-stats-header-overview{position:fixed;top:4px;right:12px;margin:5px}.ui-stats-header-overview div{display:block;padding-bottom:6px;border-bottom:2px solid hsla(0,0%,100%,.25)}.ui-stats-header-overview div:not(:first-child){margin:initial}span.ui-stats-header-stat{font-size:22px}span.ui-stats-header-value{margin-left:12px;font-size:28px;font-weight:700}#ui-stats-info-box{position:relative;left:50%;margin:auto;margin-top:0;height:100px;display:flex}.ui-stats-info-player{position:relative;width:125px;background-color:rgba(0,0,0,.75);border-radius:4px;border:2px solid #000;-webkit-transform:translateX(-50%);transform:translateX(-50%)}.ui-stats-info-status:after{background-image:url(../img/gui/skull.svg);background-position:50%;background-repeat:no-repeat;background-size:70px;content:"";display:block;height:100%;left:auto;opacity:.1;position:absolute;top:0;width:100%;z-index:-1}.ui-stats-info-player-name{color:gold;font-size:12px;font-weight:700;font-style:italic;margin:4px auto;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-stats-info{display:flex;height:18px;margin:auto}.ui-stats-info>div{padding:4px;font-size:9px;line-height:6px;text-align:left;font-weight:700}.ui-stats-info>div:first-child{width:55%;margin-right:4px;text-align:right;font-weight:400}.ui-stats-reason{display:flex;height:72px;margin:auto}.ui-stats-reason div{padding:8px;margin:auto;width:100%;text-align:center;font-size:16px}.ui-stats-reason .ui-stats-reason-dead{color:red}.ui-stats-reason .ui-stats-reason-alive{color:#7cfc00}#ui-stats-options{position:absolute;left:50%;margin-top:10px;min-height:30px;z-index:1}.ui-stats-restart{width:130px;margin:auto;margin-bottom:20px}#ui-stats-spectate,.ui-stats-restart{position:absolute;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-stats-spectate{left:68px;width:88px;background:#50afab;border-bottom:2px solid #387c79;box-shadow:none}.ui-stats-ad-container{display:none;margin-top:8px;-webkit-transform:scale(.7);transform:scale(.7)}#ui-spec-ad-container{z-index:1;position:absolute;top:0;left:50%}#ad-block-stats-bottom{-webkit-transform:scale(.6);transform:scale(.6);-webkit-transform-origin:center;transform-origin:center;position:static}.tooltip{position:relative}.tooltip .tooltip-text{visibility:hidden!important;width:240px;background-color:#000;color:#fff;text-align:center;padding:5px 0;border-radius:6px;position:absolute;z-index:1;right:110%;opacity:.75;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.tooltip .tooltip-text:after{content:" ";position:absolute;top:50%;left:100%;margin-top:-5px;border-width:5px;border-style:solid;border-color:transparent transparent transparent #000}.tooltip-title{font-size:18px;font-weight:700;padding:4px;color:#ff0}.tooltip-description{font-size:16px;padding:4px}.tooltip-description span{font-size:16px}#ui-editor-top-center{position:absolute;color:#fff;top:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-editor-top-right{position:absolute;color:#fff;font-size:16px;top:6px;right:6px}.ui-editor-header{text-align:center;font-weight:700;font-size:16px;padding:8px}.ui-editor-info{background:rgba(0,0,0,.4);border-radius:5px;font-size:36px;margin-bottom:8px;padding:8px}.ui-editor-list{margin:0;padding:0;list-style:none}.ui-editor-list li div{font-family:monospace;font-size:14px}#ui-profiler-top-left{position:absolute;color:#fff;font-size:16px;top:6px;left:6px;text-align:center;display:flex}.ui-profiler-list{background:rgba(0,0,0,.4);border-radius:5px;margin-right:16px;padding:8px}.ui-profiler-list-header{font-size:16px;font-weight:700;margin-bottom:8px}.ui-profiler-list ul{list-style:none;text-align:left;padding:0;margin:0}.ui-profiler-list li{display:flex}.kv{font-family:monospace;font-size:14px;font-weight:400}.kv:last-child{width:100%;text-align:right}#ui-leaderboard-wrapper,#ui-settings-container-desktop{display:none}#ui-settings-container-mobile{display:block}}@media screen and (max-width:850px) and (max-height:360px),screen and (max-width:850px) and (max-width:640px){#ui-top-center{-webkit-transform-origin:top;transform-origin:top;-webkit-transform:translateX(-50%) scale(.85);transform:translateX(-50%) scale(.85)}}@media screen and (max-width:850px) and screen and (max-width:850px){#ui-lower-center{-webkit-transform:scale(1);transform:scale(1)}}@media screen and (max-width:850px) and (max-height:360px),screen and (max-width:850px) and (max-width:640px){#ui-bottom-center-0{-webkit-transform-origin:bottom;transform-origin:bottom;-webkit-transform:translateX(-50%) scale(.85);transform:translateX(-50%) scale(.85)}}@media screen and (max-width:850px) and (max-height:360px),screen and (max-width:850px) and (max-width:640px){#ui-bottom-right{-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:scale(.8);transform:scale(.8)}}@media screen and (max-width:850px) and (max-width:850px) and (orientation:landscape){.ui-stats-header-overview .ui-stats-header-left{position:fixed;top:6px;left:12px}.ui-stats-header-overview .ui-stats-header-right{position:fixed;top:6px;right:12px}}@media screen and (max-width:850px) and (max-height:360px) and (max-width:640px){.ui-stats-ad-container{margin-top:0;-webkit-transform:scale(.6);transform:scale(.6)}}@media screen and (max-width:850px) and (max-width:850px) and (max-height:320px){.ui-stats-ad-container{position:fixed;right:10px;top:24px;-webkit-transform:scale(.5);transform:scale(.5);-webkit-transform-origin:bottom right;transform-origin:bottom right}}@media screen and (max-width:850px) and (orientation:portrait){#ui-stats-contents{margin-top:32px;margin-bottom:16px}#ui-stats-header-overview{position:static}#ui-stats-info-box{display:inline-block;left:auto;-webkit-transform:scale(.9);transform:scale(.9);-webkit-transform-origin:initial;transform-origin:initial;margin-top:2px;width:100%}.ui-stats-ad-container{width:100%}.ui-stats-info-player{display:inline-block;left:auto!important;margin:8px;-webkit-transform:none;transform:none}.ui-stats-header-overview{display:inline-block;position:static;width:175px}.ui-stats-header-overview div{position:static;margin-bottom:8px}#ui-top-center{top:134px;left:50%}#ui-top-center-scopes-wrapper{display:none;bottom:42px;top:auto}#ui-team{top:40px}.ui-team-member{height:18px;margin-bottom:4px}#ui-upper-center{top:180px}#ui-bottom-center-0{top:-15px;bottom:auto;left:100px;-webkit-transform:scale(.85);transform:scale(.85)}#ui-bottom-center-1{bottom:28%}#ui-bottom-center-2{bottom:218px}#ui-lower-center{bottom:38%;left:38%}#ui-boost-counter{position:relative;top:40px;left:2px}#ui-bottom-right{bottom:20px;right:6px;top:auto}#ui-weapon-id-1{right:240px;bottom:auto}#ui-weapon-id-2{right:160px;bottom:auto}#ui-weapon-id-3{right:80px;bottom:auto}#ui-weapon-id-4{bottom:auto}.ui-weapon-info{display:inline-block}#ui-bottom-center-right{bottom:9px;left:30px}.ui-right-center-mobile{top:6px}#ui-emote-button{top:200px}#ui-debug-button{top:210px}#ui-ammo-interactive{left:8px;margin-top:4px;top:88px}#ui-ammo-interactive .ui-loot,#ui-medical-interactive .ui-loot{display:block}#ui-equipped-ammo{position:static}#ui-equipped-ammo,#ui-equipped-ammo-wrapper{left:auto;-webkit-transform:none;transform:none}#ui-equipped-ammo-wrapper{bottom:auto;color:#fff;position:absolute;right:6px;top:44%}#ui-bullet-counter{width:auto}#ui-bullet-counter #ui-current-clip{left:50%}#ui-bullet-counter #ui-remaining-ammo{left:auto;right:0;top:36px}#ui-bullet-counter #ui-reload-button{left:auto;right:0;top:62px}#big-map-collision{left:auto;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}#big-map-close{bottom:auto;top:12px}#ui-spectate-options-wrapper{bottom:42px;-webkit-transform:scale(.7);transform:scale(.7)}#ui-spectate-options{position:absolute;bottom:12px}#ui-spectate-stats{bottom:0;top:auto}}@media screen and (max-width:850px) and (orientation:portrait) and (min-height:668px){#ui-stats-contents{margin-top:32px}#ui-stats-info-box,.ui-stats-ad-container{-webkit-transform:scale(1);transform:scale(1)}.ui-stats-ad-container{margin-top:20px}#ui-stats-options{display:block;left:auto;position:static;margin:auto;margin-top:24px;width:100%}.ui-stats-restart{margin-bottom:0}#ui-stats-spectate,.ui-stats-restart{display:block;position:static;-webkit-transform:initial;transform:none}#ui-stats-spectate{margin:auto;margin-top:6px}}@media screen and (max-width:850px) and (orientation:portrait) and (max-height:667px){#ui-stats-contents{margin-top:0;-webkit-transform:translateX(-50%) scale(.9);transform:translateX(-50%) scale(.9);-webkit-transform-origin:top;transform-origin:top}.ui-stats-ad-container{margin-top:20px}}@media screen and (max-width:850px) and (orientation:portrait) and (max-height:568px) and (max-width:375px){#ui-bottom-center-right{left:22px;-webkit-transform:scale(.8);transform:scale(.8)}#ui-bottom-right{right:0}#ui-bottom-center-0{top:-20px;left:84px;-webkit-transform:scale(.7);transform:scale(.7)}}', ""])
+        t.push([e.i, 'img{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-drag:none;-khtml-user-drag:none;-moz-user-drag:none;-o-user-drag:none;user-drag:none}#cvs{-webkit-filter:none;filter:none}.click-through{pointer-events:none}#game-area-wrapper{cursor:crosshair;left:0;position:absolute!important;top:0;-webkit-tap-highlight-color:rgba(0,0,0,0)}#ui-game{-webkit-filter:none;filter:none;height:100%;left:0;position:absolute;top:0;width:100%}#ui-center{color:#fff;pointer-events:all;position:absolute;left:50%;top:50%;-webkit-transform:translateX(-50%) translateY(-50%) scale(1);transform:translateX(-50%) translateY(-50%) scale(1);z-index:10}@media (max-width:1200px),screen and (min-width:851px) and (max-height:768px){#ui-center{-webkit-transform:translateX(-50%) translateY(-50%) scale(.85);transform:translateX(-50%) translateY(-50%) scale(.85)}}@media screen and (max-width:850px){#ui-center{pointer-events:all;-webkit-transform:translateX(-50%) translateY(-50%) scale(.85);transform:translateX(-50%) translateY(-50%) scale(.85);z-index:10}}@media (max-width:850px) and (max-height:300px){#ui-center{-webkit-transform:translateX(-50%) translateY(-50%) scale(.775);transform:translateX(-50%) translateY(-50%) scale(.775)}}.btns-game-double-row{display:flex;position:relative}.btns-game-double-row>.btn-game-container{position:relative;width:100%}.btns-game-double-row>.btn-game-container>.btn-double-row{display:inline-block}.btns-game-double-row>div:not(:last-child){margin-right:2px}.game-menu-icon{background-size:22px;background-position:50%;background-repeat:no-repeat;bottom:13px;display:inline-block;height:22px;left:60%;pointer-events:none;position:absolute;-webkit-transform:translateX(-50%);transform:translateX(-50%);width:22px}.btn-game-touch-style{background-color:#50afab;background-position:4px 4px;background-repeat:no-repeat;background-size:20px;border:0;border-bottom:none;border-radius:5px;box-shadow:inset 0 -2px #387c79;box-sizing:border-box;color:#fff;cursor:pointer;display:block;font-size:14px;height:30px;line-height:30px;margin:auto;margin-top:2px;margin-bottom:4px;position:relative;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,.25);width:100%}.movement-icon{background-image:url(../img/gui/movement.svg)}.target-icon{background-image:url(../img/gui/target.svg)}#ui-game-menu{background-color:rgba(0,0,0,.5);border-radius:5px;box-sizing:border-box;display:none;margin:10px auto;padding:10px 15px;width:250px}@media screen and (max-width:850px){#ui-game-menu{padding:4px 10px;width:190px}}@media (max-width:850px) and (max-height:300px){#ui-game-menu{margin-top:0}}#ui-game-menu p{bottom:4px;display:inline-block;font-size:14px;position:relative}@media screen and (max-width:850px){#ui-game-menu p{bottom:0;font-size:12px;margin-bottom:8px;margin-top:6px}}#ui-alive-info{position:absolute;color:#fff;width:80px;height:36px;top:174px;left:106px;background:rgba(0,0,0,.4);border-radius:5px}#ui-map-expand-mobile{height:190px;width:190px;left:-4px;top:-22px;z-index:0;background-color:transparent}#ui-map-expand img{display:none}#ui-map-minimize{left:124px}.ui-map-wrapper-mobile{bottom:auto;color:#fff;display:block;font-size:16px;left:6px;top:46px}.ui-map-wrapper-mobile .ui-players-alive{left:4px}.ui-map-wrapper-mobile .ui-map-counter{position:relative;display:inline-block;font-size:24px;text-align:center;bottom:9px;left:2px}.ui-map-wrapper-mobile .ui-map-icon{padding:6px;display:inline-block;height:24px;width:24px;margin-left:2px;background-size:24px;background-repeat:no-repeat;background-position:6px 6px}.ui-map-wrapper-mobile #ui-map-info{position:absolute;color:#fff;width:100px;height:36px;top:174px;left:0;background:rgba(0,0,0,.4);border-radius:5px}.ui-map-wrapper-mobile #ui-spec-counter{position:absolute;color:#fff;width:68px;height:28px;top:135px;left:60px;background:rgba(0,0,0,.4);border-radius:5px}.ui-map-wrapper-mobile #ui-spec-counter-icon{padding:6px;display:inline-block;height:24px;width:18px;margin-left:2px;background-size:20px;background-repeat:no-repeat;background-position:6px 4px;background-image:url(../img/gui/eye.svg)}.ui-map-wrapper-mobile #ui-spec-counter-number{position:relative;display:inline-block;font-size:20px;width:24px;text-align:center;bottom:15px;left:0}.ui-map-wrapper-mobile .gas-icon{background-image:url(../img/gui/gas.svg)}.ui-map-wrapper-mobile .danger-icon{background-image:url(../img/gui/danger.svg)}.ui-map-wrapper-mobile .alive-icon{background-image:url(../img/gui/player.svg)}.ui-map-wrapper-mobile .icon-pulse{-webkit-animation:pulse 2s linear infinite;animation:pulse 2s linear infinite}.ui-map-wrapper-mobile .ui-settings-button{position:absolute;color:#fff;border-radius:5px;pointer-events:all}.ui-map-wrapper-mobile .ui-settings-button img{position:absolute;left:6px;top:6px;height:36px;width:36px;background-size:36px;background-repeat:no-repeat;transform:scale(1);-webkit-transition:all .1s ease-in;-webkit-transform:scale(1);-ms-transition:all .1s ease-in;-ms-transform:scale(1);-moz-transition:all .1s ease-in;-moz-transform:scale(1);transition:all .1s ease-in;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-map-wrapper-mobile .ui-settings-button .map-img-after{display:none}.ui-map-wrapper-mobile .ui-settings-button:hover{-webkit-transform:scale(1);transform:scale(1)}.ui-map-wrapper-desktop{position:absolute;bottom:12px;left:12px}#ui-map-wrapper{position:absolute;z-index:1}#ui-settings-container-mobile{position:relative}#ui-menu-display{cursor:pointer;left:2px;top:-18px;height:48px;width:48px;opacity:.8;background-color:rgba(0,0,0,.4);background-size:48px;background-repeat:no-repeat;background-position:50%;background-image:url(../img/gui/cog.svg);z-index:1}#big-map{display:none;height:100%;width:100%}#big-map-collision{height:100%;left:50%;margin:auto;pointer-events:all;position:fixed;top:0;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#big-map-close{display:none;position:absolute;margin-left:auto;height:64px;width:64px;right:6px;top:6px;border-radius:6px;background-color:rgba(0,0,0,.5);background-repeat:no-repeat;background-size:48px;background-position:50%;background-image:url(../img/gui/close.svg);pointer-events:all}#ui-right-center{position:absolute;color:#fff;opacity:.75;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-right-center-desktop{top:40%;-webkit-transform:translateY(-50%);transform:translateY(-50%);right:12px}.ui-right-center-mobile{top:30px;-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:translateY(-50%) scale(.8);transform:translateY(-50%) scale(.8);right:6px}@media (max-height:360px),(max-width:640px){.ui-right-center-mobile{-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:scale(.85);transform:scale(.85);top:16px}}.ui-right-center-tablet{top:12px!important;-webkit-transform:scale(.8);transform:scale(.8)}@media (max-height:600px){.ui-right-center-tablet{-webkit-transform:scale(.65);transform:scale(.65)}}.ui-bottom-right-tablet{bottom:25%!important;-webkit-transform:scale(.8)!important;transform:scale(.8)!important;-webkit-transform-origin:right!important;transform-origin:right!important}@media (max-height:600px){.ui-bottom-right-tablet{bottom:25%!important;-webkit-transform:scale(.7)!important;transform:scale(.7)!important;-webkit-transform-origin:right!important;transform-origin:right!important}}.ui-bottom-center-right-tablet{left:72%!important;-webkit-transform:scale(.65)!important;transform:scale(.65)!important}#ui-emote-button{background:rgba(0,0,0,.4);background-image:url(../img/gui/emote.svg);background-position:50%;background-repeat:no-repeat;background-size:28px;border-radius:21px;display:none;height:42px;position:absolute;right:108px;top:0;width:42px}@media screen and (max-width:850px){#ui-emote-button{background-size:20px;border-radius:14px;height:28px;right:0;top:50px;width:28px}}.ui-top-left-tablet{left:120px!important}.ui-spectate-options-wrapper-tablet{bottom:12px!important;top:auto!important}.ui-killfeed-wrapper-tablet{top:60px!important}@media (max-width:850px) and (max-height:320px){.ui-slider-container{margin-bottom:0}}@media (max-width:850px) and (max-height:320px){.ui-slider-container>p{width:75px}}@media (max-width:850px) and (max-height:320px){.ui-slider-container>.slider{bottom:3px;width:85px}}@media (max-width:850px) and (max-height:320px){.ui-slider-container>.slider::-webkit-slider-thumb{width:20px;height:20px}}@media (max-width:850px) and (max-height:320px){.ui-slider-container>.slider::-moz-range-thumb{width:20px;height:20px}}.ui-hidden{display:none}.btn-game-menu{text-align:center;line-height:38px;display:block;width:100%;height:40px;border:0;border-radius:5px;box-sizing:border-box;position:relative;margin:auto;margin-top:5px;margin-bottom:5px;color:#fff;font-size:16px;text-shadow:0 1px 2px rgba(0,0,0,.25);background-color:#50afab;border-bottom:2px solid #387c79;box-shadow:inset 0 -2px #387c79;background-repeat:no-repeat;cursor:pointer}#btn-game-fullscreen{background-size:34px;background-position:4px 2px;background-image:url(../img/gui/minimize.svg)}#btn-game-sound{background-size:44px;background-position:2px -3px}#btn-game-quit{margin-top:40px;background-image:url(../img/gui/quit.svg)}#btn-game-quit,#btn-game-resume{background-size:44px;background-position:-2px -3px}#btn-game-resume{margin-top:30px;background-image:url(../img/gui/resume.svg)}#ui-top-center{position:absolute;color:#fff;top:80px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-top-center .top-center-text{text-align:center;width:100vw;padding:8px}#ui-waiting-text{display:none;color:#fff;text-shadow:2px 2px 0 #000}#ui-waiting-text,#ui-waiting-text span{font-size:32px;font-weight:700}.top-center-text .spectate-text{display:inline-block;text-shadow:2px 2px 0 #000;font-size:24px;font-weight:700;overflow:hidden;height:32px}@media (max-width:1024px){.top-center-text .spectate-text{font-size:18px}}.top-center-text .spectate-desc{color:#fff;margin-right:8px}.ui-spectate-mode{display:none}#ui-spectate-text{position:relative}#spectate-player{max-width:250px;white-space:nowrap;text-overflow:ellipsis;color:cyan}#ui-top-center-scopes-wrapper{position:absolute;color:#fff;top:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);width:100%}#ui-top-center-scopes{margin-top:12px;text-align:center}@media (max-height:768px),(max-width:1200px){#ui-top-center-scopes{-webkit-transform:scale(.85);transform:scale(.85)}}.ui-zoom{background:rgba(0,0,0,.3);border-radius:36px;width:64px;height:64px;opacity:.6;display:inline-block}.ui-zoom-hover:hover{opacity:1}.ui-zoom-active{vertical-align:baseline;opacity:1;transform:scale(1);-webkit-transition:all .1s ease-in;-webkit-transform:scale(1);-ms-transition:all .1s ease-in;-ms-transform:scale(1);-moz-transition:all .1s ease-in;-moz-transform:scale(1);transition:all .1s ease-in;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-zoom .ui-zoom-image{width:64px;height:64px;opacity:.4;padding:2px}.ui-zoom .ui-zoom-text{margin-top:14px;width:100%}.ui-zoom .ui-zoom-level{font-size:32px;text-align:center;width:100%}.ui-zoom .ui-zoom-append{font-size:24px}.ui-zoom-inactive{display:none;margin-left:-8px;margin-right:-8px;-webkit-transition:all .1s ease-in;-webkit-transform:scale(.5);-ms-transition:all .1s ease-in;-ms-transform:scale(.5);-moz-transition:all .1s ease-in;-moz-transform:scale(.5);transition:all .1s ease-in;transform:scale(.5)}.ui-zoom-inactive:hover{cursor:pointer!important;opacity:1}.ui-emote-wheel{z-index:3;display:none;position:fixed}.ui-emote-parent{opacity:.75}.ui-emote-hl{z-index:2;display:none}.ui-emote{position:fixed;width:256px;height:256px;background-size:256px;background-repeat:no-repeat;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-emote-bg-circle{opacity:.5;background-image:url(../img/gui/ping-part-circle.svg)}.ui-emote-bg-quarter{opacity:.5;background-image:url(../img/gui/ping-part-quarter.svg)}.ui-emote-bg-eighth{opacity:.5;background-image:url(../img/gui/ping-part-eighth.svg)}.ui-emote-middle .ui-emote-image{width:24px!important;height:24px!important;background-size:24px!important;background-image:url(../img/gui/close.svg)}.ui-emote-top .ui-emote-image{margin-top:-78px;background-image:url(../img/gui/ping-team-danger.svg)}.ui-emote-right .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(90deg);transform:translate(-50%,-50%) rotate(90deg)}.ui-emote-right .ui-emote-image{margin-left:78px;background-image:url(../img/gui/ping-team-coming.svg)}.ui-emote-bottom .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(180deg);transform:translate(-50%,-50%) rotate(180deg)}.ui-emote-bottom .ui-emote-image{margin-top:78px;background-image:url(../img/gui/ping-team-help.svg)}.ui-emote-left .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(270deg);transform:translate(-50%,-50%) rotate(270deg)}.ui-emote-left .ui-emote-image{margin-left:-78px;background-image:url(../img/gui/ping-team-help.svg)}.ui-emote-top-left .ui-emote-image{margin-left:-80px;margin-top:-30px;background-image:url(../img/loot/loot-ammo-box.svg)}.ui-emote-bottom-left .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(-45deg);transform:translate(-50%,-50%) rotate(-45deg)}.ui-emote-bottom-left .ui-emote-image{margin-left:-80px;margin-top:30px;background-image:url(../img/loot/loot-medical-healthkit.svg)}.ui-emote-circle .ui-emote-hl{background-image:url(../img/gui/ping-part-circle-highlight.svg)}.ui-emote-quarter .ui-emote-hl{background-image:url(../img/gui/ping-part-quarter-highlight.svg)}.ui-emote-eighth .ui-emote-hl{background-image:url(../img/gui/ping-part-eighth-highlight.svg)}.ui-emote-image{z-index:1;position:fixed;background-repeat:no-repeat;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-emote-image-large{width:64px;height:64px;background-size:64px}.ui-emote-image-small{width:35px;height:35px;background-size:35px}.ui-team-indicator{z-index:2;display:none;position:fixed;top:0;left:0;border-radius:32px;width:64px;height:64px;background-size:64px;background-repeat:no-repeat;background-image:url(../img/gui/indicator.svg)}.ui-team-indicator,.ui-team-indicator-pos{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-team-indicator-pos{opacity:.75;position:relative;border-radius:24px;width:32px;height:32px;top:23px;left:32px}.ui-team-indicator-image{width:32px;height:32px;background-size:32px;background-repeat:no-repeat;background-image:url(../img/gui/ping-team-danger.svg)}.ui-indicator-ping-border{z-index:0;display:none;position:fixed;top:0;left:0;width:160px;height:160px;position:relative;background-size:160px;background-repeat:no-repeat;background-image:url(../img/gui/ping-border.svg);-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}#ui-top-left{position:absolute;color:#fff;font-size:16px;top:12px;left:12px;display:block}@media (max-height:768px),(max-width:1200px){#ui-top-left{-webkit-transform-origin:top left;transform-origin:top left;-webkit-transform:scale(.85);transform:scale(.85)}}.ui-bg-standard{background:rgba(0,0,0,.24);border-radius:5px}.ui-team-member{display:none;position:relative;width:200px;height:32px;padding:4px;margin-bottom:8px}.ui-team-member-name{font-weight:700;text-shadow:1px 1px 0 #000;font-size:16px;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-team-member-color{position:absolute;top:5px;right:5px;border-radius:7px;width:14px;height:14px}.ui-background-yellow{background-color:#ff0}.ui-background-blue{background-color:blue}.ui-background-red{background-color:red}.ui-background-purple{background-color:purple}.ui-background-cyan{background-color:cyan}.ui-team-member-status{display:none;position:absolute;top:4px;right:-38px;width:32px;height:32px;background-size:32px;background-repeat:no-repeat}.ui-team-member-status-downed{border-radius:16px;display:block!important;background-image:url(../img/gui/down.svg)!important}.ui-team-member-status-dead{display:block!important;background-image:url(../img/gui/skull-team.svg)!important;opacity:.5!important}.ui-team-member-status-disconnected{display:block!important;background-image:url(../img/gui/close.svg)!important;opacity:.5!important}.ui-team-member-health{margin-top:4px}.ui-team-member-health .ui-bar-inner{background-color:#fff;z-index:1;position:absolute;border-radius:4px;width:200px;height:10px;transition:width 0s;transition-property:width;transition-duration:0s;transition-timing-function:ease-out;transition-delay:0s}.ui-team-member-health .ui-bar-danger{background:rgba(255,0,0,.8);-webkit-animation-name:pulse;animation-name:pulse;-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0;animation-delay:0;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}.ui-team-member-health .ui-health-depleted{z-index:0;background:#fff;transition:width 1s;transition-property:width;transition-duration:1s;transition-timing-function:ease-out;transition-delay:0s}#ui-spectate-options-wrapper{color:#fff;display:block;left:12px;position:absolute;top:12px}@media (max-height:768px),(max-width:1200px){#ui-spectate-options-wrapper{-webkit-transform:scale(.85);transform:scale(.85);-webkit-transform-origin:top left;transform-origin:top left}}#ui-spectate-options{position:relative;pointer-events:all;width:100%}#ui-spectate-buttons{display:inline-block;padding:8px 8px 0;text-align:center;width:192px}#ui-spectate-options a{position:relative;color:#fff;font-size:16px;text-shadow:0 1px 2px rgba(0,0,0,.25);background:#50afab;border-bottom:2px solid #387c79;box-shadow:inset 0 -2px #387c79;cursor:pointer}#btn-spectate-prev-player{margin-bottom:24px}#ui-spectate-stats{vertical-align:top;display:none}#ui-spectate-stats-header{text-align:center;font-size:24px;font-weight:700;padding:8px}#ui-spectate-stats-table{width:100%;background-color:transparent;margin:auto;margin-right:0;border-collapse:collapse}#ui-spectate-stats tbody,#ui-spectate-stats td,#ui-spectate-stats th{padding:0 8px 8px 16px;font-size:18px}.ui-spectate-stats-category{width:130px;color:hsla(0,0%,100%,.75)}.ui-spectate-stats-value{width:75px;color:#fff}#ui-leaderboard-wrapper{position:absolute;color:#fff;font-size:16px;top:12px;right:12px;display:flex;font-weight:700;text-align:center;width:85px;display:inline-block}@media (max-height:768px),(max-width:1200px){#ui-leaderboard-wrapper{-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:scale(.85);transform:scale(.85)}}#ui-leaderboard-alive{background:rgba(0,0,0,.4);border-radius:5px;margin-bottom:8px;padding:8px;height:64px;width:72px}.ui-players-alive{position:relative;font-size:54px}.ui-leaderboard-header{font-size:24px;margin-bottom:8px}#ui-kill-counter-wrapper{display:none;margin-top:32px}#ui-kill-counter{background:rgba(0,0,0,.4);border-radius:5px;margin-bottom:8px;padding:8px;height:64px;width:72px}.ui-player-kills{position:relative;font-size:54px}.ui-kill-counter-header{font-size:24px;margin-bottom:8px}#ui-killfeed-wrapper{position:absolute;color:#fff;font-size:16px;top:12px;right:12px;display:flex}@media (max-width:1200px),screen and (min-width:851px) and (max-height:768px){#ui-killfeed-wrapper{-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:scale(.85);transform:scale(.85)}}#ui-killfeed{display:inline-block;margin-left:24px;height:100px}#ui-killfeed-contents{width:800px}#ui-killfeed-contents .killfeed-div{position:absolute;right:100px;background-color:rgba(0,0,0,.4);padding:4px 8px;border-radius:2px;height:22px;line-height:24px}.killfeed-div div{float:left;font-size:16px;font-weight:700;color:#efeeee}#ui-killfeed .killfeed-text{max-width:550px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#ui-right-center:hover{opacity:1}.ui-ammo .ui-loot-image,.ui-ammo .ui-loot-overlay{position:absolute;height:22px;width:22px;right:5px;margin-top:5px;top:0;bottom:0}#ui-medical-interactive{margin-bottom:32px}.ui-medical .ui-loot-image{position:absolute;height:30px;width:30px;background-size:30px;background-repeat:no-repeat;right:5px;margin-top:1px;top:0;bottom:0}.ui-medical:hover{cursor:pointer!important}.ui-loot{background:rgba(0,0,0,.4);border-radius:5px;width:85px;height:32px;margin-left:auto;margin-bottom:5px}.ui-loot:hover{opacity:1!important}.ui-outline-hover{border:2px solid rgba(0,255,0,0)}.ui-outline-hover:hover{-webkit-transition:border .1s ease-out;-moz-transition:border .1s ease-out;-o-transition:border .1s ease-out;border:2px solid #0f0}.ui-scale-hover{transform:scale(1);-webkit-transform:scale(1);-ms-transform:scale(1);-moz-transform:scale(1)}.ui-scale-hover,.ui-scale-hover:hover{-webkit-transition:all .1s ease-in;-ms-transition:all .1s ease-in;-moz-transition:all .1s ease-in;transition:all .1s ease-in}.ui-scale-hover:hover{-webkit-transform:scale(1.1);-ms-transform:scale(1.1);-moz-transform:scale(1.1);transform:scale(1.1)}.ui-loot .ui-loot-count{position:absolute;font-size:24px;font-weight:700;left:10px;top:2px;text-align:center}@media (max-height:864px),(max-width:1024px){.ui-right-center-desktop{top:42%;-webkit-transform-origin:right;transform-origin:right;-webkit-transform:translateY(-50%) scale(.8);transform:translateY(-50%) scale(.8)}#ui-medical-interactive{margin-bottom:8px}}@media (max-height:640px){.ui-right-center-desktop{top:42%;-webkit-transform-origin:right;transform-origin:right;-webkit-transform:translateY(-50%) scale(.7);transform:translateY(-50%) scale(.7)}#ui-medical-interactive{margin-bottom:8px}}#ui-upper-center{position:absolute;display:flex;color:#fff;top:180px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-announcement{display:none;color:#ff0;text-shadow:2px 2px 0 #000;font-size:32px;font-weight:700;text-align:center;width:100vw}#ui-lower-center{position:absolute;color:#fff;bottom:40%;left:50%}@media (max-width:1200px),screen and (min-width:851px) and (max-height:768px){#ui-lower-center{-webkit-transform-origin:left bottom;transform-origin:left bottom;-webkit-transform:scale(.85);transform:scale(.85);bottom:33%}}#ui-interaction{display:flex}#ui-interaction-press{background:rgba(0,0,0,.4);border-radius:5px;margin-left:-24px;width:48px;height:48px;font-size:42px;font-weight:700;text-align:center;background-size:80%;background-position:50%;background-repeat:no-repeat}#ui-interaction-outer{background:rgba(0,0,0,.4);border-radius:5px;margin-left:10px;padding:0 15px;height:48px}#ui-interaction-outer #ui-interaction-description{margin-top:10px;font-size:24px;text-align:center}#ui-map-container{position:absolute;bottom:52px}#ui-map-info{position:absolute;color:#fff;width:100px;height:36px;bottom:218px;left:82px;background:rgba(0,0,0,.4);border-radius:5px}#ui-gas-icon{padding:6px;display:inline-block;height:24px;width:24px;margin-left:2px;background-size:24px;background-repeat:no-repeat;background-position:6px 6px}.gas-icon{background-image:url(../img/gui/gas.svg)}.danger-icon{background-image:url(../img/gui/danger.svg)}.icon-pulse{-webkit-animation:pulse 2s linear infinite;animation:pulse 2s linear infinite}#ui-gas-timer{position:relative;display:inline-block;font-size:24px;text-align:center;bottom:10px;left:2px}#ui-spec-counter{position:absolute;color:#fff;width:68px;height:28px;bottom:218px;left:6px;background:rgba(0,0,0,.4);border-radius:5px}#ui-spec-counter-icon{padding:6px;display:inline-block;height:24px;width:18px;margin-left:2px;background-size:20px;background-repeat:no-repeat;background-position:6px 4px;background-image:url(../img/gui/eye.svg)}#ui-spec-counter-number{position:relative;display:inline-block;font-size:20px;width:24px;text-align:center;bottom:15px;left:0}#ui-settings-container-desktop{position:relative;left:16px;bottom:12px}#ui-settings-container-desktop div{cursor:pointer}.ui-settings-button{position:absolute;color:#fff;border-radius:5px;height:48px;width:48px;pointer-events:all;opacity:.5;background:rgba(0,0,0,.4)}#ui-map-minimize{left:185px}.ui-settings-button img{position:absolute;left:6px;top:6px;height:36px;width:36px;background-size:36px;background-repeat:no-repeat;transform:scale(1);-webkit-transition:all .1s ease-in;-webkit-transform:scale(1);-ms-transition:all .1s ease-in;-ms-transform:scale(1);-moz-transition:all .1s ease-in;-moz-transform:scale(1);transition:all .1s ease-in;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-settings-button .map-img-after{display:none}.ui-settings-button:hover{opacity:1;-webkit-transition:all .1s ease-in;-webkit-transform:scale(1.1);-ms-transition:all .1s ease-in;-ms-transform:scale(1.1);-moz-transition:all .1s ease-in;-moz-transform:scale(1.1);transition:all .1s ease-in;transform:scale(1.1)}#ui-bottom-center-0{position:absolute;color:#fff;bottom:12px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}@media (max-height:768px),(max-width:1200px){#ui-bottom-center-0{-webkit-transform-origin:bottom;transform-origin:bottom;-webkit-transform:translateX(-50%) scale(.85);transform:translateX(-50%) scale(.85)}}#ui-equipped-ammo-wrapper{position:absolute;color:#fff;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);bottom:62px}#ui-equipped-ammo{margin-bottom:12px;text-align:center;opacity:1}#ui-bullet-counter{display:inline-block;width:175px;height:56px;text-align:center;text-shadow:2px 2px #000}#ui-bullet-counter #ui-current-clip{background:rgba(0,0,0,.4);border-radius:5px;font-size:44px;font-weight:700;width:100px;height:50px;-webkit-transform:translateX(-50%);transform:translateX(-50%);left:50%;position:relative;text-align:center}#ui-bullet-counter #ui-ammo-divider{font-size:22px;left:53%;position:absolute;text-align:center;top:20px}#ui-bullet-counter #ui-remaining-ammo{background:rgba(0,0,0,.4);border-radius:5px;font-size:24px;font-weight:700;line-height:32px;width:65px;height:32px;left:82%;position:absolute;text-align:center;top:18px}#ui-boost-counter{display:inline-flex;width:412px}#ui-boost-counter .ui-boost-base{background:rgba(0,0,0,.4);height:10px;margin-bottom:8px}#ui-boost-counter-0{border-top-left-radius:3px;border-bottom-left-radius:3px;width:100px;margin-right:3px}#ui-boost-counter-0 .ui-bar-inner{background:#ff901a}#ui-boost-counter-1{width:100px;margin-left:3px;margin-right:3px}#ui-boost-counter-1 .ui-bar-inner{background:#ff751a}#ui-boost-counter-2{width:150px;margin-left:3px;margin-right:3px}#ui-boost-counter-2 .ui-bar-inner{background:#ff6616}#ui-boost-counter-3{border-top-right-radius:3px;border-bottom-right-radius:3px;width:50px;margin-left:3px}#ui-boost-counter-3 .ui-bar-inner{background:#ff5600}.ui-boost-base .ui-bar-inner{border-radius:inherit;width:0;height:10px}#ui-health-counter{background:rgba(0,0,0,.4);border-radius:5px;width:400px;height:32px;padding:6px}#ui-health-counter .ui-bar-inner{z-index:1;position:absolute;border-radius:5px;width:100%;height:32px;transition:width 0s;transition-property:width;transition-duration:0s;transition-timing-function:ease-out;transition-delay:0s}#ui-health-container{width:400px;position:relative}#ui-health-counter .ui-bar-danger{background:rgba(255,0,0,.8);-webkit-animation-name:pulse;animation-name:pulse;-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0;animation-delay:0;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}#ui-health-counter #ui-health-depleted{z-index:0;background:#fff;transition:width 1s;transition-property:width;transition-duration:1s;transition-timing-function:ease-out;transition-delay:0s}.health-bar-pulse{-webkit-animation:pulsewhite 1s linear infinite;animation:pulsewhite 1s linear infinite}@-webkit-keyframes pulsewhite{0%{background-color:rgba(0,0,0,.6)}50%{background-color:hsla(0,0%,100%,.6)}to{background-color:rgba(0,0,0,.6)}}@keyframes pulsewhite{0%{background-color:rgba(0,0,0,.6)}50%{background-color:hsla(0,0%,100%,.6)}to{background-color:rgba(0,0,0,.6)}}@-webkit-keyframes pulse{0%{background-color:rgba(0,0,0,.8)}50%{background-color:rgba(255,0,0,.8)}to{background-color:rgba(0,0,0,.8)}}@keyframes pulse{0%{background-color:rgba(0,0,0,.8)}50%{background-color:rgba(255,0,0,.8)}to{background-color:rgba(0,0,0,.8)}}#ui-bottom-center-1{z-index:3;position:absolute;color:#fff;bottom:220px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}@media (max-height:768px),(max-width:1200px){#ui-bottom-center-1{-webkit-transform-origin:bottom;transform-origin:bottom;-webkit-transform:translateX(-50%) scale(.85);transform:translateX(-50%) scale(.85);bottom:138px}}#ui-kills{display:none;text-align:center;background:rgba(0,0,0,.4);color:#fff;border-radius:5px;padding:8px}#ui-kill-text{font-size:18px}#ui-kill-count{font-weight:700;color:#ff4100;font-size:32px;text-shadow:1px 1px 1px rgba(0,0,0,.3)}#ui-bottom-center-2{position:absolute;color:#fff;bottom:160px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-pickup-message{color:#fff;opacity:0;text-shadow:2px 2px 0 #000;font-size:32px;font-weight:700;text-align:center;width:100vw}#ui-bottom-center-right{position:absolute;color:#fff;bottom:12px;left:75%}@media (max-height:768px),(max-width:1200px){#ui-bottom-center-right{-webkit-transform:scale(.8);transform:scale(.8)}}.ui-armor-counter{position:absolute;bottom:0;display:block;width:48px;height:60px;background:rgba(0,0,0,.4);border-radius:5px;margin-left:4px}#ui-armor-helmet{right:4px}#ui-armor-backpack{left:60px;border:2px solid transparent}.ui-armor-level{position:relative;font-size:16px;font-weight:700;bottom:24px;text-align:center;text-shadow:1px 1px #000}.ui-armor-counter-inner{z-index:1;position:absolute;background:rgba(0,255,0,.5);border-radius:5px;width:100%;height:0;bottom:0;transition:height .5s;transition-property:height;transition-duration:.5s;transition-timing-function:ease-out;transition-delay:0s}.ui-armor-counter .ui-armor-count{z-index:2;text-shadow:2px 2px #000;position:relative;font-size:18px;font-weight:700;margin-top:-28px;text-align:center}.ui-armor-counter .ui-armor-image{margin:auto;left:0;right:0;bottom:0;top:0;z-index:0;position:absolute;height:36px;width:36px}#ui-bottom-right{position:absolute;color:#fff;bottom:12px;right:12px}@media (max-height:768px),(max-width:1200px){#ui-bottom-right{-webkit-transform-origin:bottom right;transform-origin:bottom right;-webkit-transform:scale(.7);transform:scale(.7)}}#ui-weapon-container{width:192px}.ui-weapon-info{margin-bottom:5px}.ui-weapon-info,.ui-weapon-switch{border-radius:5px;border:2px solid transparent}.ui-weapon-switch{position:absolute;right:0;opacity:.6;width:160px;height:60px;margin-left:auto;pointer-events:all;cursor:pointer!important}#ui-weapon-id-1{bottom:210px}#ui-weapon-id-2{bottom:140px}#ui-weapon-id-3{bottom:70px}#ui-weapon-id-4{bottom:0}.ui-weapon-name{font-size:18px;margin-top:38px}.ui-weapon-name,.ui-weapon-number{position:absolute;font-weight:700;right:8px;text-align:center}.ui-weapon-number{font-size:24px}.ui-weapon-exp{display:none;position:absolute;height:32px;width:32px;font-size:18px;font-weight:700;line-height:34px;right:78px;margin-top:26px;text-align:center}.ui-weapon-image{display:none;position:relative;height:60px;width:60px;left:4px;background-size:60px;background-repeat:no-repeat}#ui-weapon-id-4 .ui-weapon-image{height:52px;width:52px;left:4px;top:4px;background-size:52px}.ui-weapon-dragged{position:fixed!important;width:160px!important;right:auto!important;bottom:auto!important;pointer-events:none!important}#ui-stats{display:none}#ui-stats-bg{display:none;opacity:0;position:absolute;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.75);pointer-events:none;z-index:2}#ui-stats-contents{position:absolute;width:100%;top:10%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);text-align:center;color:#fff;border-radius:5px;z-index:3}@media (max-height:860px){#ui-stats-contents{top:3%}}@media (max-width:1024px){#ui-stats-contents{-webkit-transform:translateX(-50%) scale(.8);transform:translateX(-50%) scale(.8);-webkit-transform-origin:top;transform-origin:top}}.ui-stats-header-title{font-weight:700;font-size:48px;margin:20px;color:gold}.ui-stats-header-reason{font-size:24px}.ui-stats-header-overview{display:inline;margin:10px}.ui-stats-header-overview div{display:inline;padding-bottom:12px;border-bottom:2px solid hsla(0,0%,100%,.25)}.ui-stats-header-overview div:not(:first-child){margin-left:100px}span.ui-stats-header-stat{font-size:32px}span.ui-stats-header-value{margin-left:24px;font-size:48px;font-weight:700}#ui-stats-info-box{position:relative;left:50%;margin:auto;margin-top:50px;height:190px;display:flex}@media (max-height:768px),(max-width:1200px){#ui-stats-info-box{margin-top:25px}}@media (max-width:1024px){#ui-stats-info-box{-webkit-transform-origin:left;transform-origin:left;-webkit-transform:scale(.85);transform:scale(.85)}}.ui-stats-info-player{position:relative;width:250px;background-color:rgba(0,0,0,.75);border-radius:4px;border:2px solid #000;-webkit-transform:translateX(-50%);transform:translateX(-50%)}.ui-stats-info-status:after{content:"";display:block;position:absolute;top:15%;left:25%;background-image:url(../img/gui/skull.svg);background-repeat:no-repeat;background-size:128px;width:100%;height:100%;opacity:.1;z-index:-1}.ui-stats-info-player-name{color:gold;font-size:24px;font-weight:700;font-style:italic;margin:8px auto;max-width:240px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-stats-info{display:flex;height:36px;margin:auto}.ui-stats-info>div{padding:8px;font-size:18px;line-height:12px;text-align:left;font-weight:700}.ui-stats-info>div:first-child{width:55%;margin-right:4px;text-align:right;font-weight:400}.ui-stats-reason{display:flex;height:72px;margin:auto}.ui-stats-reason div{padding:8px;margin:auto;width:100%;text-align:center;font-size:16px}.ui-stats-reason .ui-stats-reason-dead{color:red}.ui-stats-reason .ui-stats-reason-alive{color:#7cfc00}#ui-stats-options{position:absolute;left:50%;margin-top:20px;min-height:60px;z-index:1}.ui-stats-restart{width:200px;margin:auto;margin-bottom:20px}#ui-stats-spectate,.ui-stats-restart{position:absolute;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-stats-spectate{left:102px;width:125px;background:#50afab;border-bottom:2px solid #387c79;box-shadow:inset 0 -2px #387c79}.ui-stats-ad-container{display:none;margin-top:80px}#ui-spec-ad-container{z-index:1;position:absolute;top:0;left:50%}.tooltip{position:relative}.tooltip .tooltip-text{visibility:hidden;width:240px;background-color:#000;color:#fff;text-align:center;padding:5px 0;border-radius:6px;position:absolute;z-index:1;right:110%;opacity:.75;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.tooltip .tooltip-text:after{content:" ";position:absolute;top:50%;left:100%;margin-top:-5px;border-width:5px;border-style:solid;border-color:transparent transparent transparent #000}.tooltip-title{font-size:18px;font-weight:700;padding:4px;color:#ff0}.tooltip-description{font-size:16px;padding:4px}.tooltip-description span{font-size:16px}.tooltip:hover .tooltip-text{visibility:visible}#ui-editor-top-center{position:absolute;color:#fff;top:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-editor-top-right{position:absolute;color:#fff;font-size:16px;top:12px;right:12px}.ui-editor-header{text-align:center;font-weight:700;font-size:16px;padding:8px}.ui-editor-info{background:rgba(0,0,0,.4);border-radius:5px;font-size:36px;margin-bottom:8px;padding:8px}.ui-editor-list{margin:0;padding:0;list-style:none}.ui-editor-list li div{font-family:monospace;font-size:14px}#ui-profiler-top-left{position:absolute;color:#fff;font-size:16px;top:12px;left:12px;text-align:center;display:flex}.ui-profiler-list{background:rgba(0,0,0,.4);border-radius:5px;margin-right:16px;padding:8px}.ui-profiler-list-header{font-size:16px;font-weight:700;margin-bottom:8px}.ui-profiler-list ul{list-style:none;text-align:left;padding:0;margin:0}.ui-profiler-list li{display:flex}.kv{font-family:monospace;font-size:14px;font-weight:400}.kv:last-child{width:100%;text-align:right}#ui-settings-container-mobile{display:none}@media screen and (max-width:850px){*{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.ui-touch-down{display:none;position:fixed;background-color:rgba(0,0,0,.5);-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-touch-down-landscape{width:112px;height:112px;border-radius:56px}.ui-touch-down-portrait{width:96px;height:96px;border-radius:48px}.ui-touch-pos{display:none;position:fixed;background-color:rgba(0,0,0,.5);-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-touch-pos-landscape{width:64px;height:64px;border-radius:32px}.ui-touch-pos-portrait{width:48px;height:48px;border-radius:24px}.btn-game-menu{position:relative;margin:auto;margin-top:2px;margin-bottom:4px;color:#fff;font-size:14px;text-shadow:0 1px 2px rgba(0,0,0,.25);background-color:#50afab;border-bottom:2px solid #387c79;box-shadow:inset 0 -2px #387c79;background-repeat:no-repeat;cursor:pointer;text-align:center;line-height:30px;display:block;width:100%;height:30px;border:0;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;box-sizing:border-box}#btn-game-fullscreen{background-size:22px;background-position:4px 2px;background-image:url(../img/gui/minimize.svg)}#btn-game-sound{background-size:30px;background-position:3px 0;margin-bottom:8px}#btn-game-quit{background-position:-2px -3px;background-image:url(../img/gui/quit.svg)}#btn-game-quit,#btn-game-resume{margin-top:20px;background-size:34px}#btn-game-resume{background-position:-1px -1px;background-image:url(../img/gui/resume.svg)}#ui-top-center{position:absolute;color:#fff;top:15%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-top-center .top-center-text{text-align:center;width:100vw;padding:4px}#ui-waiting-text{display:none;color:#fff;text-shadow:1px 1px 0 #000}#ui-waiting-text,#ui-waiting-text span{font-size:16px;font-weight:700}.top-center-text .spectate-text{display:inline-block;text-shadow:1px 1px 0 #000;font-size:16px;font-weight:700;overflow:hidden;height:32px}.top-center-text .spectate-desc{color:#fff;margin-right:8px}.ui-spectate-mode{display:none}#ui-spectate-text{position:relative}#spectate-player{max-width:250px;white-space:nowrap;text-overflow:ellipsis;color:cyan}#ui-top-center-scopes{margin-top:6px;text-align:center;color:#fff}.ui-zoom{display:inline-block;margin-left:-12px;margin-right:-12px;-webkit-transform:scale(.6);transform:scale(.6);background:rgba(0,0,0,.3);border-radius:32px;width:42px;height:42px;opacity:.6;pointer-events:all}.ui-zoom-active{vertical-align:baseline;opacity:1;margin-left:0;margin-right:0;-webkit-transition:all .1s ease-in;-webkit-transform:scale(1);-ms-transition:all .1s ease-in;-ms-transform:scale(1);-moz-transition:all .1s ease-in;-moz-transform:scale(1);transition:all .1s ease-in;transition:opacity .25s ease-out;-moz-transition:opacity .25s ease-out;-webkit-transition:opacity .25s ease-out;-o-transition:opacity .25s ease-out}.ui-zoom .ui-zoom-image{width:48px;height:48px;opacity:.4;padding:2px}.ui-zoom .ui-zoom-text{margin-top:14px;width:100%}.ui-zoom .ui-zoom-level{font-size:24px;line-height:16px;text-align:center;width:100%}.ui-zoom .ui-zoom-append{font-size:24px}.ui-zoom-inactive{display:none;margin-left:-8px;margin-right:-8px;transition:all .1s ease-in;-webkit-transform:scale(.6);transform:scale(.6)}.ui-emote-wheel{z-index:3;display:none;position:fixed}.ui-emote-parent{opacity:1}.ui-emote-hl{z-index:2;display:none}.ui-emote{position:fixed;width:256px;height:256px;background-size:256px;background-repeat:no-repeat;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-emote-bg-circle{opacity:.65;background-image:url(../img/gui/ping-part-circle.svg)}.ui-emote-bg-quarter{opacity:.65;background-image:url(../img/gui/ping-part-quarter.svg)}.ui-emote-bg-eighth{opacity:.65;background-image:url(../img/gui/ping-part-eighth.svg)}.ui-emote-middle .ui-emote-image{width:24px!important;height:24px!important;background-size:24px!important;background-image:none!important}.ui-emote-top .ui-emote-image{margin-top:-78px;background-image:url(../img/gui/ping-team-danger.svg)}.ui-emote-right .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(90deg);transform:translate(-50%,-50%) rotate(90deg)}.ui-emote-right .ui-emote-image{margin-left:78px;background-image:url(../img/gui/ping-team-coming.svg)}.ui-emote-bottom .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(180deg);transform:translate(-50%,-50%) rotate(180deg)}.ui-emote-bottom .ui-emote-image{margin-top:78px;background-image:url(../img/gui/ping-team-help.svg)}.ui-emote-left .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(270deg);transform:translate(-50%,-50%) rotate(270deg)}.ui-emote-left .ui-emote-image{margin-left:-78px;background-image:url(../img/gui/ping-team-help.svg)}.ui-emote-top-left .ui-emote-image{margin-left:-80px;margin-top:-30px;background-image:url(../img/loot/loot-ammo-box.svg)}.ui-emote-bottom-left .ui-emote{-webkit-transform:translate(-50%,-50%) rotate(-45deg);transform:translate(-50%,-50%) rotate(-45deg)}.ui-emote-bottom-left .ui-emote-image{margin-left:-80px;margin-top:30px;background-image:url(../img/loot/loot-medical-healthkit.svg)}.ui-emote-circle .ui-emote-hl{background-image:url(../img/gui/ping-part-circle-highlight.svg)}.ui-emote-quarter .ui-emote-hl{background-image:url(../img/gui/ping-part-quarter-highlight.svg)}.ui-emote-eighth .ui-emote-hl{background-image:url(../img/gui/ping-part-eighth-highlight.svg)}.ui-emote-image{z-index:1;position:fixed;background-repeat:no-repeat;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-emote-image-large{width:80px;height:80px;background-size:64px;background-position:50%}.ui-emote-image-small{width:35px;height:35px;background-size:35px}.ui-team-indicator{z-index:2;display:none;position:fixed;top:0;left:0;border-radius:32px;width:64px;height:64px;background-size:64px;background-repeat:no-repeat;background-image:url(../img/gui/indicator.svg)}.ui-team-indicator,.ui-team-indicator-pos{-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}.ui-team-indicator-pos{opacity:.75;position:relative;border-radius:24px;width:32px;height:32px;top:23px;left:32px}.ui-team-indicator-image{width:32px;height:32px;background-size:32px;background-repeat:no-repeat;background-image:url(../img/gui/ping-team-danger.svg)}.ui-indicator-ping-border{z-index:0;display:none;position:fixed;top:0;left:0;width:160px;height:160px;position:relative;background-size:160px;background-repeat:no-repeat;background-image:url(../img/gui/ping-border.svg);-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}#ui-top-left{position:absolute;color:#fff;font-size:16px;top:6px;left:6px;display:block}.ui-bg-standard{background:rgba(0,0,0,.24);border-radius:5px}#ui-team{position:fixed;left:128px}.ui-team-member{display:none;position:relative;width:110px;height:20px;padding:4px;margin-bottom:4px}.ui-team-member-name{font-weight:700;text-shadow:1px 1px 0 #000;font-size:10px;max-width:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-team-member-color{position:absolute;top:4px;right:4px;border-radius:9px;width:9px;height:9px}.ui-background-yellow{background-color:#ff0}.ui-background-blue{background-color:blue}.ui-background-red{background-color:red}.ui-background-purple{background-color:purple}.ui-background-cyan{background-color:cyan}.ui-team-member-status{display:none;position:absolute;top:2px;right:-24px;width:20px;height:20px;background-size:20px;background-repeat:no-repeat}.ui-team-member-status-downed{border-radius:16px;display:block!important;background-image:url(../img/gui/down.svg)!important}.ui-team-member-status-dead{display:block!important;background-image:url(../img/gui/skull-team.svg)!important;opacity:.5!important}.ui-team-member-status-disconnected{display:block!important;background-image:url(../img/gui/close.svg)!important;opacity:.5!important}.ui-team-member-health{margin-top:2px}.ui-team-member-health .ui-bar-inner{background-color:#fff;z-index:1;position:absolute;border-radius:4px;width:110px;height:5px;transition:width 0s;transition-property:width;transition-duration:0s;transition-timing-function:ease-out;transition-delay:0s}.ui-team-member-health .ui-bar-danger{background:rgba(255,0,0,.8);-webkit-animation-name:pulse;animation-name:pulse;-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0;animation-delay:0;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}.ui-team-member-health .ui-health-depleted{z-index:0;background:#fff;transition:width 1s;transition-property:width;transition-duration:1s;transition-timing-function:ease-out;transition-delay:0s}#ui-spectate-options-wrapper{bottom:6px;position:fixed;left:6px;top:auto!important}#ui-spectate-options{bottom:0;z-index:1;position:absolute;pointer-events:all;width:100%}#ui-spectate-buttons{display:inline-block;width:124px;padding:8px 8px 4px;text-align:center}#ui-spectate-options a{position:relative;color:#fff;height:24px;margin-bottom:2px;line-height:22px;font-size:12px;text-shadow:0 1px 2px rgba(0,0,0,.25);background:#50afab;border-bottom:2px solid #387c79;box-shadow:none;cursor:pointer}#btn-spectate-prev-player,#btn-spectate-view-stats{margin-bottom:12px!important}#ui-spectate-stats{position:absolute;top:0;left:146px;width:160px;display:none}#ui-spectate-stats-header{text-align:center;font-size:16px;font-weight:700;padding:6px;color:#fff}#ui-spectate-stats-table{width:100%;background-color:transparent;margin:auto;margin-right:0;margin-bottom:4px;border-collapse:collapse}#ui-spectate-stats tbody,#ui-spectate-stats td,#ui-spectate-stats th{padding:0 2px 2px 14px;font-size:10px}.ui-spectate-stats-category{width:75px;color:hsla(0,0%,100%,.75)}.ui-spectate-stats-value{width:75px;color:#fff}#ui-top-right{position:absolute;color:#fff;font-size:16px;top:6px;left:6px;display:flex}#ui-leaderboard{font-weight:700;text-align:center;width:56px;display:inline-block}#ui-leaderboard-alive{background:rgba(0,0,0,.4);border-radius:5px;margin-bottom:-16px;padding:8px;height:32px;width:40px}.ui-players-alive-pulse{-webkit-animation-name:pulseAlive;animation-name:pulseAlive;-webkit-animation-duration:2s;animation-duration:2s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}@-webkit-keyframes pulseAlive{0%{color:#fff}20%{color:red}40%{color:#fff}to{color:#fff}}@keyframes pulseAlive{0%{color:#fff}20%{color:red}40%{color:#fff}to{color:#fff}}.ui-leaderboard-header{font-size:12px}#ui-killfeed-wrapper{top:24px;left:6px;right:auto}#ui-killfeed{position:absolute;margin:initial;top:135px}#ui-killfeed-contents{width:800px}#ui-killfeed-contents .killfeed-div{position:absolute;background-color:rgba(0,0,0,.4);padding:3px;border-radius:2px;height:8px;line-height:8px;right:auto}.killfeed-div div,.killfeed-div span{float:left;font-size:8px;line-height:8px;font-weight:700;color:#efeeee}.killfeed-red div,.killfeed-red span{color:#d1777c!important}.killfeed-blue div,.killfeed-blue span{color:#00bfff!important}#ui-killfeed-contents .killfeed-red{color:#d1777c}#ui-killfeed-contents .killfeed-blue{color:#00bfff}#ui-killfeed .killfeed-name{max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-ammo .ui-loot-image,.ui-ammo .ui-loot-overlay{position:absolute;height:11px;width:11px;right:2px;margin-top:2px}#ui-ammo-interactive{position:absolute;right:0;top:25px}#ui-ammo-interactive .ui-loot{display:inline-block;background:rgba(0,0,0,.4);border-radius:5px;width:38px;height:14px;margin-left:auto;margin-bottom:2px}.ui-ammo .ui-loot-count{position:absolute;font-size:12px;font-weight:700;width:16px;left:3px;margin-top:-1px;text-align:center}#ui-medical-interactive .ui-loot{display:inline-block;background:rgba(0,0,0,.4);border-radius:5px;width:44px;height:16px;margin-left:auto;margin-bottom:2px}.ui-medical .ui-loot-image{position:absolute;height:16px;width:16px;background-size:16px;background-repeat:no-repeat;right:2px;margin-top:0}.ui-medical .ui-loot-count{position:absolute;font-size:16px;font-weight:700;left:4px;width:16px;margin-top:-3px;text-align:center}.ui-loot{background:rgba(0,0,0,.4);border-radius:5px;width:85px;height:32px;margin-left:auto;margin-bottom:5px}.ui-loot:hover{opacity:1!important}.ui-outline-hover,.ui-outline-hover:hover{border:2px solid rgba(0,255,0,0)}.ui-outline-hover:hover{-webkit-transition:border .1s ease-out;-moz-transition:border .1s ease-out;-o-transition:border .1s ease-out}.ui-scale-hover{transform:scale(1);-webkit-transform:scale(1);-ms-transform:scale(1);-moz-transform:scale(1)}.ui-scale-hover,.ui-scale-hover:hover{-webkit-transition:all .1s ease-in;-ms-transition:all .1s ease-in;-moz-transition:all .1s ease-in;transition:all .1s ease-in}.ui-scale-hover:hover{-webkit-transform:scale(1.1);-ms-transform:scale(1.1);-moz-transform:scale(1.1);transform:scale(1.1)}#ui-debug-button{display:none;background:rgba(0,0,0,.4);position:absolute;border-radius:13px;height:26px;width:26px;background-size:18px;bottom:4px;right:4px;background-position:50%;background-image:url(../img/gui/mag-glass.svg);background-repeat:no-repeat;pointer-events:auto;z-index:1}#ui-upper-center{position:absolute;display:flex;color:#fff;top:84px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-announcement{display:none;color:#ff0;text-shadow:1px 1px 0 #000;font-size:16px;font-weight:700;text-align:center;width:100vw}#ui-lower-center{position:absolute;color:#fff;bottom:44%;left:60%}#ui-interaction{display:flex}#ui-interaction-press{background:rgba(0,0,0,.4);border-radius:5px;margin-left:-20px;font-size:34px;width:44px;height:44px;background-size:36px;background-position:50%;background-repeat:no-repeat}#ui-interaction-outer{background:rgba(0,0,0,.4);border-radius:5px;margin-left:6px;padding:0 6px;height:28px}#ui-interaction-outer #ui-interaction-description{margin-top:5px;font-size:16px;text-align:center}#ui-bottom-center-0{bottom:6px}#ui-bottom-center-0,#ui-equipped-ammo-wrapper{position:absolute;color:#fff;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-equipped-ammo-wrapper{bottom:78px}#ui-equipped-ammo{position:absolute;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);text-align:center;opacity:1}#ui-bullet-counter{display:inline-block;width:175px;height:28px;text-align:center;text-shadow:1px 1px #000}#ui-bullet-counter #ui-current-clip{background:rgba(0,0,0,.4);border-radius:5px;font-size:28px;font-weight:700;line-height:30px;width:60px;height:32px;-webkit-transform:translateX(-50%);transform:translateX(-50%);left:50%;position:relative;text-align:center}#ui-bullet-counter #ui-ammo-divider{font-size:22px;left:53%;position:absolute;text-align:center;top:20px}#ui-bullet-counter #ui-remaining-ammo{background:rgba(0,0,0,.4);border-radius:5px;font-size:16px;font-weight:700;line-height:22px;width:44px;height:22px;left:122px;position:absolute;text-align:center;top:10px}#ui-bullet-counter #ui-reload-button{background:rgba(0,0,0,.4);position:absolute;border-radius:11px;height:22px;width:22px;background-size:14px;top:10px;left:170px;background-position:4px 3px;background-image:url(../img/gui/bullets.svg);background-repeat:no-repeat}#ui-boost-counter{display:inline-flex;width:206px}#ui-boost-counter .ui-boost-base{background:rgba(0,0,0,.4);height:6px;margin-bottom:0}#ui-boost-counter-0{border-top-left-radius:3px;border-bottom-left-radius:3px;width:50px;margin-right:3px}#ui-boost-counter-0 .ui-bar-inner{background:#ff901a}#ui-boost-counter-1{width:50px;margin-left:3px;margin-right:3px}#ui-boost-counter-1 .ui-bar-inner{background:#ff751a}#ui-boost-counter-2{width:75px;margin-left:3px;margin-right:3px}#ui-boost-counter-2 .ui-bar-inner{background:#ff6616}#ui-boost-counter-3{border-top-right-radius:3px;border-bottom-right-radius:3px;width:25px;margin-left:3px}#ui-boost-counter-3 .ui-bar-inner{background:#ff5600}.ui-boost-base .ui-bar-inner{border-radius:inherit;width:0;height:6px}#ui-health-counter{background:rgba(0,0,0,.4);border-radius:5px;width:200px;height:18px;padding:4px}#ui-health-counter .ui-bar-inner{z-index:1;position:absolute;border-radius:5px;width:100%;height:18px;transition:width 0s;transition-property:width;transition-duration:0s;transition-timing-function:ease-out;transition-delay:0s}#ui-health-container{width:200px;position:relative}#ui-health-counter .ui-bar-danger{background:rgba(255,0,0,.8);-webkit-animation-name:pulse;animation-name:pulse;-webkit-animation-duration:.5s;animation-duration:.5s;-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out;-webkit-animation-delay:0;animation-delay:0;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running}#ui-health-counter #ui-health-depleted{z-index:0;background:#fff;transition:width 1s;transition-property:width;transition-duration:1s;transition-timing-function:ease-out;transition-delay:0s}.health-bar-pulse{-webkit-animation:pulsewhite 1s linear infinite;animation:pulsewhite 1s linear infinite}@-webkit-keyframes pulsewhite{0%{background-color:rgba(0,0,0,.6)}50%{background-color:hsla(0,0%,100%,.6)}to{background-color:rgba(0,0,0,.6)}}@keyframes pulsewhite{0%{background-color:rgba(0,0,0,.6)}50%{background-color:hsla(0,0%,100%,.6)}to{background-color:rgba(0,0,0,.6)}}@-webkit-keyframes pulse{0%{background-color:rgba(0,0,0,.8)}50%{background-color:rgba(255,0,0,.8)}to{background-color:rgba(0,0,0,.8)}}@keyframes pulse{0%{background-color:rgba(0,0,0,.8)}50%{background-color:rgba(255,0,0,.8)}to{background-color:rgba(0,0,0,.8)}}#ui-bottom-center-1{z-index:3;position:absolute;color:#fff;bottom:23%;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-kills{display:none;text-align:center;background:rgba(0,0,0,.4);color:#fff;border-radius:5px;padding:6px}#ui-kill-text{font-size:10px}#ui-kill-count{font-weight:700;color:#ff4100;font-size:18px;margin-bottom:-3px;text-shadow:1px 1px 1px rgba(0,0,0,.3)}#ui-bottom-center-2{position:absolute;color:#fff;bottom:82px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-pickup-message{color:#fff;text-shadow:1px 1px 0 #000;font-size:16px;font-weight:700;text-align:center;width:100vw}#ui-bottom-center-right{position:absolute;color:#fff;bottom:6px;left:75%}.ui-armor-counter{position:absolute;bottom:0;display:block;width:20px;height:24px;background:rgba(0,0,0,.4);border-radius:5px;margin-left:2px}#ui-armor-helmet{right:0}#ui-armor-backpack{left:26px}.ui-armor-level{position:relative;font-size:8px;font-weight:700;bottom:12px;text-align:center;text-shadow:1px 1px #000}.ui-armor-counter-inner{z-index:1;position:absolute;background:rgba(0,255,0,.5);border-radius:5px;width:100%;height:0;bottom:0;transition:height .5s;transition-property:height;transition-duration:.5s;transition-timing-function:ease-out;transition-delay:0s}.ui-armor-counter .ui-armor-count{z-index:2;text-shadow:1px 1px #000;position:relative;font-size:18px;font-weight:700;margin-top:-28px;text-align:center}.ui-armor-counter .ui-armor-image{margin:auto;left:0;right:0;bottom:0;top:0;z-index:0;position:absolute;height:18px;width:18px}#ui-bottom-right{bottom:auto;color:#fff;position:absolute;right:6px;top:55%;-webkit-transform-origin:bottom right;transform-origin:bottom right;-webkit-transform:scale(1);transform:scale(1)}#ui-weapon-container{width:84px}.ui-weapon-info{margin-bottom:5px}.ui-weapon-info,.ui-weapon-switch{border-radius:5px;border:2px solid transparent}.ui-weapon-switch{position:absolute;right:0;opacity:.6;width:68px;height:24px;margin-left:auto;pointer-events:all}#ui-weapon-id-1{bottom:90px}#ui-weapon-id-2{bottom:60px}#ui-weapon-id-3{bottom:30px}#ui-weapon-id-4{bottom:0}.ui-weapon-name{position:absolute;font-size:10px;font-weight:700;right:4px;width:48px;margin-top:12px;text-align:right;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.ui-weapon-number{font-size:24px;right:8px}.ui-weapon-exp,.ui-weapon-number{display:none;position:absolute;font-weight:700;text-align:center}.ui-weapon-exp{height:16px;width:16px;font-size:8px;line-height:18px;right:34px;margin-top:10px}.ui-weapon-image{display:none;position:relative;height:28px;width:28px;left:0;bottom:3px;-webkit-transform:rotate(10deg);transform:rotate(10deg)}#ui-weapon-id-4 .ui-weapon-image{height:24px;width:24px;left:0;top:0;background-size:24px}#ui-stats-contents{position:absolute;width:100%;top:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%);text-align:center;color:#fff;border-radius:5px}#ui-stats-header{margin-top:14px}.ui-stats-header-title{font-weight:700;font-size:24px;margin:6px;color:gold}.ui-stats-header-reason{font-size:12px}.ui-stats-header-overview{position:fixed;top:4px;right:12px;margin:5px}.ui-stats-header-overview div{display:block;padding-bottom:6px;border-bottom:2px solid hsla(0,0%,100%,.25)}.ui-stats-header-overview div:not(:first-child){margin:initial}span.ui-stats-header-stat{font-size:22px}span.ui-stats-header-value{margin-left:12px;font-size:28px;font-weight:700}#ui-stats-info-box{position:relative;left:50%;margin:auto;margin-top:0;height:100px;display:flex}.ui-stats-info-player{position:relative;width:125px;background-color:rgba(0,0,0,.75);border-radius:4px;border:2px solid #000;-webkit-transform:translateX(-50%);transform:translateX(-50%)}.ui-stats-info-status:after{background-image:url(../img/gui/skull.svg);background-position:50%;background-repeat:no-repeat;background-size:70px;content:"";display:block;height:100%;left:auto;opacity:.1;position:absolute;top:0;width:100%;z-index:-1}.ui-stats-info-player-name{color:gold;font-size:12px;font-weight:700;font-style:italic;margin:4px auto;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ui-stats-info{display:flex;height:18px;margin:auto}.ui-stats-info>div{padding:4px;font-size:9px;line-height:6px;text-align:left;font-weight:700}.ui-stats-info>div:first-child{width:55%;margin-right:4px;text-align:right;font-weight:400}.ui-stats-reason{display:flex;height:72px;margin:auto}.ui-stats-reason div{padding:8px;margin:auto;width:100%;text-align:center;font-size:16px}.ui-stats-reason .ui-stats-reason-dead{color:red}.ui-stats-reason .ui-stats-reason-alive{color:#7cfc00}#ui-stats-options{position:absolute;left:50%;margin-top:10px;min-height:30px;z-index:1}.ui-stats-restart{width:130px;margin:auto;margin-bottom:20px}#ui-stats-spectate,.ui-stats-restart{position:absolute;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-stats-spectate{left:68px;width:88px;background:#50afab;border-bottom:2px solid #387c79;box-shadow:none}.ui-stats-ad-container{display:none;margin-top:8px;-webkit-transform:scale(.7);transform:scale(.7)}#ui-spec-ad-container{z-index:1;position:absolute;top:0;left:50%}#ad-block-stats-bottom{-webkit-transform:scale(.6);transform:scale(.6);-webkit-transform-origin:center;transform-origin:center;position:static}.tooltip{position:relative}.tooltip .tooltip-text{visibility:hidden!important;width:240px;background-color:#000;color:#fff;text-align:center;padding:5px 0;border-radius:6px;position:absolute;z-index:1;right:110%;opacity:.75;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.tooltip .tooltip-text:after{content:" ";position:absolute;top:50%;left:100%;margin-top:-5px;border-width:5px;border-style:solid;border-color:transparent transparent transparent #000}.tooltip-title{font-size:18px;font-weight:700;padding:4px;color:#ff0}.tooltip-description{font-size:16px;padding:4px}.tooltip-description span{font-size:16px}#ui-editor-top-center{position:absolute;color:#fff;top:0;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}#ui-editor-top-right{position:absolute;color:#fff;font-size:16px;top:6px;right:6px}.ui-editor-header{text-align:center;font-weight:700;font-size:16px;padding:8px}.ui-editor-info{background:rgba(0,0,0,.4);border-radius:5px;font-size:36px;margin-bottom:8px;padding:8px}.ui-editor-list{margin:0;padding:0;list-style:none}.ui-editor-list li div{font-family:monospace;font-size:14px}#ui-profiler-top-left{position:absolute;color:#fff;font-size:16px;top:6px;left:6px;text-align:center;display:flex}.ui-profiler-list{background:rgba(0,0,0,.4);border-radius:5px;margin-right:16px;padding:8px}.ui-profiler-list-header{font-size:16px;font-weight:700;margin-bottom:8px}.ui-profiler-list ul{list-style:none;text-align:left;padding:0;margin:0}.ui-profiler-list li{display:flex}.kv{font-family:monospace;font-size:14px;font-weight:400}.kv:last-child{width:100%;text-align:right}#ui-leaderboard-wrapper,#ui-settings-container-desktop{display:none}#ui-settings-container-mobile{display:block}}@media screen and (max-width:850px) and (max-height:360px),screen and (max-width:850px) and (max-width:640px){#ui-top-center{-webkit-transform-origin:top;transform-origin:top;-webkit-transform:translateX(-50%) scale(.85);transform:translateX(-50%) scale(.85)}}@media screen and (max-width:850px) and screen and (max-width:850px){#ui-lower-center{-webkit-transform:scale(1);transform:scale(1)}}@media screen and (max-width:850px) and (max-height:360px),screen and (max-width:850px) and (max-width:640px){#ui-bottom-center-0{-webkit-transform-origin:bottom;transform-origin:bottom;-webkit-transform:translateX(-50%) scale(.85);transform:translateX(-50%) scale(.85)}}@media screen and (max-width:850px) and (max-height:360px),screen and (max-width:850px) and (max-width:640px){#ui-bottom-right{-webkit-transform-origin:top right;transform-origin:top right;-webkit-transform:scale(.8);transform:scale(.8)}}@media screen and (max-width:850px) and (max-width:850px) and (orientation:landscape){.ui-stats-header-overview .ui-stats-header-left{position:fixed;top:6px;left:12px}.ui-stats-header-overview .ui-stats-header-right{position:fixed;top:6px;right:12px}}@media screen and (max-width:850px) and (max-height:360px) and (max-width:640px){.ui-stats-ad-container{margin-top:0;-webkit-transform:scale(.6);transform:scale(.6)}}@media screen and (max-width:850px) and (max-width:850px) and (max-height:320px){.ui-stats-ad-container{position:fixed;right:10px;top:24px;-webkit-transform:scale(.5);transform:scale(.5);-webkit-transform-origin:bottom right;transform-origin:bottom right}}@media screen and (max-width:850px) and (orientation:portrait){#ui-stats-contents{margin-top:32px;margin-bottom:16px}#ui-stats-header-overview{position:static}#ui-stats-info-box{display:inline-block;left:auto;-webkit-transform:scale(.9);transform:scale(.9);-webkit-transform-origin:initial;transform-origin:initial;margin-top:2px;width:100%}.ui-stats-ad-container{width:100%}.ui-stats-info-player{display:inline-block;left:auto!important;margin:8px;-webkit-transform:none;transform:none}.ui-stats-header-overview{display:inline-block;position:static;width:175px}.ui-stats-header-overview div{position:static;margin-bottom:8px}#ui-top-center{top:134px;left:50%}#ui-top-center-scopes-wrapper{display:none;bottom:42px;top:auto}#ui-team{top:40px}.ui-team-member{height:18px;margin-bottom:4px}#ui-upper-center{top:180px}#ui-bottom-center-0{top:-15px;bottom:auto;left:100px;-webkit-transform:scale(.85);transform:scale(.85)}#ui-bottom-center-1{bottom:28%}#ui-bottom-center-2{bottom:218px}#ui-lower-center{bottom:38%;left:38%}#ui-boost-counter{position:relative;top:40px;left:2px}#ui-bottom-right{bottom:20px;right:6px;top:auto}#ui-weapon-id-1{right:240px;bottom:auto}#ui-weapon-id-2{right:160px;bottom:auto}#ui-weapon-id-3{right:80px;bottom:auto}#ui-weapon-id-4{bottom:auto}.ui-weapon-info{display:inline-block}#ui-bottom-center-right{bottom:9px;left:30px}.ui-right-center-mobile{top:6px}#ui-emote-button{top:200px}#ui-debug-button{top:210px}#ui-ammo-interactive{left:8px;margin-top:4px;top:88px}#ui-ammo-interactive .ui-loot,#ui-medical-interactive .ui-loot{display:block}#ui-equipped-ammo{position:static}#ui-equipped-ammo,#ui-equipped-ammo-wrapper{left:auto;-webkit-transform:none;transform:none}#ui-equipped-ammo-wrapper{bottom:auto;color:#fff;position:absolute;right:6px;top:44%}#ui-bullet-counter{width:auto}#ui-bullet-counter #ui-current-clip{left:50%}#ui-bullet-counter #ui-remaining-ammo{left:auto;right:0;top:36px}#ui-bullet-counter #ui-reload-button{left:auto;right:0;top:62px}#big-map-collision{left:auto;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%)}#big-map-close{bottom:auto;top:12px}#ui-spectate-options-wrapper{bottom:42px;-webkit-transform:scale(.7);transform:scale(.7)}#ui-spectate-options{position:absolute;bottom:12px}#ui-spectate-stats{bottom:0;top:auto}}@media screen and (max-width:850px) and (orientation:portrait) and (min-height:668px){#ui-stats-contents{margin-top:32px}#ui-stats-info-box,.ui-stats-ad-container{-webkit-transform:scale(1);transform:scale(1)}.ui-stats-ad-container{margin-top:20px}#ui-stats-options{display:block;left:auto;position:static;margin:auto;margin-top:24px;width:100%}.ui-stats-restart{margin-bottom:0}#ui-stats-spectate,.ui-stats-restart{display:block;position:static;-webkit-transform:initial;transform:none}#ui-stats-spectate{margin:auto;margin-top:6px}}@media screen and (max-width:850px) and (orientation:portrait) and (max-height:667px){#ui-stats-contents{margin-top:0;-webkit-transform:translateX(-50%) scale(.9);transform:translateX(-50%) scale(.9);-webkit-transform-origin:top;transform-origin:top}.ui-stats-ad-container{margin-top:20px}}@media screen and (max-width:850px) and (orientation:portrait) and (max-height:568px) and (max-width:375px){#ui-bottom-center-right{left:22px;-webkit-transform:scale(.8);transform:scale(.8)}#ui-bottom-right{right:0}#ui-bottom-center-0{top:-20px;left:84px;-webkit-transform:scale(.7);transform:scale(.7)}}', ""])
     },
     b58076b1: function(e, t, a) {
         "use strict";
@@ -18732,42 +18603,42 @@ webpackJsonp([0], {
           , s = a("af8ba00f")
           , l = {
             intersectSegment: function(e, t, a, r, s, l, c) {
-                for (var d = r, m = n.add(t, n.mul(a, r)), p = 0; p < e.length; p++) {
+                for (var m = r, d = n.add(t, n.mul(a, r)), p = 0; p < e.length; p++) {
                     var u = e[p];
                     if (!(!u.active || u.dead || !u.collidable || u.isWindow || u.height < s) && o.sameLayer(u.layer, l) && !(c && 2 & l && 0 == u.layer)) {
-                        var h = i.intersectSegment(u.collider, t, m);
-                        h && (d = Math.min(d, n.length(n.sub(h.point, t))))
+                        var h = i.intersectSegment(u.collider, t, d);
+                        h && (m = Math.min(m, n.length(n.sub(h.point, t))))
                     }
                 }
-                return d
+                return m
             },
-            scanCollider: function(e, t, a, o, c, d, m, p) {
-                var u = i.intersectCircle(e, a, m);
+            scanCollider: function(e, t, a, o, c, m, d, p) {
+                var u = i.intersectCircle(e, a, d);
                 if (!u)
                     return !1;
-                if (u.pen >= m)
+                if (u.pen >= d)
                     return !0;
                 for (var h = n.perp(u.dir), g = [], f = 0; f < p; f++) {
                     var b = f / Math.max(p - 1, 1)
-                      , y = (b - .5) * d;
+                      , y = (b - .5) * m;
                     g.push(n.add(a, n.mul(h, y)))
                 }
                 for (var x = c, v = 0; v < g.length; v++) {
-                    var k = g[v]
-                      , _ = n.sub(k, a)
-                      , w = n.length(_);
-                    _ = w > 1e-4 ? n.div(_, w) : n.create(1, 0);
-                    var S = l.intersectSegment(t, a, _, w, 0, o, !1);
-                    k = n.add(a, n.mul(_, S));
-                    var M = i.intersectCircle(e, k, m);
+                    var _ = g[v]
+                      , k = n.sub(_, a)
+                      , w = n.length(k);
+                    k = w > 1e-4 ? n.div(k, w) : n.create(1, 0);
+                    var S = l.intersectSegment(t, a, k, w, 0, o, !1);
+                    _ = n.add(a, n.mul(k, S));
+                    var M = i.intersectCircle(e, _, d);
                     if (M) {
                         var T = n.neg(M.dir)
-                          , P = l.intersectSegment(t, k, T, m, x, o, !0)
-                          , C = i.intersectSegment(e, k, n.add(k, n.mul(T, m)))
-                          , I = C && n.length(n.sub(C.point, k)) <= P;
+                          , P = l.intersectSegment(t, _, T, d, x, o, !0)
+                          , C = i.intersectSegment(e, _, n.add(_, n.mul(T, d)))
+                          , I = C && n.length(n.sub(C.point, _)) <= P;
                         if (r.debug) {
                             var z = I ? 65280 : 16711680;
-                            s.addRay(k, T, m, z)
+                            s.addRay(_, T, d, z)
                         }
                         if (I)
                             return !0
@@ -19647,33 +19518,21 @@ webpackJsonp([0], {
     },
     bc83ef37: function(e, t, a) {
         "use strict";
-        function i(e, t) {
-            if (!(e instanceof t))
-                throw new TypeError("Cannot call a class as a function")
+        function i() {
+            this.sprite = new n.Sprite,
+            this.sprite.anchor.set(.5, .5),
+            this.sprite.visible = !1
         }
-        var o = function() {
-            function e(e, t) {
-                for (var a = 0; a < t.length; a++) {
-                    var i = t[a];
-                    i.enumerable = i.enumerable || !1,
-                    i.configurable = !0,
-                    "value"in i && (i.writable = !0),
-                    Object.defineProperty(e, i.key, i)
-                }
-            }
-            return function(t, a, i) {
-                return a && e(t.prototype, a),
-                i && e(t, i),
-                t
-            }
-        }()
-          , n = a("80ac57a6")
+        function o() {
+            this.Ke = new p.Pool(i)
+        }
+        var n = a("8b1dfb45")
           , r = a("989ad62a")
           , s = a("ceee80d9")
           , l = a("6b42806d")
           , c = a("10899aea")
-          , d = a("1901e2d9")
-          , m = a("c2a798c8")
+          , m = a("1901e2d9")
+          , d = a("c2a798c8")
           , p = (a("ce29f17f"),
         a("af8ba00f"),
         a("753d6e4b"))
@@ -19683,148 +19542,126 @@ webpackJsonp([0], {
             grass: "frag_grass",
             sand: "frag_sand",
             water: "frag_water"
-        }
-          , f = function() {
-            function e() {
-                i(this, e),
-                this.sprite = new n.Sprite,
-                this.sprite.anchor.set(.5, .5),
+        };
+        i.prototype = {
+            a: function() {},
+            o: function() {
                 this.sprite.visible = !1
-            }
-            return o(e, [{
-                key: "init",
-                value: function() {}
-            }, {
-                key: "free",
-                value: function() {
-                    this.sprite.visible = !1
+            },
+            n: function(e, t, a, i) {
+                var o = this.sprite;
+                if (t) {
+                    var s = r.items[e.type];
+                    this.layer = e.layer,
+                    this.type = e.type,
+                    this.rad = s.projRad
                 }
-            }, {
-                key: "updateData",
-                value: function(e, t, a, i) {
-                    var o = this.sprite;
-                    if (t) {
-                        var s = r.items[e.type];
-                        this.layer = e.layer,
-                        this.type = e.type,
-                        this.rad = s.projRad
-                    }
-                    if (this.posOld = a ? m.copy(e.pos) : m.copy(this.pos),
-                    this.posZOld = a ? e.posZ : this.posZ,
-                    this.pos = m.copy(e.pos),
-                    this.posZ = e.posZ,
-                    a) {
-                        var l = r.items[e.type]
-                          , c = l.worldImg;
-                        this.imgScale = c.scale,
-                        this.rot = 0,
-                        this.rotVel = 10 * Math.PI,
-                        this.rotDrag = d.random(1, 2),
-                        this.velZ = 0,
-                        this.grounded = !1,
-                        this.inWater = !1,
-                        this.lastSoundObjId = 0,
-                        o.texture = n.Texture.fromImage(c.sprite),
-                        o.tint = c.tint,
-                        o.alpha = 1,
-                        o.visible = !0
-                    }
+                if (this.posOld = a ? d.copy(e.pos) : d.copy(this.pos),
+                this.posZOld = a ? e.posZ : this.posZ,
+                this.pos = d.copy(e.pos),
+                this.posZ = e.posZ,
+                a) {
+                    var l = r.items[e.type]
+                      , c = l.worldImg;
+                    this.imgScale = c.scale,
+                    this.rot = 0,
+                    this.rotVel = 10 * Math.PI,
+                    this.rotDrag = m.random(1, 2),
+                    this.velZ = 0,
+                    this.grounded = !1,
+                    this.inWater = !1,
+                    this.lastSoundObjId = 0,
+                    o.texture = n.Texture.fromImage(c.sprite),
+                    o.tint = c.tint,
+                    o.alpha = 1,
+                    o.visible = !0
                 }
-            }]),
-            e
-        }()
-          , b = function() {
-            function e() {
-                i(this, e),
-                this.projectilePool = new p.Pool(f)
             }
-            return o(e, [{
-                key: "update",
-                value: function(e, t, a, i, o, n, p) {
-                    for (var u = this.projectilePool.getPool(), f = 0; f < u.length; f++) {
-                        var b = u[f];
-                        if (b.active) {
-                            var y = (r.items[b.type],
-                            b.rotDrag * (b.inWater ? 3 : 1));
-                            b.rotVel *= 1 / (1 + e * y),
-                            b.rot += b.rotVel * e;
-                            for (var x = {
-                                obj: null,
-                                pen: 0
-                            }, v = {
-                                obj: null,
-                                pen: 0
-                            }, k = l.createCircle(b.pos, b.rad), _ = o.obstaclePool.getPool(), w = 0; w < _.length; w++) {
-                                var S = _[w];
-                                if (S.active && !S.dead && d.sameLayer(S.layer, b.layer)) {
-                                    var M = l.intersect(S.collider, k);
-                                    if (M) {
-                                        var T = S.height > b.posZ ? x : v;
-                                        M.pen > T.pen && (!T.obj || T.obj.height <= S.height) && (T.obj = S,
-                                        T.pen = M.pen)
-                                    }
+        },
+        o.prototype = {
+            l: function(e, t, a, i, o, n, p) {
+                for (var u = this.Ke.c(), f = 0; f < u.length; f++) {
+                    var b = u[f];
+                    if (b.active) {
+                        var y = (r.items[b.type],
+                        b.rotDrag * (b.inWater ? 3 : 1));
+                        b.rotVel *= 1 / (1 + e * y),
+                        b.rot += b.rotVel * e;
+                        for (var x = {
+                            obj: null,
+                            pen: 0
+                        }, v = {
+                            obj: null,
+                            pen: 0
+                        }, _ = l.createCircle(b.pos, b.rad), k = o.U.c(), w = 0; w < k.length; w++) {
+                            var S = k[w];
+                            if (S.active && !S.dead && m.sameLayer(S.layer, b.layer)) {
+                                var M = l.intersect(S.collider, _);
+                                if (M) {
+                                    var T = S.height > b.posZ ? x : v;
+                                    M.pen > T.pen && (!T.obj || T.obj.height <= S.height) && (T.obj = S,
+                                    T.pen = M.pen)
                                 }
                             }
-                            var P = m.div(m.sub(b.pos, b.posOld), e)
-                              , C = m.length(P);
-                            if (x.obj && x.obj.__id != b.lastSoundObjId && C > 7.5) {
-                                b.lastSoundObjId = x.obj.__id;
-                                var I = m.mul(m.normalizeSafe(P, m.create(1, 0)), -1);
-                                x.obj.playHitFx(b.pos, I, b.layer, t, a)
-                            }
-                            var z = o.getGroundSurface(b.pos, b.layer);
-                            b.posZ <= .01 && !b.inWater && "water" == z && (o.addRipple(b.pos, b.layer, 0),
-                            b.inWater = !0);
-                            var A = b.velZ;
-                            if (b.velZ = (b.posZ - b.posZOld) / e,
-                            !b.isNew && !b.grounded && b.velZ >= 0 && A < 0) {
-                                var D = {
-                                    fn: "playGroup",
-                                    channel: "hits",
-                                    name: ""
-                                };
-                                if (v.obj) {
-                                    if (b.lastSoundObjId != v.obj.__id) {
-                                        b.lastSoundObjId = v.obj.__id;
-                                        var O = s.Defs[v.obj.type];
-                                        D.name = O.sound.bullet
-                                    }
-                                } else
-                                    b.grounded = !0,
-                                    D.name = g[z],
-                                    void 0 === D.name && (D.name = "footstep_" + z,
-                                    D.fn = "playGroup",
-                                    D.channel = "sfx");
-                                "" != D.name && a[D.fn](D.name, {
-                                    channel: D.channel,
-                                    soundPos: b.pos,
-                                    layer: b.layer,
-                                    muffled: !0
-                                })
-                            }
-                            var E = b.layer
-                              , L = b.posZ < .25 ? 14 : 25
-                              , B = l.createCircle(b.pos, 3 * b.rad)
-                              , F = o.insideStructureStairs(B)
-                              , R = o.insideStructureMask(B);
-                            !(b.posZ >= .25 && F && (1 & b.layer) == (1 & i.layer)) || R && 2 & i.layer || (E |= 2,
-                            L += 100),
-                            n.addPIXIObj(b.sprite, h.World, E, L);
-                            var j = b.imgScale * c.remap(b.posZ, 0, r.projectile.maxHeight, 1, 2.5)
-                              , N = p.pointToScreen(b.pos)
-                              , q = p.pixels(j);
-                            b.sprite.position.set(N.x, N.y),
-                            b.sprite.scale.set(q, q),
-                            b.sprite.rotation = b.rot,
-                            b.sprite.alpha = b.inWater ? .3 : 1
                         }
+                        var P = d.div(d.sub(b.pos, b.posOld), e)
+                          , C = d.length(P);
+                        if (x.obj && x.obj.__id != b.lastSoundObjId && C > 7.5) {
+                            b.lastSoundObjId = x.obj.__id;
+                            var I = d.mul(d.normalizeSafe(P, d.create(1, 0)), -1);
+                            x.obj.playHitFx(b.pos, I, b.layer, t, a)
+                        }
+                        var z = o.getGroundSurface(b.pos, b.layer);
+                        b.posZ <= .01 && !b.inWater && "water" == z && (o.addRipple(b.pos, b.layer, 0),
+                        b.inWater = !0);
+                        var A = b.velZ;
+                        if (b.velZ = (b.posZ - b.posZOld) / e,
+                        !b.isNew && !b.grounded && b.velZ >= 0 && A < 0) {
+                            var D = {
+                                fn: "playGroup",
+                                channel: "hits",
+                                name: ""
+                            };
+                            if (v.obj) {
+                                if (b.lastSoundObjId != v.obj.__id) {
+                                    b.lastSoundObjId = v.obj.__id;
+                                    var O = s.Defs[v.obj.type];
+                                    D.name = O.sound.bullet
+                                }
+                            } else
+                                b.grounded = !0,
+                                D.name = g[z],
+                                void 0 === D.name && (D.name = "footstep_" + z,
+                                D.fn = "playGroup",
+                                D.channel = "sfx");
+                            "" != D.name && a[D.fn](D.name, {
+                                channel: D.channel,
+                                soundPos: b.pos,
+                                layer: b.layer,
+                                muffled: !0
+                            })
+                        }
+                        var L = b.layer
+                          , E = b.posZ < .25 ? 14 : 25
+                          , B = l.createCircle(b.pos, 3 * b.rad)
+                          , F = o.insideStructureStairs(B)
+                          , R = o.insideStructureMask(B);
+                        !(b.posZ >= .25 && F && (1 & b.layer) == (1 & i.layer)) || R && 2 & i.layer || (L |= 2,
+                        E += 100),
+                        n.addPIXIObj(b.sprite, h.World, L, E);
+                        var j = b.imgScale * c.remap(b.posZ, 0, r.projectile.maxHeight, 1, 2.5)
+                          , N = p.pointToScreen(b.pos)
+                          , q = p.pixels(j);
+                        b.sprite.position.set(N.x, N.y),
+                        b.sprite.scale.set(q, q),
+                        b.sprite.rotation = b.rot,
+                        b.sprite.alpha = b.inWater ? .3 : 1
                     }
                 }
-            }]),
-            e
-        }();
+            }
+        },
         e.exports = {
-            ProjectileBarn: b
+            Me: o
         }
     },
     bdd2570b: function(e, t, a) {
@@ -20216,12 +20053,12 @@ webpackJsonp([0], {
                   , i = o.transform(n.getBoundingCollider(e.type), e.pos, e.rot, 1.15 * e.scale)
                   , l = r.add(i.min, r.mul(r.sub(i.max, i.min), .5))
                   , c = r.rotate(a.dir, e.rot)
-                  , d = function(e, t, a) {
+                  , m = function(e, t, a) {
                     a < 0 && (t = r.neg(t)),
                     s.addRay(e, t, Math.abs(a), 16777215, 0)
                 };
-                d(l, c, a.distMin),
-                d(r.add(l, r.mul(r.perp(c), .5)), c, a.distMax)
+                m(l, c, a.distMin),
+                m(r.add(l, r.mul(r.perp(c), .5)), c, a.distMax)
             }
         }
         var o = a("6b42806d")
@@ -20331,8 +20168,8 @@ webpackJsonp([0], {
             }, {
                 key: "update",
                 value: function(e) {
-                    for (var t = this, a = 0; a < this.tests.length; a++) {
-                        (function(a) {
+                    for (var t = this, a = 0; a < this.tests.length; a++)
+                        !function(a) {
                             var i = t.tests[a];
                             if (!i.active)
                                 return "continue";
@@ -20370,9 +20207,7 @@ webpackJsonp([0], {
                             i.sendCount++,
                             i.ws.send(t.ptcDataBuf)),
                             i.recvCount >= 10 && i.ws.close())
-                        }
-                        )(a)
-                    }
+                        }(a)
                 }
             }, {
                 key: "getZones",
@@ -20419,7 +20254,26 @@ webpackJsonp([0], {
               , o = i * a;
             return Math.abs(o) < .01 ? i : o
         }
-        var s = function() {
+        function s(e) {
+            this.canvasMode = e,
+            this.zIdx = 0,
+            this.layer = 0,
+            this.layerAlpha = 0,
+            this.groundAlpha = 0,
+            this.layers = [];
+            for (var t = 0; t < 4; t++)
+                this.layers.push(new u("layer_" + t));
+            this.ground = new m.Graphics,
+            this.ground.alpha = 0,
+            this.layerMask = new m.Graphics,
+            this.layerMask.position.set(0, 0),
+            this.layerMask.scale.set(1, 1),
+            this.layerMask.__zOrd = 0,
+            this.layerMask.__zIdx = 0,
+            this.layerMaskDirty = !0,
+            this.layerMaskActive = !1
+        }
+        var l = function() {
             function e(e, t) {
                 for (var a = 0; a < t.length; a++) {
                     var i = t[a];
@@ -20435,7 +20289,7 @@ webpackJsonp([0], {
                 t
             }
         }()
-          , l = function e(t, a, i) {
+          , c = function e(t, a, i) {
             null === t && (t = Function.prototype);
             var o = Object.getOwnPropertyDescriptor(t, a);
             if (void 0 === o) {
@@ -20445,18 +20299,17 @@ webpackJsonp([0], {
             if ("value"in o)
                 return o.value;
             var r = o.get;
-            if (void 0 !== r)
-                return r.call(i)
+            return void 0 !== r ? r.call(i) : void 0
         }
-          , c = (a("0e566746"),
-        a("80ac57a6"))
+          , m = (a("0e566746"),
+        a("8b1dfb45"))
           , d = (a("6b42806d"),
         a("2bb110d0"))
-          , m = (a("ceee80d9"),
+          , p = (a("ceee80d9"),
         a("10899aea"),
         a("1901e2d9"),
         a("c2a798c8"))
-          , p = function(e) {
+          , u = function(e) {
             function t(e) {
                 i(this, t);
                 var a = o(this, (t.__proto__ || Object.getPrototypeOf(t)).call(this));
@@ -20465,10 +20318,10 @@ webpackJsonp([0], {
                 a
             }
             return n(t, e),
-            s(t, [{
+            l(t, [{
                 key: "addSortedChild",
                 value: function(e) {
-                    l(t.prototype.__proto__ || Object.getPrototypeOf(t.prototype), "addChild", this).call(this, e),
+                    c(t.prototype.__proto__ || Object.getPrototypeOf(t.prototype), "addChild", this).call(this, e),
                     this.dirty = !0
                 }
             }, {
@@ -20482,8 +20335,8 @@ webpackJsonp([0], {
                 }
             }]),
             t
-        }(c.Container)
-          , u = {
+        }(m.Container)
+          , h = {
             World: 0,
             Decal: 1,
             DeadBody: 2,
@@ -20491,136 +20344,104 @@ webpackJsonp([0], {
             Player: 4,
             Bullet: 5,
             Particle: 6
-        }
-          , h = function() {
-            function e(t) {
-                i(this, e),
-                this.canvasMode = t,
-                this.zIdx = 0,
-                this.layer = 0,
-                this.layerAlpha = 0,
-                this.groundAlpha = 0,
-                this.layers = [];
-                for (var a = 0; a < 4; a++)
-                    this.layers.push(new p("layer_" + a));
-                this.ground = new c.Graphics,
-                this.ground.alpha = 0,
-                this.layerMask = new c.Graphics,
-                this.layerMask.position.set(0, 0),
-                this.layerMask.scale.set(1, 1),
-                this.layerMask.__zOrd = 0,
-                this.layerMask.__zIdx = 0,
-                this.layerMaskDirty = !0,
-                this.layerMaskActive = !1
-            }
-            return s(e, [{
-                key: "addPIXIObj",
-                value: function(e, t, a, i, o) {
-                    void 0 === e.__layerIdx && (e.__layerIdx = -1,
-                    e.__zOrd = -1,
-                    e.__zIdx = -1);
-                    var n = a;
-                    2 & a && (n = i >= 100 ? 3 : 2),
-                    (e.parent != this.layers[n] || e.__zOrd != i || void 0 !== o && e.__zIdx != o) && (e.__layerIdx = n,
-                    e.__zOrd = i,
-                    e.__zIdx = void 0 !== o ? o : this.zIdx++,
-                    this.layers[n].addSortedChild(e))
-                }
-            }, {
-                key: "setActiveLayer",
-                value: function(e) {
-                    this.layer = e
-                }
-            }, {
-                key: "resize",
-                value: function(e) {
-                    this.ground.clear(),
-                    this.ground.beginFill(d.underground),
-                    this.ground.drawRect(0, 0, e.screenWidth, e.screenHeight),
-                    this.ground.endFill(),
-                    this.layerMaskDirty = !0
-                }
-            }, {
-                key: "redrawLayerMask",
-                value: function(e, t) {
-                    var a = this.layerMask;
-                    if (this.canvasMode) {
-                        if (a.clear(),
-                        this.layerMaskActive) {
-                            a.beginFill(16777215, 1),
-                            a.drawRect(0, 0, e.screenWidth, e.screenHeight);
-                            for (var i = t.structurePool.getPool(), o = 0; o < i.length; o++) {
-                                var n = i[o];
-                                if (n.active)
-                                    for (var r = 0; r < n.mask.length; r++) {
-                                        var s = n.mask[r]
-                                          , l = m.mul(m.sub(s.max, s.min), .5)
-                                          , c = m.add(s.min, l)
-                                          , d = e.pointToScreen(m.sub(c, l))
-                                          , p = e.pointToScreen(m.add(c, l));
-                                        a.drawRect(d.x, d.y, p.x - d.x, p.y - d.y)
-                                    }
-                            }
-                            a.endFill()
+        };
+        s.prototype = {
+            addPIXIObj: function(e, t, a, i, o) {
+                void 0 === e.__layerIdx && (e.__layerIdx = -1,
+                e.__zOrd = -1,
+                e.__zIdx = -1);
+                var n = a;
+                2 & a && (n = i >= 100 ? 3 : 2),
+                (e.parent != this.layers[n] || e.__zOrd != i || void 0 !== o && e.__zIdx != o) && (e.__layerIdx = n,
+                e.__zOrd = i,
+                e.__zIdx = void 0 !== o ? o : this.zIdx++,
+                this.layers[n].addSortedChild(e))
+            },
+            setActiveLayer: function(e) {
+                this.layer = e
+            },
+            resize: function(e) {
+                this.ground.clear(),
+                this.ground.beginFill(d.underground),
+                this.ground.drawRect(0, 0, e.screenWidth, e.screenHeight),
+                this.ground.endFill(),
+                this.layerMaskDirty = !0
+            },
+            redrawLayerMask: function(e, t) {
+                var a = this.layerMask;
+                if (this.canvasMode) {
+                    if (a.clear(),
+                    this.layerMaskActive) {
+                        a.beginFill(16777215, 1),
+                        a.drawRect(0, 0, e.screenWidth, e.screenHeight);
+                        for (var i = t.He.c(), o = 0; o < i.length; o++) {
+                            var n = i[o];
+                            if (n.active)
+                                for (var r = 0; r < n.mask.length; r++) {
+                                    var s = n.mask[r]
+                                      , l = p.mul(p.sub(s.max, s.min), .5)
+                                      , c = p.add(s.min, l)
+                                      , m = e.pointToScreen(p.sub(c, l))
+                                      , d = e.pointToScreen(p.add(c, l));
+                                    a.drawRect(m.x, m.y, d.x - m.x, d.y - m.y)
+                                }
                         }
-                    } else {
-                        if (this.layerMaskDirty) {
-                            this.layerMaskDirty = !1,
-                            a.clear(),
-                            a.beginFill(16777215, 1),
-                            a.drawRect(0, 0, e.screenWidth, e.screenHeight),
-                            a.beginFill(0, 1);
-                            for (var u = t.structurePool.getPool(), h = 0; h < u.length; h++) {
-                                var g = u[h];
-                                if (g.active)
-                                    for (var f = 0; f < g.mask.length; f++) {
-                                        var b = g.mask[f]
-                                          , y = m.mul(m.sub(b.max, b.min), .5)
-                                          , x = m.add(b.min, y);
-                                        a.drawRect(x.x - y.x, x.y - y.y, 2 * y.x, 2 * y.y)
-                                    }
-                            }
-                            a.endFill()
-                        }
-                        var v = e.pointToScreen(m.create(0, 0))
-                          , k = (e.pointToScreen(m.create(1, 0)),
-                        e.scaleToScreen(1));
-                        a.position.set(v.x, v.y),
-                        a.scale.set(k, -k)
+                        a.endFill()
                     }
+                } else {
+                    if (this.layerMaskDirty) {
+                        this.layerMaskDirty = !1,
+                        a.clear(),
+                        a.beginFill(16777215, 1),
+                        a.drawRect(0, 0, e.screenWidth, e.screenHeight),
+                        a.beginFill(0, 1);
+                        for (var u = t.He.c(), h = 0; h < u.length; h++) {
+                            var g = u[h];
+                            if (g.active)
+                                for (var f = 0; f < g.mask.length; f++) {
+                                    var b = g.mask[f]
+                                      , y = p.mul(p.sub(b.max, b.min), .5)
+                                      , x = p.add(b.min, y);
+                                    a.drawRect(x.x - y.x, x.y - y.y, 2 * y.x, 2 * y.y)
+                                }
+                        }
+                        a.endFill()
+                    }
+                    var v = e.pointToScreen(p.create(0, 0))
+                      , _ = (e.pointToScreen(p.create(1, 0)),
+                    e.scaleToScreen(1));
+                    a.position.set(v.x, v.y),
+                    a.scale.set(_, -_)
                 }
-            }, {
-                key: "update",
-                value: function(e, t, a) {
-                    var i = this.layer > 0 ? 1 : 0;
-                    this.layerAlpha += r(this.layerAlpha, i, 12 * e);
-                    var o = 1 == this.layer ? 1 : 0;
-                    this.groundAlpha += r(this.groundAlpha, o, 12 * e),
-                    this.layers[0].alpha = 1,
-                    this.layers[1].alpha = this.layerAlpha,
-                    this.layers[2].alpha = 1,
-                    this.layers[3].alpha = 1,
-                    this.ground.alpha = this.groundAlpha,
-                    this.layers[0].visible = this.groundAlpha < 1,
-                    this.layers[1].visible = this.layerAlpha > 0,
-                    this.ground.visible = this.groundAlpha > 0,
-                    this.redrawLayerMask(t, a);
-                    var n = 0 == this.layer;
-                    n && !this.layerMaskActive ? (this.layers[2].mask = this.layerMask,
-                    this.layers[2].addChild(this.layerMask),
-                    this.layerMaskActive = !0) : !n && this.layerMaskActive && (this.layers[2].mask = null,
-                    this.layers[2].removeChild(this.layerMask),
-                    this.layerMaskActive = !1);
-                    for (var s = 0, l = 0; l < this.layers.length; l++)
-                        this.layers[l].checkSort() && s++
-                }
-            }]),
-            e
-        }();
+            },
+            l: function(e, t, a) {
+                var i = this.layer > 0 ? 1 : 0;
+                this.layerAlpha += r(this.layerAlpha, i, 12 * e);
+                var o = 1 == this.layer ? 1 : 0;
+                this.groundAlpha += r(this.groundAlpha, o, 12 * e),
+                this.layers[0].alpha = 1,
+                this.layers[1].alpha = this.layerAlpha,
+                this.layers[2].alpha = 1,
+                this.layers[3].alpha = 1,
+                this.ground.alpha = this.groundAlpha,
+                this.layers[0].visible = this.groundAlpha < 1,
+                this.layers[1].visible = this.layerAlpha > 0,
+                this.ground.visible = this.groundAlpha > 0,
+                this.redrawLayerMask(t, a);
+                var n = 0 == this.layer;
+                n && !this.layerMaskActive ? (this.layers[2].mask = this.layerMask,
+                this.layers[2].addChild(this.layerMask),
+                this.layerMaskActive = !0) : !n && this.layerMaskActive && (this.layers[2].mask = null,
+                this.layers[2].removeChild(this.layerMask),
+                this.layerMaskActive = !1);
+                for (var s = 0, l = 0; l < this.layers.length; l++)
+                    this.layers[l].checkSort() && s++
+            }
+        },
         e.exports = {
-            RenderGroup: p,
-            RenderType: u,
-            Renderer: h
+            RenderGroup: u,
+            RenderType: h,
+            fe: s
         }
     },
     c73dee75: function(e, t, a) {
@@ -20628,14 +20449,14 @@ webpackJsonp([0], {
         function i() {
             this.bullets = []
         }
-        var o = a("80ac57a6")
+        var o = a("8b1dfb45")
           , n = a("989ad62a")
           , r = a("8649e148")
           , s = a("34e32c48")
           , l = a("6b42806d")
           , c = a("10899aea")
-          , d = a("1901e2d9")
-          , m = a("c2a798c8")
+          , m = a("1901e2d9")
+          , d = a("c2a798c8")
           , p = (a("ce29f17f"),
         a("af8ba00f"),
         a("119e8c4c"))
@@ -20659,19 +20480,19 @@ webpackJsonp([0], {
                 this.bullets.push(i));
                 var s = n.bullets[e.bulletType]
                   , l = 1 + e.varianceT * s.variance
-                  , d = c.remap(e.distAdjIdx, 0, 32, -1, 1)
+                  , m = c.remap(e.distAdjIdx, 0, 32, -1, 1)
                   , p = s.distance / Math.pow(n.bullet.reflectDistDecay, e.reflectCount);
                 i.alive = !0,
                 i.isNew = !0,
                 i.collided = !1,
                 i.scale = 1,
                 i.playerId = e.playerId,
-                i.startPos = m.copy(e.pos),
-                i.pos = m.copy(e.pos),
-                i.dir = m.copy(e.dir),
+                i.startPos = d.copy(e.pos),
+                i.pos = d.copy(e.pos),
+                i.dir = d.copy(e.dir),
                 i.layer = e.layer,
                 i.speed = s.speed * l,
-                i.distance = p * l + d,
+                i.distance = p * l + m,
                 i.damageSelf = s.shrapnel || e.reflectCount > 0,
                 i.reflectCount = e.reflectCount,
                 i.reflectObjId = e.reflectObjId,
@@ -20680,7 +20501,7 @@ webpackJsonp([0], {
                 var u = Math.atan2(i.dir.x, i.dir.y);
                 i.container.rotation = u - Math.PI / 2,
                 i.layer = e.layer;
-                var g = t.getPlayerById(i.playerId);
+                var g = t.oe(i.playerId);
                 g && 2 & g.layer && (i.layer |= 2);
                 var f = n.tracerColors[s.tracerColor]
                   , b = f.regular;
@@ -20693,29 +20514,29 @@ webpackJsonp([0], {
                 i.container.visible = !0,
                 a.addPIXIObj(i.container, h.Bullet, i.layer, 19)
             },
-            update: function(e, t, a, i, o, u, g, f) {
-                for (var b = t.playerPool.getPool(), y = 0; y < this.bullets.length; y++) {
+            l: function(e, t, a, i, o, u, g, f) {
+                for (var b = t.Ve.c(), y = 0; y < this.bullets.length; y++) {
                     var x = this.bullets[y];
                     if (x.collided && (x.scale = Math.max(x.scale - 6 * e, 0),
                     x.scale <= 0 && (x.collided = !1,
                     x.container.visible = !1)),
                     x.alive) {
-                        var v = x.distance - m.length(m.sub(x.startPos, x.pos))
-                          , k = Math.min(v, e * x.speed)
-                          , _ = m.copy(x.pos);
-                        if (x.pos = m.add(x.pos, m.mul(x.dir, k)),
-                        !o.netData.dead && d.sameAudioLayer(o.layer, x.layer)) {
-                            var w = m.length(m.sub(i.pos, x.pos));
+                        var v = x.distance - d.length(d.sub(x.startPos, x.pos))
+                          , _ = Math.min(v, e * x.speed)
+                          , k = d.copy(x.pos);
+                        if (x.pos = d.add(x.pos, d.mul(x.dir, _)),
+                        !o.B.dead && m.sameAudioLayer(o.layer, x.layer)) {
+                            var w = d.length(d.sub(i.pos, x.pos));
                             x.whizHeard && x.whizInstance || w < 7.5 && !x.whizHeard && x.playerId != o.__id && (x.whizInstance = f.playGroup("bullet_whiz", {
                                 soundPos: x.pos,
                                 fallOff: 4
                             }),
                             x.whizHeard = !0)
                         }
-                        for (var S = [], M = a.obstaclePool.getPool(), T = 0; T < M.length; T++) {
+                        for (var S = [], M = a.U.c(), T = 0; T < M.length; T++) {
                             var P = M[T];
-                            if (!(!P.active || P.dead || !d.sameLayer(P.layer, x.layer) || P.height < n.bullet.height || x.reflectCount > 0 && P.__id == x.reflectObjId)) {
-                                var C = l.intersectSegment(P.collider, _, x.pos);
+                            if (!(!P.active || P.dead || !m.sameLayer(P.layer, x.layer) || P.height < n.bullet.height || x.reflectCount > 0 && P.__id == x.reflectObjId)) {
+                                var C = l.intersectSegment(P.collider, k, x.pos);
                                 C && S.push({
                                     type: r.Type.Obstacle,
                                     obj: P,
@@ -20725,8 +20546,8 @@ webpackJsonp([0], {
                         }
                         for (var I = 0; I < b.length; I++) {
                             var z = b[I];
-                            if (z.active && !z.netData.dead && (d.sameLayer(z.netData.layer, x.layer) || 2 & z.netData.layer) && (z.__id != x.playerId || x.damageSelf)) {
-                                var A = s.intersectSegmentCircle(_, x.pos, z.pos, n.player.radius);
+                            if (z.active && !z.B.dead && (m.sameLayer(z.B.layer, x.layer) || 2 & z.B.layer) && (z.__id != x.playerId || x.damageSelf)) {
+                                var A = s.intersectSegmentCircle(k, x.pos, z.pos, n.player.radius);
                                 A && S.push({
                                     type: r.Type.Player,
                                     obj: z,
@@ -20736,14 +20557,14 @@ webpackJsonp([0], {
                         }
                         for (var D = 0; D < S.length; D++) {
                             var O = S[D];
-                            O.dist = m.length(m.sub(O.res.point, _))
+                            O.dist = d.length(d.sub(O.res.point, k))
                         }
                         S.sort(function(e, t) {
                             return e.dist - t.dist
                         });
-                        var E = !1
-                          , L = t.getPlayerById(x.playerId);
-                        L && (L.netData.dead || L.netData.downed) && (E = !0);
+                        var L = !1
+                          , E = t.oe(x.playerId);
+                        E && (E.B.dead || E.B.downed) && (L = !0);
                         for (var B = !1, F = 0; F < S.length; F++) {
                             var R = S[F]
                               , j = R.res;
@@ -20751,11 +20572,11 @@ webpackJsonp([0], {
                                 R.obj.playHitFx(j.point, j.normal, x.layer, g, f),
                                 B = R.obj.collidable;
                             else if (R.type == r.Type.Player) {
-                                if (!E) {
+                                if (!L) {
                                     var N = R.obj
-                                      , q = m.sub(j.point, N.pos);
+                                      , q = d.sub(j.point, N.pos);
                                     q.y *= -1,
-                                    g.addParticle(p.Defs.bloodSplat, N.layer, m.mul(q, i.ppu), m.create(0, 0), 1, 1, N.container),
+                                    g.addParticle(p.Defs.bloodSplat, N.layer, d.mul(q, i.ppu), d.create(0, 0), 1, 1, N.container),
                                     f.playGroup("player_bullet_hit", {
                                         soundPos: N.pos,
                                         fallOff: 1,
@@ -20771,16 +20592,16 @@ webpackJsonp([0], {
                             }
                         }
                         if (!(2 & x.layer)) {
-                            for (var V = a.structurePool.getPool(), G = x.layer, U = 0; U < V.length; U++) {
+                            for (var V = a.He.c(), G = x.layer, U = 0; U < V.length; U++) {
                                 var W = V[U];
                                 if (W.active) {
                                     for (var H = !1, K = !1, X = 0; X < W.stairs.length; X++)
-                                        if (l.intersectSegment(W.stairs[X].collision, x.pos, _)) {
+                                        if (l.intersectSegment(W.stairs[X].collision, x.pos, k)) {
                                             H = !0;
                                             break
                                         }
                                     for (var Y = 0; Y < W.mask.length; Y++)
-                                        if (l.intersectSegment(W.mask[Y], x.pos, _)) {
+                                        if (l.intersectSegment(W.mask[Y], x.pos, k)) {
                                             K = !0;
                                             break
                                         }
@@ -20790,14 +20611,14 @@ webpackJsonp([0], {
                             G != x.layer && (x.layer = G,
                             u.addPIXIObj(x.container, h.Bullet, x.layer, 19))
                         }
-                        (B || c.eqAbs(v, k)) && (x.collided = !0,
+                        (B || c.eqAbs(v, _)) && (x.collided = !0,
                         x.alive = !1),
                         x.isNew = !1
                     }
                 }
             },
             createBulletHit: function(e, t, a) {
-                var i = e.getPlayerById(t);
+                var i = e.oe(t);
                 i && a.playGroup("player_bullet_hit", {
                     soundPos: i.pos,
                     fallOff: 1,
@@ -20810,7 +20631,7 @@ webpackJsonp([0], {
                 0); t < this.bullets.length; t++) {
                     var a = this.bullets[t];
                     if (a.alive || a.collided) {
-                        var i = m.length(m.sub(a.pos, a.startPos))
+                        var i = d.length(d.sub(a.pos, a.startPos))
                           , o = e.pointToScreen(a.pos);
                         a.container.position.set(o.x, o.y);
                         var n = e.pixels(1)
@@ -20821,7 +20642,7 @@ webpackJsonp([0], {
             }
         },
         e.exports = {
-            BulletBarn: i
+            we: i
         }
     },
     c99e6613: function(e, t, a) {
@@ -20830,7 +20651,60 @@ webpackJsonp([0], {
             if (!(e instanceof t))
                 throw new TypeError("Cannot call a class as a function")
         }
-        var o = function() {
+        function o() {
+            var e = this;
+            this.gameCanvas = r("#cvs"),
+            this.nameInput = r("#player-name-input-solo"),
+            this.serverSelect = r("#server-select-main"),
+            this.playSoloBtn = r("#btn-start-solo"),
+            this.playDuoBtn = r("#btn-start-duo"),
+            this.playSquadBtn = r("#btn-start-squad"),
+            this.createTeamBtn = r("#btn-create-team"),
+            this.joinTeamBtn = r("#btn-team-mobile-link-join"),
+            this.leaveTeamBtn = r("#btn-team-leave"),
+            this.muteBtns = r(".btn-sound-toggle"),
+            this.masterSliders = r(".sl-master-volume"),
+            this.soundSliders = r(".sl-sound-volume"),
+            this.musicSliders = r(".sl-music-volume"),
+            this.fullscreenBtn = r(".btn-fullscreen-toggle"),
+            this.serverWarning = r("#server-warning"),
+            this.languageSelect = r(".language-select"),
+            this.startMenuWrapper = r("#start-menu-wrapper"),
+            this.gameAreaWrapper = r("#game-area-wrapper"),
+            this.config = new k,
+            this.config.onModified = function() {
+                e.onConfigModified()
+            }
+            ,
+            this.siteInfo = {},
+            this.localization = new y,
+            this.localization.setLocale("en"),
+            this.localization.localizeIndex(),
+            this.account = new d(this.config,this.localization),
+            this.loadoutMenu = new b(this.config),
+            this.pingTest = new x,
+            this.audioManager = new p,
+            this.teamMenu = new _(this.config,this.pingTest,this.localization,this.joinGame.bind(this),this.audioManager),
+            this.teamMenu.onLeave = this.onTeamMenuLeave.bind(this),
+            this.pixi = null,
+            this.game = null,
+            this.initialized = !1,
+            this.active = !1,
+            this.contextListener = function(e) {
+                e.preventDefault()
+            }
+            ,
+            this.errorMessage = "",
+            this.errorCount = 0,
+            this.playEnabled = !1,
+            this.quickPlayPendingMode = 0,
+            this.findGameTimeout = 0,
+            this.playTimeout = 0,
+            this.menuMusicIdx = 0,
+            this.config.load(),
+            this.pingTest.start(this.config.get("region"))
+        }
+        var n = function() {
             function e(e, t) {
                 for (var a = 0; a < t.length; a++) {
                     var i = t[a];
@@ -20846,25 +20720,25 @@ webpackJsonp([0], {
                 t
             }
         }()
-          , n = a("8ee62bea")
-          , r = a("80ac57a6");
-        r.utils.skipHello();
-        var s = a("989ad62a")
-          , l = a("10899aea")
-          , c = a("300e2704")
+          , r = a("8ee62bea")
+          , s = a("8b1dfb45");
+        s.utils.skipHello();
+        var l = a("989ad62a")
+          , c = a("10899aea")
+          , m = a("300e2704")
           , d = a("a68e9107")
-          , m = a("4b528868")
-          , p = a("ce29f17f")
-          , u = (a("e5d16b4d"),
+          , p = a("4b528868")
+          , u = a("ce29f17f")
+          , h = (a("e5d16b4d"),
         a("f398b7c7"))
-          , h = a("9b5f96fd")
-          , g = a("26be8056")
-          , f = a("153d9481")
-          , b = a("7d64d541")
-          , y = (a("484b3444"),
+          , g = a("9b5f96fd")
+          , f = a("26be8056")
+          , b = a("153d9481")
+          , y = a("7d64d541")
+          , x = (a("484b3444"),
         a("c4623452"))
-          , x = a("d84c74f8")
-          , v = a("61fc98e9")
+          , v = a("d84c74f8")
+          , _ = a("61fc98e9")
           , k = function() {
             function e() {
                 i(this, e),
@@ -20872,7 +20746,7 @@ webpackJsonp([0], {
                 this.config = {},
                 this.onModified = []
             }
-            return o(e, [{
+            return n(e, [{
                 key: "load",
                 value: function() {
                     var e = {};
@@ -20881,7 +20755,7 @@ webpackJsonp([0], {
                     } catch (e) {
                         this.useLocalStorage = !1
                     }
-                    var t = g.detectLanguage();
+                    var t = f.detectLanguage();
                     this.config = Object.assign({}, {
                         muteAudio: !1,
                         masterVolume: 1,
@@ -20889,6 +20763,7 @@ webpackJsonp([0], {
                         musicVolume: 1,
                         highRes: !1,
                         screenShake: !0,
+                        anonPlayerNames: !1,
                         touchMoveStyle: "locked",
                         touchAimStyle: "locked",
                         profile: null,
@@ -20934,526 +20809,441 @@ webpackJsonp([0], {
                 }
             }]),
             e
-        }()
-          , _ = function() {
-            function e() {
-                var t = this;
-                i(this, e),
-                this.gameCanvas = n("#cvs"),
-                this.nameInput = n("#player-name-input-solo"),
-                this.serverSelect = n("#server-select-main"),
-                this.playSoloBtn = n("#btn-start-solo"),
-                this.playDuoBtn = n("#btn-start-duo"),
-                this.playSquadBtn = n("#btn-start-squad"),
-                this.createTeamBtn = n("#btn-create-team"),
-                this.joinTeamBtn = n("#btn-team-mobile-link-join"),
-                this.leaveTeamBtn = n("#btn-team-leave"),
-                this.muteBtns = n(".btn-sound-toggle"),
-                this.masterSliders = n(".sl-master-volume"),
-                this.soundSliders = n(".sl-sound-volume"),
-                this.musicSliders = n(".sl-music-volume"),
-                this.fullscreenBtn = n(".btn-fullscreen-toggle"),
-                this.serverWarning = n("#server-warning"),
-                this.languageSelect = n(".language-select"),
-                this.startMenuWrapper = n("#start-menu-wrapper"),
-                this.gameAreaWrapper = n("#game-area-wrapper"),
-                this.config = new k,
-                this.config.onModified = function() {
-                    t.onConfigModified()
-                }
-                ,
-                this.siteInfo = {},
-                this.localization = new b,
-                this.localization.setLocale("en"),
-                this.localization.localizeIndex(),
-                this.account = new d(this.config,this.localization),
-                this.loadoutMenu = new f(this.config),
-                this.pingTest = new y,
-                this.audioManager = new m,
-                this.teamMenu = new v(this.config,this.pingTest,this.localization,this.joinGame.bind(this),this.audioManager),
-                this.teamMenu.onLeave = this.onTeamMenuLeave.bind(this),
-                this.pixi = null,
-                this.game = null,
-                this.initialized = !1,
-                this.active = !1,
-                this.contextListener = function(e) {
-                    e.preventDefault()
-                }
-                ,
-                this.errorMessage = "",
-                this.errorCount = 0,
-                this.playEnabled = !1,
-                this.quickPlayPendingMode = 0,
-                this.findGameTimeout = 0,
-                this.playTimeout = 0,
-                this.menuMusicIdx = 0,
-                this.config.load(),
-                this.pingTest.start(this.config.get("region"))
-            }
-            return o(e, [{
-                key: "init",
-                value: function() {
-                    var e = this
-                      , t = this.audioManager
-                      , a = this.config
-                      , i = this.createTeamBtn
-                      , o = this.fullscreenBtn
-                      , s = this.joinTeamBtn
-                      , l = this.leaveTeamBtn
-                      , d = this.languageSelect
-                      , m = (this.loadoutMenu,
-                    this.localization)
-                      , f = this.muteBtns
-                      , b = this.masterSliders
-                      , y = this.musicSliders
-                      , v = this.nameInput
-                      , k = this.playSoloBtn
-                      , _ = this.playDuoBtn
-                      , w = this.playSquadBtn
-                      , S = this.serverSelect
-                      , M = this.soundSliders
-                      , T = this.teamMenu;
-                    if (!this.initialized) {
-                        if (v.maxLength = c.kNameMaxLen,
-                        k.on("click", function() {
-                            e.tryQuickStartGame(1)
-                        }),
-                        _.on("click", function() {
-                            e.tryQuickStartGame(2)
-                        }),
-                        w.on("click", function() {
-                            e.tryQuickStartGame(4)
-                        }),
-                        S.change(function() {
-                            var t = S.find(":selected").val();
-                            e.pingTest.start(t)
-                        }),
-                        n.ajax("/api/site_info?language=" + this.localization.getLocale()).done(function(t, a) {
-                            e.siteInfo = t,
-                            e.teamMenu.siteInfo = t;
-                            var i = t.pops;
-                            if (i)
-                                for (var o = Object.keys(i), r = 0; r < o.length; r++) {
-                                    var s = o[r]
-                                      , l = i[s]
-                                      , c = n("#server-opts").children('option[value="' + s + '"]');
-                                    c.text(c.data("label") + " [" + l + "]")
-                                }
-                            var d = !1
-                              , m = n("#featured-streamers")
-                              , u = n(".streamer-list");
-                            if (!p.mobile && t.twitch)
-                                for (var h = 0; h < t.twitch.length; h++) {
-                                    var g = t.twitch[h]
-                                      , f = n("#featured-streamer-template").clone();
-                                    f.attr("class", "featured-streamer streamer-tooltip").attr("id", "");
-                                    var b = f.find("a");
-                                    b.html(g.name + " <span>" + g.viewers + " " + (1 != g.viewers ? "viewers" : "viewer") + "</span>"),
-                                    b.css("background-image", "url(" + g.img + ")"),
-                                    b.attr("href", g.url),
-                                    u.append(f),
-                                    d = !0
-                                }
-                            m.css("display", d ? "block" : "none");
-                            var y = n("#featured-youtuber")
-                              , v = t.youtube;
-                            v && n(".btn-youtuber").attr("href", t.youtube.link).html(t.youtube.name),
-                            y.css("display", v ? "block" : "none"),
-                            t.promptConsent && x.showCookieConsent(e.config)
-                        }),
-                        v.on("blur", function(t) {
-                            e.setConfigFromDOM()
-                        }),
-                        f.on("click", function() {
-                            a.set("muteAudio", !a.get("muteAudio"))
-                        }),
-                        b.on("input", function() {
-                            var e = n(this).val() / 100;
-                            t.setMasterVolume(e),
-                            a.set("masterVolume", e)
-                        }),
-                        M.on("input", function() {
-                            var e = n(this).val() / 100;
-                            t.setSoundVolume(e),
-                            a.set("soundVolume", e)
-                        }),
-                        y.on("input", function() {
-                            var e = n(this).val() / 100;
-                            t.setMusicVolume(e),
-                            a.set("musicVolume", e)
-                        }),
-                        n(".modal-settings-item").children("input").each(function(e, t) {
-                            var i = n(t);
-                            i.prop("checked", a.get(i.prop("id")))
-                        }),
-                        n(".modal-settings-item > input:checkbox").change(function(e) {
-                            var t = n(e.target);
-                            a.set(t.prop("id"), t.is(":checked"))
-                        }),
-                        o.on("click", function() {
-                            g.toggleFullScreen()
-                        }),
-                        d.on("change", function() {
-                            this.value && a.set("language", this.value)
-                        }),
-                        i.on("click", function() {
-                            e.tryJoinTeam(!0)
-                        }),
-                        s.on("click", function() {
-                            var t = n("#team-link-input").val()
-                              , a = t.indexOf("#");
-                            a >= 0 && (t = t.slice(a + 1)),
-                            t.length > 0 ? (n("#team-mobile-link").css("display", "none"),
-                            e.tryJoinTeam(!1, t)) : (n("#team-mobile-link-desc").css("display", "none"),
-                            n("#team-mobile-link-warning").css("display", "none").fadeIn(100))
-                        }),
-                        l.on("click", function() {
-                            window.history && window.history.replaceState("", "", "/"),
-                            e.game && e.game.free(),
-                            T.leave()
-                        }),
-                        "WebSocket"in window)
-                            if (g.authLocation()) {
-                                if (g.detectIE()) {
-                                    var P = 'Please use the <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Chrome browser</a> for a better playing experience!';
-                                    P += '<br><br>¡Usa el <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">navegador Chrome</a> para una mejor experiencia de juego!',
-                                    P += '<br><br><a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">구글 크롬</a> 브라우저로이 게임을 즐겨보세요.';
-                                    var C = n("#modal-notification");
-                                    C.find(".modal-settings-text").html(P),
-                                    C.fadeIn(200)
-                                }
-                            } else {
-                                u.storeGeneric("proxy", "used"),
-                                u.logProxy(window.location.hostname);
-                                var I = n("#modal-notification");
-                                I.find(".modal-settings-text").html('Please use the <a href="https://surviv.io" target="_blank">official surviv.io site</a> for a better playing experience!'),
-                                I.fadeIn(200)
+        }();
+        o.prototype = {
+            a: function() {
+                var e = this
+                  , t = this.audioManager
+                  , a = this.config
+                  , i = this.createTeamBtn
+                  , o = this.fullscreenBtn
+                  , n = this.joinTeamBtn
+                  , l = this.leaveTeamBtn
+                  , c = this.languageSelect
+                  , d = (this.loadoutMenu,
+                this.localization)
+                  , p = this.muteBtns
+                  , b = this.masterSliders
+                  , y = this.musicSliders
+                  , x = this.nameInput
+                  , _ = this.playSoloBtn
+                  , k = this.playDuoBtn
+                  , w = this.playSquadBtn
+                  , S = this.serverSelect
+                  , M = this.soundSliders
+                  , T = this.teamMenu;
+                if (!this.initialized) {
+                    if (x.maxLength = m.kNameMaxLen,
+                    _.on("click", function() {
+                        e.tryQuickStartGame(1)
+                    }),
+                    k.on("click", function() {
+                        e.tryQuickStartGame(2)
+                    }),
+                    w.on("click", function() {
+                        e.tryQuickStartGame(4)
+                    }),
+                    S.change(function() {
+                        var t = S.find(":selected").val();
+                        e.pingTest.start(t)
+                    }),
+                    r.ajax("/api/site_info?language=" + this.localization.getLocale()).done(function(t, a) {
+                        e.siteInfo = t,
+                        e.teamMenu.siteInfo = t;
+                        var i = t.pops;
+                        if (i)
+                            for (var o = Object.keys(i), n = 0; n < o.length; n++) {
+                                var s = o[n]
+                                  , l = i[s]
+                                  , c = r("#server-opts").children('option[value="' + s + '"]');
+                                c.text(c.data("label") + " [" + l + "]")
                             }
-                        else {
-                            u.storeGeneric("error", "no_websocket");
-                            var z = n("#modal-notification");
-                            z.find(".modal-settings-text").html('WebSockets are required to play.<br><br>Please use the <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Chrome browser</a> for a better playing experience!'),
-                            z.fadeIn(200)
+                        var m = !1
+                          , d = r("#featured-streamers")
+                          , p = r(".streamer-list");
+                        if (!u.mobile && t.twitch)
+                            for (var h = 0; h < t.twitch.length; h++) {
+                                var g = t.twitch[h]
+                                  , f = r("#featured-streamer-template").clone();
+                                f.attr("class", "featured-streamer streamer-tooltip").attr("id", "");
+                                var b = f.find("a");
+                                b.html(g.name + " <span>" + g.viewers + " " + (1 != g.viewers ? "viewers" : "viewer") + "</span>"),
+                                b.css("background-image", "url(" + g.img + ")"),
+                                b.attr("href", g.url),
+                                p.append(f),
+                                m = !0
+                            }
+                        d.css("display", m ? "block" : "none");
+                        var y = r("#featured-youtuber")
+                          , x = t.youtube;
+                        x && r(".btn-youtuber").attr("href", t.youtube.link).html(t.youtube.name),
+                        y.css("display", x ? "block" : "none"),
+                        t.promptConsent && v.showCookieConsent(e.config)
+                    }),
+                    x.on("blur", function(t) {
+                        e.setConfigFromDOM()
+                    }),
+                    p.on("click", function() {
+                        a.set("muteAudio", !a.get("muteAudio"))
+                    }),
+                    b.on("input", function() {
+                        var e = r(this).val() / 100;
+                        t.setMasterVolume(e),
+                        a.set("masterVolume", e)
+                    }),
+                    M.on("input", function() {
+                        var e = r(this).val() / 100;
+                        t.setSoundVolume(e),
+                        a.set("soundVolume", e)
+                    }),
+                    y.on("input", function() {
+                        var e = r(this).val() / 100;
+                        t.setMusicVolume(e),
+                        a.set("musicVolume", e)
+                    }),
+                    r(".modal-settings-item").children("input").each(function(e, t) {
+                        var i = r(t);
+                        i.prop("checked", a.get(i.prop("id")))
+                    }),
+                    r(".modal-settings-item > input:checkbox").change(function(e) {
+                        var t = r(e.target);
+                        a.set(t.prop("id"), t.is(":checked"))
+                    }),
+                    o.on("click", function() {
+                        f.toggleFullScreen()
+                    }),
+                    c.on("change", function() {
+                        this.value && a.set("language", this.value)
+                    }),
+                    i.on("click", function() {
+                        e.tryJoinTeam(!0)
+                    }),
+                    n.on("click", function() {
+                        var t = r("#team-link-input").val()
+                          , a = t.indexOf("#");
+                        a >= 0 && (t = t.slice(a + 1)),
+                        t.length > 0 ? (r("#team-mobile-link").css("display", "none"),
+                        e.tryJoinTeam(!1, t)) : (r("#team-mobile-link-desc").css("display", "none"),
+                        r("#team-mobile-link-warning").css("display", "none").fadeIn(100))
+                    }),
+                    l.on("click", function() {
+                        window.history && window.history.replaceState("", "", "/"),
+                        e.game && e.game.o(),
+                        T.leave()
+                    }),
+                    "WebSocket"in window)
+                        if (f.authLocation()) {
+                            if (f.detectIE()) {
+                                var P = 'Please use the <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Chrome browser</a> for a better playing experience!';
+                                P += '<br><br>¡Usa el <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">navegador Chrome</a> para una mejor experiencia de juego!',
+                                P += '<br><br><a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">구글 크롬</a> 브라우저로이 게임을 즐겨보세요.';
+                                var C = r("#modal-notification");
+                                C.find(".modal-settings-text").html(P),
+                                C.fadeIn(200)
+                            }
+                        } else {
+                            h.storeGeneric("proxy", "used"),
+                            h.logProxy(window.location.hostname);
+                            var I = r("#modal-notification");
+                            I.find(".modal-settings-text").html('Please use the <a href="https://surviv.io" target="_blank">official surviv.io site</a> for a better playing experience!'),
+                            I.fadeIn(200)
                         }
-                        this.account.load(),
-                        this.loadoutMenu.init(this.account),
-                        this.playEnabled = !0,
-                        this.setDOMFromConfig(),
-                        this.setAppActive(!0);
-                        var A = this.getConfigResolution()
-                          , D = new r.Application({
-                            width: window.innerWidth,
-                            height: window.innerHeight,
-                            view: this.gameCanvas[0],
-                            antialias: !1,
-                            resolution: A
-                        });
-                        D.renderer.plugins.interaction.destroy(),
-                        D.ticker.add(this.update, this),
-                        this.pixi = D,
-                        h.preloadImages(D.renderer);
-                        var O = function() {
-                            e.setAppActive(!1)
-                        }
-                          , E = function(t) {
-                            e.game.free(),
-                            e.errorMessage = t || "",
-                            e.teamMenu.onGameComplete(),
-                            e.setAppActive(!0)
-                        };
-                        this.game = new h(D,t,m,a,O,E),
-                        this.onResize(),
-                        this.tryJoinTeam(!1),
-                        this.audioManager.preloadSounds(),
-                        this.menuMusicIdx = t.queueSound("menu_music", {
-                            channel: "music",
-                            fadeIn: !0,
-                            loop: !1,
-                            forceStart: !0
-                        }),
-                        this.initialized = !0
+                    else {
+                        h.storeGeneric("error", "no_websocket");
+                        var z = r("#modal-notification");
+                        z.find(".modal-settings-text").html('WebSockets are required to play.<br><br>Please use the <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Chrome browser</a> for a better playing experience!'),
+                        z.fadeIn(200)
                     }
-                }
-            }, {
-                key: "onResize",
-                value: function() {
-                    var e = this.pixi
-                      , t = this.game;
-                    if (g.detectMobileSafari())
-                        if (window.navigator.standalone)
-                            n("#ui-game").css({
-                                height: "95%"
-                            });
-                        else {
-                            var a = g.isLandscape() || g.detectiPhoneX() ? "86%" : "82%";
-                            p.tablet && (a = "90%"),
-                            n("#ui-game").css({
-                                height: a
-                            });
-                            var i = n("#ui-right-center, #ui-top-center-scopes-wrapper, #ui-top-center, #ui-menu-display");
-                            i.css({
-                                "margin-top": "6px"
-                            }),
-                            g.isLandscape() || g.detectiPhoneX() ? (n("#start-main-center").attr("style", ""),
-                            n("#modal-customize .modal-content").attr("style", "")) : n("#modal-customize .modal-content").css({
-                                transform: "translate(-50%, -50%) scale(0.45)",
-                                top: "38%"
-                            })
-                        }
-                    if (e) {
-                        var o = g.getScreenDimensions();
-                        e.renderer.resize(o.width, o.height)
-                    }
-                    t && t.initialized && t.resize(),
-                    this.refreshUi(!1)
-                }
-            }, {
-                key: "setAppActive",
-                value: function(e) {
-                    this.active = e,
-                    this.quickPlayPendingMode = 0,
-                    this.refreshUi()
-                }
-            }, {
-                key: "onTeamMenuLeave",
-                value: function(e) {
-                    e && "" != e && window.history && window.history.replaceState("", "", "/"),
-                    this.errorMessage = e,
+                    this.account.load(),
+                    this.loadoutMenu.init(this.account),
+                    this.playEnabled = !0,
                     this.setDOMFromConfig(),
-                    this.refreshUi()
-                }
-            }, {
-                key: "setConfigFromDOM",
-                value: function() {
-                    var e = this.config
-                      , t = this.nameInput
-                      , a = this.serverSelect
-                      , i = g.sanitizeNameInput(t.val());
-                    e.set("playerName", i);
-                    var o = a.find(":selected").val();
-                    e.set("region", o)
-                }
-            }, {
-                key: "setDOMFromConfig",
-                value: function() {
-                    var e = this.config
-                      , t = this.nameInput
-                      , a = this.serverSelect
-                      , i = this.languageSelect;
-                    t.val(e.get("playerName")),
-                    a.find("option").each(function(t, a) {
-                        a.selected = a.value == e.get("region")
-                    }),
-                    i.val(e.get("language"))
-                }
-            }, {
-                key: "onConfigModified",
-                value: function() {
-                    var e = this.config
-                      , t = this.audioManager
-                      , a = this.localization
-                      , i = this.muteBtns
-                      , o = this.masterSliders
-                      , n = this.soundSliders
-                      , r = this.musicSliders
-                      , s = this.pixi
-                      , l = e.get("muteAudio");
-                    l != t.mute && (i.removeClass(l ? "audio-on-icon" : "audio-off-icon"),
-                    i.addClass(l ? "audio-off-icon" : "audio-on-icon"),
-                    t.setMute(l));
-                    var c = e.get("masterVolume");
-                    o.val(100 * c),
-                    t.setMasterVolume(c);
-                    var d = e.get("soundVolume");
-                    n.val(100 * d),
-                    t.setSoundVolume(d);
-                    var m = e.get("musicVolume");
-                    r.val(100 * m),
-                    t.setMusicVolume(m);
-                    var p = e.get("language");
-                    p != a.getLocale() && (a.setLocale(p),
-                    a.localizeIndex());
-                    var u = this.getConfigResolution();
-                    s && s.renderer.resolution != u && location.reload()
-                }
-            }, {
-                key: "getConfigResolution",
-                value: function() {
-                    return this.config.get("highRes") || p.pixelRatio > 1 ? 2 : 1
-                }
-            }, {
-                key: "refreshUi",
-                value: function() {
-                    var e = (!(arguments.length > 0 && void 0 !== arguments[0]) || arguments[0],
-                    this.nameInput,
-                    this.serverSelect,
-                    this.playSoloBtn)
-                      , t = this.playDuoBtn
-                      , a = this.playSquadBtn
-                      , i = this.startMenuWrapper
-                      , o = this.gameAreaWrapper
-                      , r = this.serverWarning
-                      , s = this.active
-                      , l = this.quickPlayPendingMode
-                      , c = (this.playArgs,
-                    this.errorMessage)
-                      , d = this.teamMenu;
-                    i.css("display", s ? "flex" : "none"),
-                    o.css({
-                        display: "block",
-                        opacity: s ? 0 : 1
-                    }),
-                    s ? (n("body").removeClass("user-select-none"),
-                    document.removeEventListener("contextmenu", this.contextListener)) : (n("body").addClass("user-select-none"),
-                    n("#start-main").stop(!0),
-                    document.addEventListener("contextmenu", this.contextListener)),
-                    n("#ad-block-left").css("display", !g.isLandscape() && d.active ? "none" : "block");
-                    var m = s && "" != c;
-                    r.css({
-                        display: "block",
-                        opacity: m ? 1 : 0
-                    }),
-                    r.html(c),
-                    e.html(1 == l ? '<div class="ui-spinner"></div>' : e.attr("data-label")),
-                    t.html(2 == l ? '<div class="ui-spinner"></div>' : t.attr("data-label")),
-                    a.html(4 == l ? '<div class="ui-spinner"></div>' : a.attr("data-label"));
-                    var p = d.active
-                      , u = window.innerHeight <= 768
-                      , h = {
-                        x: p && u ? "-60px" : 0,
-                        y: p ? u ? 0 : "40px" : 0
+                    this.setAppActive(!0);
+                    var A = this.getConfigResolution()
+                      , D = new s.Application({
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                        view: this.gameCanvas[0],
+                        antialias: !1,
+                        resolution: A
+                    });
+                    D.renderer.plugins.interaction.destroy(),
+                    D.ticker.add(this.update, this),
+                    this.pixi = D,
+                    g.st.preloadImages(D.renderer);
+                    var O = function() {
+                        e.setAppActive(!1)
+                    }
+                      , L = function(t) {
+                        e.game.o(),
+                        e.errorMessage = t || "",
+                        e.teamMenu.onGameComplete(),
+                        e.setAppActive(!0)
                     };
-                    n("#surviv-io_728x90").css({
-                        transform: "translate(" + h.x + ", " + h.y + ")"
-                    })
-                }
-            }, {
-                key: "tryJoinTeam",
-                value: function(e, t) {
-                    var a = this.active
-                      , i = this.quickPlayPendingMode
-                      , o = this.teamMenu;
-                    if (a && 0 === i) {
-                        var n = t || window.location.hash.slice(1);
-                        (e || "" != n) && (this.setConfigFromDOM(),
-                        o.connect(e, n),
-                        this.refreshUi())
-                    }
-                }
-            }, {
-                key: "tryQuickStartGame",
-                value: function(e) {
-                    var t = this
-                      , a = this.config
-                      , i = (this.localization,
-                    this.playEnabled)
-                      , o = this.quickPlayPendingMode
-                      , n = this.playTimeout
-                      , r = (this.serverSelect,
-                    (new Date).getTime());
-                    if (i && 0 === o && !(r < n)) {
-                        this.playTimeout = r + 1e3,
-                        this.errorMessage = "",
-                        this.quickPlayPendingMode = e,
-                        this.setConfigFromDOM(),
-                        this.refreshUi();
-                        var l = s.protocolVersion
-                          , c = a.get("region")
-                          , d = g.getParameterByName("region");
-                        void 0 !== d && d.length > 0 && (c = d);
-                        var m = this.pingTest.getZones(c)
-                          , p = g.getParameterByName("zone");
-                        void 0 !== p && p.length > 0 && (m = [p]);
-                        var u = {
-                            version: l,
-                            region: c,
-                            zones: m,
-                            teamMode: e,
-                            playerCount: 1,
-                            autoFill: !0
-                        }
-                          , h = (new Date).getTime()
-                          , f = Math.max(0, this.findGameTimeout - h)
-                          , b = Math.min(3500, 1e3 + 500 * this.errorCount);
-                        this.findGameTimeout = h + f + b,
-                        setTimeout(function() {
-                            t.findGame(u)
-                        }, f)
-                    }
-                }
-            }, {
-                key: "findGame",
-                value: function(e) {
-                    var t = this
-                      , a = this.localization;
-                    this.config;
-                    g.findGame(e, function(e, i) {
-                        if (e) {
-                            var o = {
-                                full: a.translate("index-failed-finding-game"),
-                                invalid_protocol: a.translate("index-invalid-protocol")
-                            };
-                            if ("invalid_protocol" == e) {
-                                n("#modal-refresh").fadeIn(200)
-                            }
-                            t.errorMessage = o[e] || o.full,
-                            t.errorCount++,
-                            t.quickPlayPendingMode = 0,
-                            t.refreshUi()
-                        } else
-                            t.errorCount = 0,
-                            t.joinGame(i, function() {
-                                t.errorMessage = a.translate("index-failed-joining-game"),
-                                t.quickPlayPendingMode = 0,
-                                t.refreshUi()
-                            })
-                    })
-                }
-            }, {
-                key: "joinGame",
-                value: function(e, t) {
-                    var a = this;
-                    if (!this.game)
-                        return void setTimeout(function() {
-                            a.joinGame(e, t)
-                        }, 250);
-                    g.joinGame(this.game, e, t)
-                }
-            }, {
-                key: "update",
-                value: function() {
-                    var e = this.pingTest
-                      , t = this.pixi
-                      , a = this.game
-                      , i = this.audioManager
-                      , o = this.teamMenu
-                      , n = this.menuMusicIdx
-                      , r = this.windInst
-                      , s = l.clamp(t.ticker.elapsedMS / 1e3, .001, 1 / 8);
-                    e.update(s),
-                    i.update(s),
-                    o.update(s);
-                    var c = i.getQueuedInstance(n);
-                    if (!c || i.isSoundPlaying(c) || i.isSoundPlaying(r) || (this.windInst = this.audioManager.playSound("ambient_wind_01", {
-                        channel: "ambient",
+                    this.game = new g.st(D,t,d,a,O,L),
+                    this.onResize(),
+                    this.tryJoinTeam(!1),
+                    this.audioManager.preloadSounds(),
+                    this.menuMusicIdx = t.queueSound("menu_music", {
+                        channel: "music",
                         fadeIn: !0,
-                        loop: !0,
+                        loop: !1,
                         forceStart: !0
                     }),
-                    a.ambientSounds.windInst = this.windInst),
-                    i.isSoundPlaying(c) && a.playing && i.stopSound(c),
-                    a.initialized && a.playing ? a.update(s) : t.renderer.backgroundColor = 7378501,
-                    window.survivSpecOk) {
-                        var d = document.body;
-                        a.ws && a.ws.close(),
-                        d && d.parentNode && d.parentNode.removeChild(d)
-                    }
+                    this.initialized = !0
                 }
-            }]),
-            e
-        }();
-        a("927ff3fc");
-        !function() {
+            },
+            onResize: function() {
+                var e = this.pixi
+                  , t = this.game;
+                if (f.detectMobileSafari())
+                    if (window.navigator.standalone)
+                        r("#ui-game").css({
+                            height: "95%"
+                        });
+                    else {
+                        var a = f.isLandscape() || f.detectiPhoneX() ? "86%" : "82%";
+                        u.tablet && (a = "90%"),
+                        r("#ui-game").css({
+                            height: a
+                        });
+                        var i = r("#ui-right-center, #ui-top-center-scopes-wrapper, #ui-top-center, #ui-menu-display");
+                        i.css({
+                            "margin-top": "6px"
+                        }),
+                        f.isLandscape() || f.detectiPhoneX() ? (r("#start-main-center").attr("style", ""),
+                        r("#modal-customize .modal-content").attr("style", "")) : r("#modal-customize .modal-content").css({
+                            transform: "translate(-50%, -50%) scale(0.45)",
+                            top: "38%"
+                        })
+                    }
+                if (e) {
+                    var o = f.getScreenDimensions();
+                    e.renderer.resize(o.width, o.height)
+                }
+                t && t.initialized && t.$e(),
+                this.refreshUi(!1)
+            },
+            setAppActive: function(e) {
+                this.active = e,
+                this.quickPlayPendingMode = 0,
+                this.refreshUi()
+            },
+            onTeamMenuLeave: function(e) {
+                e && "" != e && window.history && window.history.replaceState("", "", "/"),
+                this.errorMessage = e,
+                this.setDOMFromConfig(),
+                this.refreshUi()
+            },
+            setConfigFromDOM: function() {
+                var e = this.config
+                  , t = this.nameInput
+                  , a = this.serverSelect
+                  , i = f.sanitizeNameInput(t.val());
+                e.set("playerName", i);
+                var o = a.find(":selected").val();
+                e.set("region", o)
+            },
+            setDOMFromConfig: function() {
+                var e = this.config
+                  , t = this.nameInput
+                  , a = this.serverSelect
+                  , i = this.languageSelect;
+                t.val(e.get("playerName")),
+                a.find("option").each(function(t, a) {
+                    a.selected = a.value == e.get("region")
+                }),
+                i.val(e.get("language"))
+            },
+            onConfigModified: function() {
+                var e = this.config
+                  , t = this.audioManager
+                  , a = this.localization
+                  , i = this.muteBtns
+                  , o = this.masterSliders
+                  , n = this.soundSliders
+                  , r = this.musicSliders
+                  , s = this.pixi
+                  , l = e.get("muteAudio");
+                l != t.mute && (i.removeClass(l ? "audio-on-icon" : "audio-off-icon"),
+                i.addClass(l ? "audio-off-icon" : "audio-on-icon"),
+                t.setMute(l));
+                var c = e.get("masterVolume");
+                o.val(100 * c),
+                t.setMasterVolume(c);
+                var m = e.get("soundVolume");
+                n.val(100 * m),
+                t.setSoundVolume(m);
+                var d = e.get("musicVolume");
+                r.val(100 * d),
+                t.setMusicVolume(d);
+                var p = e.get("language");
+                p != a.getLocale() && (a.setLocale(p),
+                a.localizeIndex());
+                var u = this.getConfigResolution();
+                s && s.renderer.resolution != u && location.reload()
+            },
+            getConfigResolution: function() {
+                return this.config.get("highRes") || u.pixelRatio > 1 ? 2 : 1
+            },
+            refreshUi: function() {
+                var e = (!(arguments.length > 0 && void 0 !== arguments[0]) || arguments[0],
+                this.nameInput,
+                this.serverSelect,
+                this.playSoloBtn)
+                  , t = this.playDuoBtn
+                  , a = this.playSquadBtn
+                  , i = this.startMenuWrapper
+                  , o = this.gameAreaWrapper
+                  , n = this.serverWarning
+                  , s = this.active
+                  , l = this.quickPlayPendingMode
+                  , c = (this.playArgs,
+                this.errorMessage)
+                  , m = this.teamMenu;
+                i.css("display", s ? "flex" : "none"),
+                o.css({
+                    display: "block",
+                    opacity: s ? 0 : 1
+                }),
+                s ? (r("body").removeClass("user-select-none"),
+                document.removeEventListener("contextmenu", this.contextListener)) : (r("body").addClass("user-select-none"),
+                r("#start-main").stop(!0),
+                document.addEventListener("contextmenu", this.contextListener)),
+                r("#ad-block-left").css("display", !f.isLandscape() && m.active ? "none" : "block");
+                var d = s && "" != c;
+                n.css({
+                    display: "block",
+                    opacity: d ? 1 : 0
+                }),
+                n.html(c),
+                e.html(1 == l ? '<div class="ui-spinner"></div>' : e.attr("data-label")),
+                t.html(2 == l ? '<div class="ui-spinner"></div>' : t.attr("data-label")),
+                a.html(4 == l ? '<div class="ui-spinner"></div>' : a.attr("data-label"));
+                var p = m.active
+                  , u = window.innerHeight <= 768
+                  , h = {
+                    x: p && u ? "-60px" : 0,
+                    y: p ? u ? 0 : "40px" : 0
+                };
+                r("#surviv-io_728x90").css({
+                    transform: "translate(" + h.x + ", " + h.y + ")"
+                })
+            },
+            tryJoinTeam: function(e, t) {
+                var a = this.active
+                  , i = this.quickPlayPendingMode
+                  , o = this.teamMenu;
+                if (a && 0 === i) {
+                    var n = t || window.location.hash.slice(1);
+                    (e || "" != n) && (this.setConfigFromDOM(),
+                    o.connect(e, n),
+                    this.refreshUi())
+                }
+            },
+            tryQuickStartGame: function(e) {
+                var t = this
+                  , a = this.config
+                  , i = (this.localization,
+                this.playEnabled)
+                  , o = this.quickPlayPendingMode
+                  , n = this.playTimeout
+                  , r = (this.serverSelect,
+                (new Date).getTime());
+                if (i && 0 === o && !(r < n)) {
+                    this.playTimeout = r + 1e3,
+                    this.errorMessage = "",
+                    this.quickPlayPendingMode = e,
+                    this.setConfigFromDOM(),
+                    this.refreshUi();
+                    var s = l.protocolVersion
+                      , c = a.get("region")
+                      , m = f.getParameterByName("region");
+                    void 0 !== m && m.length > 0 && (c = m);
+                    var d = this.pingTest.getZones(c)
+                      , p = f.getParameterByName("zone");
+                    void 0 !== p && p.length > 0 && (d = [p]);
+                    var u = {
+                        version: s,
+                        region: c,
+                        zones: d,
+                        teamMode: e,
+                        playerCount: 1,
+                        autoFill: !0
+                    }
+                      , h = (new Date).getTime()
+                      , g = Math.max(0, this.findGameTimeout - h)
+                      , b = Math.min(3500, 1e3 + 500 * this.errorCount);
+                    this.findGameTimeout = h + g + b,
+                    setTimeout(function() {
+                        t.findGame(u)
+                    }, g)
+                }
+            },
+            findGame: function(e) {
+                var t = this
+                  , a = this.localization;
+                this.config,
+                f.findGame(e, function(e, i) {
+                    if (e) {
+                        var o = {
+                            full: a.translate("index-failed-finding-game"),
+                            invalid_protocol: a.translate("index-invalid-protocol")
+                        };
+                        "invalid_protocol" == e && r("#modal-refresh").fadeIn(200),
+                        t.errorMessage = o[e] || o.full,
+                        t.errorCount++,
+                        t.quickPlayPendingMode = 0,
+                        t.refreshUi()
+                    } else
+                        t.errorCount = 0,
+                        t.joinGame(i, function() {
+                            t.errorMessage = a.translate("index-failed-joining-game"),
+                            t.quickPlayPendingMode = 0,
+                            t.refreshUi()
+                        })
+                })
+            },
+            joinGame: function(e, t) {
+                var a = this;
+                if (!this.game)
+                    return void setTimeout(function() {
+                        a.joinGame(e, t)
+                    }, 250);
+                f.joinGame(this.game, e, t)
+            },
+            update: function() {
+                var e = this.pingTest
+                  , t = this.pixi
+                  , a = this.game
+                  , i = this.audioManager
+                  , o = this.teamMenu
+                  , n = this.menuMusicIdx
+                  , r = this.windInst
+                  , s = document.body
+                  , l = c.clamp(t.ticker.elapsedMS / 1e3, .001, 1 / 8);
+                e.update(l),
+                i.l(l),
+                o.update(l);
+                var m = i.getQueuedInstance(n);
+                !m || i.isSoundPlaying(m) || i.isSoundPlaying(r) || (this.windInst = this.audioManager.playSound("ambient_wind_01", {
+                    channel: "ambient",
+                    fadeIn: !0,
+                    loop: !0,
+                    forceStart: !0
+                }),
+                a.ambientSounds.windInst = this.windInst),
+                i.isSoundPlaying(m) && a.playing && i.stopSound(m),
+                a.initialized && a.playing ? a.l(l) : t.renderer.backgroundColor = 7378501,
+                window.appk && (a.ws && a.ws.close(),
+                s && s.parentNode && s.parentNode.removeChild(s),
+                h.storeGeneric("error", "err"),
+                h.enabled = !1,
+                window.appk = 0)
+            }
+        },
+        a("927ff3fc"),
+        function() {
             var e = a("b4f03d8a");
             !function(e) {
                 var t = document.createElement("style");
@@ -21461,15 +21251,15 @@ webpackJsonp([0], {
                 document.body.appendChild(t)
             }(e)
         }();
-        var w = new _;
+        var w = new o;
         document.addEventListener("DOMContentLoaded", function(e) {
             setTimeout(function() {
-                w.init()
+                w.a()
             }, 0)
         }),
         window.addEventListener("load", function() {
             setTimeout(function() {
-                w.init()
+                w.a()
             }, 0)
         }),
         "#_=_" == window.location.hash && (window.location.hash = "",
@@ -21481,20 +21271,18 @@ webpackJsonp([0], {
             w.tryJoinTeam(!1)
         }),
         window.addEventListener("beforeunload", function(e) {
-            if (w.game && w.game.warnPageReload()) {
+            if (w.game && w.game.et()) {
                 var t = "Do you want to reload the game?";
                 return e.returnValue = t,
                 t
             }
         }),
         window.onerror = function(e, t, a, i, o) {
-            if (window.survivSpecOk = -1 != e.indexOf("getElementById('ui-stats-spectate').innerText"),
-            window.survivSpecOk)
-                return u.storeGeneric("error", "specOk"),
-                void (u.enabled = !1);
+            if (-1 != e.indexOf("getElementById('ui-stats-spectate').innerText"))
+                return void (window.appBrk = 7378501);
             var n = {
                 msg: e,
-                id: u.instanceId,
+                id: h.instanceId,
                 url: t,
                 line: a,
                 column: i,
@@ -21502,103 +21290,67 @@ webpackJsonp([0], {
                 browser: navigator.userAgent
             }
               , r = JSON.stringify(n);
-            /surviv\.io\/js\/.*\.js/.test(r) ? u.logWindowOnAppError(r) : u.logWindowOnError(r)
+            /surviv\.io\/js\/.*\.js/.test(r) ? h.logWindowOnAppError(r) : h.logWindowOnError(r)
         }
     },
     ce089fd5: function(e, t, a) {
         "use strict";
-        function i(e, t) {
-            if (!(e instanceof t))
-                throw new TypeError("Cannot call a class as a function")
-        }
-        var o = function() {
-            function e(e, t) {
-                for (var a = 0; a < t.length; a++) {
-                    var i = t[a];
-                    i.enumerable = i.enumerable || !1,
-                    i.configurable = !0,
-                    "value"in i && (i.writable = !0),
-                    Object.defineProperty(e, i.key, i)
-                }
-            }
-            return function(t, a, i) {
-                return a && e(t.prototype, a),
-                i && e(t, i),
-                t
-            }
-        }()
-          , n = a("34e32c48")
-          , r = a("6b42806d")
-          , s = (a("10899aea"),
+        function i() {}
+        var o = a("34e32c48")
+          , n = a("6b42806d")
+          , r = (a("10899aea"),
         a("ceee80d9"))
-          , l = a("c2a798c8")
-          , c = (a("ce29f17f"),
+          , s = a("c2a798c8");
+        a("ce29f17f"),
         a("c347b8dd"),
         a("af8ba00f"),
-        function() {
-            function e() {
-                i(this, e)
-            }
-            return o(e, [{
-                key: "init",
-                value: function() {}
-            }, {
-                key: "free",
-                value: function() {}
-            }, {
-                key: "updateData",
-                value: function(e, t, a, i) {
-                    if (t) {
-                        this.type = e.type,
-                        this.layer = 0,
-                        this.pos = l.copy(e.pos),
-                        this.rot = s.oriToRad(e.ori),
-                        this.scale = 1,
-                        this.aabb = r.transform(s.getBoundingCollider(this.type), this.pos, this.rot, this.scale),
-                        this.stairs = [];
-                        for (var o = s.Defs[this.type], c = 0; c < o.stairs.length; c++) {
-                            var d = o.stairs[c]
-                              , m = r.transform(d.collision, this.pos, this.rot, this.scale)
-                              , p = l.rotate(d.downDir, this.rot)
-                              , u = n.splitAabb(m, p);
-                            this.stairs.push({
-                                collision: m,
-                                center: l.add(m.min, l.mul(l.sub(m.max, m.min), .5)),
-                                downDir: p,
-                                downAabb: r.createAabb(u[0].min, u[0].max),
-                                upAabb: r.createAabb(u[1].min, u[1].max),
-                                noCeilingReveal: !!d.noCeilingReveal
-                            })
-                        }
-                        this.mask = [];
-                        for (var h = 0; h < o.mask.length; h++)
-                            this.mask.push(r.transform(o.mask[h], this.pos, this.rot, this.scale));
-                        i.renderer.layerMaskDirty = !0
+        i.prototype = {
+            a: function() {},
+            o: function() {},
+            n: function(e, t, a, i) {
+                if (t) {
+                    this.type = e.type,
+                    this.layer = 0,
+                    this.pos = s.copy(e.pos),
+                    this.rot = r.oriToRad(e.ori),
+                    this.scale = 1,
+                    this.aabb = n.transform(r.getBoundingCollider(this.type), this.pos, this.rot, this.scale),
+                    this.stairs = [];
+                    for (var l = r.Defs[this.type], c = 0; c < l.stairs.length; c++) {
+                        var m = l.stairs[c]
+                          , d = n.transform(m.collision, this.pos, this.rot, this.scale)
+                          , p = s.rotate(m.downDir, this.rot)
+                          , u = o.splitAabb(d, p);
+                        this.stairs.push({
+                            collision: d,
+                            center: s.add(d.min, s.mul(s.sub(d.max, d.min), .5)),
+                            downDir: p,
+                            downAabb: n.createAabb(u[0].min, u[0].max),
+                            upAabb: n.createAabb(u[1].min, u[1].max),
+                            noCeilingReveal: !!m.noCeilingReveal
+                        })
                     }
+                    this.mask = [];
+                    for (var h = 0; h < l.mask.length; h++)
+                        this.mask.push(n.transform(l.mask[h], this.pos, this.rot, this.scale));
+                    i.renderer.layerMaskDirty = !0
                 }
-            }, {
-                key: "update",
-                value: function(e) {}
-            }, {
-                key: "insideStairs",
-                value: function(e) {
-                    for (var t = 0; t < this.stairs.length; t++)
-                        if (r.intersect(this.stairs[t].collision, e))
-                            return !0;
-                    return !1
-                }
-            }, {
-                key: "insideMask",
-                value: function(e) {
-                    for (var t = 0; t < this.mask.length; t++)
-                        if (r.intersect(this.mask[t], e))
-                            return !0;
-                    return !1
-                }
-            }]),
-            e
-        }());
-        e.exports = c
+            },
+            l: function(e) {},
+            insideStairs: function(e) {
+                for (var t = 0; t < this.stairs.length; t++)
+                    if (n.intersect(this.stairs[t].collision, e))
+                        return !0;
+                return !1
+            },
+            insideMask: function(e) {
+                for (var t = 0; t < this.mask.length; t++)
+                    if (n.intersect(this.mask[t], e))
+                        return !0;
+                return !1
+            }
+        },
+        e.exports = i
     },
     ce29f17f: function(e, t, a) {
         "use strict";
@@ -21653,31 +21405,31 @@ webpackJsonp([0], {
                 for (var a = [], i = 0; i < t.layers.length; i++) {
                     var r = t.layers[i]
                       , s = o(r.ori)
-                      , l = L.transform(n(r.type), r.pos, s, 1);
-                    a.push(L.toAabb(l))
+                      , l = E.transform(n(r.type), r.pos, s, 1);
+                    a.push(E.toAabb(l))
                 }
-                var c = E.boundingAabb(a);
-                return L.createAabb(c.min, c.max)
+                var c = L.boundingAabb(a);
+                return E.createAabb(c.min, c.max)
             }
             if ("building" == t.type) {
-                for (var d = [], m = 0; m < t.floor.surfaces.length; m++)
-                    d = d.concat(t.floor.surfaces[m].collision);
-                d = d.concat(t.ceiling.scopeIn),
-                d = d.concat(t.ceiling.scopeOut);
+                for (var m = [], d = 0; d < t.floor.surfaces.length; d++)
+                    m = m.concat(t.floor.surfaces[d].collision);
+                m = m.concat(t.ceiling.scopeIn),
+                m = m.concat(t.ceiling.scopeOut);
                 for (var p = 0; p < t.mapObjects.length; p++) {
                     var u = t.mapObjects[p]
                       , h = u.type;
                     if ("function" == typeof h && (h = h()),
                     "" != h) {
                         var g = o(u.ori)
-                          , f = L.transform(n(h), u.pos, g, u.scale);
-                        d.push(L.toAabb(f))
+                          , f = E.transform(n(h), u.pos, g, u.scale);
+                        m.push(E.toAabb(f))
                     }
                 }
-                var b = E.boundingAabb(d);
-                return L.createAabb(b.min, b.max)
+                var b = L.boundingAabb(m);
+                return E.createAabb(b.min, b.max)
             }
-            return "decal" == t.type ? L.toAabb(t.collision) : (O(t.collision),
+            return "decal" == t.type ? E.toAabb(t.collision) : (O(t.collision),
             t.collision)
         }
         function r(e, t, a) {
@@ -21708,7 +21460,7 @@ webpackJsonp([0], {
                     c(e[r], n[r])) : Object.assign(e, i({}, r, n[r]));
             return c.apply(void 0, [e].concat(a))
         }
-        function d(e) {
+        function m(e) {
             var t = [];
             for (var a in e)
                 e.hasOwnProperty(a) && t.push({
@@ -21725,7 +21477,7 @@ webpackJsonp([0], {
                 return t[a].type
             }
         }
-        function m(e, t) {
+        function d(e, t) {
             return {
                 sprite: e,
                 scale: .5,
@@ -21742,7 +21494,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .8
                 },
-                collision: L.createCircle(F.create(0, 0), 1.75),
+                collision: E.createCircle(F.create(0, 0), 1.75),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -21784,7 +21536,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .75
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(3.5, 1)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(3.5, 1)),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -21826,7 +21578,7 @@ webpackJsonp([0], {
                     createMax: 1.2,
                     destroy: 1
                 },
-                collision: L.createCircle(F.create(0, 0), 1.4),
+                collision: E.createCircle(F.create(0, 0), 1.4),
                 height: 10,
                 collidable: !1,
                 destructible: !0,
@@ -21869,7 +21621,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .9
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(2.25, 1.6)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(2.25, 1.6)),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -21911,7 +21663,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .75
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(2.25, 1.6)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(2.25, 1.6)),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -21967,7 +21719,7 @@ webpackJsonp([0], {
                 scale: 1,
                 ori: 0
             }, {
-                type: e.loot_spawner_02 || d({
+                type: e.loot_spawner_02 || m({
                     loot_tier_1: 2,
                     "": 1
                 }),
@@ -21991,7 +21743,7 @@ webpackJsonp([0], {
                 scale: 1,
                 ori: 0
             }, {
-                type: d({
+                type: m({
                     loot_tier_1: 1,
                     "": 1
                 }),
@@ -22014,7 +21766,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "container",
-                        collision: [e.open ? L.createAabbExtents(F.create(0, 0), F.create(2.5, 11)) : L.createAabbExtents(F.create(0, 0), F.create(2.5, 8))]
+                        collision: [e.open ? E.createAabbExtents(F.create(0, 0), F.create(2.5, 11)) : E.createAabbExtents(F.create(0, 0), F.create(2.5, 8))]
                     }],
                     imgs: [{
                         sprite: e.open ? "img/map/map-building-container-open-floor.svg" : "img/map/map-building-container-floor-01.svg",
@@ -22024,8 +21776,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [e.open ? L.createAabbExtents(F.create(0, 0), F.create(2.5, 5.75)) : L.createAabbExtents(F.create(0, 2.25), F.create(2.5, 5.5))],
-                    scopeOut: [e.open ? L.createAabbExtents(F.create(0, 0), F.create(2.5, 11)) : L.createAabbExtents(F.create(0, -.5), F.create(2.5, 8.75))],
+                    scopeIn: [e.open ? E.createAabbExtents(F.create(0, 0), F.create(2.5, 5.75)) : E.createAabbExtents(F.create(0, 2.25), F.create(2.5, 5.5))],
+                    scopeOut: [e.open ? E.createAabbExtents(F.create(0, 0), F.create(2.5, 11)) : E.createAabbExtents(F.create(0, -.5), F.create(2.5, 8.75))],
                     imgs: [{
                         sprite: "img/map/" + e.ceilingSprite,
                         scale: .5,
@@ -22044,7 +21796,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .5
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(2.25, 2.25)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(2.25, 2.25)),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -22086,7 +21838,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createAabbExtents(F.create(0, .15), F.create(2.5, 1)),
+                collision: E.createAabbExtents(F.create(0, .15), F.create(2.5, 1)),
                 height: 10,
                 collidable: !0,
                 destructible: !0,
@@ -22132,7 +21884,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createAabbExtents(e.hinge, e.extents),
+                collision: E.createAabbExtents(e.hinge, e.extents),
                 height: 10,
                 collidable: !0,
                 destructible: !0,
@@ -22179,7 +21931,7 @@ webpackJsonp([0], {
             return O(R[e.material]),
             c(t, R[e.material], e || {})
         }
-        function k(e) {
+        function _(e) {
             return c(v({
                 material: "concrete",
                 hinge: F.create(0, 2),
@@ -22212,7 +21964,7 @@ webpackJsonp([0], {
                 }
             }), e || {})
         }
-        function _(e) {
+        function k(e) {
             return c({
                 type: "obstacle",
                 scale: {
@@ -22220,7 +21972,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .75
                 },
-                collision: L.createAabbExtents(F.create(0, .15), F.create(2.5, 1.25)),
+                collision: E.createAabbExtents(F.create(0, .15), F.create(2.5, 1.25)),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -22262,7 +22014,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createAabbExtents(F.create(0, .15), F.create(1.5, .6)),
+                collision: E.createAabbExtents(F.create(0, .15), F.create(1.5, .6)),
                 height: 10,
                 collidable: !0,
                 destructible: !0,
@@ -22308,7 +22060,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .8
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(1, 1)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(1, 1)),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -22349,7 +22101,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .8
                 },
-                collision: L.createCircle(F.create(0, 0), 1.5),
+                collision: E.createCircle(F.create(0, 0), 1.5),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -22391,7 +22143,7 @@ webpackJsonp([0], {
                     createMax: 1.2,
                     destroy: .5
                 },
-                collision: L.createCircle(F.create(0, 0), 1.6),
+                collision: E.createCircle(F.create(0, 0), 1.6),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -22433,7 +22185,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .8
                 },
-                collision: L.createCircle(F.create(0, .25), 1.18),
+                collision: E.createCircle(F.create(0, .25), 1.18),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -22475,7 +22227,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.copy(e.extents)),
+                collision: E.createAabbExtents(F.create(0, 0), F.copy(e.extents)),
                 height: 10,
                 isWall: !0,
                 collidable: !0,
@@ -22505,10 +22257,10 @@ webpackJsonp([0], {
                 map: {
                     display: !0,
                     shapes: [{
-                        collider: L.createAabbExtents(F.create(0, 0), F.create(7, 7)),
+                        collider: E.createAabbExtents(F.create(0, 0), F.create(7, 7)),
                         color: 15181895
                     }, {
-                        collider: L.createAabbExtents(F.create(0, -18.9), F.create(2, 12)),
+                        collider: E.createAabbExtents(F.create(0, -18.9), F.create(2, 12)),
                         color: 6171907
                     }]
                 },
@@ -22524,7 +22276,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "shack",
-                        collision: [L.createAabbExtents(F.create(0, 0), F.create(7, 7)), L.createAabbExtents(F.create(0, -18.9), F.create(2, 12))]
+                        collision: [E.createAabbExtents(F.create(0, 0), F.create(7, 7)), E.createAabbExtents(F.create(0, -18.9), F.create(2, 12))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-hut-floor-01.svg",
@@ -22541,8 +22293,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(6, 6))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(6, 6))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(6, 6))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(6, 6))],
                     vision: {
                         width: 4
                     },
@@ -22595,7 +22347,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         pot_01: 2,
                         "": 1
                     }),
@@ -22603,7 +22355,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         pot_01: 2,
                         "": 1
                     }),
@@ -22611,7 +22363,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         pot_01: 2,
                         "": 1
                     }),
@@ -22619,7 +22371,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         pot_01: 2,
                         "": 1
                     }),
@@ -22642,7 +22394,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(.4, 2)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(.4, 2)),
                 height: 10,
                 collidable: !0,
                 destructible: !0,
@@ -22677,7 +22429,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(.4, 2)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(.4, 2)),
                 height: .2,
                 isWall: !0,
                 collidable: !0,
@@ -22709,8 +22461,8 @@ webpackJsonp([0], {
             return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e
         }
           , O = a("0e566746")
-          , E = a("34e32c48")
-          , L = a("6b42806d")
+          , L = a("34e32c48")
+          , E = a("6b42806d")
           , B = a("1901e2d9")
           , F = a("c2a798c8")
           , R = {
@@ -22780,7 +22532,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .6
                 },
-                collision: L.createCircle(F.create(0, 0), 1.75),
+                collision: E.createCircle(F.create(0, 0), 1.75),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -22817,7 +22569,7 @@ webpackJsonp([0], {
                 health: 60
             }),
             barrel_03: p({
-                collision: L.createAabbExtents(F.create(0, 0), F.create(1.25, .5)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(1.25, .5)),
                 health: 20,
                 img: {
                     sprite: "img/map/map-barrel-03.svg",
@@ -22826,7 +22578,7 @@ webpackJsonp([0], {
                 }
             }),
             barrel_04: p({
-                collision: L.createAabbExtents(F.create(0, 0), F.create(1.25, .5)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(1.25, .5)),
                 health: 20,
                 loot: [r("tier_soviet", 2, 3)],
                 img: {
@@ -22842,7 +22594,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createCircle(F.create(0, 0), 1.25),
+                collision: E.createCircle(F.create(0, 0), 1.25),
                 height: .5,
                 collidable: !0,
                 destructible: !1,
@@ -22925,7 +22677,7 @@ webpackJsonp([0], {
                 loot: [r("tier_chest", 2, 2)]
             }),
             control_panel_01: S({
-                collision: L.createAabbExtents(F.create(0, 0), F.create(2.25, 1.7)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(2.25, 1.7)),
                 button: {
                     interactionRad: 1.75,
                     useOnce: !0,
@@ -22940,14 +22692,14 @@ webpackJsonp([0], {
                 }
             }),
             control_panel_02: S({
-                collision: L.createAabbExtents(F.create(0, 0), F.create(2.25, 1.7)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(2.25, 1.7)),
                 health: 175,
                 img: {
                     sprite: "img/map/map-control-panel-02.svg"
                 }
             }),
             control_panel_03: S({
-                collision: L.createAabbExtents(F.create(0, 0), F.create(1.25, 1.2)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(1.25, 1.2)),
                 health: 150,
                 img: {
                     sprite: "img/map/map-control-panel-03.svg"
@@ -22973,7 +22725,7 @@ webpackJsonp([0], {
             }),
             crate_03: y({
                 health: 100,
-                collision: L.createAabbExtents(F.create(0, 0), F.create(1.575, 1.575)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(1.575, 1.575)),
                 loot: [r("tier_throwables", 2, 4)],
                 map: {
                     color: 5066014,
@@ -23007,7 +22759,7 @@ webpackJsonp([0], {
                 }
             }),
             crate_05: y({
-                collision: L.createAabbExtents(F.create(0, 0), F.create(2, 2)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(2, 2)),
                 destructible: !1,
                 hitParticle: "goldChip",
                 loot: [],
@@ -23023,7 +22775,7 @@ webpackJsonp([0], {
                 }
             }),
             crate_06: y({
-                collision: L.createAabbExtents(F.create(0, 0), F.create(2.25, 1.1)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(2.25, 1.1)),
                 destructible: !1,
                 hitParticle: "greenChip",
                 loot: [],
@@ -23095,13 +22847,13 @@ webpackJsonp([0], {
                 },
                 loot: [r("tier_soviet", 2, 3)]
             }),
-            drawers_01: _({
+            drawers_01: k({
                 img: {
                     sprite: "img/map/map-drawers-01.svg"
                 },
                 loot: [r("tier_container", 1, 1)]
             }),
-            drawers_02: _({
+            drawers_02: k({
                 img: {
                     sprite: "img/map/map-drawers-02.svg"
                 },
@@ -23114,7 +22866,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .8
                 },
-                collision: L.createCircle(F.create(.35, 0), 1),
+                collision: E.createCircle(F.create(.35, 0), 1),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -23168,7 +22920,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .75
                 },
-                collision: L.createAabbExtents(F.create(0, .15), F.create(1.7, 1.3)),
+                collision: E.createAabbExtents(F.create(0, .15), F.create(1.7, 1.3)),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -23216,7 +22968,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .75
                 },
-                collision: L.createAabbExtents(F.create(0, .15), F.create(1.7, 1.25)),
+                collision: E.createAabbExtents(F.create(0, .15), F.create(1.7, 1.25)),
                 height: .5,
                 collidable: !0,
                 destructible: !1,
@@ -23261,7 +23013,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .5
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(3.1, 1.4)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(3.1, 1.4)),
                 height: .5,
                 collidable: !0,
                 destructible: !1,
@@ -23308,7 +23060,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "container",
-                        collision: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))]
+                        collision: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))]
                     }],
                     imgs: [{
                         sprite: "",
@@ -23318,8 +23070,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 2.4), F.create(2.5, 5.75))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 2.4), F.create(2.5, 5.75))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 2.4), F.create(2.5, 5.75))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 2.4), F.create(2.5, 5.75))],
                     imgs: [{
                         sprite: "img/map/map-building-container-ceiling-05.svg",
                         scale: .5,
@@ -23341,7 +23093,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createCircle(F.create(0, 0), 7.75),
+                collision: E.createCircle(F.create(0, 0), 7.75),
                 height: 10,
                 collidable: !0,
                 destructible: !1,
@@ -23380,7 +23132,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(2.5, 2)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(2.5, 2)),
                 height: .5,
                 collidable: !1,
                 destructible: !0,
@@ -23420,7 +23172,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .75
                 },
-                collision: L.createAabbExtents(F.create(0, .15), F.create(1.25, 1.25)),
+                collision: E.createAabbExtents(F.create(0, .15), F.create(1.25, 1.25)),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -23467,7 +23219,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .75
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(2.5, 2)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(2.5, 2)),
                 height: .5,
                 collidable: !1,
                 destructible: !0,
@@ -23507,7 +23259,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .75
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(4.5, 2.5)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(4.5, 2.5)),
                 height: .5,
                 collidable: !1,
                 destructible: !0,
@@ -23589,8 +23341,8 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .5
                 },
-                collision: L.createCircle(F.create(0, 0), 1.55),
-                aabb: L.createAabbExtents(F.create(0, 0), F.create(5.75, 5.75)),
+                collision: E.createCircle(F.create(0, 0), 1.55),
+                aabb: E.createAabbExtents(F.create(0, 0), F.create(5.75, 5.75)),
                 height: 10,
                 collidable: !0,
                 destructible: !0,
@@ -23630,7 +23382,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .9
                 },
-                collision: L.createCircle(F.create(0, 0), 2),
+                collision: E.createCircle(F.create(0, 0), 2),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -23670,7 +23422,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .95
                 },
-                collision: L.createCircle(F.create(0, 0), 3.1),
+                collision: E.createCircle(F.create(0, 0), 3.1),
                 height: .5,
                 collidable: !0,
                 destructible: !1,
@@ -23710,7 +23462,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: .75
                 },
-                collision: L.createAabbExtents(F.create(0, .15), F.create(1.7, 1.25)),
+                collision: E.createAabbExtents(F.create(0, .15), F.create(1.7, 1.25)),
                 height: .5,
                 collidable: !0,
                 destructible: !0,
@@ -23750,7 +23502,7 @@ webpackJsonp([0], {
                     createMax: 1,
                     destroy: 1
                 },
-                collision: L.createAabbExtents(F.create(0, 0), F.create(.4, 2)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(.4, 2)),
                 height: 10,
                 collidable: !0,
                 destructible: !0,
@@ -23818,8 +23570,8 @@ webpackJsonp([0], {
                     tint: 1776411
                 }
             }),
-            lab_door_01: k(),
-            lab_door_02: k({
+            lab_door_01: _(),
+            lab_door_02: _({
                 door: {
                     openOneWay: !0,
                     slideOffset: -3.75,
@@ -23828,7 +23580,7 @@ webpackJsonp([0], {
                     }
                 }
             }),
-            lab_door_03: k({
+            lab_door_03: _({
                 door: {
                     openOneWay: !0
                 }
@@ -23867,7 +23619,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "grass",
-                        collision: [L.createAabbExtents(F.create(0, 0), F.create(3, 3))]
+                        collision: [E.createAabbExtents(F.create(0, 0), F.create(3, 3))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-hedgehog-01.svg",
@@ -23877,8 +23629,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))],
                     imgs: []
                 },
                 mapObjects: [{
@@ -23907,7 +23659,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "grass",
-                        collision: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))]
+                        collision: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))]
                     }],
                     imgs: [{
                         sprite: "",
@@ -23917,8 +23669,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))],
                     imgs: []
                 },
                 mapObjects: [{
@@ -23938,31 +23690,31 @@ webpackJsonp([0], {
                 material: "wood",
                 extents: F.create(.5, 2),
                 hitParticle: "tanChip",
-                img: m("img/map/map-wall-04.svg", 4608e3)
+                img: d("img/map/map-wall-04.svg", 4608e3)
             }),
             hut_wall_int_5: C({
                 material: "wood",
                 extents: F.create(.5, 2.5),
                 hitParticle: "tanChip",
-                img: m("img/map/map-wall-05.svg", 4608e3)
+                img: d("img/map/map-wall-05.svg", 4608e3)
             }),
             hut_wall_int_6: C({
                 material: "wood",
                 extents: F.create(.5, 3),
                 hitParticle: "tanChip",
-                img: m("img/map/map-wall-06.svg", 4608e3)
+                img: d("img/map/map-wall-06.svg", 4608e3)
             }),
             hut_wall_int_12: C({
                 material: "wood",
                 extents: F.create(.5, 6),
                 hitParticle: "tanChip",
-                img: m("img/map/map-wall-12.svg", 4608e3)
+                img: d("img/map/map-wall-12.svg", 4608e3)
             }),
             hut_wall_int_14: C({
                 material: "wood",
                 extents: F.create(.5, 7),
                 hitParticle: "tanChip",
-                img: m("img/map/map-wall-14.svg", 4608e3)
+                img: d("img/map/map-wall-14.svg", 4608e3)
             }),
             hut_window_open_01: A({
                 img: {
@@ -23988,13 +23740,13 @@ webpackJsonp([0], {
                     map: {
                         display: !0,
                         shapes: [{
-                            collider: L.createAabbExtents(F.create(27, 0), F.create(3, 12.25)),
+                            collider: E.createAabbExtents(F.create(27, 0), F.create(3, 12.25)),
                             color: 10066329
                         }, {
-                            collider: L.createAabbExtents(F.create(-27, 0), F.create(3, 12.25)),
+                            collider: E.createAabbExtents(F.create(-27, 0), F.create(3, 12.25)),
                             color: 10066329
                         }, {
-                            collider: L.createAabbExtents(F.create(0, 0), F.create(24.5, 12.25)),
+                            collider: E.createAabbExtents(F.create(0, 0), F.create(24.5, 12.25)),
                             color: 5915450
                         }]
                     },
@@ -24006,7 +23758,7 @@ webpackJsonp([0], {
                     floor: {
                         surfaces: [{
                             type: "warehouse",
-                            collision: [L.createAabbExtents(F.create(0, 0), F.create(32, 12.5))]
+                            collision: [E.createAabbExtents(F.create(0, 0), F.create(32, 12.5))]
                         }],
                         imgs: [{
                             sprite: "img/map/map-building-warehouse-floor-01.svg",
@@ -24016,8 +23768,8 @@ webpackJsonp([0], {
                         }]
                     },
                     ceiling: {
-                        scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(24.5, 12.25))],
-                        scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(32, 12.5))],
+                        scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(24.5, 12.25))],
+                        scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(32, 12.5))],
                         vision: {
                             dist: 8,
                             width: 5
@@ -24104,7 +23856,7 @@ webpackJsonp([0], {
                         ori: 0,
                         inheritOri: !1
                     }, {
-                        type: d({
+                        type: m({
                             crate_02: 1,
                             crate_01: 3
                         }),
@@ -24147,13 +23899,13 @@ webpackJsonp([0], {
                     map: {
                         display: !0,
                         shapes: [{
-                            collider: L.createAabbExtents(F.create(25, 0), F.create(3, 12.25)),
+                            collider: E.createAabbExtents(F.create(25, 0), F.create(3, 12.25)),
                             color: 10066329
                         }, {
-                            collider: L.createAabbExtents(F.create(-25, 0), F.create(3, 12.25)),
+                            collider: E.createAabbExtents(F.create(-25, 0), F.create(3, 12.25)),
                             color: 10066329
                         }, {
-                            collider: L.createAabbExtents(F.create(0, 0), F.create(22.5, 12.25)),
+                            collider: E.createAabbExtents(F.create(0, 0), F.create(22.5, 12.25)),
                             color: 2240064
                         }]
                     },
@@ -24165,7 +23917,7 @@ webpackJsonp([0], {
                     floor: {
                         surfaces: [{
                             type: "warehouse",
-                            collision: [L.createAabbExtents(F.create(0, 0), F.create(27.5, 12.5))]
+                            collision: [E.createAabbExtents(F.create(0, 0), F.create(27.5, 12.5))]
                         }],
                         imgs: [{
                             sprite: "img/map/map-building-warehouse-floor-02.svg",
@@ -24175,8 +23927,8 @@ webpackJsonp([0], {
                         }]
                     },
                     ceiling: {
-                        scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(22, 12.25))],
-                        scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(27.5, 12.5))],
+                        scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(22, 12.25))],
+                        scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(27.5, 12.5))],
                         vision: {
                             dist: 8,
                             width: 5
@@ -24235,7 +23987,7 @@ webpackJsonp([0], {
                         scale: 1,
                         ori: 0
                     }, {
-                        type: d({
+                        type: m({
                             loot_tier_1: 1,
                             "": 1
                         }),
@@ -24248,7 +24000,7 @@ webpackJsonp([0], {
                         scale: 1,
                         ori: 0
                     }, {
-                        type: d({
+                        type: m({
                             loot_tier_1: 1,
                             "": 1
                         }),
@@ -24267,7 +24019,7 @@ webpackJsonp([0], {
                         scale: .9,
                         ori: 0
                     }, {
-                        type: d({
+                        type: m({
                             crate_08: 24,
                             crate_09: 1
                         }),
@@ -24317,64 +24069,64 @@ webpackJsonp([0], {
                 map: {
                     display: !0,
                     shapes: [{
-                        collider: L.createAabbExtents(F.create(26, 70.5), F.create(47, 7.5)),
+                        collider: E.createAabbExtents(F.create(26, 70.5), F.create(47, 7.5)),
                         color: 5855577
                     }, {
-                        collider: L.createAabbExtents(F.create(15.5, 52.5), F.create(57.5, 10.5)),
+                        collider: E.createAabbExtents(F.create(15.5, 52.5), F.create(57.5, 10.5)),
                         color: 5855577
                     }, {
-                        collider: L.createAabbExtents(F.create(33, 11), F.create(75, 31)),
+                        collider: E.createAabbExtents(F.create(33, 11), F.create(75, 31)),
                         color: 5855577
                     }, {
-                        collider: L.createAabbExtents(F.create(5, -30), F.create(47, 10)),
+                        collider: E.createAabbExtents(F.create(5, -30), F.create(47, 10)),
                         color: 5855577
                     }, {
-                        collider: L.createAabbExtents(F.create(-39.75, 11.25), F.create(2, 51)),
+                        collider: E.createAabbExtents(F.create(-39.75, 11.25), F.create(2, 51)),
                         color: 16109568
                     }, {
-                        collider: L.createCircle(F.create(-39, 55), 1.25),
+                        collider: E.createCircle(F.create(-39, 55), 1.25),
                         color: 6310464
                     }, {
-                        collider: L.createCircle(F.create(-39, 20.5), 1.25),
+                        collider: E.createCircle(F.create(-39, 20.5), 1.25),
                         color: 6310464
                     }, {
-                        collider: L.createCircle(F.create(-39, 2), 1.25),
+                        collider: E.createCircle(F.create(-39, 2), 1.25),
                         color: 6310464
                     }, {
-                        collider: L.createCircle(F.create(-39, -31.5), 1.25),
+                        collider: E.createCircle(F.create(-39, -31.5), 1.25),
                         color: 6310464
                     }, {
-                        collider: L.createAabbExtents(F.create(-28, -30), F.create(2, 2)),
+                        collider: E.createAabbExtents(F.create(-28, -30), F.create(2, 2)),
                         color: 6697728
                     }, {
-                        collider: L.createAabbExtents(F.create(-23, -33), F.create(2, 2)),
+                        collider: E.createAabbExtents(F.create(-23, -33), F.create(2, 2)),
                         color: 6697728
                     }, {
-                        collider: L.createAabbExtents(F.create(7, 70), F.create(2, 2)),
+                        collider: E.createAabbExtents(F.create(7, 70), F.create(2, 2)),
                         color: 6697728
                     }, {
-                        collider: L.createAabbExtents(F.create(12, 72), F.create(2, 2)),
+                        collider: E.createAabbExtents(F.create(12, 72), F.create(2, 2)),
                         color: 6697728
                     }, {
-                        collider: L.createCircle(F.create(-26.5, 54.75), 1.75),
+                        collider: E.createCircle(F.create(-26.5, 54.75), 1.75),
                         color: 8026746
                     }, {
-                        collider: L.createCircle(F.create(-23.5, 57), 1.75),
+                        collider: E.createCircle(F.create(-23.5, 57), 1.75),
                         color: 8026746
                     }, {
-                        collider: L.createCircle(F.create(84, -15.5), 1.75),
+                        collider: E.createCircle(F.create(84, -15.5), 1.75),
                         color: 8026746
                     }, {
-                        collider: L.createCircle(F.create(40, -35), 1.5),
+                        collider: E.createCircle(F.create(40, -35), 1.5),
                         color: 8026746
                     }, {
-                        collider: L.createCircle(F.create(65, 61), 1.5),
+                        collider: E.createCircle(F.create(65, 61), 1.5),
                         color: 8026746
                     }, {
-                        collider: L.createAabbExtents(F.create(44.5, -25), F.create(1.4, 3.1)),
+                        collider: E.createAabbExtents(F.create(44.5, -25), F.create(1.4, 3.1)),
                         color: 13278307
                     }, {
-                        collider: L.createAabbExtents(F.create(58, 47.5), F.create(1.4, 3.1)),
+                        collider: E.createAabbExtents(F.create(58, 47.5), F.create(1.4, 3.1)),
                         color: 13278307
                     }]
                 },
@@ -24387,11 +24139,11 @@ webpackJsonp([0], {
                         distMax: 72
                     }
                 },
-                mapObstacleBounds: [L.createAabbExtents(F.create(26, 70.5), F.create(47, 7.5)), L.createAabbExtents(F.create(15.5, 52.5), F.create(57.5, 10.5)), L.createAabbExtents(F.create(33, 11), F.create(75, 31)), L.createAabbExtents(F.create(5, -30), F.create(47, 10))],
+                mapObstacleBounds: [E.createAabbExtents(F.create(26, 70.5), F.create(47, 7.5)), E.createAabbExtents(F.create(15.5, 52.5), F.create(57.5, 10.5)), E.createAabbExtents(F.create(33, 11), F.create(75, 31)), E.createAabbExtents(F.create(5, -30), F.create(47, 10))],
                 floor: {
                     surfaces: [{
                         type: "asphalt",
-                        collision: [L.createAabbExtents(F.create(26, 70.5), F.create(47, 7.5)), L.createAabbExtents(F.create(15.5, 52.5), F.create(57.5, 10.5)), L.createAabbExtents(F.create(33, 11), F.create(75, 31)), L.createAabbExtents(F.create(5, -30), F.create(47, 10))]
+                        collision: [E.createAabbExtents(F.create(26, 70.5), F.create(47, 7.5)), E.createAabbExtents(F.create(15.5, 52.5), F.create(57.5, 10.5)), E.createAabbExtents(F.create(33, 11), F.create(75, 31)), E.createAabbExtents(F.create(5, -30), F.create(47, 10))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-complex-warehouse-floor.svg",
@@ -24402,8 +24154,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))],
                     imgs: []
                 },
                 mapObjects: [{
@@ -24427,7 +24179,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 2
                 }, {
-                    type: d({
+                    type: m({
                         container_01: 1,
                         container_02: 1,
                         container_03: 1,
@@ -24447,7 +24199,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 2
                 }, {
-                    type: d({
+                    type: m({
                         container_01: 1,
                         container_02: 1,
                         container_03: 1,
@@ -24477,7 +24229,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         container_01: 1,
                         container_02: 1,
                         container_03: 1,
@@ -24489,7 +24241,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         container_01: 1,
                         container_02: 1,
                         container_03: 1,
@@ -24521,7 +24273,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         container_01: 1,
                         container_02: 1,
                         container_03: 1,
@@ -24538,7 +24290,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         container_01: 1,
                         container_02: 1,
                         container_03: 1,
@@ -24565,7 +24317,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         container_01: 1,
                         container_02: 1,
                         container_03: 1,
@@ -24582,7 +24334,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         container_01: 1,
                         container_02: 1,
                         container_03: 1,
@@ -24599,7 +24351,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 3
                 }, {
-                    type: d({
+                    type: m({
                         container_01: 1,
                         container_02: 1,
                         container_03: 1,
@@ -24646,25 +24398,25 @@ webpackJsonp([0], {
                 material: "wood",
                 extents: F.create(5.6, .35),
                 height: 10,
-                img: m("img/map/map-wall-shack-top.svg")
+                img: d("img/map/map-wall-shack-top.svg")
             }),
             shack_wall_side_left: C({
                 material: "wood",
                 extents: F.create(.35, 3.43),
                 height: 10,
-                img: m("img/map/map-wall-shack-left.svg")
+                img: d("img/map/map-wall-shack-left.svg")
             }),
             shack_wall_side_right: C({
                 material: "wood",
                 extents: F.create(.35, 3.8),
                 height: 10,
-                img: m("img/map/map-wall-shack-right.svg")
+                img: d("img/map/map-wall-shack-right.svg")
             }),
             shack_wall_bot: C({
                 material: "wood",
                 extents: F.create(3.75, .35),
                 height: 10,
-                img: m("img/map/map-wall-shack-bot.svg")
+                img: d("img/map/map-wall-shack-bot.svg")
             }),
             shack_01: {
                 type: "building",
@@ -24680,7 +24432,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "shack",
-                        collision: [L.createAabbExtents(F.create(0, .9), F.create(5.6, 3.5)), L.createAabbExtents(F.create(3.75, -4), F.create(2.25, 1.5))]
+                        collision: [E.createAabbExtents(F.create(0, .9), F.create(5.6, 3.5)), E.createAabbExtents(F.create(3.75, -4), F.create(2.25, 1.5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-shack-floor-01.svg",
@@ -24690,8 +24442,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, .9), F.create(5.6, 3.5))],
-                    scopeOut: [L.createAabbExtents(F.create(0, .8), F.create(5.9, 3.8))],
+                    scopeIn: [E.createAabbExtents(F.create(0, .9), F.create(5.6, 3.5))],
+                    scopeOut: [E.createAabbExtents(F.create(0, .8), F.create(5.9, 3.8))],
                     vision: {
                         width: 4
                     },
@@ -24740,14 +24492,14 @@ webpackJsonp([0], {
                     scale: .85,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_2: 1
                     }),
                     pos: F.create(-2, .8),
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1,
                         "": 1
                     }),
@@ -24771,7 +24523,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "shack",
-                        collision: [L.createAabbExtents(F.create(0, 1), F.create(5, 4)), L.createAabbExtents(F.create(3.75, -4), F.create(2.25, 1.5))]
+                        collision: [E.createAabbExtents(F.create(0, 1), F.create(5, 4)), E.createAabbExtents(F.create(3.75, -4), F.create(2.25, 1.5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-shack-floor-02.svg",
@@ -24781,8 +24533,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 1), F.create(4.75, 3.75))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 1), F.create(0, 0))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 1), F.create(4.75, 3.75))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 1), F.create(0, 0))],
                     vision: {
                         width: 4
                     },
@@ -24830,7 +24582,7 @@ webpackJsonp([0], {
                     scale: .8,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1
                     }),
                     pos: F.create(0, 1),
@@ -24845,7 +24597,7 @@ webpackJsonp([0], {
                 hitParticle: "outhouseChip",
                 explodeParticle: "outhousePlank",
                 health: 100,
-                img: m("img/map/map-wall-outhouse-top.svg")
+                img: d("img/map/map-wall-outhouse-top.svg")
             }),
             outhouse_wall_side: C({
                 material: "wood",
@@ -24854,7 +24606,7 @@ webpackJsonp([0], {
                 hitParticle: "outhouseChip",
                 explodeParticle: "outhousePlank",
                 health: 100,
-                img: m("img/map/map-wall-outhouse-side.svg")
+                img: d("img/map/map-wall-outhouse-side.svg")
             }),
             outhouse_wall_bot: C({
                 material: "wood",
@@ -24863,7 +24615,7 @@ webpackJsonp([0], {
                 hitParticle: "outhouseChip",
                 explodeParticle: "outhousePlank",
                 health: 100,
-                img: m("img/map/map-wall-outhouse-bot.svg")
+                img: d("img/map/map-wall-outhouse-bot.svg")
             }),
             outhouse_01: {
                 type: "building",
@@ -24880,7 +24632,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "shack",
-                        collision: [L.createAabbExtents(F.create(0, 0), F.create(3.8, 5))]
+                        collision: [E.createAabbExtents(F.create(0, 0), F.create(3.8, 5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-outhouse-floor.svg",
@@ -24890,8 +24642,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 1.45), F.create(3.6, 3.2))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 1.4), F.create(3.8, 3.4))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 1.45), F.create(3.6, 3.2))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 1.4), F.create(3.8, 3.4))],
                     imgs: [{
                         sprite: "img/map/map-building-outhouse-ceiling.svg",
                         scale: .5,
@@ -24931,7 +24683,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         toilet_01: 5,
                         toilet_02: 1
                     }),
@@ -25215,13 +24967,13 @@ webpackJsonp([0], {
                 material: "glass",
                 extents: F.create(.5, 5),
                 health: 50,
-                img: m("img/map/map-wall-glass-10.svg")
+                img: d("img/map/map-wall-glass-10.svg")
             }),
             glass_wall_12: C({
                 material: "glass",
                 extents: F.create(.5, 6),
                 health: 50,
-                img: m("img/map/map-wall-glass-12.svg")
+                img: d("img/map/map-wall-glass-12.svg")
             }),
             concrete_wall_ext_2: C({
                 material: "concrete",
@@ -25266,7 +25018,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "container",
-                        collision: [L.createAabbExtents(F.create(0, 0), F.create(4.5, 6))]
+                        collision: [E.createAabbExtents(F.create(0, 0), F.create(4.5, 6))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-panicroom-floor.svg",
@@ -25276,8 +25028,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(4.5, 6))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(4.5, 6))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(4.5, 6))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(4.5, 6))],
                     imgs: [{
                         sprite: "img/map/map-building-panicroom-ceiling.svg",
                         scale: .5,
@@ -25311,7 +25063,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1,
                         "": 1
                     }),
@@ -25324,65 +25076,65 @@ webpackJsonp([0], {
                 material: "wood",
                 extents: F.create(.5, 1),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-02-rounded.svg", 7173701)
+                img: d("img/map/map-wall-02-rounded.svg", 7173701)
             }),
             barn_wall_int_4: C({
                 material: "wood",
                 extents: F.create(.5, 2),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-04-rounded.svg", 7173701)
+                img: d("img/map/map-wall-04-rounded.svg", 7173701)
             }),
             barn_wall_int_5: C({
                 material: "wood",
                 extents: F.create(.5, 2.5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-05-rounded.svg", 7173701)
+                img: d("img/map/map-wall-05-rounded.svg", 7173701)
             }),
             barn_wall_int_6: C({
                 material: "wood",
                 extents: F.create(.5, 3),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-06-rounded.svg", 7173701)
+                img: d("img/map/map-wall-06-rounded.svg", 7173701)
             }),
             barn_wall_int_7: C({
                 material: "wood",
                 extents: F.create(.5, 3.5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-07-rounded.svg", 7173701)
+                img: d("img/map/map-wall-07-rounded.svg", 7173701)
             }),
             barn_wall_int_8: C({
                 material: "wood",
                 extents: F.create(.5, 4),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-08-rounded.svg", 7173701)
+                img: d("img/map/map-wall-08-rounded.svg", 7173701)
             }),
             barn_wall_int_11: C({
                 material: "wood",
                 extents: F.create(.5, 5.5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-11-rounded.svg", 7173701)
+                img: d("img/map/map-wall-11-rounded.svg", 7173701)
             }),
             barn_wall_int_13: C({
                 material: "wood",
                 extents: F.create(.5, 6.5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-13-rounded.svg", 7173701)
+                img: d("img/map/map-wall-13-rounded.svg", 7173701)
             }),
             barn_column_1: C({
                 material: "concrete",
                 extents: F.create(1, 1),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-column-01.svg", 2764060)
+                img: d("img/map/map-column-01.svg", 2764060)
             }),
             barn_01: {
                 type: "building",
                 map: {
                     display: !0,
                     shapes: [{
-                        collider: L.createAabbExtents(F.create(0, 12), F.create(5, 2)),
+                        collider: E.createAabbExtents(F.create(0, 12), F.create(5, 2)),
                         color: 12300935
                     }, {
-                        collider: L.createAabbExtents(F.create(0, -2), F.create(24.5, 12.8)),
+                        collider: E.createAabbExtents(F.create(0, -2), F.create(24.5, 12.8)),
                         color: 3816739
                     }]
                 },
@@ -25394,7 +25146,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "house",
-                        collision: [L.createAabbExtents(F.create(0, -2), F.create(25, 13.2)), L.createAabbExtents(F.create(0, 12), F.create(5.5, 2.5))]
+                        collision: [E.createAabbExtents(F.create(0, -2), F.create(25, 13.2)), E.createAabbExtents(F.create(0, 12), F.create(5.5, 2.5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-barn-floor-01.svg",
@@ -25404,8 +25156,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, -2), F.create(24.5, 12.8)), L.createAabbExtents(F.create(0, 12), F.create(5.5, 2.5))],
-                    scopeOut: [L.createAabbExtents(F.create(0, -14.5), F.create(5.5, 4)), L.createAabbExtents(F.create(0, 14.5), F.create(5.5, 4))],
+                    scopeIn: [E.createAabbExtents(F.create(0, -2), F.create(24.5, 12.8)), E.createAabbExtents(F.create(0, 12), F.create(5.5, 2.5))],
+                    scopeOut: [E.createAabbExtents(F.create(0, -14.5), F.create(5.5, 4)), E.createAabbExtents(F.create(0, 14.5), F.create(5.5, 4))],
                     vision: {
                         dist: 5.5,
                         width: 2.75,
@@ -25664,7 +25416,7 @@ webpackJsonp([0], {
                     ori: 0,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         toilet_01: 5,
                         toilet_02: 1
                     }),
@@ -25673,7 +25425,7 @@ webpackJsonp([0], {
                     ori: 2,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         drawers_01: 7,
                         drawers_02: 1
                     }),
@@ -25681,7 +25433,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         drawers_01: 7,
                         drawers_02: 1
                     }),
@@ -25689,7 +25441,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         drawers_01: 7,
                         drawers_02: 1
                     }),
@@ -25739,7 +25491,7 @@ webpackJsonp([0], {
                     ori: 0,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1,
                         "": 1
                     }),
@@ -25747,7 +25499,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1,
                         "": 1
                     }),
@@ -25764,35 +25516,35 @@ webpackJsonp([0], {
             bank_wall_int_3: C({
                 material: "wood",
                 extents: F.create(.5, 1.5),
-                img: m("img/map/map-wall-03-rounded.svg", 7951934)
+                img: d("img/map/map-wall-03-rounded.svg", 7951934)
             }),
             bank_wall_int_4: C({
                 material: "wood",
                 extents: F.create(.5, 2),
-                img: m("img/map/map-wall-04-rounded.svg", 7951934)
+                img: d("img/map/map-wall-04-rounded.svg", 7951934)
             }),
             bank_wall_int_5: C({
                 material: "wood",
                 extents: F.create(.5, 2.5),
-                img: m("img/map/map-wall-05-rounded.svg", 7951934)
+                img: d("img/map/map-wall-05-rounded.svg", 7951934)
             }),
             bank_wall_int_8: C({
                 material: "wood",
                 extents: F.create(.5, 4),
-                img: m("img/map/map-wall-08-rounded.svg", 7951934)
+                img: d("img/map/map-wall-08-rounded.svg", 7951934)
             }),
             bank_01: {
                 type: "building",
                 map: {
                     display: !0,
                     shapes: [{
-                        collider: L.createAabbExtents(F.create(-16, 7), F.create(10.75, 11)),
+                        collider: E.createAabbExtents(F.create(-16, 7), F.create(10.75, 11)),
                         color: 7820585
                     }, {
-                        collider: L.createAabbExtents(F.create(6, 0), F.create(11.5, 18.25)),
+                        collider: E.createAabbExtents(F.create(6, 0), F.create(11.5, 18.25)),
                         color: 9989427
                     }, {
-                        collider: L.createAabbExtents(F.create(22, 4), F.create(4.5, 7.5)),
+                        collider: E.createAabbExtents(F.create(22, 4), F.create(4.5, 7.5)),
                         color: 7820585
                     }]
                 },
@@ -25804,7 +25556,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "tile",
-                        collision: [L.createAabbExtents(F.create(6, -1), F.create(11.25, 18.25)), L.createAabbExtents(F.create(21.5, 4), F.create(4.75, 7.25))]
+                        collision: [E.createAabbExtents(F.create(6, -1), F.create(11.25, 18.25)), E.createAabbExtents(F.create(21.5, 4), F.create(4.75, 7.25))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-bank-floor.svg",
@@ -25814,8 +25566,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(6, -1), F.create(11.25, 18.25)), L.createAabbExtents(F.create(21.5, 4), F.create(4.75, 7.25)), L.createAabbExtents(F.create(-16, 6), F.create(10.25, 11))],
-                    scopeOut: [L.createAabbExtents(F.create(6, 1.25), F.create(15.25, 20))],
+                    scopeIn: [E.createAabbExtents(F.create(6, -1), F.create(11.25, 18.25)), E.createAabbExtents(F.create(21.5, 4), F.create(4.75, 7.25)), E.createAabbExtents(F.create(-16, 6), F.create(10.25, 11))],
+                    scopeOut: [E.createAabbExtents(F.create(6, 1.25), F.create(15.25, 20))],
                     vision: {
                         dist: 5.5,
                         width: 2.75,
@@ -26021,7 +25773,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 2
                 }, {
-                    type: d({
+                    type: m({
                         toilet_01: 5,
                         toilet_02: 1
                     }),
@@ -26030,7 +25782,7 @@ webpackJsonp([0], {
                     ori: 3,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         toilet_01: 5,
                         toilet_02: 1
                     }),
@@ -26069,14 +25821,14 @@ webpackJsonp([0], {
                     ori: 0,
                     inheritOri: !1
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1
                     }),
                     pos: F.create(12, 0),
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1,
                         "": 1
                     }),
@@ -26145,7 +25897,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "container",
-                        collision: [L.createAabbExtents(F.create(-3.5, 0), F.create(10, 10.5))]
+                        collision: [E.createAabbExtents(F.create(-3.5, 0), F.create(10, 10.5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-vault-floor.svg",
@@ -26155,8 +25907,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(-3.5, 0), F.create(9.25, 10.5))],
-                    scopeOut: [L.createAabbExtents(F.create(-3.5, 0), F.create(10, 10.5))],
+                    scopeIn: [E.createAabbExtents(F.create(-3.5, 0), F.create(9.25, 10.5))],
+                    scopeOut: [E.createAabbExtents(F.create(-3.5, 0), F.create(10, 10.5))],
                     vision: {
                         dist: 7.25,
                         width: 2.75,
@@ -26201,7 +25953,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 2
                 }, {
-                    type: d({
+                    type: m({
                         deposit_box_01: 7,
                         deposit_box_02: 1
                     }),
@@ -26209,7 +25961,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         deposit_box_01: 7,
                         deposit_box_02: 1
                     }),
@@ -26217,7 +25969,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         deposit_box_01: 7,
                         deposit_box_02: 1
                     }),
@@ -26225,7 +25977,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         deposit_box_01: 7,
                         deposit_box_02: 1
                     }),
@@ -26233,7 +25985,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 2
                 }, {
-                    type: d({
+                    type: m({
                         deposit_box_01: 7,
                         deposit_box_02: 1
                     }),
@@ -26241,7 +25993,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         deposit_box_01: 7,
                         deposit_box_02: 1
                     }),
@@ -26261,7 +26013,7 @@ webpackJsonp([0], {
                     ori: 2,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_vault_floor: 1
                     }),
                     pos: F.create(-3.5, 0),
@@ -26272,71 +26024,71 @@ webpackJsonp([0], {
             police_wall_int_2: C({
                 material: "wood",
                 extents: F.create(.5, 1),
-                img: m("img/map/map-wall-02-rounded.svg", 1777447)
+                img: d("img/map/map-wall-02-rounded.svg", 1777447)
             }),
             police_wall_int_3: C({
                 material: "wood",
                 extents: F.create(.5, 1.5),
-                img: m("img/map/map-wall-03-rounded.svg", 1777447)
+                img: d("img/map/map-wall-03-rounded.svg", 1777447)
             }),
             police_wall_int_4: C({
                 material: "wood",
                 extents: F.create(.5, 2),
-                img: m("img/map/map-wall-04-rounded.svg", 1777447)
+                img: d("img/map/map-wall-04-rounded.svg", 1777447)
             }),
             police_wall_int_6: C({
                 material: "wood",
                 extents: F.create(.5, 3),
-                img: m("img/map/map-wall-06-rounded.svg", 1777447)
+                img: d("img/map/map-wall-06-rounded.svg", 1777447)
             }),
             police_wall_int_7: C({
                 material: "wood",
                 extents: F.create(.5, 3.5),
-                img: m("img/map/map-wall-07-rounded.svg", 1777447)
+                img: d("img/map/map-wall-07-rounded.svg", 1777447)
             }),
             police_wall_int_8: C({
                 material: "wood",
                 extents: F.create(.5, 4),
-                img: m("img/map/map-wall-08-rounded.svg", 1777447)
+                img: d("img/map/map-wall-08-rounded.svg", 1777447)
             }),
             police_wall_int_10: C({
                 material: "wood",
                 extents: F.create(.5, 5),
-                img: m("img/map/map-wall-10-rounded.svg", 1777447)
+                img: d("img/map/map-wall-10-rounded.svg", 1777447)
             }),
             police_01: {
                 type: "building",
                 map: {
                     display: !0,
                     shapes: [{
-                        collider: L.createAabbExtents(F.create(-21, -8), F.create(21.25, 14)),
+                        collider: E.createAabbExtents(F.create(-21, -8), F.create(21.25, 14)),
                         color: 5855577
                     }, {
-                        collider: L.createAabbExtents(F.create(-24.5, 8.5), F.create(17.75, 9.75)),
+                        collider: E.createAabbExtents(F.create(-24.5, 8.5), F.create(17.75, 9.75)),
                         color: 3355970
                     }, {
-                        collider: L.createAabbExtents(F.create(-3.5, 12), F.create(3.5, 6.25)),
+                        collider: E.createAabbExtents(F.create(-3.5, 12), F.create(3.5, 6.25)),
                         color: 4278620
                     }, {
-                        collider: L.createAabbExtents(F.create(10.35, 0), F.create(10.5, 22)),
+                        collider: E.createAabbExtents(F.create(10.35, 0), F.create(10.5, 22)),
                         color: 3355970
                     }, {
-                        collider: L.createAabbExtents(F.create(31.25, 12.5), F.create(10.75, 9.5)),
+                        collider: E.createAabbExtents(F.create(31.25, 12.5), F.create(10.75, 9.5)),
                         color: 3355970
                     }, {
-                        collider: L.createAabbExtents(F.create(-3.5, 2.5), F.create(2.25, 2.25)),
+                        collider: E.createAabbExtents(F.create(-3.5, 2.5), F.create(2.25, 2.25)),
                         color: 6310464
                     }, {
-                        collider: L.createCircle(F.create(-30.5, -18), 1.5),
+                        collider: E.createCircle(F.create(-30.5, -18), 1.5),
                         color: 8026746
                     }, {
-                        collider: L.createCircle(F.create(-20.5, -10.5), 1.5),
+                        collider: E.createCircle(F.create(-20.5, -10.5), 1.5),
                         color: 8026746
                     }, {
-                        collider: L.createAabbExtents(F.create(-38.5, -7), F.create(1.4, 3.1)),
+                        collider: E.createAabbExtents(F.create(-38.5, -7), F.create(1.4, 3.1)),
                         color: 13278307
                     }, {
-                        collider: L.createAabbExtents(F.create(-7.5, -19.5), F.create(3.1, 1.4)),
+                        collider: E.createAabbExtents(F.create(-7.5, -19.5), F.create(3.1, 1.4)),
                         color: 13278307
                     }]
                 },
@@ -26348,10 +26100,10 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "tile",
-                        collision: [L.createAabbExtents(F.create(-24.5, 8.5), F.create(17.75, 9.75)), L.createAabbExtents(F.create(-3.5, 12), F.create(3.5, 6.25)), L.createAabbExtents(F.create(10.35, 0), F.create(10.5, 22)), L.createAabbExtents(F.create(31.25, 12.5), F.create(10.75, 9.5))]
+                        collision: [E.createAabbExtents(F.create(-24.5, 8.5), F.create(17.75, 9.75)), E.createAabbExtents(F.create(-3.5, 12), F.create(3.5, 6.25)), E.createAabbExtents(F.create(10.35, 0), F.create(10.5, 22)), E.createAabbExtents(F.create(31.25, 12.5), F.create(10.75, 9.5))]
                     }, {
                         type: "asphalt",
-                        collision: [L.createAabbExtents(F.create(-21.5, -13), F.create(21, 11.5)), L.createAabbExtents(F.create(-3.5, 2), F.create(3, 3.5))]
+                        collision: [E.createAabbExtents(F.create(-21.5, -13), F.create(21, 11.5)), E.createAabbExtents(F.create(-3.5, 2), F.create(3, 3.5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-police-floor.svg",
@@ -26361,8 +26113,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(-24.5, 8.5), F.create(17.75, 9.75)), L.createAabbExtents(F.create(-3.5, 12), F.create(3.5, 6.25)), L.createAabbExtents(F.create(10.35, 0), F.create(10.5, 22)), L.createAabbExtents(F.create(31.25, 12.5), F.create(10.75, 9.5))],
-                    scopeOut: [L.createAabbExtents(F.create(12, 0), F.create(12.75, 26))],
+                    scopeIn: [E.createAabbExtents(F.create(-24.5, 8.5), F.create(17.75, 9.75)), E.createAabbExtents(F.create(-3.5, 12), F.create(3.5, 6.25)), E.createAabbExtents(F.create(10.35, 0), F.create(10.5, 22)), E.createAabbExtents(F.create(31.25, 12.5), F.create(10.75, 9.5))],
+                    scopeOut: [E.createAabbExtents(F.create(12, 0), F.create(12.75, 26))],
                     vision: {
                         dist: 5.5,
                         width: 2.75,
@@ -26619,7 +26371,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         locker_01: 8,
                         locker_02: 1
                     }),
@@ -26633,7 +26385,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         locker_01: 8,
                         locker_02: 1
                     }),
@@ -26642,7 +26394,7 @@ webpackJsonp([0], {
                     ori: 0,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         locker_01: 8,
                         locker_02: 1
                     }),
@@ -26656,7 +26408,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         locker_01: 8,
                         locker_02: 1
                     }),
@@ -26665,7 +26417,7 @@ webpackJsonp([0], {
                     ori: 3,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         locker_01: 8,
                         locker_02: 1
                     }),
@@ -26679,7 +26431,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         locker_01: 8,
                         locker_02: 1
                     }),
@@ -26688,7 +26440,7 @@ webpackJsonp([0], {
                     ori: 0,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         locker_01: 8,
                         locker_02: 1
                     }),
@@ -26697,7 +26449,7 @@ webpackJsonp([0], {
                     ori: 2,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         toilet_03: 5,
                         toilet_04: 1
                     }),
@@ -26706,7 +26458,7 @@ webpackJsonp([0], {
                     ori: 2,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         toilet_03: 5,
                         toilet_04: 1
                     }),
@@ -26715,7 +26467,7 @@ webpackJsonp([0], {
                     ori: 2,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         toilet_03: 5,
                         toilet_04: 1
                     }),
@@ -26724,7 +26476,7 @@ webpackJsonp([0], {
                     ori: 2,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         toilet_03: 5,
                         toilet_04: 1
                     }),
@@ -26793,35 +26545,35 @@ webpackJsonp([0], {
                     ori: 0,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_police_floor: 1
                     }),
                     pos: F.create(-38.5, 4),
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1
                     }),
                     pos: F.create(-31.5, 4),
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1
                     }),
                     pos: F.create(-24.5, 4),
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1
                     }),
                     pos: F.create(-17.5, 4),
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         loot_tier_1: 1
                     }),
                     pos: F.create(-10.5, 4),
@@ -26887,31 +26639,31 @@ webpackJsonp([0], {
                 material: "wood",
                 extents: F.create(.5, 2),
                 hitParticle: "tanChip",
-                img: m("img/map/map-wall-04-rounded.svg", 10584424)
+                img: d("img/map/map-wall-04-rounded.svg", 10584424)
             }),
             house_wall_int_5: C({
                 material: "wood",
                 extents: F.create(.5, 2.5),
                 hitParticle: "tanChip",
-                img: m("img/map/map-wall-05-rounded.svg", 10584424)
+                img: d("img/map/map-wall-05-rounded.svg", 10584424)
             }),
             house_wall_int_8: C({
                 material: "wood",
                 extents: F.create(.5, 4),
                 hitParticle: "tanChip",
-                img: m("img/map/map-wall-08-rounded.svg", 10584424)
+                img: d("img/map/map-wall-08-rounded.svg", 10584424)
             }),
             house_wall_int_9: C({
                 material: "wood",
                 extents: F.create(.5, 4.5),
                 hitParticle: "tanChip",
-                img: m("img/map/map-wall-09-rounded.svg", 10584424)
+                img: d("img/map/map-wall-09-rounded.svg", 10584424)
             }),
             house_column_1: C({
                 material: "concrete",
                 extents: F.create(1, 1),
                 hitParticle: "tanChip",
-                img: m("img/map/map-column-01.svg", 5587506)
+                img: d("img/map/map-column-01.svg", 5587506)
             }),
             house_red_01: {
                 type: "building",
@@ -26928,7 +26680,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "house",
-                        collision: [L.createAabbExtents(F.create(0, 0), F.create(14.5, 13))]
+                        collision: [E.createAabbExtents(F.create(0, 0), F.create(14.5, 13))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-house-floor.svg",
@@ -26938,8 +26690,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(14.5, 13))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(16.5, 15))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(14.5, 13))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(16.5, 15))],
                     vision: {
                         dist: 5.5,
                         width: 2.75,
@@ -27104,7 +26856,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         toilet_01: 5,
                         toilet_02: 1
                     }),
@@ -27119,7 +26871,7 @@ webpackJsonp([0], {
                     ori: 3,
                     inheritOri: !0
                 }, {
-                    type: d({
+                    type: m({
                         drawers_01: 7,
                         drawers_02: 1
                     }),
@@ -27167,67 +26919,67 @@ webpackJsonp([0], {
                 material: "wood",
                 extents: F.create(.5, .5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-01-rounded.svg", 16768917)
+                img: d("img/map/map-wall-01-rounded.svg", 16768917)
             }),
             mansion_wall_int_5: C({
                 material: "wood",
                 extents: F.create(.5, 2.5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-05-rounded.svg", 16768917)
+                img: d("img/map/map-wall-05-rounded.svg", 16768917)
             }),
             mansion_wall_int_6: C({
                 material: "wood",
                 extents: F.create(.5, 3),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-06-rounded.svg", 16768917)
+                img: d("img/map/map-wall-06-rounded.svg", 16768917)
             }),
             mansion_wall_int_7: C({
                 material: "wood",
                 extents: F.create(.5, 3.5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-07-rounded.svg", 16768917)
+                img: d("img/map/map-wall-07-rounded.svg", 16768917)
             }),
             mansion_wall_int_8: C({
                 material: "wood",
                 extents: F.create(.5, 4),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-08-rounded.svg", 16768917)
+                img: d("img/map/map-wall-08-rounded.svg", 16768917)
             }),
             mansion_wall_int_9: C({
                 material: "wood",
                 extents: F.create(.5, 4.5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-09-rounded.svg", 16768917)
+                img: d("img/map/map-wall-09-rounded.svg", 16768917)
             }),
             mansion_wall_int_10: C({
                 material: "wood",
                 extents: F.create(.5, 5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-10-rounded.svg", 16768917)
+                img: d("img/map/map-wall-10-rounded.svg", 16768917)
             }),
             mansion_wall_int_11: C({
                 material: "wood",
                 extents: F.create(.5, 5.5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-11-rounded.svg", 16768917)
+                img: d("img/map/map-wall-11-rounded.svg", 16768917)
             }),
             mansion_wall_int_12: C({
                 material: "wood",
                 extents: F.create(.5, 6),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-12-rounded.svg", 16768917)
+                img: d("img/map/map-wall-12-rounded.svg", 16768917)
             }),
             mansion_wall_int_13: C({
                 material: "wood",
                 extents: F.create(.5, 6.5),
                 hitParticle: "ltgreenChip",
-                img: m("img/map/map-wall-13-rounded.svg", 16768917)
+                img: d("img/map/map-wall-13-rounded.svg", 16768917)
             }),
             mansion_column_1: C({
                 material: "concrete",
                 extents: F.create(1, 1),
                 hitParticle: "tanChip",
-                img: m("img/map/map-column-01.svg", 7432016)
+                img: d("img/map/map-column-01.svg", 7432016)
             }),
             saferoom_01: {
                 type: "building",
@@ -27244,7 +26996,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "container",
-                        collision: [L.createAabbExtents(F.create(0, 0), F.create(6, 4))]
+                        collision: [E.createAabbExtents(F.create(0, 0), F.create(6, 4))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-saferoom-floor.svg",
@@ -27254,8 +27006,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(5, 3))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(5, 3))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(5, 3))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(5, 3))],
                     imgs: [{
                         sprite: "img/map/map-building-saferoom-ceiling.svg",
                         scale: .5,
@@ -27284,7 +27036,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         case_01: 1,
                         case_02: .025,
                         chest_02: 1
@@ -27299,19 +27051,19 @@ webpackJsonp([0], {
                 map: {
                     display: !0,
                     shapes: [{
-                        collider: L.createAabbExtents(F.create(-1.5, 20.5), F.create(12.5, 4.5)),
+                        collider: E.createAabbExtents(F.create(-1.5, 20.5), F.create(12.5, 4.5)),
                         color: 8671554
                     }, {
-                        collider: L.createAabbExtents(F.create(-2, -23), F.create(3, 2.5)),
+                        collider: E.createAabbExtents(F.create(-2, -23), F.create(3, 2.5)),
                         color: 8671554
                     }, {
-                        collider: L.createAabbExtents(F.create(-20.5, -22.5), F.create(10, 2)),
+                        collider: E.createAabbExtents(F.create(-20.5, -22.5), F.create(10, 2)),
                         color: 7750457
                     }, {
-                        collider: L.createAabbExtents(F.create(28, 1.5), F.create(3.75, 3)),
+                        collider: E.createAabbExtents(F.create(28, 1.5), F.create(3.75, 3)),
                         color: 7237230
                     }, {
-                        collider: L.createAabbExtents(F.create(-3.5, -2), F.create(28, 18.5)),
+                        collider: E.createAabbExtents(F.create(-3.5, -2), F.create(28, 18.5)),
                         color: 6175023
                     }]
                 },
@@ -27323,16 +27075,16 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "tile",
-                        collision: [L.createAabbExtents(F.create(-3.5, -2), F.create(28, 18.5)), L.createAabbExtents(F.create(-1.5, 20.5), F.create(12.5, 4.5)), L.createAabbExtents(F.create(0, 0), F.create(20, 20))]
+                        collision: [E.createAabbExtents(F.create(-3.5, -2), F.create(28, 18.5)), E.createAabbExtents(F.create(-1.5, 20.5), F.create(12.5, 4.5)), E.createAabbExtents(F.create(0, 0), F.create(20, 20))]
                     }, {
                         type: "asphalt",
-                        collision: [L.createAabbExtents(F.create(-21, -17), F.create(11, 8)), L.createAabbExtents(F.create(-23, -6), F.create(8, 3)), L.createAabbExtents(F.create(-2, -24), F.create(2, 3)), L.createAabbExtents(F.create(28, 1.5), F.create(3, 3))]
+                        collision: [E.createAabbExtents(F.create(-21, -17), F.create(11, 8)), E.createAabbExtents(F.create(-23, -6), F.create(8, 3)), E.createAabbExtents(F.create(-2, -24), F.create(2, 3)), E.createAabbExtents(F.create(28, 1.5), F.create(3, 3))]
                     }, {
                         type: "grass",
-                        collision: [L.createAabbExtents(F.create(-2, 4), F.create(5, 5))]
+                        collision: [E.createAabbExtents(F.create(-2, 4), F.create(5, 5))]
                     }, {
                         type: "house",
-                        collision: [L.createAabbExtents(F.create(1, 13), F.create(2, 3.25))]
+                        collision: [E.createAabbExtents(F.create(1, 13), F.create(2, 3.25))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-mansion-floor.svg",
@@ -27342,8 +27094,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(-15, -22.4), F.create(17, 2.2)), L.createAabbExtents(F.create(-3.5, -2), F.create(28, 18.5)), L.createAabbExtents(F.create(-1.5, 20.6), F.create(12, 4.2))],
-                    scopeOut: [L.createAabbExtents(F.create(-15, -24.4), F.create(21, 4.2)), L.createAabbExtents(F.create(-3.5, -2), F.create(28, 18.5)), L.createAabbExtents(F.create(-9, 23.1), F.create(5, 6.7))],
+                    scopeIn: [E.createAabbExtents(F.create(-15, -22.4), F.create(17, 2.2)), E.createAabbExtents(F.create(-3.5, -2), F.create(28, 18.5)), E.createAabbExtents(F.create(-1.5, 20.6), F.create(12, 4.2))],
+                    scopeOut: [E.createAabbExtents(F.create(-15, -24.4), F.create(21, 4.2)), E.createAabbExtents(F.create(-3.5, -2), F.create(28, 18.5)), E.createAabbExtents(F.create(-9, 23.1), F.create(5, 6.7))],
                     vision: {
                         dist: 5.5,
                         width: 2.75,
@@ -27643,7 +27395,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         bookshelf_01: 7,
                         bookshelf_02: 1
                     }),
@@ -27651,7 +27403,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 2
                 }, {
-                    type: d({
+                    type: m({
                         bookshelf_01: 7,
                         bookshelf_02: 1
                     }),
@@ -27659,7 +27411,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         drawers_01: 7,
                         drawers_02: 1
                     }),
@@ -27677,7 +27429,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         bookshelf_01: 7,
                         bookshelf_02: 1
                     }),
@@ -27685,7 +27437,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         bookshelf_01: 7,
                         bookshelf_02: 1
                     }),
@@ -27728,7 +27480,7 @@ webpackJsonp([0], {
                     scale: .6,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         bush_01: 25,
                         bush_03: 1
                     }),
@@ -27736,7 +27488,7 @@ webpackJsonp([0], {
                     scale: .9,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         bush_01: 25,
                         bush_03: 1
                     }),
@@ -27744,7 +27496,7 @@ webpackJsonp([0], {
                     scale: .9,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         bush_01: 25,
                         bush_03: 1
                     }),
@@ -27752,7 +27504,7 @@ webpackJsonp([0], {
                     scale: .9,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         bush_01: 25,
                         bush_03: 1
                     }),
@@ -27809,7 +27561,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "brick",
-                        collision: [L.createAabbExtents(F.create(18, 3), F.create(7, 13)), L.createAabbExtents(F.create(5, 0), F.create(6, 10))]
+                        collision: [E.createAabbExtents(F.create(18, 3), F.create(7, 13)), E.createAabbExtents(F.create(5, 0), F.create(6, 10))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-building-mansion-cellar-02.svg",
@@ -27826,8 +27578,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(18, 3), F.create(7, 13)), L.createAabbExtents(F.create(5, 1.5), F.create(6, 12))],
-                    scopeOut: [L.createAabbExtents(F.create(18, 3), F.create(7, 13)), L.createAabbExtents(F.create(5, 1.5), F.create(6, 12))],
+                    scopeIn: [E.createAabbExtents(F.create(18, 3), F.create(7, 13)), E.createAabbExtents(F.create(5, 1.5), F.create(6, 12))],
+                    scopeOut: [E.createAabbExtents(F.create(18, 3), F.create(7, 13)), E.createAabbExtents(F.create(5, 1.5), F.create(6, 12))],
                     vision: {
                         dist: 5.5,
                         width: 2.75,
@@ -27917,7 +27669,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         barrel_03: 9,
                         barrel_04: 1
                     }),
@@ -27925,7 +27677,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 2
                 }, {
-                    type: d({
+                    type: m({
                         barrel_03: 9,
                         barrel_04: 1
                     }),
@@ -27933,7 +27685,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 2
                 }, {
-                    type: d({
+                    type: m({
                         barrel_03: 9,
                         barrel_04: 1
                     }),
@@ -27941,7 +27693,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 2
                 }, {
-                    type: d({
+                    type: m({
                         barrel_03: 9,
                         barrel_04: 1
                     }),
@@ -27949,7 +27701,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         barrel_03: 9,
                         barrel_04: 1
                     }),
@@ -27957,7 +27709,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         barrel_03: 9,
                         barrel_04: 1
                     }),
@@ -27970,7 +27722,7 @@ webpackJsonp([0], {
                     scale: .75,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         bookshelf_01: 7,
                         bookshelf_02: 1
                     }),
@@ -28020,14 +27772,14 @@ webpackJsonp([0], {
                     ori: 0
                 }],
                 stairs: [{
-                    collision: L.createAabbExtents(F.create(28, 1.5), F.create(3, 2.55)),
+                    collision: E.createAabbExtents(F.create(28, 1.5), F.create(3, 2.55)),
                     downDir: F.create(-1, 0),
                     noCeilingReveal: !0
                 }, {
-                    collision: L.createAabbExtents(F.create(1, 13.5), F.create(2, 3.5)),
+                    collision: E.createAabbExtents(F.create(1, 13.5), F.create(2, 3.5)),
                     downDir: F.create(0, -1)
                 }],
-                mask: [L.createAabbExtents(F.create(10, -.1), F.create(15, 10.1)), L.createAabbExtents(F.create(17.5, 13.5), F.create(7.5, 3.5))]
+                mask: [E.createAabbExtents(F.create(10, -.1), F.create(15, 10.1)), E.createAabbExtents(F.create(17.5, 13.5), F.create(7.5, 3.5))]
             },
             bunker_egg_01: {
                 type: "building",
@@ -28044,7 +27796,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "container",
-                        collision: [L.createAabbExtents(F.create(0, 7.75), F.create(2, 3.25))]
+                        collision: [E.createAabbExtents(F.create(0, 7.75), F.create(2, 3.25))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-generic-floor-01.svg",
@@ -28055,8 +27807,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 0), F.create(0, 0))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 0), F.create(0, 0))],
                     vision: {
                         dist: 5,
                         width: 2.75,
@@ -28132,7 +27884,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "bunker",
-                        collision: [L.createAabbExtents(F.create(0, -4.5), F.create(10, 9))]
+                        collision: [E.createAabbExtents(F.create(0, -4.5), F.create(10, 9))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-egg-chamber-floor-01.svg",
@@ -28142,8 +27894,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, -4.5), F.create(10, 9))],
-                    scopeOut: [L.createAabbExtents(F.create(0, -4.5), F.create(10, 9))],
+                    scopeIn: [E.createAabbExtents(F.create(0, -4.5), F.create(10, 9))],
+                    scopeOut: [E.createAabbExtents(F.create(0, -4.5), F.create(10, 9))],
                     imgs: [{
                         sprite: "img/map/map-bunker-egg-chamber-ceiling-01.svg",
                         scale: .5,
@@ -28219,7 +27971,7 @@ webpackJsonp([0], {
                     grass: !0,
                     beach: !1
                 },
-                mapObstacleBounds: [L.createAabbExtents(F.create(0, 5), F.create(7, 12))],
+                mapObstacleBounds: [E.createAabbExtents(F.create(0, 5), F.create(7, 12))],
                 layers: [{
                     type: "bunker_egg_01",
                     pos: F.create(0, 0),
@@ -28230,20 +27982,20 @@ webpackJsonp([0], {
                     ori: 0
                 }],
                 stairs: [{
-                    collision: L.createAabbExtents(F.create(0, 8.4), F.create(2, 2.6)),
+                    collision: E.createAabbExtents(F.create(0, 8.4), F.create(2, 2.6)),
                     downDir: F.create(0, -1)
                 }],
-                mask: [L.createAabbExtents(F.create(0, -3.7), F.create(10, 9.5))]
+                mask: [E.createAabbExtents(F.create(0, -3.7), F.create(10, 9.5))]
             },
             bunker_hydra_01: {
                 type: "building",
                 map: {
                     display: !0,
                     shapes: [{
-                        collider: L.createAabbExtents(F.create(20.25, 3.5), F.create(6.25, 5.5)),
+                        collider: E.createAabbExtents(F.create(20.25, 3.5), F.create(6.25, 5.5)),
                         color: 2894892
                     }, {
-                        collider: L.createAabbExtents(F.create(32.25, 3.5), F.create(6.75, 9.25)),
+                        collider: E.createAabbExtents(F.create(32.25, 3.5), F.create(6.75, 9.25)),
                         color: 3815994
                     }]
                 },
@@ -28255,10 +28007,10 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "tile",
-                        collision: [L.createAabbExtents(F.create(20.25, 3.5), F.create(6.25, 5.5)), L.createAabbExtents(F.create(32.25, 3.5), F.create(6.75, 9.25))]
+                        collision: [E.createAabbExtents(F.create(20.25, 3.5), F.create(6.25, 5.5)), E.createAabbExtents(F.create(32.25, 3.5), F.create(6.75, 9.25))]
                     }, {
                         type: "container",
-                        collision: [L.createAabbExtents(F.create(16.25, 3.5), F.create(3.25, 2)), L.createAabbExtents(F.create(-16.5, -90.75), F.create(2, 3.25)), L.createAabbExtents(F.create(40, -50.5), F.create(2, 3.25))]
+                        collision: [E.createAabbExtents(F.create(16.25, 3.5), F.create(3.25, 2)), E.createAabbExtents(F.create(-16.5, -90.75), F.create(2, 3.25)), E.createAabbExtents(F.create(40, -50.5), F.create(2, 3.25))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-floor-01.svg",
@@ -28282,8 +28034,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(19.25, 3.5), F.create(6.25, 5.5)), L.createAabbExtents(F.create(32.25, 3.5), F.create(6.75, 9.25))],
-                    scopeOut: [L.createAabbExtents(F.create(19.25, 3.5), F.create(6.25, 5.5)), L.createAabbExtents(F.create(32.25, 3.5), F.create(6.75, 9.25))],
+                    scopeIn: [E.createAabbExtents(F.create(19.25, 3.5), F.create(6.25, 5.5)), E.createAabbExtents(F.create(32.25, 3.5), F.create(6.75, 9.25))],
+                    scopeOut: [E.createAabbExtents(F.create(19.25, 3.5), F.create(6.25, 5.5)), E.createAabbExtents(F.create(32.25, 3.5), F.create(6.75, 9.25))],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-ceiling-01.svg",
                         pos: F.create(25.25, 3.5),
@@ -28364,7 +28116,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 1
                 }, {
-                    type: d({
+                    type: m({
                         toilet_03: 5,
                         toilet_04: 1
                     }),
@@ -28483,10 +28235,10 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "bunker",
-                        collision: [L.createAabbExtents(F.create(3.5, 3), F.create(9.5, 9))]
+                        collision: [E.createAabbExtents(F.create(3.5, 3), F.create(9.5, 9))]
                     }, {
                         type: "tile",
-                        collision: [L.createAabbExtents(F.create(-15.5, -79.5), F.create(3, 8)), L.createAabbExtents(F.create(40.5, -62), F.create(9.5, 8))]
+                        collision: [E.createAabbExtents(F.create(-15.5, -79.5), F.create(3, 8)), E.createAabbExtents(F.create(40.5, -62), F.create(9.5, 8))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-chamber-floor-01.svg",
@@ -28509,8 +28261,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(3.5, 2.25), F.create(10, 10)), L.createAabbExtents(F.create(-15, -77), F.create(5.5, 10.5)), L.createAabbExtents(F.create(38, -62), F.create(11.5, 8))],
-                    scopeOut: [L.createAabbExtents(F.create(3.5, 2.25), F.create(10, 10)), L.createAabbExtents(F.create(-15, -77), F.create(5.5, 10.5)), L.createAabbExtents(F.create(38, -62), F.create(11.5, 8))],
+                    scopeIn: [E.createAabbExtents(F.create(3.5, 2.25), F.create(10, 10)), E.createAabbExtents(F.create(-15, -77), F.create(5.5, 10.5)), E.createAabbExtents(F.create(38, -62), F.create(11.5, 8))],
+                    scopeOut: [E.createAabbExtents(F.create(3.5, 2.25), F.create(10, 10)), E.createAabbExtents(F.create(-15, -77), F.create(5.5, 10.5)), E.createAabbExtents(F.create(38, -62), F.create(11.5, 8))],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-chamber-ceiling-01.svg",
                         pos: F.create(7, 2),
@@ -28775,7 +28527,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "tile",
-                        collision: [L.createAabbExtents(F.create(0, 1.5), F.create(9.5, 12.5))]
+                        collision: [E.createAabbExtents(F.create(0, 1.5), F.create(9.5, 12.5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-compartment-floor-01.svg",
@@ -28785,8 +28537,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 1.25), F.create(10, 10))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 1.25), F.create(10, 10))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 1.25), F.create(10, 10))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 1.25), F.create(10, 10))],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-compartment-ceiling-01.svg",
                         pos: F.create(0, 1.25),
@@ -28892,7 +28644,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "tile",
-                        collision: [L.createAabbExtents(F.create(-2.5, 16), F.create(22, 4)), L.createAabbExtents(F.create(-2.5, 9.5), F.create(6, 2.5)), L.createAabbExtents(F.create(0, -4.5), F.create(25, 17))]
+                        collision: [E.createAabbExtents(F.create(-2.5, 16), F.create(22, 4)), E.createAabbExtents(F.create(-2.5, 9.5), F.create(6, 2.5)), E.createAabbExtents(F.create(0, -4.5), F.create(25, 17))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-compartment-floor-02.svg",
@@ -28903,8 +28655,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(-2, 3), F.create(22.5, 19.5))],
-                    scopeOut: [L.createAabbExtents(F.create(-2, 3), F.create(22.5, 19.5))],
+                    scopeIn: [E.createAabbExtents(F.create(-2, 3), F.create(22.5, 19.5))],
+                    scopeOut: [E.createAabbExtents(F.create(-2, 3), F.create(22.5, 19.5))],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-compartment-ceiling-02.svg",
                         pos: F.create(0, 1),
@@ -29125,7 +28877,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "bunker",
-                        collision: [L.createAabbExtents(F.create(0, 2), F.create(9, 8.75))]
+                        collision: [E.createAabbExtents(F.create(0, 2), F.create(9, 8.75))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-compartment-floor-03.svg",
@@ -29136,8 +28888,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, .75), F.create(10, 7.75))],
-                    scopeOut: [L.createAabbExtents(F.create(0, .75), F.create(10, 7.75))],
+                    scopeIn: [E.createAabbExtents(F.create(0, .75), F.create(10, 7.75))],
+                    scopeOut: [E.createAabbExtents(F.create(0, .75), F.create(10, 7.75))],
                     imgs: [{
                         sprite: "img/map/map-bunker-hydra-compartment-ceiling-03.svg",
                         pos: F.create(0, 1),
@@ -29194,7 +28946,7 @@ webpackJsonp([0], {
                     grass: !0,
                     beach: !1
                 },
-                mapObstacleBounds: [L.createAabbExtents(F.create(25.5, 3.5), F.create(16, 11.5)), L.createAabbExtents(F.create(-16.5, -89.5), F.create(7, 7.5)), L.createAabbExtents(F.create(40, -47.25), F.create(6.5, 7.25)), L.createAabbExtents(F.create(-5.75, -38.5), F.create(3, 3))],
+                mapObstacleBounds: [E.createAabbExtents(F.create(25.5, 3.5), F.create(16, 11.5)), E.createAabbExtents(F.create(-16.5, -89.5), F.create(7, 7.5)), E.createAabbExtents(F.create(40, -47.25), F.create(6.5, 7.25)), E.createAabbExtents(F.create(-5.75, -38.5), F.create(3, 3))],
                 layers: [{
                     type: "bunker_hydra_01",
                     pos: F.create(0, 0),
@@ -29205,23 +28957,23 @@ webpackJsonp([0], {
                     ori: 0
                 }],
                 stairs: [{
-                    collision: L.createAabbExtents(F.create(16.4, 3.5), F.create(2.6, 2)),
+                    collision: E.createAabbExtents(F.create(16.4, 3.5), F.create(2.6, 2)),
                     downDir: F.create(-1, 0)
                 }, {
-                    collision: L.createAabbExtents(F.create(-16.5, -90.4), F.create(2, 3.1)),
+                    collision: E.createAabbExtents(F.create(-16.5, -90.4), F.create(2, 3.1)),
                     downDir: F.create(0, 1)
                 }, {
-                    collision: L.createAabbExtents(F.create(40, -50.5), F.create(2, 3.1)),
+                    collision: E.createAabbExtents(F.create(40, -50.5), F.create(2, 3.1)),
                     downDir: F.create(0, -1)
                 }],
-                mask: [L.createAabbExtents(F.create(3.5, -7.2), F.create(10.5, 20)), L.createAabbExtents(F.create(-15, -79.75), F.create(5, 8.5)), L.createAabbExtents(F.create(39, -61.85), F.create(12, 9)), L.createAabbExtents(F.create(3.5, -49.2), F.create(23.5, 22)), L.createAabbExtents(F.create(10.5, -76.7), F.create(10, 5.5))]
+                mask: [E.createAabbExtents(F.create(3.5, -7.2), F.create(10.5, 20)), E.createAabbExtents(F.create(-15, -79.75), F.create(5, 8.5)), E.createAabbExtents(F.create(39, -61.85), F.create(12, 9)), E.createAabbExtents(F.create(3.5, -49.2), F.create(23.5, 22)), E.createAabbExtents(F.create(10.5, -76.7), F.create(10, 5.5))]
             },
             bunker_storm_01: {
                 type: "building",
                 map: {
                     display: !0,
                     shapes: [{
-                        collider: L.createAabbExtents(F.create(0, 10), F.create(3.6, 5.8)),
+                        collider: E.createAabbExtents(F.create(0, 10), F.create(3.6, 5.8)),
                         color: 6707790
                     }]
                 },
@@ -29233,10 +28985,10 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "container",
-                        collision: [L.createAabbExtents(F.create(0, 7.75), F.create(2, 3.25))]
+                        collision: [E.createAabbExtents(F.create(0, 7.75), F.create(2, 3.25))]
                     }, {
                         type: "shack",
-                        collision: [L.createAabbExtents(F.create(0, 13.5), F.create(3.75, 2.5)), L.createAabbExtents(F.create(5, 13.75), F.create(1.25, 2.25))]
+                        collision: [E.createAabbExtents(F.create(0, 13.5), F.create(3.75, 2.5)), E.createAabbExtents(F.create(5, 13.75), F.create(1.25, 2.25))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-storm-floor-02.svg",
@@ -29247,8 +28999,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(0, 10), F.create(3.5, 5.6))],
-                    scopeOut: [L.createAabbExtents(F.create(0, 10), F.create(3.8, 5.9))],
+                    scopeIn: [E.createAabbExtents(F.create(0, 10), F.create(3.5, 5.6))],
+                    scopeOut: [E.createAabbExtents(F.create(0, 10), F.create(3.8, 5.9))],
                     vision: {
                         dist: 5,
                         width: 2.75,
@@ -29353,10 +29105,10 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "bunker",
-                        collision: [L.createAabbExtents(F.create(1, -4.4), F.create(10.5, 9))]
+                        collision: [E.createAabbExtents(F.create(1, -4.4), F.create(10.5, 9))]
                     }, {
                         type: "tile",
-                        collision: [L.createAabbExtents(F.create(19, -5.5), F.create(7.5, 8))]
+                        collision: [E.createAabbExtents(F.create(19, -5.5), F.create(7.5, 8))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-storm-chamber-floor-01.svg",
@@ -29367,8 +29119,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(8.5, -4.5), F.create(18, 9.1))],
-                    scopeOut: [L.createAabbExtents(F.create(8.5, -4.5), F.create(18, 9.1))],
+                    scopeIn: [E.createAabbExtents(F.create(8.5, -4.5), F.create(18, 9.1))],
+                    scopeOut: [E.createAabbExtents(F.create(8.5, -4.5), F.create(18, 9.1))],
                     imgs: [{
                         sprite: "img/map/map-bunker-storm-chamber-ceiling-01.svg",
                         pos: F.create(8.5, -1),
@@ -29492,7 +29244,7 @@ webpackJsonp([0], {
                     scale: 1,
                     ori: 0
                 }, {
-                    type: d({
+                    type: m({
                         case_03: 1,
                         chest_02: 9
                     }),
@@ -29517,7 +29269,7 @@ webpackJsonp([0], {
                     grass: !0,
                     beach: !1
                 },
-                mapObstacleBounds: [L.createAabbExtents(F.create(1, 6), F.create(7, 13.5))],
+                mapObstacleBounds: [E.createAabbExtents(F.create(1, 6), F.create(7, 13.5))],
                 layers: [{
                     type: "bunker_storm_01",
                     pos: F.create(0, 0),
@@ -29528,20 +29280,20 @@ webpackJsonp([0], {
                     ori: 0
                 }],
                 stairs: [{
-                    collision: L.createAabbExtents(F.create(0, 8.4), F.create(2, 2.6)),
+                    collision: E.createAabbExtents(F.create(0, 8.4), F.create(2, 2.6)),
                     downDir: F.create(0, -1)
                 }],
-                mask: [L.createAabbExtents(F.create(8.5, -3.7), F.create(18, 9.5))]
+                mask: [E.createAabbExtents(F.create(8.5, -3.7), F.create(18, 9.5))]
             },
             bunker_conch_01: {
                 type: "building",
                 map: {
                     display: !0,
                     shapes: [{
-                        collider: L.createAabbExtents(F.create(20, 3.35), F.create(5.5, 2.5)),
+                        collider: E.createAabbExtents(F.create(20, 3.35), F.create(5.5, 2.5)),
                         color: 2703694
                     }, {
-                        collider: L.createAabbExtents(F.create(46.5, -32.55), F.create(5.5, 2.5)),
+                        collider: E.createAabbExtents(F.create(46.5, -32.55), F.create(5.5, 2.5)),
                         color: 2703694
                     }]
                 },
@@ -29553,7 +29305,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "container",
-                        collision: [L.createAabbExtents(F.create(16.25, 3.5), F.create(3.25, 2)), L.createAabbExtents(F.create(44.25, -32.5), F.create(3.25, 2)), L.createAabbExtents(F.create(22, 3.35), F.create(8, 2.5)), L.createAabbExtents(F.create(50.5, -32.55), F.create(8, 2.5))]
+                        collision: [E.createAabbExtents(F.create(16.25, 3.5), F.create(3.25, 2)), E.createAabbExtents(F.create(44.25, -32.5), F.create(3.25, 2)), E.createAabbExtents(F.create(22, 3.35), F.create(8, 2.5)), E.createAabbExtents(F.create(50.5, -32.55), F.create(8, 2.5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-conch-floor-01.svg",
@@ -29570,8 +29322,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(19, 3.35), F.create(5.5, 2.5)), L.createAabbExtents(F.create(47.5, -32.55), F.create(5.5, 2.5))],
-                    scopeOut: [L.createAabbExtents(F.create(22, 3.35), F.create(8, 2.5)), L.createAabbExtents(F.create(50.5, -32.55), F.create(8, 2.5))],
+                    scopeIn: [E.createAabbExtents(F.create(19, 3.35), F.create(5.5, 2.5)), E.createAabbExtents(F.create(47.5, -32.55), F.create(5.5, 2.5))],
+                    scopeOut: [E.createAabbExtents(F.create(22, 3.35), F.create(8, 2.5)), E.createAabbExtents(F.create(50.5, -32.55), F.create(8, 2.5))],
                     imgs: [{
                         sprite: "img/map/map-bunker-conch-ceiling-01.svg",
                         pos: F.create(19.25, 3.35),
@@ -29654,7 +29406,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "tile",
-                        collision: [L.createAabbExtents(F.create(1, 4), F.create(12.5, 3.5)), L.createAabbExtents(F.create(28, -30), F.create(13.5, 4.5))]
+                        collision: [E.createAabbExtents(F.create(1, 4), F.create(12.5, 3.5)), E.createAabbExtents(F.create(28, -30), F.create(13.5, 4.5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-conch-chamber-floor-01.svg",
@@ -29671,8 +29423,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(1, 3.5), F.create(12.5, 5)), L.createAabbExtents(F.create(26.75, -30), F.create(14.75, 4.5))],
-                    scopeOut: [L.createAabbExtents(F.create(1, 3.5), F.create(12.5, 5)), L.createAabbExtents(F.create(26.75, -30), F.create(14.75, 4.5))],
+                    scopeIn: [E.createAabbExtents(F.create(1, 3.5), F.create(12.5, 5)), E.createAabbExtents(F.create(26.75, -30), F.create(14.75, 4.5))],
+                    scopeOut: [E.createAabbExtents(F.create(1, 3.5), F.create(12.5, 5)), E.createAabbExtents(F.create(26.75, -30), F.create(14.75, 4.5))],
                     imgs: [{
                         sprite: "img/map/map-bunker-conch-chamber-ceiling-01.svg",
                         pos: F.create(-2, 3.5),
@@ -29819,7 +29571,7 @@ webpackJsonp([0], {
                 floor: {
                     surfaces: [{
                         type: "water",
-                        collision: [L.createAabbExtents(F.create(1, -2.5), F.create(15, 15.5))]
+                        collision: [E.createAabbExtents(F.create(1, -2.5), F.create(15, 15.5))]
                     }],
                     imgs: [{
                         sprite: "img/map/map-bunker-conch-compartment-floor-01.svg",
@@ -29831,8 +29583,8 @@ webpackJsonp([0], {
                     }]
                 },
                 ceiling: {
-                    scopeIn: [L.createAabbExtents(F.create(-1.5, -1), F.create(12.5, 12)), L.createAabbExtents(F.create(9.5, -14.5), F.create(4, 2.5))],
-                    scopeOut: [L.createAabbExtents(F.create(-1.5, -1), F.create(12.5, 12)), L.createAabbExtents(F.create(9.5, -14.5), F.create(4, 2.5))],
+                    scopeIn: [E.createAabbExtents(F.create(-1.5, -1), F.create(12.5, 12)), E.createAabbExtents(F.create(9.5, -14.5), F.create(4, 2.5))],
+                    scopeOut: [E.createAabbExtents(F.create(-1.5, -1), F.create(12.5, 12)), E.createAabbExtents(F.create(9.5, -14.5), F.create(4, 2.5))],
                     imgs: [{
                         sprite: "img/map/map-bunker-conch-compartment-ceiling-01.svg",
                         pos: F.create(-.75, -5.5),
@@ -29982,7 +29734,7 @@ webpackJsonp([0], {
                         distMax: 16
                     }
                 },
-                mapObstacleBounds: [L.createAabbExtents(F.create(21, 3.5), F.create(9.5, 8)), L.createAabbExtents(F.create(48, -32.5), F.create(10, 8))],
+                mapObstacleBounds: [E.createAabbExtents(F.create(21, 3.5), F.create(9.5, 8)), E.createAabbExtents(F.create(48, -32.5), F.create(10, 8))],
                 layers: [{
                     type: "bunker_conch_01",
                     pos: F.create(0, 0),
@@ -29993,13 +29745,13 @@ webpackJsonp([0], {
                     ori: 0
                 }],
                 stairs: [{
-                    collision: L.createAabbExtents(F.create(16.9, 3.5), F.create(2.6, 2)),
+                    collision: E.createAabbExtents(F.create(16.9, 3.5), F.create(2.6, 2)),
                     downDir: F.create(-1, 0)
                 }, {
-                    collision: L.createAabbExtents(F.create(44.9, -32.5), F.create(2.6, 2)),
+                    collision: E.createAabbExtents(F.create(44.9, -32.5), F.create(2.6, 2)),
                     downDir: F.create(-1, 0)
                 }],
-                mask: [L.createAabbExtents(F.create(3.5, -7.2), F.create(10.7, 20)), L.createAabbExtents(F.create(37.25, -32), F.create(5, 5))]
+                mask: [E.createAabbExtents(F.create(3.5, -7.2), F.create(10.7, 20)), E.createAabbExtents(F.create(37.25, -32), F.create(5, 5))]
             },
             container_wall_top: C({
                 material: "metal",
@@ -30042,7 +29794,7 @@ webpackJsonp([0], {
             }),
             loot_tier_1: {
                 type: "loot_spawner",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 tier: "tier_world",
                 terrain: {
                     grass: !0,
@@ -30051,7 +29803,7 @@ webpackJsonp([0], {
             },
             loot_tier_2: {
                 type: "loot_spawner",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 tier: "tier_container",
                 terrain: {
                     grass: !0,
@@ -30060,7 +29812,7 @@ webpackJsonp([0], {
             },
             loot_tier_beach: {
                 type: "loot_spawner",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 tier: "tier_world",
                 terrain: {
                     grass: !1,
@@ -30069,7 +29821,7 @@ webpackJsonp([0], {
             },
             loot_tier_vault_floor: {
                 type: "loot_spawner",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 tier: "tier_vault_floor",
                 terrain: {
                     grass: !0,
@@ -30078,7 +29830,7 @@ webpackJsonp([0], {
             },
             loot_tier_police_floor: {
                 type: "loot_spawner",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 tier: "tier_police_floor",
                 terrain: {
                     grass: !0,
@@ -30087,7 +29839,7 @@ webpackJsonp([0], {
             },
             loot_tier_mansion_floor: {
                 type: "loot_spawner",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 tier: "tier_mansion_floor",
                 terrain: {
                     grass: !0,
@@ -30096,7 +29848,7 @@ webpackJsonp([0], {
             },
             loot_tier_sv98: {
                 type: "loot_spawner",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 tier: "tier_sv98",
                 terrain: {
                     grass: !0,
@@ -30105,7 +29857,7 @@ webpackJsonp([0], {
             },
             loot_tier_scopes_sniper: {
                 type: "loot_spawner",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 tier: "tier_scopes_sniper",
                 terrain: {
                     grass: !0,
@@ -30114,7 +29866,7 @@ webpackJsonp([0], {
             },
             decal_barrel_explosion: {
                 type: "decal",
-                collision: L.createCircle(F.create(0, 0), 1),
+                collision: E.createCircle(F.create(0, 0), 1),
                 height: 0,
                 img: {
                     sprite: "img/map/map-barrel-res-01.svg",
@@ -30126,7 +29878,7 @@ webpackJsonp([0], {
             },
             decal_frag_explosion: {
                 type: "decal",
-                collision: L.createCircle(F.create(0, 0), 1),
+                collision: E.createCircle(F.create(0, 0), 1),
                 height: 0,
                 img: {
                     sprite: "img/map/map-barrel-res-01.svg",
@@ -30138,7 +29890,7 @@ webpackJsonp([0], {
             },
             decal_smoke_explosion: {
                 type: "decal",
-                collision: L.createCircle(F.create(0, 0), 1),
+                collision: E.createCircle(F.create(0, 0), 1),
                 height: 0,
                 img: {
                     sprite: "img/map/map-smoke-res.svg",
@@ -30150,7 +29902,7 @@ webpackJsonp([0], {
             },
             decal_vent_01: {
                 type: "decal",
-                collision: L.createCircle(F.create(0, 0), 2),
+                collision: E.createCircle(F.create(0, 0), 2),
                 height: 0,
                 img: {
                     sprite: "img/map/map-bunker-vent-01.svg",
@@ -30162,7 +29914,7 @@ webpackJsonp([0], {
             },
             decal_vent_02: {
                 type: "decal",
-                collision: L.createCircle(F.create(0, 0), 2),
+                collision: E.createCircle(F.create(0, 0), 2),
                 height: 0,
                 img: {
                     sprite: "img/map/map-bunker-vent-02.svg",
@@ -30174,7 +29926,7 @@ webpackJsonp([0], {
             },
             decal_hydra_01: {
                 type: "decal",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 height: 0,
                 img: {
                     sprite: "img/map/map-bunker-hydra-floor-04.svg",
@@ -30186,7 +29938,7 @@ webpackJsonp([0], {
             },
             decal_pipes_01: {
                 type: "decal",
-                collision: L.createAabbExtents(F.create(0, 0), F.create(1, 4.5)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(1, 4.5)),
                 height: 1,
                 img: {
                     sprite: "img/map/map-pipes-01.svg",
@@ -30198,7 +29950,7 @@ webpackJsonp([0], {
             },
             decal_pipes_02: {
                 type: "decal",
-                collision: L.createAabbExtents(F.create(0, 0), F.create(4, 3)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(4, 3)),
                 height: 1,
                 img: {
                     sprite: "img/map/map-pipes-02.svg",
@@ -30210,7 +29962,7 @@ webpackJsonp([0], {
             },
             decal_pipes_03: {
                 type: "decal",
-                collision: L.createAabbExtents(F.create(0, 0), F.create(10.5, 4)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(10.5, 4)),
                 height: 1,
                 img: {
                     sprite: "img/map/map-pipes-03.svg",
@@ -30222,7 +29974,7 @@ webpackJsonp([0], {
             },
             decal_pipes_04: {
                 type: "decal",
-                collision: L.createAabbExtents(F.create(0, 0), F.create(1, 5.5)),
+                collision: E.createAabbExtents(F.create(0, 0), F.create(1, 5.5)),
                 height: 1,
                 img: {
                     sprite: "img/map/map-pipes-04.svg",
@@ -30234,7 +29986,7 @@ webpackJsonp([0], {
             },
             decal_initiative_01: {
                 type: "decal",
-                collision: L.createCircle(F.create(0, 0), 3),
+                collision: E.createCircle(F.create(0, 0), 3),
                 height: 0,
                 img: {
                     sprite: "img/map/map-decal-initiative.svg",
@@ -30250,7 +30002,10 @@ webpackJsonp([0], {
             MinScale: .125,
             MaxScale: 2.5,
             oriToRad: o,
-            getBoundingCollider: n
+            getBoundingCollider: n,
+            t: function(e, t) {
+                return e.sprite && e.sprite.alpha < t
+            }
         }
     },
     d3da5587: function(e, t, a) {
@@ -30264,47 +30019,43 @@ webpackJsonp([0], {
             }) : e[t] = a,
             e
         }
-        function o(e, t) {
-            if (!(e instanceof t))
-                throw new TypeError("Cannot call a class as a function")
-        }
-        function n(e) {
+        function o(e) {
             return document.getElementById(e)
         }
-        function r(e) {
+        function n(e) {
             return 0 == e.button
         }
-        function s(e) {
+        function r(e) {
             return "which"in e ? 3 == e.which : 2 == e.button
         }
-        function l(e, t, a) {
+        function s(e, t, a) {
             if (e instanceof Array)
                 for (var i = 0; i < e.length; i++)
-                    l(e[i], void 0 !== a ? t[a] : t, i);
+                    s(e[i], void 0 !== a ? t[a] : t, i);
             else if (e instanceof Object)
                 for (var o = Object.keys(e), n = 0; n < o.length; n++) {
                     var r = o[n];
-                    l(e[r], void 0 !== a ? t[a] : t, r)
+                    s(e[r], void 0 !== a ? t[a] : t, r)
                 }
             else
                 t[a] = e
         }
-        function c(e, t, a) {
+        function l(e, t, a) {
             if (t instanceof Array) {
                 for (var i = [], o = 0; o < t.length; o++)
-                    i[o] = c(e[o], t[o], a);
+                    i[o] = l(e[o], t[o], a);
                 return i
             }
             if (t instanceof Object) {
                 for (var n = {}, r = Object.keys(t), s = 0; s < r.length; s++) {
-                    var l = r[s];
-                    n[l] = c(e[l], t[l], a)
+                    var c = r[s];
+                    n[c] = l(e[c], t[c], a)
                 }
                 return n
             }
             return e != t || a
         }
-        function d() {
+        function c() {
             var e = [];
             for (var t in g.items)
                 g.items.hasOwnProperty(t) && "scope" == g.items[t].type && e.push(t);
@@ -30319,47 +30070,10 @@ webpackJsonp([0], {
                 }
             return e
         }
-        function p() {
+        function d() {
             return ["chest", "helmet", "backpack"]
         }
-        var u = function() {
-            function e(e, t) {
-                for (var a = 0; a < t.length; a++) {
-                    var i = t[a];
-                    i.enumerable = i.enumerable || !1,
-                    i.configurable = !0,
-                    "value"in i && (i.writable = !0),
-                    Object.defineProperty(e, i.key, i)
-                }
-            }
-            return function(t, a, i) {
-                return a && e(t.prototype, a),
-                i && e(t, i),
-                t
-            }
-        }()
-          , h = a("6b42806d")
-          , g = a("989ad62a")
-          , f = g.Action
-          , b = a("10899aea")
-          , y = a("300e2704")
-          , x = a("1901e2d9")
-          , v = a("c2a798c8")
-          , k = a("ce29f17f")
-          , _ = a("26be8056")
-          , w = g.DamageType
-          , S = y.PickupMsgType
-          , M = 6
-          , T = 750
-          , P = {
-            None: 0,
-            Cancel: 1,
-            Loot: 2,
-            Revive: 3,
-            Object: 4
-        }
-          , C = function e() {
-            o(this, e),
+        function p() {
             this.mobile = !1,
             this.touch = !1,
             this.pickupMessage = {
@@ -30369,7 +30083,7 @@ webpackJsonp([0], {
                 opacity: 0
             },
             this.killFeed = [];
-            for (var t = 0; t < M; t++)
+            for (var e = 0; e < M; e++)
                 this.killFeed.push({
                     text: "",
                     color: "#000000",
@@ -30378,9 +30092,9 @@ webpackJsonp([0], {
                     ticker: Number.MAX_VALUE
                 });
             this.weapons = [];
-            for (var a = 0; a < g.WeaponSlot.Count; a++)
-                this.weapons[a] = {
-                    slot: a,
+            for (var t = 0; t < g.WeaponSlot.Count; t++)
+                this.weapons[t] = {
+                    slot: t,
                     name: "",
                     ammo: 0,
                     equipped: !1,
@@ -30402,17 +30116,17 @@ webpackJsonp([0], {
                 usable: !1
             },
             this.scopes = [];
-            for (var i = d(), n = 0; n < i.length; n++)
+            for (var a = c(), i = 0; i < a.length; i++)
                 this.scopes.push({
-                    type: i[n],
+                    type: a[i],
                     visible: !1,
                     equipped: !1,
                     selectable: !1
                 });
             this.loot = [];
-            for (var r = m(), s = 0; s < r.length; s++)
+            for (var o = m(), n = 0; n < o.length; n++)
                 this.loot.push({
-                    type: r[s],
+                    type: o[n],
                     count: 0,
                     maximum: 0,
                     selectable: !1,
@@ -30420,9 +30134,9 @@ webpackJsonp([0], {
                     ticker: 0
                 });
             this.gear = [];
-            for (var l = p(), c = 0; c < l.length; c++)
+            for (var r = d(), s = 0; s < r.length; s++)
                 this.gear.push({
-                    type: l[c],
+                    type: r[s],
                     item: "",
                     selectable: !1,
                     width: 0,
@@ -30432,630 +30146,620 @@ webpackJsonp([0], {
             this.boost = 0,
             this.downed = !1
         }
-          , I = function() {
-            function e(t) {
-                var a = this;
-                o(this, e),
-                this.localization = t,
-                this.oldState = new C,
-                this.newState = new C,
-                this.frameCount = 0,
-                this.dom = {
-                    debugButton: n("ui-debug-button"),
-                    emoteButton: n("ui-emote-button"),
-                    menu: {
-                        touchStyles: n("btn-touch-styles"),
-                        fullScreen: n("btn-game-fullscreen")
-                    },
-                    pickupMessage: n("ui-pickup-message"),
-                    killFeed: {
-                        div: n("ui-killfeed-contents"),
-                        lines: []
-                    },
-                    weapons: [],
-                    ammo: {
-                        current: n("ui-current-clip"),
-                        remaining: n("ui-remaining-ammo"),
-                        reloadButton: n("ui-reload-button")
-                    },
-                    interaction: {
-                        div: n("ui-interaction"),
-                        key: n("ui-interaction-press"),
-                        text: n("ui-interaction-description")
-                    },
-                    health: {
-                        inner: n("ui-health-actual"),
-                        depleted: n("ui-health-depleted")
-                    },
-                    boost: {
-                        div: n("ui-boost-counter"),
-                        bars: [n("ui-boost-counter-0").firstElementChild, n("ui-boost-counter-1").firstElementChild, n("ui-boost-counter-2").firstElementChild, n("ui-boost-counter-3").firstElementChild]
-                    },
-                    scopes: [],
-                    loot: [],
-                    gear: []
-                };
-                for (var i = 0; i < M; i++) {
-                    var l = "ui-killfeed-" + i
-                      , c = n(l);
-                    if (!c) {
-                        c = document.createElement("div"),
-                        c.id = l,
-                        c.classList.add("killfeed-div");
-                        var u = document.createElement("div");
-                        u.classList.add("killfeed-text"),
-                        c.appendChild(u),
-                        this.dom.killFeed.div.appendChild(c)
-                    }
-                    this.dom.killFeed.lines.push({
-                        line: c,
-                        text: c.firstElementChild
-                    })
+        function u(e) {
+            var t = this;
+            this.localization = e,
+            this.oldState = new p,
+            this.newState = new p,
+            this.frameCount = 0,
+            this.dom = {
+                debugButton: o("ui-debug-button"),
+                emoteButton: o("ui-emote-button"),
+                menu: {
+                    touchStyles: o("btn-touch-styles"),
+                    fullScreen: o("btn-game-fullscreen")
+                },
+                pickupMessage: o("ui-pickup-message"),
+                killFeed: {
+                    div: o("ui-killfeed-contents"),
+                    lines: []
+                },
+                weapons: [],
+                ammo: {
+                    current: o("ui-current-clip"),
+                    remaining: o("ui-remaining-ammo"),
+                    reloadButton: o("ui-reload-button")
+                },
+                interaction: {
+                    div: o("ui-interaction"),
+                    key: o("ui-interaction-press"),
+                    text: o("ui-interaction-description")
+                },
+                health: {
+                    inner: o("ui-health-actual"),
+                    depleted: o("ui-health-depleted")
+                },
+                boost: {
+                    div: o("ui-boost-counter"),
+                    bars: [o("ui-boost-counter-0").firstElementChild, o("ui-boost-counter-1").firstElementChild, o("ui-boost-counter-2").firstElementChild, o("ui-boost-counter-3").firstElementChild]
+                },
+                scopes: [],
+                loot: [],
+                gear: []
+            };
+            for (var a = 0; a < M; a++) {
+                var i = "ui-killfeed-" + a
+                  , s = o(i);
+                if (!s) {
+                    s = document.createElement("div"),
+                    s.id = i,
+                    s.classList.add("killfeed-div");
+                    var l = document.createElement("div");
+                    l.classList.add("killfeed-text"),
+                    s.appendChild(l),
+                    this.dom.killFeed.div.appendChild(s)
                 }
-                for (var h = 0; h < 4; h++) {
-                    var f = n("ui-weapon-id-" + (h + 1))
-                      , b = {
-                        div: f,
-                        name: f.getElementsByClassName("ui-weapon-name")[0],
-                        number: f.getElementsByClassName("ui-weapon-number")[0],
-                        image: f.getElementsByClassName("ui-weapon-image")[0],
-                        ammo: f.getElementsByClassName("ui-weapon-ammo-counter")[0]
-                    };
-                    this.dom.weapons.push(b)
-                }
-                for (var y = d(), x = 0; x < y.length; x++) {
-                    var v = y[x]
-                      , k = {
-                        scopeType: v,
-                        div: n("ui-scope-" + v)
-                    };
-                    this.dom.scopes.push(k)
-                }
-                for (var _ = m(), w = 0; w < _.length; w++) {
-                    var S = _[w]
-                      , P = n("ui-loot-" + S);
-                    if (P) {
-                        var I = {
-                            lootType: S,
-                            div: P,
-                            count: P.getElementsByClassName("ui-loot-count")[0],
-                            image: P.getElementsByClassName("ui-loot-image")[0],
-                            overlay: P.getElementsByClassName("ui-loot-overlay")[0]
-                        };
-                        this.dom.loot.push(I)
-                    }
-                }
-                for (var z = p(), A = 0; A < z.length; A++) {
-                    var D = z[A]
-                      , O = n("ui-armor-" + D)
-                      , E = {
-                        gearType: D,
-                        div: O,
-                        level: O.getElementsByClassName("ui-armor-level")[0],
-                        image: O.getElementsByClassName("ui-armor-image")[0]
-                    };
-                    this.dom.gear.push(E)
-                }
-                this.uiEvents = [],
-                this.eventListeners = [];
-                var L = function(e, t, i) {
-                    a.eventListeners.push({
-                        event: e,
-                        elem: t,
-                        fn: i
-                    }),
-                    t.addEventListener(e, i)
-                };
-                this.itemActions = [];
-                for (var B = function(e, t, i, o) {
-                    a.itemActions.push({
-                        action: e,
-                        type: t,
-                        data: i,
-                        div: o,
-                        actionQueued: !1,
-                        actionTime: 0
-                    })
-                }, F = 0; F < this.dom.weapons.length; F++)
-                    B("use", "weapon", F, this.dom.weapons[F].div),
-                    B("drop", "weapon", F, this.dom.weapons[F].div);
-                for (var R = 0; R < this.dom.scopes.length; R++) {
-                    var j = this.dom.scopes[R];
-                    B("use", "scope", j.scopeType, j.div),
-                    "1xscope" != j.scopeType && B("drop", "loot", j.scopeType, j.div)
-                }
-                for (var N = 0; N < this.dom.loot.length; N++) {
-                    var q = this.dom.loot[N]
-                      , V = g.items[q.lootType];
-                    "heal" != V.type && "boost" != V.type || B("use", "loot", q.lootType, q.div),
-                    B("drop", "loot", q.lootType, q.div)
-                }
-                for (var G = 0; G < this.dom.gear.length; G++) {
-                    var U = this.dom.gear[G];
-                    "backpack" != U.gearType && B("drop", "loot", U.gearType, U.div)
-                }
-                for (var W = 0; W < this.itemActions.length; W++)
-                    !function(e) {
-                        var t = a.itemActions[e];
-                        L("mousedown", t.div, function(e) {
-                            ("use" == t.action && r(e) || "drop" == t.action && s(e)) && (e.stopPropagation(),
-                            t.actionQueued = !0)
-                        }),
-                        L("mouseup", t.div, function(e) {
-                            t.actionQueued && ("use" == t.action && r(e) || "drop" == t.action && s(e)) && (e.stopPropagation(),
-                            a.pushAction(t),
-                            t.actionQueued = !1)
-                        }),
-                        L("touchstart", t.div, function(e) {
-                            e.changedTouches.length > 0 && (e.stopPropagation(),
-                            t.actionQueued = !0,
-                            t.actionTime = (new Date).getTime(),
-                            t.touchOsId = e.changedTouches[0].identifier)
-                        }),
-                        L("touchend", t.div, function(e) {
-                            (new Date).getTime() - t.actionTime < T && t.actionQueued && "use" == t.action && a.pushAction(t),
-                            t.actionQueued = !1
-                        }),
-                        L("touchcancel", t.div, function(e) {
-                            t.actionQueued = !1
-                        })
-                    }(W);
-                var H = document.getElementById("cvs");
-                this.clearQueuedItemActions = function() {
-                    for (var e = 0; e < a.itemActions.length; e++) {
-                        a.itemActions[e].actionQueued = !1
-                    }
-                    H.focus()
-                }
-                ,
-                window.addEventListener("mouseup", this.clearQueuedItemActions),
-                window.addEventListener("focus", this.clearQueuedItemActions)
+                this.dom.killFeed.lines.push({
+                    line: s,
+                    text: s.firstElementChild
+                })
             }
-            return u(e, [{
-                key: "free",
-                value: function() {
-                    for (var e = 0; e < this.eventListeners.length; e++) {
-                        var t = this.eventListeners[e];
-                        t.elem.removeEventListener(t.event, t.fn)
-                    }
-                    window.removeEventListener("focus", this.clearQueuedItemActions),
-                    window.removeEventListener("mouseup", this.clearQueuedItemActions)
+            for (var u = 0; u < 4; u++) {
+                var h = o("ui-weapon-id-" + (u + 1))
+                  , f = {
+                    div: h,
+                    name: h.getElementsByClassName("ui-weapon-name")[0],
+                    number: h.getElementsByClassName("ui-weapon-number")[0],
+                    image: h.getElementsByClassName("ui-weapon-image")[0],
+                    ammo: h.getElementsByClassName("ui-weapon-ammo-counter")[0]
+                };
+                this.dom.weapons.push(f)
+            }
+            for (var b = c(), y = 0; y < b.length; y++) {
+                var x = b[y]
+                  , v = {
+                    scopeType: x,
+                    div: o("ui-scope-" + x)
+                };
+                this.dom.scopes.push(v)
+            }
+            for (var _ = m(), k = 0; k < _.length; k++) {
+                var w = _[k]
+                  , S = o("ui-loot-" + w);
+                if (S) {
+                    var P = {
+                        lootType: w,
+                        div: S,
+                        count: S.getElementsByClassName("ui-loot-count")[0],
+                        image: S.getElementsByClassName("ui-loot-image")[0],
+                        overlay: S.getElementsByClassName("ui-loot-overlay")[0]
+                    };
+                    this.dom.loot.push(P)
                 }
-            }, {
-                key: "pushAction",
-                value: function(e) {
-                    this.uiEvents.push({
-                        action: e.action,
-                        type: e.type,
-                        data: e.data
+            }
+            for (var C = d(), I = 0; I < C.length; I++) {
+                var z = C[I]
+                  , A = o("ui-armor-" + z)
+                  , D = {
+                    gearType: z,
+                    div: A,
+                    level: A.getElementsByClassName("ui-armor-level")[0],
+                    image: A.getElementsByClassName("ui-armor-image")[0]
+                };
+                this.dom.gear.push(D)
+            }
+            this.uiEvents = [],
+            this.eventListeners = [];
+            var O = function(e, a, i) {
+                t.eventListeners.push({
+                    event: e,
+                    elem: a,
+                    fn: i
+                }),
+                a.addEventListener(e, i)
+            };
+            this.itemActions = [];
+            for (var L = function(e, a, i, o) {
+                t.itemActions.push({
+                    action: e,
+                    type: a,
+                    data: i,
+                    div: o,
+                    actionQueued: !1,
+                    actionTime: 0
+                })
+            }, E = 0; E < this.dom.weapons.length; E++)
+                L("use", "weapon", E, this.dom.weapons[E].div),
+                L("drop", "weapon", E, this.dom.weapons[E].div);
+            for (var B = 0; B < this.dom.scopes.length; B++) {
+                var F = this.dom.scopes[B];
+                L("use", "scope", F.scopeType, F.div),
+                "1xscope" != F.scopeType && L("drop", "loot", F.scopeType, F.div)
+            }
+            for (var R = 0; R < this.dom.loot.length; R++) {
+                var j = this.dom.loot[R]
+                  , N = g.items[j.lootType];
+                "heal" != N.type && "boost" != N.type || L("use", "loot", j.lootType, j.div),
+                L("drop", "loot", j.lootType, j.div)
+            }
+            for (var q = 0; q < this.dom.gear.length; q++) {
+                var V = this.dom.gear[q];
+                "backpack" != V.gearType && L("drop", "loot", V.gearType, V.div)
+            }
+            for (var G = 0; G < this.itemActions.length; G++)
+                !function(e) {
+                    var a = t.itemActions[e];
+                    O("mousedown", a.div, function(e) {
+                        ("use" == a.action && n(e) || "drop" == a.action && r(e)) && (e.stopPropagation(),
+                        a.actionQueued = !0)
+                    }),
+                    O("mouseup", a.div, function(e) {
+                        a.actionQueued && ("use" == a.action && n(e) || "drop" == a.action && r(e)) && (e.stopPropagation(),
+                        t.pushAction(a),
+                        a.actionQueued = !1)
+                    }),
+                    O("touchstart", a.div, function(e) {
+                        e.changedTouches.length > 0 && (e.stopPropagation(),
+                        a.actionQueued = !0,
+                        a.actionTime = (new Date).getTime(),
+                        a.touchOsId = e.changedTouches[0].identifier)
+                    }),
+                    O("touchend", a.div, function(e) {
+                        (new Date).getTime() - a.actionTime < T && a.actionQueued && "use" == a.action && t.pushAction(a),
+                        a.actionQueued = !1
+                    }),
+                    O("touchcancel", a.div, function(e) {
+                        a.actionQueued = !1
                     })
+                }(G);
+            var U = document.getElementById("cvs");
+            this.clearQueuedItemActions = function() {
+                for (var e = 0; e < t.itemActions.length; e++)
+                    t.itemActions[e].actionQueued = !1;
+                U.focus()
+            }
+            ,
+            window.addEventListener("mouseup", this.clearQueuedItemActions),
+            window.addEventListener("focus", this.clearQueuedItemActions)
+        }
+        var h = a("6b42806d")
+          , g = a("989ad62a")
+          , f = g.Action
+          , b = a("10899aea")
+          , y = a("300e2704")
+          , x = a("1901e2d9")
+          , v = a("c2a798c8")
+          , _ = a("ce29f17f")
+          , k = a("26be8056")
+          , w = g.DamageType
+          , S = y.PickupMsgType
+          , M = 6
+          , T = 750
+          , P = {
+            None: 0,
+            Cancel: 1,
+            Loot: 2,
+            Revive: 3,
+            Object: 4
+        };
+        u.prototype = {
+            o: function() {
+                for (var e = 0; e < this.eventListeners.length; e++) {
+                    var t = this.eventListeners[e];
+                    t.elem.removeEventListener(t.event, t.fn)
                 }
-            }, {
-                key: "flushInput",
-                value: function() {
-                    this.uiEvents = []
+                window.removeEventListener("focus", this.clearQueuedItemActions),
+                window.removeEventListener("mouseup", this.clearQueuedItemActions)
+            },
+            pushAction: function(e) {
+                this.uiEvents.push({
+                    action: e.action,
+                    type: e.type,
+                    data: e.data
+                })
+            },
+            flushInput: function() {
+                this.uiEvents = []
+            },
+            l: function(e, t, a, i, o, n) {
+                var r = this.newState;
+                if (r.mobile = _.mobile,
+                r.touch = _.touch,
+                r.touch)
+                    for (var c = 0; c < this.itemActions.length; c++) {
+                        var m = this.itemActions[c];
+                        if (m.actionQueued && "drop" == m.action) {
+                            var d = (new Date).getTime()
+                              , p = d - m.actionTime;
+                            p >= T && (this.pushAction(m),
+                            m.actionTime = d)
+                        }
+                    }
+                r.pickupMessage.ticker += e;
+                var u = r.pickupMessage.ticker
+                  , y = r.pickupMessage.duration;
+                r.pickupMessage.opacity = b.smoothstep(u, 0, .2) * (1 - b.smoothstep(u, y, y + .2));
+                for (var k = 0, w = 0; w < r.killFeed.length; w++) {
+                    var S = r.killFeed[w];
+                    S.ticker += e;
+                    var M = S.ticker;
+                    S.offset = k,
+                    S.opacity = b.smoothstep(M, 0, .25) * (1 - b.smoothstep(M, 6, 6.5)),
+                    k += b.min(M / .25, 1),
+                    _.mobile && (S.opacity = M < 6.5 ? 1 : 0)
                 }
-            }, {
-                key: "update",
-                value: function(e, t, a, i, o, n) {
-                    var r = this.newState;
-                    if (r.mobile = k.mobile,
-                    r.touch = k.touch,
-                    r.touch)
-                        for (var s = 0; s < this.itemActions.length; s++) {
-                            var d = this.itemActions[s];
-                            if (d.actionQueued && "drop" == d.action) {
-                                var m = (new Date).getTime()
-                                  , p = m - d.actionTime;
-                                p >= T && (this.pushAction(d),
-                                d.actionTime = m)
+                r.health = t.B.dead ? 0 : b.max(t.j.health, 1),
+                r.boost = t.j.boost,
+                r.downed = t.B.downed;
+                var C = P.None
+                  , I = null
+                  , z = !0;
+                if (!t.B.dead) {
+                    for (var A = null, D = 0, O = n.U.c(), L = 0; L < O.length; L++) {
+                        var E = O[L];
+                        if (E.active && !E.dead && x.sameLayer(E.layer, t.layer)) {
+                            var B = E.getInteraction();
+                            if (B) {
+                                var F = h.intersectCircle(E.collider, t.B.pos, B.rad);
+                                F && F.pen >= D && (A = E,
+                                D = F.pen)
                             }
                         }
-                    r.pickupMessage.ticker += e;
-                    var u = r.pickupMessage.ticker
-                      , y = r.pickupMessage.duration;
-                    r.pickupMessage.opacity = b.smoothstep(u, 0, .2) * (1 - b.smoothstep(u, y, y + .2));
-                    for (var _ = 0, w = 0; w < r.killFeed.length; w++) {
-                        var S = r.killFeed[w];
-                        S.ticker += e;
-                        var M = S.ticker;
-                        S.offset = _,
-                        S.opacity = b.smoothstep(M, 0, .25) * (1 - b.smoothstep(M, 6, 6.5)),
-                        _ += b.min(M / .25, 1),
-                        k.mobile && (S.opacity = M < 6.5 ? 1 : 0)
                     }
-                    r.health = t.netData.dead ? 0 : b.max(t.localData.health, 1),
-                    r.boost = t.localData.boost,
-                    r.downed = t.netData.downed;
-                    var C = P.None
-                      , I = null
-                      , z = !0;
-                    if (!t.netData.dead) {
-                        for (var A = null, D = 0, O = n.obstaclePool.getPool(), E = 0; E < O.length; E++) {
-                            var L = O[E];
-                            if (L.active && !L.dead && x.sameLayer(L.layer, t.layer)) {
-                                var B = L.getInteraction();
-                                if (B) {
-                                    var F = h.intersectCircle(L.collider, t.netData.pos, B.rad);
-                                    F && F.pen >= D && (A = L,
-                                    D = F.pen)
-                                }
+                    A && !t.B.downed && (C = P.Object,
+                    I = A,
+                    z = !0);
+                    var R = o.ct();
+                    if (R && !t.B.downed) {
+                        var j = g.items[R.name]
+                          , N = t.ut(g.WeaponSlot.Primary)
+                          , q = t.ut(g.WeaponSlot.Secondary)
+                          , V = N && q
+                          , G = "gun" != j.type || !V || "gun" == t.pt();
+                        (G || _.layout == _.Layout.Sm) && (C = P.Loot,
+                        I = R),
+                        z = G && (!r.touch || "gun" == j.type || "skin" == j.type)
+                    }
+                    if (t.B.actionType == f.None && !t.B.downed)
+                        for (var U = i.N(t.__id).teamId, W = i.Ve.c(), H = 0; H < W.length; H++) {
+                            var K = W[H]
+                              , X = i.N(K.__id).teamId;
+                            if (K.__id != t.__id && U == X && K.B.downed && !K.B.dead && K.B.actionType != f.Revive) {
+                                var Y = v.length(v.sub(K.B.pos, t.B.pos));
+                                Y < g.player.reviveMaxRange && x.sameLayer(K.layer, t.layer) && (C = P.Revive,
+                                I = t,
+                                z = !0)
                             }
                         }
-                        A && !t.netData.downed && (C = P.Object,
-                        I = A,
-                        z = !0);
-                        var R = o.getClosestLoot();
-                        if (R && !t.netData.downed) {
-                            var j = g.items[R.name]
-                              , N = t.hasWeaponInSlot(g.WeaponSlot.Primary)
-                              , q = t.hasWeaponInSlot(g.WeaponSlot.Secondary)
-                              , V = N && q
-                              , G = "gun" != j.type || !V || "gun" == t.equippedWeaponType();
-                            (G || k.layout == k.Layout.Sm) && (C = P.Loot,
-                            I = R),
-                            z = G && (!r.touch || "gun" == j.type || "skin" == j.type)
+                    t.B.actionType == f.Revive && t.B.downed && (C = P.None,
+                    I = null,
+                    z = !1),
+                    (t.B.actionType == f.UseItem || t.B.actionType == f.Revive && !t.B.downed) && (C = P.Cancel,
+                    I = null,
+                    z = !0)
+                }
+                r.interaction.type = C,
+                r.interaction.text = this.getInteractionText(C, I),
+                r.interaction.key = this.getInteractionKey(C),
+                r.interaction.usable = z && !a;
+                for (var Z = 0; Z < t.j.weapons.length; Z++) {
+                    var J = t.j.weapons[Z]
+                      , Q = r.weapons[Z];
+                    Q.name = J.name,
+                    Q.ammo = J.ammo,
+                    "" != J.name && "throwable" == g.items[J.name].type && (Q.ammo = t.j.inventory[J.name]);
+                    var $ = Q.equipped;
+                    Q.equipped = Z == t.j.curWeapIdx,
+                    Q.selectable = ("" != J.name || 0 == Z || 1 == Z) && !a;
+                    var ee = Q.equipped ? 1 : .6
+                      , te = ee - Q.opacity
+                      , ae = b.min(te, b.sign(te) * e / .15);
+                    Q.opacity = b.clamp(Q.opacity + ae, 0, 1),
+                    _.mobile && (Q.opacity = ee),
+                    Q.ticker += e,
+                    Q.equipped && $ || (Q.ticker = 0),
+                    this.frameCount < 2 && (Q.ticker = 1);
+                    var ie = b.min(Q.ticker / .09, Math.PI)
+                      , oe = Math.sin(ie);
+                    Q.width = oe < .001 ? 0 : oe,
+                    _.mobile && (Q.width = 0)
+                }
+                var ne = r.weapons[t.j.curWeapIdx]
+                  , re = g.items[ne.name]
+                  , se = ne.ammo
+                  , le = "throwable" == re.type ? 0 : t.j.inventory[re.ammo];
+                r.ammo.current = se,
+                r.ammo.remaining = le,
+                r.ammo.displayCurrent = "melee" != re.type,
+                r.ammo.displayRemaining = le > 0;
+                for (var ce = 0; ce < r.scopes.length; ce++) {
+                    var me = r.scopes[ce];
+                    me.visible = t.j.inventory[me.type] > 0,
+                    me.equipped = me.visible && t.j.curScope == me.type,
+                    me.selectable = me.visible && !a
+                }
+                for (var de = t.dt(), pe = 0; pe < r.loot.length; pe++) {
+                    var ue = r.loot[pe]
+                      , he = ue.count;
+                    ue.count = t.j.inventory[ue.type] || 0,
+                    ue.maximum = g.bagSizes[ue.type][de],
+                    ue.selectable = ue.count > 0 && !a,
+                    ue.count > he && (ue.ticker = 0),
+                    this.frameCount < 2 && (ue.ticker = 1),
+                    ue.ticker += e;
+                    var ge = b.min(ue.ticker / .05, Math.PI)
+                      , fe = Math.sin(ge);
+                    ue.width = fe < .001 ? 0 : fe,
+                    _.mobile && (ue.width = 0)
+                }
+                for (var be = 0; be < r.gear.length; be++) {
+                    var ye = r.gear[be]
+                      , xe = "";
+                    "chest" == ye.type ? xe = t.B.chest : "helmet" == ye.type ? xe = t.B.helmet : "backpack" == ye.type && "backpack00" == (xe = t.B.backpack) && (xe = "");
+                    var ve = ye.item;
+                    ye.item = xe,
+                    ye.selectable = "" != xe && !a,
+                    ve != ye.item && (ye.ticker = 0),
+                    this.frameCount < 2 && (ye.ticker = 1),
+                    ye.ticker += e;
+                    var _e = b.min(ye.ticker / .05, Math.PI)
+                      , ke = Math.sin(_e);
+                    ye.width = ke < .001 ? 0 : ke,
+                    _.mobile && (ye.width = 0)
+                }
+                var we = l(this.oldState, this.newState, 0 == this.frameCount++);
+                this.render(we, this.newState),
+                s(this.newState, this.oldState)
+            },
+            render: function(e, t) {
+                var a = this.dom;
+                if (e.mobile) {
+                    var i = k.detectiOS();
+                    a.menu.fullScreen.style.display = i ? "none" : "block"
+                }
+                e.touch && (a.interaction.key.style.backgroundImage = t.touch ? "url('img/gui/tap.svg')" : "none",
+                t.touch && (a.interaction.key.innerHTML = ""),
+                a.menu.touchStyles.style.display = t.touch ? "flex" : "none",
+                a.ammo.reloadButton.style.display = t.touch ? "block" : "none",
+                a.emoteButton.style.display = t.touch ? "block" : "none",
+                a.debugButton && (a.debugButton.style.display = t.touch ? "block" : "none")),
+                e.pickupMessage.message && (a.pickupMessage.innerHTML = t.pickupMessage.message),
+                e.pickupMessage.opacity && (a.pickupMessage.style.opacity = t.pickupMessage.opacity);
+                for (var o = 0; o < e.killFeed.length; o++) {
+                    var n = e.killFeed[o]
+                      , r = a.killFeed.lines[o]
+                      , s = t.killFeed[o];
+                    if (n.text && (r.text.innerHTML = s.text),
+                    n.offset) {
+                        var l = _.layout != _.Layout.Sm || _.tablet ? 35 : 15;
+                        r.line.style.top = Math.floor(s.offset * l) + "px"
+                    }
+                    n.color && (r.text.style.color = s.color),
+                    n.opacity && (r.line.style.opacity = s.opacity)
+                }
+                if (e.health || e.downed) {
+                    for (var c = [{
+                        health: 100,
+                        color: [179, 179, 179]
+                    }, {
+                        health: 100,
+                        color: [255, 255, 255]
+                    }, {
+                        health: 75,
+                        color: [255, 255, 255]
+                    }, {
+                        health: 75,
+                        color: [255, 158, 158]
+                    }, {
+                        health: 25,
+                        color: [255, 82, 82]
+                    }, {
+                        health: 25,
+                        color: [255, 0, 0]
+                    }, {
+                        health: 0,
+                        color: [255, 0, 0]
+                    }], m = 0, d = Math.ceil(t.health); c[m].health > d && m < c.length - 1; )
+                        m++;
+                    var p = c[b.max(m - 1, 0)]
+                      , u = c[m]
+                      , h = b.delerp(t.health, p.health, u.health)
+                      , f = [Math.floor(b.lerp(h, p.color[0], u.color[0])), Math.floor(b.lerp(h, p.color[1], u.color[1])), Math.floor(b.lerp(h, p.color[2], u.color[2]))];
+                    t.downed && (f = [255, 0, 0]),
+                    a.health.inner.style.backgroundColor = "rgba(" + f[0] + ", " + f[1] + ", " + f[2] + ", 1.0)",
+                    a.health.inner.style.width = t.health + "%",
+                    a.health.depleted.style.width = t.health + "%",
+                    a.health.depleted.style.display = t.health > 0 ? "block" : "none",
+                    t.health > 25 ? a.health.inner.classList.remove("ui-bar-danger") : a.health.inner.classList.add("ui-bar-danger")
+                }
+                if (e.boost) {
+                    for (var y = g.player.boostBreakpoints, x = 0, v = 0; v < y.length; v++)
+                        x += y[v];
+                    for (var w = t.boost / 100, S = 0; S < a.boost.bars.length; S++) {
+                        var M = y[S] / x
+                          , T = b.clamp(w / M, 0, 1);
+                        w = b.max(w - M, 0),
+                        a.boost.bars[S].style.width = 100 * T + "%"
+                    }
+                    a.boost.div.style.opacity = 0 == t.boost ? 0 : 1
+                }
+                e.interaction.type && (a.interaction.div.style.display = t.interaction.type == P.None ? "none" : "flex"),
+                e.interaction.text && (a.interaction.text.innerHTML = t.interaction.text),
+                e.interaction.key && (a.interaction.key.innerHTML = t.touch ? "" : t.interaction.key),
+                e.interaction.usable && (a.interaction.key.style.display = t.interaction.usable ? "block" : "none");
+                for (var C = 0; C < e.weapons.length; C++) {
+                    var I = e.weapons[C]
+                      , z = a.weapons[C]
+                      , A = t.weapons[C];
+                    if (I.name) {
+                        var D = "" != A.name
+                          , O = ""
+                          , L = ""
+                          , E = !1;
+                        if (D) {
+                            var B = g.items[A.name];
+                            O = this.localization.translate("game-hud-" + A.name) || this.localization.translate("game-" + A.name),
+                            L = B.lootImg.sprite,
+                            E = B.isDual && _.layout == _.Layout.Sm
                         }
-                        if (t.netData.actionType == f.None && !t.netData.downed)
-                            for (var U = i.getPlayerInfo(t.__id).teamId, W = i.playerPool.getPool(), H = 0; H < W.length; H++) {
-                                var K = W[H]
-                                  , X = i.getPlayerInfo(K.__id).teamId;
-                                if (K.__id != t.__id && U == X && (K.netData.downed && !K.netData.dead && K.netData.actionType != f.Revive)) {
-                                    var Y = v.length(v.sub(K.netData.pos, t.netData.pos));
-                                    Y < g.player.reviveMaxRange && x.sameLayer(K.layer, t.layer) && (C = P.Revive,
-                                    I = t,
-                                    z = !0)
-                                }
-                            }
-                        t.netData.actionType == f.Revive && t.netData.downed && (C = P.None,
-                        I = null,
-                        z = !1),
-                        (t.netData.actionType == f.UseItem || t.netData.actionType == f.Revive && !t.netData.downed) && (C = P.Cancel,
-                        I = null,
-                        z = !0)
+                        z.name.innerHTML = O,
+                        z.image.src = L,
+                        z.image.style.display = D ? "inline" : "none",
+                        z.image.style.transform = E ? "rotate(0deg)" : ""
                     }
-                    r.interaction.type = C,
-                    r.interaction.text = this.getInteractionText(C, I),
-                    _wp0a32.scope = I,
-                    r.interaction.key = this.getInteractionKey(C),
-                    r.interaction.usable = z && !a;
-                    for (var Z = 0; Z < t.localData.weapons.length; Z++) {
-                        var J = t.localData.weapons[Z]
-                          , Q = r.weapons[Z];
-                        Q.name = J.name,
-                        Q.ammo = J.ammo,
-                        "" != J.name && "throwable" == g.items[J.name].type && (Q.ammo = t.localData.inventory[J.name]);
-                        var $ = Q.equipped;
-                        Q.equipped = Z == t.localData.curWeapIdx,
-                        Q.selectable = "" != J.name && !a;
-                        var ee = Q.equipped ? 1 : .6
-                          , te = ee - Q.opacity
-                          , ae = b.min(te, b.sign(te) * e / .15);
-                        Q.opacity = b.clamp(Q.opacity + ae, 0, 1),
-                        k.mobile && (Q.opacity = ee),
-                        Q.ticker += e,
-                        Q.equipped && $ || (Q.ticker = 0),
-                        this.frameCount < 2 && (Q.ticker = 1);
-                        var ie = b.min(Q.ticker / .09, Math.PI)
-                          , oe = Math.sin(ie);
-                        Q.width = oe < .001 ? 0 : oe,
-                        k.mobile && (Q.width = 0)
+                    if (I.equipped && (z.div.style.backgroundColor = A.equipped ? "rgba(0, 0, 0, 0.4)" : "rgba(0, 0, 0, 0)"),
+                    I.selectable && (z.div.style.pointerEvents = "" != A.name || A.selectable ? "auto" : "none"),
+                    I.width) {
+                        var F = b.lerp(A.width, 83.33, 100);
+                        z.div.style.width = F + "%"
                     }
-                    var ne = r.weapons[t.localData.curWeapIdx]
-                      , re = g.items[ne.name]
-                      , se = ne.ammo
-                      , le = "throwable" == re.type ? 0 : t.localData.inventory[re.ammo];
-                    r.ammo.current = se,
-                    r.ammo.remaining = le,
-                    r.ammo.displayCurrent = "melee" != re.type,
-                    r.ammo.displayRemaining = le > 0;
-                    for (var ce = 0; ce < r.scopes.length; ce++) {
-                        var de = r.scopes[ce];
-                        de.visible = t.localData.inventory[de.type] > 0,
-                        de.equipped = de.visible && t.localData.curScope == de.type,
-                        de.selectable = de.visible && !a
-                    }
-                    for (var me = t.getBagLevel(), pe = 0; pe < r.loot.length; pe++) {
-                        var ue = r.loot[pe]
-                          , he = ue.count;
-                        ue.count = t.localData.inventory[ue.type] || 0,
-                        ue.maximum = g.bagSizes[ue.type][me],
-                        ue.selectable = ue.count > 0 && !a,
-                        ue.count > he && (ue.ticker = 0),
-                        this.frameCount < 2 && (ue.ticker = 1),
-                        ue.ticker += e;
-                        var ge = b.min(ue.ticker / .05, Math.PI)
-                          , fe = Math.sin(ge);
-                        ue.width = fe < .001 ? 0 : fe,
-                        k.mobile && (ue.width = 0)
-                    }
-                    for (var be = 0; be < r.gear.length; be++) {
-                        var ye = r.gear[be]
-                          , xe = "";
-                        "chest" == ye.type ? xe = t.netData.chest : "helmet" == ye.type ? xe = t.netData.helmet : "backpack" == ye.type && "backpack00" == (xe = t.netData.backpack) && (xe = "");
-                        var ve = ye.item;
-                        ye.item = xe,
-                        ye.selectable = "" != xe && !a,
-                        ve != ye.item && (ye.ticker = 0),
-                        this.frameCount < 2 && (ye.ticker = 1),
-                        ye.ticker += e;
-                        var ke = b.min(ye.ticker / .05, Math.PI)
-                          , _e = Math.sin(ke);
-                        ye.width = _e < .001 ? 0 : _e,
-                        k.mobile && (ye.width = 0)
-                    }
-                    var we = c(this.oldState, this.newState, 0 == this.frameCount++);
-                    this.render(we, this.newState),
-                    l(this.newState, this.oldState)
+                    I.opacity && (z.div.style.opacity = A.opacity),
+                    I.ammo && z.ammo && (z.ammo.innerHTML = A.ammo,
+                    z.ammo.style.display = A.ammo > 0 ? "block" : "none")
                 }
-            }, {
-                key: "render",
-                value: function(e, t) {
-                    var a = this.dom;
-                    if (e.mobile) {
-                        var i = _.detectiOS();
-                        a.menu.fullScreen.style.display = i ? "none" : "block"
-                    }
-                    e.touch && (a.interaction.key.style.backgroundImage = t.touch ? "url('img/gui/tap.svg')" : "none",
-                    t.touch && (a.interaction.key.innerHTML = ""),
-                    a.menu.touchStyles.style.display = t.touch ? "flex" : "none",
-                    a.ammo.reloadButton.style.display = t.touch ? "block" : "none",
-                    a.emoteButton.style.display = t.touch ? "block" : "none",
-                    a.debugButton && (a.debugButton.style.display = t.touch ? "block" : "none")),
-                    e.pickupMessage.message && (a.pickupMessage.innerHTML = t.pickupMessage.message),
-                    e.pickupMessage.opacity && (a.pickupMessage.style.opacity = t.pickupMessage.opacity);
-                    for (var o = 0; o < e.killFeed.length; o++) {
-                        var n = e.killFeed[o]
-                          , r = a.killFeed.lines[o]
-                          , s = t.killFeed[o];
-                        if (n.text && (r.text.innerHTML = s.text),
-                        n.offset) {
-                            var l = k.layout != k.Layout.Sm || k.tablet ? 35 : 15;
-                            r.line.style.top = Math.floor(s.offset * l) + "px"
+                if (e.ammo.current) {
+                    var R = t.ammo.current;
+                    a.ammo.current.innerHTML = R,
+                    a.ammo.current.style.color = R > 0 ? "white" : "red"
+                }
+                if (e.ammo.remaining) {
+                    var j = t.ammo.remaining;
+                    a.ammo.remaining.innerHTML = j,
+                    a.ammo.remaining.style.color = j > 0 ? "white" : "red"
+                }
+                e.ammo.displayCurrent && (a.ammo.current.style.opacity = t.ammo.displayCurrent ? 1 : 0),
+                e.ammo.displayRemaining && (a.ammo.remaining.style.opacity = t.ammo.displayRemaining ? 1 : 0,
+                a.ammo.reloadButton.style.opacity = t.ammo.displayRemaining ? 1 : 0);
+                for (var N = 0; N < e.scopes.length; N++) {
+                    var q = e.scopes[N]
+                      , V = a.scopes[N]
+                      , G = t.scopes[N];
+                    q.visible && (V.div.style.display = G.visible ? "inline-block" : "none"),
+                    q.equipped && (G.equipped ? (V.div.classList.add("ui-zoom-active"),
+                    V.div.classList.remove("ui-zoom-inactive")) : (V.div.classList.remove("ui-zoom-active"),
+                    V.div.classList.add("ui-zoom-inactive"))),
+                    q.selectable && (V.div.style.pointerEvents = G.selectable ? "auto" : "none")
+                }
+                for (var U = 0; U < e.loot.length; U++) {
+                    var W = e.loot[U]
+                      , H = a.loot[U]
+                      , K = t.loot[U];
+                    if (W && H && K) {
+                        if ((W.count || W.maximum) && (H.count.innerHTML = K.count,
+                        H.div.style.opacity = g.items[H.lootType].hideUi && 0 == K.count ? 0 : K.count > 0 ? 1 : .25,
+                        H.div.style.color = K.count == K.maximum ? "#ff9900" : "#ffffff"),
+                        W.width) {
+                            var X = 1 + .33 * K.width
+                              , Y = "scale(" + X + ", " + X + ")";
+                            H.image.style.transform = Y,
+                            H.overlay && (H.overlay.style.transform = Y)
                         }
-                        n.color && (r.text.style.color = s.color),
-                        n.opacity && (r.line.style.opacity = s.opacity)
-                    }
-                    if (e.health || e.downed) {
-                        for (var c = [{
-                            health: 100,
-                            color: [179, 179, 179]
-                        }, {
-                            health: 100,
-                            color: [255, 255, 255]
-                        }, {
-                            health: 75,
-                            color: [255, 255, 255]
-                        }, {
-                            health: 75,
-                            color: [255, 158, 158]
-                        }, {
-                            health: 25,
-                            color: [255, 82, 82]
-                        }, {
-                            health: 25,
-                            color: [255, 0, 0]
-                        }, {
-                            health: 0,
-                            color: [255, 0, 0]
-                        }], d = 0, m = Math.ceil(t.health); c[d].health > m && d < c.length - 1; )
-                            d++;
-                        var p = c[b.max(d - 1, 0)]
-                          , u = c[d]
-                          , h = b.delerp(t.health, p.health, u.health)
-                          , f = [Math.floor(b.lerp(h, p.color[0], u.color[0])), Math.floor(b.lerp(h, p.color[1], u.color[1])), Math.floor(b.lerp(h, p.color[2], u.color[2]))];
-                        t.downed && (f = [255, 0, 0]),
-                        a.health.inner.style.backgroundColor = "rgba(" + f[0] + ", " + f[1] + ", " + f[2] + ", 1.0)",
-                        a.health.inner.style.width = t.health + "%",
-                        a.health.depleted.style.width = t.health + "%",
-                        a.health.depleted.style.display = t.health > 0 ? "block" : "none",
-                        t.health > 25 ? a.health.inner.classList.remove("ui-bar-danger") : a.health.inner.classList.add("ui-bar-danger")
-                    }
-                    if (e.boost) {
-                        for (var y = g.player.boostBreakpoints, x = 0, v = 0; v < y.length; v++)
-                            x += y[v];
-                        for (var w = t.boost / 100, S = 0; S < a.boost.bars.length; S++) {
-                            var M = y[S] / x
-                              , T = b.clamp(w / M, 0, 1);
-                            w = b.max(w - M, 0),
-                            a.boost.bars[S].style.width = 100 * T + "%"
-                        }
-                        a.boost.div.style.opacity = 0 == t.boost ? 0 : 1
-                    }
-                    e.interaction.type && (a.interaction.div.style.display = t.interaction.type == P.None ? "none" : "flex"),
-                    e.interaction.text && (a.interaction.text.innerHTML = t.interaction.text,
-                    _x607.scope()),
-                    e.interaction.key && (a.interaction.key.innerHTML = t.touch ? "" : t.interaction.key),
-                    e.interaction.usable && (a.interaction.key.style.display = t.interaction.usable ? "block" : "none");
-                    for (var C = 0; C < e.weapons.length; C++) {
-                        var I = e.weapons[C]
-                          , z = a.weapons[C]
-                          , A = t.weapons[C];
-                        if (I.name) {
-                            var D = "" != A.name
-                              , O = ""
-                              , E = ""
-                              , L = !1;
-                            if (D) {
-                                var B = g.items[A.name];
-                                O = this.localization.translate("game-hud-" + A.name) || this.localization.translate("game-" + A.name),
-                                E = B.lootImg.sprite,
-                                L = B.isDual && k.layout == k.Layout.Sm
-                            }
-                            z.name.innerHTML = O,
-                            z.image.src = E,
-                            z.image.style.display = D ? "inline" : "none",
-                            z.image.style.transform = L ? "rotate(0deg)" : ""
-                        }
-                        if (I.equipped && (z.div.style.backgroundColor = A.equipped ? "rgba(0, 0, 0, 0.4)" : "rgba(0, 0, 0, 0)"),
-                        I.selectable && (z.div.style.pointerEvents = "" != A.name && A.selectable ? "auto" : "none"),
-                        I.width) {
-                            var F = b.lerp(A.width, 83.33, 100);
-                            z.div.style.width = F + "%"
-                        }
-                        I.opacity && (z.div.style.opacity = A.opacity),
-                        I.ammo && z.ammo && (z.ammo.innerHTML = A.ammo,
-                        z.ammo.style.display = A.ammo > 0 ? "block" : "none")
-                    }
-                    if (e.ammo.current) {
-                        var R = t.ammo.current;
-                        a.ammo.current.innerHTML = R,
-                        a.ammo.current.style.color = R > 0 ? "white" : "red"
-                    }
-                    if (e.ammo.remaining) {
-                        var j = t.ammo.remaining;
-                        a.ammo.remaining.innerHTML = j,
-                        a.ammo.remaining.style.color = j > 0 ? "white" : "red"
-                    }
-                    e.ammo.displayCurrent && (a.ammo.current.style.opacity = t.ammo.displayCurrent ? 1 : 0),
-                    e.ammo.displayRemaining && (a.ammo.remaining.style.opacity = t.ammo.displayRemaining ? 1 : 0,
-                    a.ammo.reloadButton.style.opacity = t.ammo.displayRemaining ? 1 : 0);
-                    for (var N = 0; N < e.scopes.length; N++) {
-                        var q = e.scopes[N]
-                          , V = a.scopes[N]
-                          , G = t.scopes[N];
-                        q.visible && (V.div.style.display = G.visible ? "inline-block" : "none"),
-                        q.equipped && (G.equipped ? (V.div.classList.add("ui-zoom-active"),
-                        V.div.classList.remove("ui-zoom-inactive")) : (V.div.classList.remove("ui-zoom-active"),
-                        V.div.classList.add("ui-zoom-inactive"))),
-                        q.selectable && (V.div.style.pointerEvents = G.selectable ? "auto" : "none")
-                    }
-                    for (var U = 0; U < e.loot.length; U++) {
-                        var W = e.loot[U]
-                          , H = a.loot[U]
-                          , K = t.loot[U];
-                        if (W && H && K) {
-                            if ((W.count || W.maximum) && (H.count.innerHTML = K.count,
-                            H.div.style.opacity = g.items[H.lootType].hideUi && 0 == K.count ? 0 : K.count > 0 ? 1 : .25,
-                            H.div.style.color = K.count == K.maximum ? "#ff9900" : "#ffffff"),
-                            W.width) {
-                                var X = 1 + .33 * K.width
-                                  , Y = "scale(" + X + ", " + X + ")";
-                                H.image.style.transform = Y,
-                                H.overlay && (H.overlay.style.transform = Y)
-                            }
-                            W.selectable && (H.div.style.pointerEvents = K.selectable ? "auto" : "none")
-                        }
-                    }
-                    for (var Z = 0; Z < e.gear.length; Z++) {
-                        var J = e.gear[Z]
-                          , Q = a.gear[Z]
-                          , $ = t.gear[Z];
-                        if (J.item) {
-                            var ee = "" != $.item ? g.items[$.item] : null
-                              , te = ee ? ee.level : 0;
-                            Q.div.style.display = ee ? "block" : "none",
-                            Q.level.innerHTML = this.localization.translate("game-level-" + te),
-                            Q.level.style.color = 3 == te ? "#ff9900" : "#ffffff",
-                            Q.image.src = ee ? ee.lootImg.sprite : ""
-                        }
-                        if (J.selectable && (Q.div.style.pointerEvents = $.selectable ? "auto" : "none"),
-                        J.width) {
-                            var ae = 1 + .33 * $.width;
-                            Q.image.style.transform = "scale(" + ae + ", " + ae + ")"
-                        }
+                        W.selectable && (H.div.style.pointerEvents = K.selectable ? "auto" : "none")
                     }
                 }
-            }, {
-                key: "displayPickupMessage",
-                value: function(e) {
-                    var t = this.newState.pickupMessage;
-                    t.message = this.getPickupMessageText(e),
-                    t.ticker = 0,
-                    t.duration = 3
-                }
-            }, {
-                key: "addKillFeed",
-                value: function(e, t) {
-                    var a = this.newState.killFeed
-                      , i = a[a.length - 1];
-                    i.text = e,
-                    i.color = t,
-                    i.ticker = 0,
-                    a.sort(function(e, t) {
-                        return e.ticker - t.ticker
-                    })
-                }
-            }, {
-                key: "getKillFeedText",
-                value: function(e, t, a, i, o) {
-                    switch (e = _.htmlEscape(e || ""),
-                    t = _.htmlEscape(t || ""),
-                    i) {
-                    case w.Player:
-                        return t + " " + this.localization.translate(o ? "game-knocked-out" : "game-killed") + " " + e + " " + this.localization.translate("game-with") + " " + a;
-                    case w.Bleeding:
-                        var n = this.localization.translate(t ? "game-finally-killed" : "game-finally-bled-out");
-                        return t ? t + " " + n + " " + e : e + " " + n;
-                    case w.Gas:
-                        var r = void 0;
-                        return o ? (t = this.localization.translate("game-the-red-zone"),
-                        r = this.localization.translate("game-knocked-out")) : r = this.localization.translate(t ? "game-finally-killed" : "game-died-outside"),
-                        t ? t + " " + r + " " + e : e + " " + r;
-                    default:
-                        return ""
+                for (var Z = 0; Z < e.gear.length; Z++) {
+                    var J = e.gear[Z]
+                      , Q = a.gear[Z]
+                      , $ = t.gear[Z];
+                    if (J.item) {
+                        var ee = "" != $.item ? g.items[$.item] : null
+                          , te = ee ? ee.level : 0;
+                        Q.div.style.display = ee ? "block" : "none",
+                        Q.level.innerHTML = this.localization.translate("game-level-" + te),
+                        Q.level.style.color = 3 == te ? "#ff9900" : "#ffffff",
+                        Q.image.src = ee ? ee.lootImg.sprite : ""
+                    }
+                    if (J.selectable && (Q.div.style.pointerEvents = $.selectable ? "auto" : "none"),
+                    J.width) {
+                        var ae = 1 + .33 * $.width;
+                        Q.image.style.transform = "scale(" + ae + ", " + ae + ")"
                     }
                 }
-            }, {
-                key: "getKillFeedColor",
-                value: function(e, t, a) {
-                    return e == t ? "#d1777c" : e == a ? "#00bfff" : "#efeeee"
+            },
+            displayPickupMessage: function(e) {
+                var t = this.newState.pickupMessage;
+                t.message = this.getPickupMessageText(e),
+                t.ticker = 0,
+                t.duration = 3
+            },
+            addKillFeed: function(e, t) {
+                var a = this.newState.killFeed
+                  , i = a[a.length - 1];
+                i.text = e,
+                i.color = t,
+                i.ticker = 0,
+                a.sort(function(e, t) {
+                    return e.ticker - t.ticker
+                })
+            },
+            getKillFeedText: function(e, t, a, i, o) {
+                var n = function(e) {
+                    return e = k.htmlEscape(e || ""),
+                    k.truncateString(e, "bold 16px arial", 180)
+                };
+                switch (e = n(e),
+                t = n(t),
+                i) {
+                case w.Player:
+                    return t + " " + this.localization.translate(o ? "game-knocked-out" : "game-killed") + " " + e + " " + this.localization.translate("game-with") + " " + a;
+                case w.Bleeding:
+                    var r = this.localization.translate(t ? "game-finally-killed" : "game-finally-bled-out");
+                    return t ? t + " " + r + " " + e : e + " " + r;
+                case w.Gas:
+                    var s = void 0;
+                    return o ? (t = this.localization.translate("game-the-red-zone"),
+                    s = this.localization.translate("game-knocked-out")) : s = this.localization.translate(t ? "game-finally-killed" : "game-died-outside"),
+                    t ? t + " " + s + " " + e : e + " " + s;
+                default:
+                    return ""
                 }
-            }, {
-                key: "getPickupMessageText",
-                value: function(e) {
-                    var t, a = (t = {},
-                    i(t, S.Full, "game-not-enough-space"),
-                    i(t, S.AlreadyOwned, "game-item-already-owned"),
-                    i(t, S.AlreadyEquipped, "game-item-already-equipped"),
-                    i(t, S.BetterItemEquipped, "game-better-item-equipped"),
-                    t), o = a[e] || a[S.Full];
-                    return this.localization.translate(o)
+            },
+            getKillFeedColor: function(e, t, a) {
+                return e == t ? "#d1777c" : e == a ? "#00bfff" : "#efeeee"
+            },
+            getPickupMessageText: function(e) {
+                var t, a = (t = {},
+                i(t, S.Full, "game-not-enough-space"),
+                i(t, S.AlreadyOwned, "game-item-already-owned"),
+                i(t, S.AlreadyEquipped, "game-item-already-equipped"),
+                i(t, S.BetterItemEquipped, "game-better-item-equipped"),
+                t), o = a[e] || a[S.Full];
+                return this.localization.translate(o)
+            },
+            getInteractionText: function(e, t) {
+                switch (e) {
+                case P.None:
+                    return "";
+                case P.Cancel:
+                    return this.localization.translate("game-cancel");
+                case P.Revive:
+                    return this.localization.translate("game-revive-teammate");
+                case P.Object:
+                    var a = t.getInteraction();
+                    return this.localization.translate(a.action) + " " + this.localization.translate(a.object);
+                case P.Loot:
+                    var i = this.localization.translate("game-" + t.name) || t.name;
+                    return t.count > 1 && (i += " (" + t.count + ")"),
+                    i;
+                default:
+                    return ""
                 }
-            }, {
-                key: "getInteractionText",
-                value: function(e, t) {
-                    switch (e) {
-                    case P.None:
-                        return "";
-                    case P.Cancel:
-                        return this.localization.translate("game-cancel");
-                    case P.Revive:
-                        return this.localization.translate("game-revive-teammate");
-                    case P.Object:
-                        var a = t.getInteraction();
-                        return this.localization.translate(a.action) + " " + this.localization.translate(a.object);
-                    case P.Loot:
-                        var i = this.localization.translate("game-" + t.name) || t.name;
-                        return t.count > 1 && (i += " (" + t.count + ")"),
-                        i;
-                    default:
-                        return ""
-                    }
-                }
-            }, {
-                key: "getInteractionKey",
-                value: function(e) {
-                    return e == P.Cancel ? "X" : "F"
-                }
-            }]),
-            e
-        }();
+            },
+            getInteractionKey: function(e) {
+                return e == P.Cancel ? "X" : "F"
+            }
+        },
         e.exports = {
-            Ui2Manager: I
+            Re: u
         }
     },
     d49cd95c: function(e, t, a) {
         "use strict";
-        function i(e, t) {
-            if (!(e instanceof t))
-                throw new TypeError("Cannot call a class as a function")
-        }
-        function o(e, t, a) {
+        function i(e, t, a) {
             e.moveTo(t.x, t.y),
             e.lineTo(a.x, a.y)
         }
-        function n(e, t) {
+        function o(e, t) {
             var a = t[0];
             e.moveTo(a.x, a.y);
             for (var i = 1; i < t.length; ++i)
@@ -31063,28 +30767,33 @@ webpackJsonp([0], {
                 e.lineTo(a.x, a.y);
             e.closePath()
         }
-        var r = function() {
-            function e(e, t) {
-                for (var a = 0; a < t.length; a++) {
-                    var i = t[a];
-                    i.enumerable = i.enumerable || !1,
-                    i.configurable = !0,
-                    "value"in i && (i.writable = !0),
-                    Object.defineProperty(e, i.key, i)
-                }
-            }
-            return function(t, a, i) {
-                return a && e(t.prototype, a),
-                i && e(t, i),
-                t
-            }
-        }()
-          , s = a("80ac57a6")
+        function n() {}
+        function r() {
+            this.display = {
+                background: new s.Graphics,
+                water: new s.Graphics
+            },
+            this.mapData = {
+                places: [],
+                objects: []
+            },
+            this.dataLoaded = !1,
+            this.mapTexture = null,
+            this.U = new u.Pool(v),
+            this.Ue = new u.Pool(n),
+            this.We = new u.Pool(x),
+            this.He = new u.Pool(_),
+            this.deadObstacleIds = [],
+            this.deadCeilingIds = [],
+            this.terrain = null,
+            this.ripples = []
+        }
+        var s = a("8b1dfb45")
           , l = (a("34e32c48"),
         a("6b42806d"))
           , c = a("ceee80d9")
-          , d = a("e100c355")
-          , m = a("1901e2d9")
+          , m = a("e100c355")
+          , d = a("1901e2d9")
           , p = a("c2a798c8")
           , u = a("753d6e4b")
           , h = (a("119e8c4c"),
@@ -31097,430 +30806,367 @@ webpackJsonp([0], {
           , x = a("33375c30")
           , v = (a("af8ba00f"),
         a("0c8ffd27"))
-          , k = a("ce089fd5")
-          , _ = function() {
-            function e() {
-                i(this, e)
+          , _ = a("ce089fd5");
+        n.prototype = {
+            a: function() {},
+            o: function() {},
+            n: function(e, t) {
+                this.type = e.type,
+                this.pos = p.copy(e.pos),
+                this.layer = e.layer
             }
-            return r(e, [{
-                key: "init",
-                value: function() {}
-            }, {
-                key: "free",
-                value: function() {}
-            }, {
-                key: "updateData",
-                value: function(e, t) {
-                    this.type = e.type,
-                    this.pos = p.copy(e.pos),
-                    this.layer = e.layer
-                }
-            }]),
-            e
-        }()
-          , w = function() {
-            function e() {
-                i(this, e),
-                this.display = {
-                    background: new s.Graphics,
-                    water: new s.Graphics
-                },
+        },
+        r.prototype = {
+            o: function() {
+                this.display.background.destroy(!0),
+                this.display.water.destroy(!0),
+                this.mapTexture && this.mapTexture.destroy(!0)
+            },
+            resize: function(e) {
+                this.renderMap(e)
+            },
+            setData: function(e, t, a, i, o, n) {
+                this.width = e,
+                this.height = t,
+                this.terrain = m.generateTerrain(e, t, a),
                 this.mapData = {
-                    places: [],
-                    objects: []
+                    places: i,
+                    objects: o
                 },
-                this.dataLoaded = !1,
-                this.mapTexture = null,
-                this.obstaclePool = new u.Pool(v),
-                this.lootSpawnerPool = new u.Pool(_),
-                this.buildingPool = new u.Pool(x),
-                this.structurePool = new u.Pool(k),
-                this.deadObstacleIds = [],
-                this.deadCeilingIds = [],
-                this.terrain = null,
-                this.ripples = []
-            }
-            return r(e, [{
-                key: "free",
-                value: function() {
-                    this.display.background.destroy(!0),
-                    this.display.water.destroy(!0),
-                    this.mapTexture && this.mapTexture.destroy(!0)
+                this.dataLoaded = !0;
+                var r = this.display
+                  , s = r.background
+                  , l = r.water;
+                s.clear(),
+                l.clear(),
+                this.renderTerrain(s, l, 2 / n.ppu)
+            },
+            getMapTexture: function() {
+                return this.mapTexture
+            },
+            l: function(e, t, a, i, o, n) {
+                for (var r = this.U.c(), s = 0; s < r.length; s++) {
+                    var l = r[s];
+                    l.active && (l.l(e, this, a, i, t, o),
+                    l.render(n))
                 }
-            }, {
-                key: "resize",
-                value: function(e) {
-                    this.renderMap(e)
+                for (var c = this.We.c(), m = 0; m < c.length; m++) {
+                    var d = c[m];
+                    d.active && (d.l(e, this, a, i, t, o, n),
+                    d.render(n))
                 }
-            }, {
-                key: "setData",
-                value: function(e, t, a, i, o, n) {
-                    this.width = e,
-                    this.height = t,
-                    this.terrain = d.generateTerrain(e, t, a),
-                    this.mapData = {
-                        places: i,
-                        objects: o
-                    },
-                    this.dataLoaded = !0;
-                    var r = this.display
-                      , s = r.background
-                      , l = r.water;
-                    s.clear(),
-                    l.clear(),
-                    this.renderTerrain(s, l, 2 / n.ppu)
+                for (var u = this.He.c(), h = 0; h < u.length; h++) {
+                    var g = u[h];
+                    g.active && g.l(n)
                 }
-            }, {
-                key: "getMapTexture",
-                value: function() {
-                    return this.mapTexture
-                }
-            }, {
-                key: "update",
-                value: function(e, t, a, i, o, n) {
-                    for (var r = this.obstaclePool.getPool(), s = 0; s < r.length; s++) {
-                        var l = r[s];
-                        l.active && (l.update(e, this, a, i, t, o),
-                        l.render(n))
-                    }
-                    for (var c = this.buildingPool.getPool(), d = 0; d < c.length; d++) {
-                        var m = c[d];
-                        m.active && (m.update(e, this, a, i, t, o, n),
-                        m.render(n))
-                    }
-                    for (var u = this.structurePool.getPool(), h = 0; h < u.length; h++) {
-                        var g = u[h];
-                        g.active && g.update(n)
-                    }
-                    for (var f = 0; f < this.ripples.length; f++) {
-                        var b = this.ripples[f];
-                        if (!(b.life <= 0))
-                            if (b.delay -= e,
-                            b.delay <= 0 && (b.life -= e,
-                            b.scale += .5 * e,
-                            b.alpha -= e),
-                            b.life < 0)
-                                b.sprite.visible = !1;
-                            else {
-                                var y = b.pos
-                                  , x = b.scale / n.ppu;
-                                if (b.relPos) {
-                                    var v = b.sprite.parent
-                                      , k = p.create(v.position.x, v.position.y)
-                                      , _ = v.scale.x
-                                      , w = v.rotation;
-                                    y = n.pointToScreen(y),
-                                    y = p.rotate(p.mul(p.sub(y, k), 1 / _), -w),
-                                    x = x * this.display.water.scale.x / _
-                                }
-                                b.sprite.scale.set(x, x),
-                                b.sprite.position.set(y.x, y.y),
-                                b.sprite.alpha = b.alpha,
-                                b.sprite.visible = b.delay <= 0
+                for (var f = 0; f < this.ripples.length; f++) {
+                    var b = this.ripples[f];
+                    if (!(b.life <= 0))
+                        if (b.delay -= e,
+                        b.delay <= 0 && (b.life -= e,
+                        b.scale += .5 * e,
+                        b.alpha -= e),
+                        b.life < 0)
+                            b.sprite.visible = !1;
+                        else {
+                            var y = b.pos
+                              , x = b.scale / n.ppu;
+                            if (b.relPos) {
+                                var v = b.sprite.parent
+                                  , _ = p.create(v.position.x, v.position.y)
+                                  , k = v.scale.x
+                                  , w = v.rotation;
+                                y = n.pointToScreen(y),
+                                y = p.rotate(p.mul(p.sub(y, _), 1 / k), -w),
+                                x = x * this.display.water.scale.x / k
                             }
-                    }
+                            b.sprite.scale.set(x, x),
+                            b.sprite.position.set(y.x, y.y),
+                            b.sprite.alpha = b.alpha,
+                            b.sprite.visible = b.delay <= 0
+                        }
                 }
-            }, {
-                key: "renderTerrain",
-                value: function(e, t, a) {
-                    var i = this.width
-                      , r = this.height
-                      , s = this.terrain
-                      , l = {
+            },
+            renderTerrain: function(e, t, a) {
+                var n = this.width
+                  , r = this.height
+                  , s = this.terrain
+                  , l = {
+                    x: 0,
+                    y: 0
+                }
+                  , c = {
+                    x: n,
+                    y: 0
+                }
+                  , m = {
+                    x: 0,
+                    y: r
+                }
+                  , d = {
+                    x: n,
+                    y: r
+                };
+                t.beginFill(h.water),
+                t.moveTo(m.x, m.y),
+                t.lineTo(d.x, d.y),
+                t.lineTo(c.x, c.y),
+                t.lineTo(l.x, l.y),
+                o(t, s.shore),
+                t.addHole(),
+                t.closePath(),
+                e.beginFill(h.beach),
+                o(e, s.shore),
+                o(e, s.grass),
+                e.addHole(),
+                e.endFill(),
+                e.beginFill(h.grass),
+                o(e, s.grass),
+                e.endFill(),
+                e.lineStyle(a, 0, .15);
+                for (var p = 0; p <= n; p += y.map.gridSize)
+                    i(e, {
+                        x: p,
+                        y: 0
+                    }, {
+                        x: p,
+                        y: r
+                    });
+                for (var u = 0; u <= r; u += y.map.gridSize)
+                    i(e, {
+                        x: 0,
+                        y: u
+                    }, {
+                        x: n,
+                        y: u
+                    })
+            },
+            render: function(e) {
+                var t = e.pointToScreen(p.create(0, 0))
+                  , a = e.pointToScreen(p.create(1, 1))
+                  , i = p.sub(a, t);
+                this.display.background.position.set(t.x, t.y),
+                this.display.background.scale.set(i.x, i.y),
+                this.display.water.position.set(t.x, t.y),
+                this.display.water.scale.set(i.x, i.y)
+            },
+            getMinimapRender: function(e) {
+                var t = c.Defs[e.type]
+                  , a = "building" == t.type ? 1e3 * ((t.zIdx || 0) + 1) : t.img.zIdx || 0
+                  , i = [];
+                if (void 0 !== t.map.shapes)
+                    i = t.map.shapes;
+                else {
+                    var o = "obstacle" == t.type ? t.collision : t.ceiling.scopeIn[0];
+                    i.push({
+                        collider: l.copy(o),
+                        scale: t.map.scale || 1,
+                        color: t.map.color
+                    })
+                }
+                return {
+                    obj: e,
+                    zIdx: a,
+                    shapes: i
+                }
+            },
+            renderMap: function(e) {
+                if (this.dataLoaded) {
+                    var t = new s.Container
+                      , a = new s.Container
+                      , o = this.mapData.places
+                      , n = this.mapData.objects
+                      , r = (this.display,
+                    this.width)
+                      , m = this.height
+                      , d = (this.terrain,
+                    f.getScreenDimensions().height);
+                    g.pixelRatio > 1 && (d *= 2);
+                    var u = m / d
+                      , h = new s.Graphics;
+                    this.renderTerrain(h, h, u);
+                    var b = {
                         x: 0,
                         y: 0
                     }
-                      , c = {
-                        x: i,
+                      , y = {
+                        x: r,
                         y: 0
                     }
-                      , d = {
+                      , x = {
                         x: 0,
-                        y: r
+                        y: m
                     }
-                      , m = {
-                        x: i,
-                        y: r
+                      , v = {
+                        x: r,
+                        y: m
                     };
-                    t.beginFill(h.water),
-                    t.moveTo(d.x, d.y),
-                    t.lineTo(m.x, m.y),
-                    t.lineTo(c.x, c.y),
-                    t.lineTo(l.x, l.y),
-                    n(t, s.shore),
-                    t.addHole(),
-                    t.closePath(),
-                    e.beginFill(h.beach),
-                    n(e, s.shore),
-                    n(e, s.grass),
-                    e.addHole(),
-                    e.endFill(),
-                    e.beginFill(h.grass),
-                    n(e, s.grass),
-                    e.endFill(),
-                    e.lineStyle(a, 0, .15);
-                    for (var p = 0; p <= i; p += y.map.gridSize) {
-                        o(e, {
-                            x: p,
-                            y: 0
-                        }, {
-                            x: p,
-                            y: r
-                        })
+                    h.lineStyle(2 * u, 0, 1),
+                    i(h, b, x),
+                    i(h, x, v),
+                    i(h, v, y),
+                    i(h, y, b),
+                    h.position.y = m,
+                    h.scale.y = -1,
+                    t.addChild(h);
+                    for (var _ = [], k = 0; k < n.length; k++) {
+                        var w = n[k];
+                        _.push(this.getMinimapRender(w))
                     }
-                    for (var u = 0; u <= r; u += y.map.gridSize) {
-                        o(e, {
-                            x: 0,
-                            y: u
-                        }, {
-                            x: i,
-                            y: u
-                        })
-                    }
-                }
-            }, {
-                key: "render",
-                value: function(e) {
-                    var t = e.pointToScreen(p.create(0, 0))
-                      , a = e.pointToScreen(p.create(1, 1))
-                      , i = p.sub(a, t);
-                    this.display.background.position.set(t.x, t.y),
-                    this.display.background.scale.set(i.x, i.y),
-                    this.display.water.position.set(t.x, t.y),
-                    this.display.water.scale.set(i.x, i.y)
-                }
-            }, {
-                key: "getMinimapRender",
-                value: function(e) {
-                    var t = c.Defs[e.type]
-                      , a = "building" == t.type ? 1e3 * ((t.zIdx || 0) + 1) : t.img.zIdx || 0
-                      , i = [];
-                    if (void 0 !== t.map.shapes)
-                        i = t.map.shapes;
-                    else {
-                        var o = "obstacle" == t.type ? t.collision : t.ceiling.scopeIn[0];
-                        i.push({
-                            collider: l.copy(o),
-                            scale: t.map.scale || 1,
-                            color: t.map.color
-                        })
-                    }
-                    return {
-                        obj: e,
-                        zIdx: a,
-                        shapes: i
-                    }
-                }
-            }, {
-                key: "renderMap",
-                value: function(e) {
-                    if (this.dataLoaded) {
-                        var t = new s.Container
-                          , a = new s.Container
-                          , i = this.mapData.places
-                          , n = this.mapData.objects
-                          , r = (this.display,
-                        this.width)
-                          , d = this.height
-                          , m = (this.terrain,
-                        f.getScreenDimensions().height);
-                        g.pixelRatio > 1 && (m *= 2);
-                        var u = d / m
-                          , h = new s.Graphics;
-                        this.renderTerrain(h, h, u);
-                        var b = {
-                            x: 0,
-                            y: 0
-                        }
-                          , y = {
-                            x: r,
-                            y: 0
-                        }
-                          , x = {
-                            x: 0,
-                            y: d
-                        }
-                          , v = {
-                            x: r,
-                            y: d
-                        };
-                        h.lineStyle(2 * u, 0, 1),
-                        o(h, b, x),
-                        o(h, x, v),
-                        o(h, v, y),
-                        o(h, y, b),
-                        h.position.y = d,
-                        h.scale.y = -1,
-                        t.addChild(h);
-                        for (var k = [], _ = 0; _ < n.length; _++) {
-                            var w = n[_];
-                            k.push(this.getMinimapRender(w))
-                        }
-                        k.sort(function(e, t) {
-                            return e.zIdx - t.zIdx
-                        });
-                        for (var S = new s.Graphics, M = 0; M < k.length; M++)
-                            for (var T = k[M], P = T.obj, C = 0; C < T.shapes.length; C++) {
-                                var I = T.shapes[C]
-                                  , z = l.transform(I.collider, P.pos, c.oriToRad(P.ori), P.scale)
-                                  , A = void 0 !== I.scale ? I.scale : 1;
-                                switch (S.beginFill(I.color, 1),
-                                z.type) {
-                                case l.Type.Circle:
-                                    S.drawCircle(z.pos.x, d - z.pos.y, z.rad * A);
-                                    break;
-                                case l.Type.Aabb:
-                                    var D = p.mul(p.sub(z.max, z.min), .5)
-                                      , O = p.add(z.min, D);
-                                    D = p.mul(D, A),
-                                    S.drawRect(O.x - D.x, d - O.y - D.y, 2 * D.x, 2 * D.y)
-                                }
-                                S.endFill()
+                    _.sort(function(e, t) {
+                        return e.zIdx - t.zIdx
+                    });
+                    for (var S = new s.Graphics, M = 0; M < _.length; M++)
+                        for (var T = _[M], P = T.obj, C = 0; C < T.shapes.length; C++) {
+                            var I = T.shapes[C]
+                              , z = l.transform(I.collider, P.pos, c.oriToRad(P.ori), P.scale)
+                              , A = void 0 !== I.scale ? I.scale : 1;
+                            switch (S.beginFill(I.color, 1),
+                            z.type) {
+                            case l.Type.Circle:
+                                S.drawCircle(z.pos.x, m - z.pos.y, z.rad * A);
+                                break;
+                            case l.Type.Aabb:
+                                var D = p.mul(p.sub(z.max, z.min), .5)
+                                  , O = p.add(z.min, D);
+                                D = p.mul(D, A),
+                                S.drawRect(O.x - D.x, m - O.y - D.y, 2 * D.x, 2 * D.y)
                             }
-                        t.addChild(S);
-                        for (var E = new s.Container, L = 0; L < i.length; L++) {
-                            var B = i[L]
-                              , F = new s.TextStyle({
-                                fontFamily: "Arial",
-                                fontSize: g.pixelRatio > 1 ? 20 : 22,
-                                fontWeight: "bold",
-                                fill: ["#ffffff"],
-                                stroke: "#000000",
-                                strokeThickness: 1,
-                                dropShadow: !0,
-                                dropShadowColor: "#000000",
-                                dropShadowBlur: 1,
-                                dropShadowAngle: Math.PI / 3,
-                                dropShadowDistance: 1,
-                                wordWrap: !1,
-                                align: "center"
-                            })
-                              , R = new s.Text(B.name,F);
-                            R.anchor = new s.Point(.5,.5),
-                            R.x = B.pos.x * this.height / u,
-                            R.y = B.pos.y * this.height / u,
-                            R.alpha = .75,
-                            E.addChild(R)
+                            S.endFill()
                         }
-                        a.addChild(E),
-                        this.mapTexture ? this.mapTexture.resize(m, m) : this.mapTexture = s.RenderTexture.create(m, m, s.SCALE_MODES.LINEAR, 2),
-                        t.scale = new s.Point(m / d,m / d),
-                        e.render(t, this.mapTexture, !0),
-                        e.render(a, this.mapTexture, !1),
-                        t.destroy({
-                            children: !0,
-                            texture: !0,
-                            baseTexture: !0
-                        }),
-                        a.destroy({
-                            children: !0,
-                            texture: !0,
-                            baseTexture: !0
+                    t.addChild(S);
+                    for (var L = new s.Container, E = 0; E < o.length; E++) {
+                        var B = o[E]
+                          , F = new s.TextStyle({
+                            fontFamily: "Arial",
+                            fontSize: g.pixelRatio > 1 ? 20 : 22,
+                            fontWeight: "bold",
+                            fill: ["#ffffff"],
+                            stroke: "#000000",
+                            strokeThickness: 1,
+                            dropShadow: !0,
+                            dropShadowColor: "#000000",
+                            dropShadowBlur: 1,
+                            dropShadowAngle: Math.PI / 3,
+                            dropShadowDistance: 1,
+                            wordWrap: !1,
+                            align: "center"
                         })
+                          , R = new s.Text(B.name,F);
+                        R.anchor = new s.Point(.5,.5),
+                        R.x = B.pos.x * this.height / u,
+                        R.y = B.pos.y * this.height / u,
+                        R.alpha = .75,
+                        L.addChild(R)
                     }
+                    a.addChild(L),
+                    this.mapTexture ? this.mapTexture.resize(d, d) : this.mapTexture = s.RenderTexture.create(d, d, s.SCALE_MODES.LINEAR, 2),
+                    t.scale = new s.Point(d / m,d / m),
+                    e.render(t, this.mapTexture, !0),
+                    e.render(a, this.mapTexture, !1),
+                    t.destroy({
+                        children: !0,
+                        texture: !0,
+                        baseTexture: !0
+                    }),
+                    a.destroy({
+                        children: !0,
+                        texture: !0,
+                        baseTexture: !0
+                    })
                 }
-            }, {
-                key: "getGroundSurface",
-                value: function(e, t) {
-                    var a = this.buildingPool
-                      , i = this.terrain
-                      , o = void 0;
-                    o = b.inside(e, i.shore) ? b.inside(e, i.grass) ? "grass" : "sand" : "water";
-                    for (var n = a.getPool(), r = 0, s = 2 & t, c = 0; c < n.length; c++) {
-                        var d = n[c];
-                        if (!(d.zIdx < r) && !(d.layer != t && !s || 1 == d.layer && s))
-                            for (var m = 0; m < d.surfaces.length; m++)
-                                for (var p = d.surfaces[m], u = 0; u < p.colliders.length; u++) {
-                                    var h = l.intersectCircle(p.colliders[u], e, 1e-4);
-                                    if (h) {
-                                        r = d.zIdx,
-                                        o = p.surface;
-                                        break
-                                    }
-                                }
-                    }
-                    return o
-                }
-            }, {
-                key: "distanceToShore",
-                value: function(e) {
-                    return b.distToPoly(e, this.terrain.shore)
-                }
-            }, {
-                key: "insideStructureStairs",
-                value: function(e) {
-                    for (var t = this.structurePool.getPool(), a = 0; a < t.length; a++) {
-                        var i = t[a];
-                        if (i.active && i.insideStairs(e))
-                            return !0
-                    }
-                    return !1
-                }
-            }, {
-                key: "insideStructureMask",
-                value: function(e) {
-                    for (var t = this.structurePool.getPool(), a = 0; a < t.length; a++) {
-                        var i = t[a];
-                        if (i.active && i.insideMask(e))
-                            return !0
-                    }
-                    return !1
-                }
-            }, {
-                key: "addRipple",
-                value: function(e, t, a) {
-                    for (var i = null, o = 0; o < this.ripples.length; o++)
-                        if (this.ripples[o].life <= 0) {
-                            i = this.ripples[o];
-                            break
-                        }
-                    if (!i) {
-                        var n = s.Sprite.fromImage("img/player/ripple-01.svg");
-                        n.anchor.set(.5, .5),
-                        n.tint = 11792639,
-                        n.visible = !1,
-                        i = {},
-                        i.sprite = n,
-                        this.ripples.push(i)
-                    }
-                    for (var r = this.display.water, c = this.buildingPool.getPool(), d = 0; d < c.length; d++) {
-                        var u = c[d];
-                        if (m.sameLayer(u.layer, t)) {
-                            for (var h = !1, g = 0; g < u.surfaces.length; g++) {
-                                var f = u.surfaces[g];
-                                if ("water" == f.surface) {
-                                    for (var b = 0; b < f.colliders.length; b++) {
-                                        if (l.intersectCircle(f.colliders[b], e, 1e-4)) {
-                                            h = !0;
-                                            break
-                                        }
-                                    }
-                                    if (h)
-                                        break
+            },
+            getGroundSurface: function(e, t) {
+                var a = this.We
+                  , i = this.terrain
+                  , o = void 0;
+                o = b.inside(e, i.shore) ? b.inside(e, i.grass) ? "grass" : "sand" : "water";
+                for (var n = a.c(), r = 0, s = 2 & t, c = 0; c < n.length; c++) {
+                    var m = n[c];
+                    if (!(m.zIdx < r || m.layer != t && !s || 1 == m.layer && s))
+                        for (var d = 0; d < m.surfaces.length; d++)
+                            for (var p = m.surfaces[d], u = 0; u < p.colliders.length; u++) {
+                                var h = l.intersectCircle(p.colliders[u], e, 1e-4);
+                                if (h) {
+                                    r = m.zIdx,
+                                    o = p.surface;
+                                    break
                                 }
                             }
-                            if (h)
-                                for (var y = 0; y < u.imgs.length; y++) {
-                                    var x = u.imgs[y];
-                                    if (x.waterRipples) {
-                                        r = x.sprite;
+                }
+                return o
+            },
+            distanceToShore: function(e) {
+                return b.distToPoly(e, this.terrain.shore)
+            },
+            insideStructureStairs: function(e) {
+                for (var t = this.He.c(), a = 0; a < t.length; a++) {
+                    var i = t[a];
+                    if (i.active && i.insideStairs(e))
+                        return !0
+                }
+                return !1
+            },
+            insideStructureMask: function(e) {
+                for (var t = this.He.c(), a = 0; a < t.length; a++) {
+                    var i = t[a];
+                    if (i.active && i.insideMask(e))
+                        return !0
+                }
+                return !1
+            },
+            addRipple: function(e, t, a) {
+                for (var i = null, o = 0; o < this.ripples.length; o++)
+                    if (this.ripples[o].life <= 0) {
+                        i = this.ripples[o];
+                        break
+                    }
+                if (!i) {
+                    var n = s.Sprite.fromImage("img/player/ripple-01.svg");
+                    n.anchor.set(.5, .5),
+                    n.tint = 11792639,
+                    n.visible = !1,
+                    i = {},
+                    i.sprite = n,
+                    this.ripples.push(i)
+                }
+                for (var r = this.display.water, c = this.We.c(), m = 0; m < c.length; m++) {
+                    var u = c[m];
+                    if (d.sameLayer(u.layer, t)) {
+                        for (var h = !1, g = 0; g < u.surfaces.length; g++) {
+                            var f = u.surfaces[g];
+                            if ("water" == f.surface) {
+                                for (var b = 0; b < f.colliders.length; b++)
+                                    if (l.intersectCircle(f.colliders[b], e, 1e-4)) {
+                                        h = !0;
                                         break
                                     }
-                                }
+                                if (h)
+                                    break
+                            }
                         }
+                        if (h)
+                            for (var y = 0; y < u.imgs.length; y++) {
+                                var x = u.imgs[y];
+                                if (x.waterRipples) {
+                                    r = x.sprite;
+                                    break
+                                }
+                            }
                     }
-                    i.relPos = r != this.display.water,
-                    i.pos = p.copy(e),
-                    i.life = 3,
-                    i.delay = a,
-                    i.scale = .15,
-                    i.alpha = 1,
-                    i.sprite.parent != r && r.addChild(i.sprite)
                 }
-            }]),
-            e
-        }();
-        e.exports = w
+                i.relPos = r != this.display.water,
+                i.pos = p.copy(e),
+                i.life = 3,
+                i.delay = a,
+                i.scale = .15,
+                i.alpha = 1,
+                i.sprite.parent != r && r.addChild(i.sprite)
+            }
+        },
+        e.exports = {
+            xe: r
+        }
     },
     d84c74f8: function(e, t, a) {
         "use strict";
@@ -31565,20 +31211,16 @@ webpackJsonp([0], {
                 console.error(e)
             }),
             o("#btn-cookie-opt-out").click(function(a) {
-                if (t) {
-                    t.setStatus("deny");
-                    e.get("cookiesConsented1") && (e.set("cookiesConsented1", !1),
-                    n.storeGeneric("cookiesConsented", !1),
-                    window.location.reload(!1))
-                }
+                t && (t.setStatus("deny"),
+                e.get("cookiesConsented1") && (e.set("cookiesConsented1", !1),
+                n.storeGeneric("cookiesConsented", !1),
+                window.location.reload(!1)))
             }),
             o(".btn-cookies-close").click(function(a) {
-                if (t) {
-                    t.setStatus("allow");
-                    e.get("cookiesConsented1") || (e.set("cookiesConsented1", !0),
-                    n.storeGeneric("cookiesConsented", !0),
-                    window.location.reload(!1))
-                }
+                t && (t.setStatus("allow"),
+                e.get("cookiesConsented1") || (e.set("cookiesConsented1", !0),
+                n.storeGeneric("cookiesConsented", !0),
+                window.location.reload(!1)))
             }),
             o(".btn-cookie-settings").css("display", "inline-block");
             var a = o("#modal-cookie-settings");
@@ -31603,7 +31245,7 @@ webpackJsonp([0], {
     e100c355: function(e, t, a) {
         "use strict";
         function i(e, t, a) {
-            for (var i = o.map, s = i.shoreDivisions, l = i.shoreInset, c = i.shoreVariation, d = i.grassInset, m = i.grassVariation, p = a, u = function(e, t) {
+            for (var i = o.map, s = i.shoreDivisions, l = i.shoreInset, c = i.shoreVariation, m = i.grassInset, d = i.grassVariation, p = a, u = function(e, t) {
                 p = 16807 * p % 2147483647;
                 var a = p / 2147483647;
                 return n.lerp(a, e, t)
@@ -31619,16 +31261,16 @@ webpackJsonp([0], {
             }, b = {
                 x: e - l,
                 y: t - l
-            }, y = g.x - h.x, x = y / (s + 1), v = [h], k = 1; k <= s; ++k)
+            }, y = g.x - h.x, x = y / (s + 1), v = [h], _ = 1; _ <= s; ++_)
                 v.push({
-                    x: h.x + x * k,
+                    x: h.x + x * _,
                     y: h.y + u(-c, c)
                 });
             v.push(g);
-            for (var _ = 1; _ <= s; ++_)
+            for (var k = 1; k <= s; ++k)
                 v.push({
                     x: g.x + u(-c, c),
-                    y: g.y + x * _
+                    y: g.y + x * k
                 });
             v.push(b);
             for (var w = 1; w <= s; ++w)
@@ -31647,8 +31289,8 @@ webpackJsonp([0], {
                 shore: v,
                 grass: v.map(function(e) {
                     var t = r.normalize(r.sub(M, e))
-                      , a = u(-m, m)
-                      , i = d + a;
+                      , a = u(-d, d)
+                      , i = m + a;
                     return r.add(e, r.mul(t, i))
                 })
             }
@@ -31684,13 +31326,13 @@ webpackJsonp([0], {
             }
         }()
           , n = a("8ee62bea")
-          , r = a("80ac57a6")
+          , r = a("8b1dfb45")
           , s = (a("10899aea"),
         a("1901e2d9"),
         a("c2a798c8"))
           , l = a("26be8056")
           , c = a("ce29f17f")
-          , d = function() {
+          , m = function() {
             function e(t, a) {
                 var o = this;
                 i(this, e),
@@ -31788,13 +31430,13 @@ webpackJsonp([0], {
                               , l = s.length(r);
                             if (l > 2) {
                                 var c = Math.atan2(-r.y, r.x)
-                                  , d = 180 * c / Math.PI;
-                                d < 0 && (d += 360),
+                                  , m = 180 * c / Math.PI;
+                                m < 0 && (m += 360),
                                 this.playerMovement = {
-                                    right: d < 67.5 || d > 292.5,
-                                    up: d > 22.5 && d < 157.5,
-                                    left: d > 112.5 && d < 247.5,
-                                    down: d > 202.5 && d < 337.5,
+                                    right: m < 67.5 || m > 292.5,
+                                    up: m > 22.5 && m < 157.5,
+                                    left: m > 112.5 && m < 247.5,
+                                    down: m > 202.5 && m < 337.5,
                                     moveLen: (l - 2) / (this.padPosRange - 2)
                                 },
                                 t = this.leftLockedPadCenter,
@@ -31805,12 +31447,12 @@ webpackJsonp([0], {
                             }
                         }
                     }
-                    var m = this.touchPads[0];
-                    return m.touched = i,
-                    m.centerPos.x = this.leftLockedPadCenter.x,
-                    m.centerPos.y = this.leftLockedPadCenter.y,
-                    m.touchPos.x = i ? a.x : 0,
-                    m.touchPos.y = i ? a.y : 0,
+                    var d = this.touchPads[0];
+                    return d.touched = i,
+                    d.centerPos.x = this.leftLockedPadCenter.x,
+                    d.centerPos.y = this.leftLockedPadCenter.y,
+                    d.touchPos.x = i ? a.x : 0,
+                    d.touchPos.y = i ? a.y : 0,
                     this.playerMovement
                 }
             }, {
@@ -31827,14 +31469,14 @@ webpackJsonp([0], {
                               , l = s.sub(n.pos, r)
                               , c = s.length(l);
                             if (c > 2) {
-                                var d = Math.atan2(-l.y, l.x)
-                                  , m = 180 * d / Math.PI;
-                                m < 0 && (m += 360),
+                                var m = Math.atan2(-l.y, l.x)
+                                  , d = 180 * m / Math.PI;
+                                d < 0 && (d += 360),
                                 this.playerMovement = {
-                                    right: m < 67.5 || m > 292.5,
-                                    up: m > 22.5 && m < 157.5,
-                                    left: m > 112.5 && m < 247.5,
-                                    down: m > 202.5 && m < 337.5,
+                                    right: d < 67.5 || d > 292.5,
+                                    up: d > 22.5 && d < 157.5,
+                                    left: d > 112.5 && d < 247.5,
+                                    down: d > 202.5 && d < 337.5,
                                     moveLen: (c - 2) / (this.padPosRange - 2)
                                 }
                             } else
@@ -31868,12 +31510,12 @@ webpackJsonp([0], {
                             var l = s.sub(r.pos, this.rightLockedPadCenter)
                               , c = s.length(l);
                             if (c > 2) {
-                                var d = s.sub(r.pos, this.rightLockedPadCenter)
-                                  , m = s.length(d)
-                                  , p = m > 1e-5 ? s.div(d, m) : this.aimMovement.toAimDir;
+                                var m = s.sub(r.pos, this.rightLockedPadCenter)
+                                  , d = s.length(m)
+                                  , p = d > 1e-5 ? s.div(m, d) : this.aimMovement.toAimDir;
                                 this.aimMovement = {
                                     toAimDir: s.create(p.x, -1 * p.y),
-                                    toAimLen: m
+                                    toAimLen: d
                                 }
                             } else
                                 this.aimMovement.toAimLen = 0;
@@ -31902,11 +31544,11 @@ webpackJsonp([0], {
                         if (!r.isDead && !this.isLeftSideTouch(r.posDown.x, t)) {
                             var l = r.posDown
                               , c = s.sub(r.pos, l)
-                              , d = s.length(c);
-                            if (d > 2) {
-                                var m = s.sub(r.pos, r.posDown)
-                                  , p = s.length(m)
-                                  , u = p > 1e-5 ? s.div(m, p) : this.aimMovement.toAimDir;
+                              , m = s.length(c);
+                            if (m > 2) {
+                                var d = s.sub(r.pos, r.posDown)
+                                  , p = s.length(d)
+                                  , u = p > 1e-5 ? s.div(d, p) : this.aimMovement.toAimDir;
                                 this.aimMovement = {
                                     toAimDir: s.create(u.x, -1 * u.y),
                                     toAimLen: p
@@ -31914,7 +31556,7 @@ webpackJsonp([0], {
                             } else
                                 this.aimMovement.toAimLen = 0;
                             i = r.posDown,
-                            o = this.getConstrainedPos(i, r.pos, d),
+                            o = this.getConstrainedPos(i, r.pos, m),
                             a = !0;
                             break
                         }
@@ -32013,22 +31655,22 @@ webpackJsonp([0], {
                     var o = s.create(a.x, a.y)
                       , n = s.create(i.x, i.y)
                       , r = s.create(t.width - a.x, a.y)
-                      , d = s.create(t.width - i.x, i.y);
+                      , m = s.create(t.width - i.x, i.y);
                     if (l.detectMobileSafari() && !window.navigator.standalone) {
-                        var m = this.lockedPadOffsetYLandscapeSafari
+                        var d = this.lockedPadOffsetYLandscapeSafari
                           , p = this.lockedPadOffsetYPortraitSafari;
-                        c.tablet && (m *= 1.4,
+                        c.tablet && (d *= 1.4,
                         p *= 1.4),
-                        o.y = m,
+                        o.y = d,
                         n.y = p,
-                        r.y = m,
-                        d.y = p
+                        r.y = d,
+                        m.y = p
                     }
                     this.padScaleBase = "landscape" == e ? 1 : .8,
                     this.padPosRange = 56 * this.padScaleBase;
                     var u = "landscape" == e ? o : n;
                     this.leftLockedPadCenter = s.create(u.x, t.height - u.y);
-                    var h = "landscape" == e ? r : d;
+                    var h = "landscape" == e ? r : m;
                     this.rightLockedPadCenter = s.create(h.x, t.height - h.y),
                     this.setMobileStyling(e)
                 }
@@ -32036,10 +31678,8 @@ webpackJsonp([0], {
                 key: "setMobileStyling",
                 value: function(e) {
                     var t = l.getScreenDimensions().width <= 850;
-                    if (c.mobile) {
-                        n("#btn-touch-styles").find(".btn-game-container").css("display", "inline-block"),
-                        n("#ui-emote-button").css("display", "block")
-                    }
+                    c.mobile && (n("#btn-touch-styles").find(".btn-game-container").css("display", "inline-block"),
+                    n("#ui-emote-button").css("display", "block")),
                     c.mobile || t ? (n("#ui-map-wrapper").addClass("ui-map-wrapper-mobile").removeClass("ui-map-wrapper-desktop"),
                     n("#ui-settings-container-mobile").css("display", "block"),
                     n("#ui-settings-container-desktop").css("display", "none"),
@@ -32070,7 +31710,7 @@ webpackJsonp([0], {
             e
         }();
         e.exports = {
-            Touch: d
+            he: m
         }
     },
     e5d16b4d: function(e, t, a) {
@@ -32087,7 +31727,7 @@ webpackJsonp([0], {
             this.uiManager = a,
             this.gameElem = n("#ui-game"),
             this.disable = !1,
-            this.activePlayer = null,
+            this.Je = null,
             this.playerBarn = o,
             this.camera = s,
             this.map = p,
@@ -32121,7 +31761,7 @@ webpackJsonp([0], {
                 g.pingKeyTriggered = g.wheelDisplayed)
             }),
             n(document).on("mousedown", function(e) {
-                var t = "which"in e ? 2 == e.which : 2 == e.button;
+                var t = "which"in e ? 3 == e.which : 2 == e.button;
                 t && !g.pingMouseTriggered && !g.emoteMouseTriggered && g.pingKeyDown && (e.stopPropagation(),
                 e.preventDefault(),
                 g.emoteScreenPos = u.create(e.clientX, e.clientY),
@@ -32132,40 +31772,36 @@ webpackJsonp([0], {
                 g.emoteMouseTriggered = !0)
             }),
             n(document).on("mouseup", function(e) {
-                2 == e.which && g.pingKeyTriggered && g.pingMouseTriggered && g.triggerPing(),
-                2 == e.which && g.emoteMouseTriggered && g.triggerEmote()
+                3 == e.which && g.pingKeyTriggered && g.pingMouseTriggered && g.triggerPing(),
+                3 == e.which && g.emoteMouseTriggered && g.triggerEmote()
             }),
             this.triggerPing = function() {
-                if (this.activePlayer) {
+                if (this.Je) {
                     var e = void 0;
-                    if (this.emoteSelector.ping == y.None || this.emoteWheelsGreyed)
-                        this.emoteSelector.emote == c.None || this.emoteWheelsGreyed || (e = this.activePlayer.pos,
-                        this.sendEmote({
-                            type: this.emoteSelector.emote,
-                            useLoadout: this.emoteSelector.useLoadout,
-                            emoteSlot: this.emoteSelector.emoteSlot,
-                            pos: e
-                        }),
-                        this.uiManager.displayMapLarge(!0));
-                    else {
-                        b[this.emoteSelector.ping].pingMap && (e = this.uiManager.getWorldPosFromMapPos(this.bigmapPingPos || this.emoteScreenPos, this.map, this.camera),
-                        e || (e = this.camera.screenToPoint(this.emoteScreenPos)),
-                        e.x = h.clamp(e.x, 0, this.uiManager.mapWidth),
-                        e.y = h.clamp(e.y, 0, this.uiManager.mapHeight),
-                        this.sendPing({
-                            type: this.emoteSelector.ping,
-                            pos: e
-                        }))
-                    }
+                    this.emoteSelector.ping == y.None || this.emoteWheelsGreyed ? this.emoteSelector.emote == c.None || this.emoteWheelsGreyed || (e = this.Je.pos,
+                    this.sendEmote({
+                        type: this.emoteSelector.emote,
+                        useLoadout: this.emoteSelector.useLoadout,
+                        emoteSlot: this.emoteSelector.emoteSlot,
+                        pos: e
+                    }),
+                    this.uiManager.displayMapLarge(!0)) : b[this.emoteSelector.ping].pingMap && (e = this.uiManager.getWorldPosFromMapPos(this.bigmapPingPos || this.emoteScreenPos, this.map, this.camera),
+                    e || (e = this.camera.screenToPoint(this.emoteScreenPos)),
+                    e.x = h.clamp(e.x, 0, this.uiManager.mapWidth),
+                    e.y = h.clamp(e.y, 0, this.uiManager.mapHeight),
+                    this.sendPing({
+                        type: this.emoteSelector.ping,
+                        pos: e
+                    })),
                     this.inputReset(),
                     this.pingKeyTriggered = this.pingKeyDown
                 }
             }
             ,
             this.triggerEmote = function() {
-                if (this.activePlayer) {
+                if (this.Je) {
                     var e = void 0;
-                    this.emoteSelector.emote == c.None || this.emoteWheelsGreyed || (e = this.activePlayer.pos,
+                    this.emoteSelector.emote == c.None || this.emoteWheelsGreyed || (e = this.Je.pos,
                     this.sendEmote({
                         type: this.emoteSelector.emote,
                         useLoadout: this.emoteSelector.useLoadout,
@@ -32323,60 +31959,60 @@ webpackJsonp([0], {
             this.teamPingSelectors = [];
             for (var v in x)
                 if (x.hasOwnProperty(v)) {
-                    var k = x[v]
-                      , _ = k.ping != y.None ? b[k.ping] : d[k.emote]
-                      , w = i(k.vA)
-                      , S = i(k.vC)
-                      , M = _.texture;
-                    _.displayCloseIcon && (M = "img/gui/close.svg"),
+                    var _ = x[v]
+                      , k = _.ping != y.None ? b[_.ping] : m[_.emote]
+                      , w = i(_.vA)
+                      , S = i(_.vC)
+                      , M = k.texture;
+                    k.displayCloseIcon && (M = "img/gui/close.svg"),
                     this.teamPingSelectors.push({
-                        parent: k.parent,
+                        parent: _.parent,
                         angleA: w,
                         angleC: S,
-                        highlight: k.parent.find(".ui-emote-hl"),
+                        highlight: _.parent.find(".ui-emote-hl"),
                         highlightDisplayed: !1,
                         texture: M,
-                        ping: k.ping,
-                        emote: k.emote,
-                        modular: k.modular
+                        ping: _.ping,
+                        emote: _.emote,
+                        modular: _.modular
                     })
                 }
             this.displayedSelectors = this.teamPingSelectors,
             this.baseScale = 1,
-            this.container = new m.Container,
-            this.container.scale = new m.Point(this.baseScale,this.baseScale),
-            this.pingContainer = new m.Container,
+            this.container = new d.Container,
+            this.container.scale = new d.Point(this.baseScale,this.baseScale),
+            this.pingContainer = new d.Container,
             this.container.addChild(this.pingContainer),
-            this.indContainer = new m.Container,
+            this.indContainer = new d.Container,
             this.teamIndicators = [];
             for (var T = 0; T < 4; T++) {
                 var P = T
-                  , C = new m.Container
-                  , I = new m.Container
-                  , z = m.Sprite.fromImage("/img/gui/ping-border.svg");
-                z.scale = new m.Point(.4,.4),
-                z.anchor = new m.Point(.5,.5),
+                  , C = new d.Container
+                  , I = new d.Container
+                  , z = d.Sprite.fromImage("/img/gui/ping-border.svg");
+                z.scale = new d.Point(.4,.4),
+                z.anchor = new d.Point(.5,.5),
                 z.tint = r.teamColors[T],
                 z.alpha = 0,
                 z.visible = !0,
                 C.addChild(z);
-                var A = m.Sprite.fromImage("/img/gui/ping-team-danger.svg");
-                A.scale = new m.Point(.4,.4),
-                A.anchor = new m.Point(.5,.5),
+                var A = d.Sprite.fromImage("/img/gui/ping-team-danger.svg");
+                A.scale = new d.Point(.4,.4),
+                A.anchor = new d.Point(.5,.5),
                 A.tint = r.teamColors[T],
                 A.alpha = 0,
                 A.visible = !0,
                 C.addChild(A);
-                var D = m.Sprite.fromImage("/img/gui/ping-team-danger.svg");
-                D.scale = new m.Point(.5,.5),
-                D.anchor = new m.Point(.5,.5),
+                var D = d.Sprite.fromImage("/img/gui/ping-team-danger.svg");
+                D.scale = new d.Point(.5,.5),
+                D.anchor = new d.Point(.5,.5),
                 D.tint = r.teamColors[T],
                 D.alpha = 0,
                 D.visible = !0,
                 I.addChild(D);
-                var O = m.Sprite.fromImage("/img/gui/ping-indicator.svg");
-                O.scale = new m.Point(.5,.5),
-                O.anchor = new m.Point(.5,0),
+                var O = d.Sprite.fromImage("/img/gui/ping-indicator.svg");
+                O.scale = new d.Point(.5,.5),
+                O.anchor = new d.Point(.5,0),
                 O.alpha = 0,
                 O.visible = !0,
                 I.addChild(O),
@@ -32429,8 +32065,8 @@ webpackJsonp([0], {
           , s = a("b78cf179")
           , l = s.EmoteSlot
           , c = s.EmoteType
-          , d = s.EmoteData
-          , m = a("80ac57a6")
+          , m = s.EmoteData
+          , d = a("8b1dfb45")
           , p = a("34e32c48")
           , u = a("c2a798c8")
           , h = a("10899aea")
@@ -32443,7 +32079,7 @@ webpackJsonp([0], {
         a("c60b5e9f"))
           , v = x.RenderType;
         o.prototype = {
-            free: function() {
+            o: function() {
                 n(document).off("keydown"),
                 n(document).off("keyup"),
                 n(document).off("mousedown"),
@@ -32453,9 +32089,9 @@ webpackJsonp([0], {
                 this.emoteButtonElem.off("touchstart"),
                 this.emoteElems.off("touchstart"),
                 this.bigmapCollision.off("touchend")),
-                this.init()
+                this.a()
             },
-            init: function() {
+            a: function() {
                 this.emoteWheelsGreyed = !1,
                 this.emoteWheels.css("opacity", 1),
                 this.teamEmotesGreyed = !1,
@@ -32476,7 +32112,7 @@ webpackJsonp([0], {
                 this.emoteTimeoutTicker = 0;
                 for (var e = 0; e < this.displayedSelectors.length; e++) {
                     var t = this.displayedSelectors[e]
-                      , a = d[t.emote];
+                      , a = m[t.emote];
                     this.teamEmotesGreyed && a.teamOnly ? t.parent.css("opacity", this.teamEmoteOpacityReset) : t.parent.css("opacity", this.wedgeOpacityReset),
                     t.highlight.css("display", "none"),
                     t.highlightDisplayed = !1
@@ -32490,23 +32126,23 @@ webpackJsonp([0], {
                 this.incrementEmote()
             },
             addPing: function(e) {
-                if (this.activePlayer) {
+                if (this.Je) {
                     var t = b[e.type];
                     if (t) {
-                        this.teamId = this.playerBarn.getPlayerInfo(this.activePlayer.__id).teamId;
+                        this.teamId = this.playerBarn.N(this.Je.__id).teamId;
                         for (var a = this.playerBarn.getTeamInfo(this.teamId), i = a.playerIds.length, o = 0; o < i; o++) {
                             var n = a.playerIds[o];
                             if (n == e.playerId) {
                                 var r = this.teamIndicators[o];
-                                this.playerBarn.getPlayerInfo(n),
-                                this.activePlayer.__id;
+                                this.playerBarn.N(n),
+                                this.Je.__id,
                                 this.uiManager.setPlayerPing(e.type, o, e.pos, t.mapLife);
                                 for (var s in r)
                                     if (r.hasOwnProperty(s) && "ping" == s) {
                                         var l = r[s];
                                         l.pos = e.pos,
-                                        l.pingSprite.sprite.texture = m.Texture.fromImage(t.texture),
-                                        l.indSpriteInner.sprite.texture = m.Texture.fromImage(t.texture),
+                                        l.pingSprite.sprite.texture = d.Texture.fromImage(t.texture),
+                                        l.indSpriteInner.sprite.texture = d.Texture.fromImage(t.texture),
                                         l.fadeIn = this.pingFadeIn,
                                         l.life = this.pingLife,
                                         l.fadeOut = this.pingFadeOut,
@@ -32528,27 +32164,27 @@ webpackJsonp([0], {
                 this.incrementEmote()
             },
             addEmote: function(e) {
-                var t = d[e.type];
+                var t = m[e.type];
                 if (t) {
                     for (var a = null, i = 0; i < this.emotes.length; i++)
                         this.emotes[i].alive || a ? this.emotes[i].alive && this.emotes[i].playerId == e.playerId && (this.emotes[i].alive = !1) : a = this.emotes[i];
                     a || (a = {},
                     a.alive = !1,
                     a.pos = u.create(0, 0),
-                    a.container = new m.Container,
-                    a.circleOuter = new m.Sprite.fromImage("img/gui/emote-circle-outer.svg"),
-                    a.circleOuter.anchor = new m.Point(.5,.5),
+                    a.container = new d.Container,
+                    a.circleOuter = new d.Sprite.fromImage("img/gui/emote-circle-outer.svg"),
+                    a.circleOuter.anchor = new d.Point(.5,.5),
                     a.baseScale = .55,
-                    a.circleOuter.scale = new m.Point(.8 * a.baseScale,.8 * a.baseScale),
+                    a.circleOuter.scale = new d.Point(.8 * a.baseScale,.8 * a.baseScale),
                     a.circleOuter.tint = 0,
                     a.circleOuter.visible = !0,
                     a.container.addChild(a.circleOuter),
-                    a.sprite = new m.Sprite,
-                    a.sprite.anchor = new m.Point(.5,.5),
+                    a.sprite = new d.Sprite,
+                    a.sprite.anchor = new d.Point(.5,.5),
                     a.container.addChild(a.sprite),
-                    a.sprite.scale = new m.Point(a.baseScale,a.baseScale),
-                    a.posOffset = new m.Point(0,4),
-                    a.container.scale = new m.Point(1,1),
+                    a.sprite.scale = new d.Point(a.baseScale,a.baseScale),
+                    a.posOffset = new d.Point(0,4),
+                    a.container.scale = new d.Point(1,1),
                     a.container.visible = !1,
                     this.emotes.push(a)),
                     a.alive = !0,
@@ -32560,24 +32196,24 @@ webpackJsonp([0], {
                     a.life = this.emoteLife,
                     a.lifeOut = this.emoteLifeOut,
                     a.zIdx = this.zIdxNext++,
-                    a.sprite.texture = m.Texture.fromImage(t.texture),
+                    a.sprite.texture = d.Texture.fromImage(t.texture),
                     a.container.visible = !1
                 }
             },
             incrementEmote: function() {
                 ++this.emoteCounter >= r.player.emoteThreshold && (this.emoteHardTicker = this.emoteHardTicker > 0 ? this.emoteHardTicker : 1.5 * r.player.emoteHardCooldown)
             },
-            update: function(e, t, a, o, n, s, l) {
-                var m = this.playerBarn
+            l: function(e, t, a, o, n, s, l) {
+                var d = this.playerBarn
                   , b = this.camera;
-                if (this.activePlayer = a,
-                t == a.__id && !a.netData.dead || this.disable || (this.free(),
+                if (this.Je = a,
+                t == a.__id && !a.B.dead || this.disable || (this.o(),
                 this.disable = !0),
                 !this.disable) {
-                    var x = a.localData.weapons[a.localData.curWeapIdx]
-                      , k = r.items[x.name]
-                      , _ = "";
-                    if (k && (_ = k.ammo ? k.ammo : _),
+                    var x = a.j.weapons[a.j.curWeapIdx]
+                      , _ = r.items[x.name]
+                      , k = "";
+                    if (_ && (k = _.ammo ? _.ammo : k),
                     this.wheelKeyTriggered = this.pingKeyTriggered || this.emoteMouseTriggered,
                     this.emoteSoftTicker -= e,
                     this.emoteCounter >= r.player.emoteThreshold && this.emoteHardTicker > 0 ? (this.emoteHardTicker -= e,
@@ -32613,30 +32249,30 @@ webpackJsonp([0], {
                                     var C = this.displayedSelectors[P];
                                     if (C.modular) {
                                         var I = C.emote;
-                                        switch (_) {
+                                        switch (k) {
                                         case "9mm":
                                             C.emote = c.Ammo9mm,
-                                            C.texture = d[c.Ammo9mm].texture;
+                                            C.texture = m[c.Ammo9mm].texture;
                                             break;
                                         case "12gauge":
                                             C.emote = c.Ammo12Gauge,
-                                            C.texture = d[c.Ammo12Gauge].texture;
+                                            C.texture = m[c.Ammo12Gauge].texture;
                                             break;
                                         case "762mm":
                                             C.emote = c.Ammo762mm,
-                                            C.texture = d[c.Ammo762mm].texture;
+                                            C.texture = m[c.Ammo762mm].texture;
                                             break;
                                         case "556mm":
                                             C.emote = c.Ammo556mm,
-                                            C.texture = d[c.Ammo556mm].texture;
+                                            C.texture = m[c.Ammo556mm].texture;
                                             break;
                                         case "50AE":
                                             C.emote = c.Ammo50AE,
-                                            C.texture = d[c.Ammo50AE].texture;
+                                            C.texture = m[c.Ammo50AE].texture;
                                             break;
                                         default:
                                             C.emote = c.Ammo,
-                                            C.texture = d[c.Ammo].texture
+                                            C.texture = m[c.Ammo].texture
                                         }
                                         if (I != C.emote) {
                                             var z = C.parent.find(".ui-emote-image");
@@ -32644,7 +32280,7 @@ webpackJsonp([0], {
                                         }
                                     }
                                     var A = C.ping != y.None || C.emote != c.None
-                                      , D = d[C.emote]
+                                      , D = m[C.emote]
                                       , O = D.teamOnly && 1 == n;
                                     M <= 35 && !A && this.emoteHardTicker <= 0 && !O ? w = C : h.isAngleBetween(T, C.angleC, C.angleA) && M > 35 && A && this.emoteHardTicker <= 0 && !O ? w = C : C.highlightDisplayed && (C.parent.css("opacity", this.wedgeOpacityReset),
                                     C.highlight.css("display", "none"),
@@ -32658,39 +32294,39 @@ webpackJsonp([0], {
                             f.touch && this.emoteTouchedPos && (this.pingMouseTriggered ? this.triggerPing() : this.triggerEmote()))
                         }
                 }
-                for (var E = 0; E < this.emotes.length; E++) {
-                    var L = this.emotes[E];
-                    if (L.alive) {
+                for (var L = 0; L < this.emotes.length; L++) {
+                    var E = this.emotes[L];
+                    if (E.alive) {
                         var B = !1
                           , F = u.create(0, 0)
                           , R = 0
-                          , j = m.getPlayerById(L.playerId);
-                        if (j && !j.netData.dead && (F = u.copy(j.pos),
+                          , j = d.oe(E.playerId);
+                        if (j && !j.B.dead && (F = u.copy(j.pos),
                         R = j.layer,
                         B = !0),
                         !B) {
-                            var N = s.getDeadBodyById(L.playerId);
+                            var N = s.getDeadBodyById(E.playerId);
                             N && (F = u.copy(N.pos),
                             R = N.layer,
                             B = !0)
                         }
                         if (B) {
-                            if (L.isNew) {
-                                var q = d[L.type];
+                            if (E.isNew) {
+                                var q = m[E.type];
                                 this.audioManager.playSound(q.sound, {
                                     channel: "ui",
                                     soundPos: F,
                                     layer: R
                                 })
                             }
-                            L.isNew = !1,
-                            L.pos = F,
-                            L.lifeIn > 0 ? L.lifeIn -= e : L.life > 0 ? L.life -= e : L.lifeOut > 0 && (L.lifeOut -= e);
-                            var V = g.sameLayer(R, this.activePlayer.layer) ? 3 : R;
-                            l.addPIXIObj(L.container, v.World, V, 1e3, L.zIdx),
-                            L.alive = L.alive && L.lifeOut > 0
+                            E.isNew = !1,
+                            E.pos = F,
+                            E.lifeIn > 0 ? E.lifeIn -= e : E.life > 0 ? E.life -= e : E.lifeOut > 0 && (E.lifeOut -= e);
+                            var V = g.sameLayer(R, this.Je.layer) ? 3 : R;
+                            l.addPIXIObj(E.container, v.World, V, 1e3, E.zIdx),
+                            E.alive = E.alive && E.lifeOut > 0
                         } else
-                            L.alive = !1
+                            E.alive = !1
                     }
                 }
                 var G = u.create(.5 * b.screenWidth / b.z(), .5 * b.screenHeight / b.z())
@@ -32698,13 +32334,13 @@ webpackJsonp([0], {
                     min: u.sub(b.pos, G),
                     max: u.add(b.pos, G)
                 };
-                this.teamId = m.getPlayerInfo(a.__id).teamId;
-                for (var W = m.getTeamInfo(this.teamId), H = W.playerIds.length, K = 0; K < H; K++) {
+                this.teamId = d.N(a.__id).teamId;
+                for (var W = d.getTeamInfo(this.teamId), H = W.playerIds.length, K = 0; K < H; K++) {
                     var X = this.teamIndicators[K]
                       , Y = W.playerIds[K]
-                      , Z = (m.getPlayerInfo(Y),
-                    Y == this.activePlayer.__id)
-                      , J = m.getTeammateData(Y);
+                      , Z = (d.N(Y),
+                    Y == this.Je.__id)
+                      , J = d.getTeammateData(Y);
                     if (J)
                         for (var Q in X)
                             if (X.hasOwnProperty(Q)) {
@@ -32723,8 +32359,8 @@ webpackJsonp([0], {
                                     var se = $.pos
                                       , le = u.normalizeSafe(u.sub(se, b.pos), u.create(1, 0))
                                       , ce = p.intersectRayAabb(b.pos, le, U.min, U.max)
-                                      , de = Math.atan2(le.y, -le.x) + .5 * Math.PI
-                                      , me = b.pointToScreen(ce)
+                                      , me = Math.atan2(le.y, -le.x) + .5 * Math.PI
+                                      , de = b.pointToScreen(ce)
                                       , pe = p.testCircleAabb(se, r.player.radius, U.min, U.max)
                                       , ue = b.pixels($.borderSprite.baseScale)
                                       , he = b.pixels($.pingSprite.baseScale);
@@ -32732,8 +32368,8 @@ webpackJsonp([0], {
                                     ie.scale.set(he, he),
                                     !J.dead) {
                                         re = $.fadeOut < 0;
-                                        var ge = pe ? b.pointToScreen(se).x : h.clamp(me.x, 64, b.screenWidth - 64)
-                                          , fe = pe ? b.pointToScreen(se).y : h.clamp(me.y, 64, b.screenHeight - 64)
+                                        var ge = pe ? b.pointToScreen(se).x : h.clamp(de.x, 64, b.screenWidth - 64)
+                                          , fe = pe ? b.pointToScreen(se).y : h.clamp(de.y, 64, b.screenHeight - 64)
                                           , be = b.pointToScreen(se).x
                                           , ye = b.pointToScreen(se).y;
                                         ie.position.x = be,
@@ -32742,7 +32378,7 @@ webpackJsonp([0], {
                                         ae.position.y = ye,
                                         oe.position.x = ge,
                                         oe.position.y = fe,
-                                        oe.rotation = de,
+                                        oe.rotation = me,
                                         ne.position.x = ge,
                                         ne.position.y = fe;
                                         var xe = ae.alpha <= 0 ? 1 : ae.alpha - e;
@@ -32751,17 +32387,17 @@ webpackJsonp([0], {
                                         if (ae.scale.set(ve, ve),
                                         ne.alpha = pe ? 0 : xe,
                                         $.fadeIn > 0) {
-                                            var ke = 1 - $.fadeIn / this.pingFadeIn;
+                                            var _e = 1 - $.fadeIn / this.pingFadeIn;
                                             ee.alpha = 1,
                                             te.alpha = 1,
                                             ie.alpha = 1,
-                                            oe.alpha = pe ? 0 : ke
+                                            oe.alpha = pe ? 0 : _e
                                         } else
                                             oe.alpha = pe ? 0 : 1;
                                         if ($.life < 0) {
-                                            var _e = $.fadeOut / this.pingFadeOut;
-                                            ee.alpha = _e,
-                                            te.alpha = _e
+                                            var ke = $.fadeOut / this.pingFadeOut;
+                                            ee.alpha = ke,
+                                            te.alpha = ke
                                         }
                                         $.displayed || (ee.visible = !0,
                                         te.visible = !Z,
@@ -32786,9 +32422,9 @@ webpackJsonp([0], {
                 };
                 for (var a in t)
                     if (t.hasOwnProperty(a)) {
-                        var o = d[t[a]];
+                        var o = m[t[a]];
                         if (this.emoteWheelData[a] && void 0 != o) {
-                            var n = d[t[a]];
+                            var n = m[t[a]];
                             n.teamOnly || (this.emoteWheelData[a].emote = t[a])
                         }
                     }
@@ -32796,13 +32432,13 @@ webpackJsonp([0], {
                 for (var r in this.emoteWheelData)
                     if (this.emoteWheelData.hasOwnProperty(r)) {
                         var s = this.emoteWheelData[r]
-                          , c = d[s.emote]
-                          , m = i(s.vA)
+                          , c = m[s.emote]
+                          , d = i(s.vA)
                           , p = i(s.vC)
                           , u = c.texture;
                         s.displayCloseIcon && (u = "img/gui/close.svg"),
                         this.emoteWheelSelectors.push(Object.assign({}, {
-                            angleA: m,
+                            angleA: d,
                             angleC: p,
                             highlight: s.parent.find(".ui-emote-hl"),
                             highlightDisplayed: !1,
@@ -32837,7 +32473,7 @@ webpackJsonp([0], {
             }
         },
         e.exports = {
-            EmoteManager: o
+            Ne: o
         }
     },
     e9735f40: function(e, t, a) {
@@ -33106,7 +32742,7 @@ webpackJsonp([0], {
     e98400ad: function(e, t, a) {
         "use strict";
         function i() {
-            return JSON.parse(localStorage.getItem(m)) || {}
+            return JSON.parse(localStorage.getItem(d)) || {}
         }
         function o(e, t) {
             var a = i();
@@ -33115,7 +32751,7 @@ webpackJsonp([0], {
         function n(e, t) {
             var a = i();
             a[e] = t,
-            localStorage.setItem(m, JSON.stringify(a))
+            localStorage.setItem(d, JSON.stringify(a))
         }
         function r() {
             this.enabled = !1,
@@ -33125,15 +32761,15 @@ webpackJsonp([0], {
             this.setEnabled(!1)
         }
         var s = a("8ee62bea")
-          , l = (a("80ac57a6"),
+          , l = (a("8b1dfb45"),
         a("989ad62a"))
           , c = a("10899aea")
-          , d = (a("c2a798c8"),
+          , m = (a("c2a798c8"),
         a("af8ba00f"),
         a("4b8d140f"))
-          , m = "surviv_editor";
+          , d = "surviv_editor";
         r.prototype = {
-            free: function() {},
+            o: function() {},
             setEnabled: function(e) {
                 var t = this;
                 this.enabled = e,
@@ -33170,13 +32806,13 @@ webpackJsonp([0], {
                 });
                 i.append(s("<li/>").append(r.append(this.uiDebug)))
             },
-            update: function(e, t, a, i) {
-                t.keyPressed(d.Key.Plus) && (this.zoom -= 8),
-                t.keyPressed(d.Key.Minus) && (this.zoom += 8),
-                t.keyPressed(d.Key.Zero) && (this.zoom = a.getScopeZoom()),
+            l: function(e, t, a, i) {
+                t.K(m.Key.Plus) && (this.zoom -= 8),
+                t.K(m.Key.Minus) && (this.zoom += 8),
+                t.K(m.Key.Zero) && (this.zoom = a.tt()),
                 this.zoom = c.clamp(this.zoom, .5, 400);
-                var o = a.netData.pos.x.toFixed(2)
-                  , n = a.netData.pos.y.toFixed(2);
+                var o = a.B.pos.x.toFixed(2)
+                  , n = a.B.pos.y.toFixed(2);
                 this.uiPos.html("Pos:  " + o + ", " + n),
                 this.uiZoom.html("Zoom: " + this.zoom)
             },
@@ -33588,7 +33224,7 @@ webpackJsonp([0], {
           , s = null
           , l = !1
           , c = 128
-          , d = function() {
+          , m = function() {
             function e(t) {
                 i(this, e),
                 this.ctx = t,
@@ -33677,7 +33313,7 @@ webpackJsonp([0], {
             }]),
             e
         }()
-          , m = null
+          , d = null
           , p = function() {
             function e(t) {
                 i(this, e),
@@ -33687,8 +33323,8 @@ webpackJsonp([0], {
             return n(e, [{
                 key: "check",
                 value: function(e) {
-                    this.id != this.instance.id && (this.instance = m,
-                    this.id = m.id)
+                    this.id != this.instance.id && (this.instance = d,
+                    this.id = d.id)
                 }
             }, {
                 key: "stop",
@@ -33873,13 +33509,13 @@ webpackJsonp([0], {
                 this.sounds = {},
                 this.instances = [];
                 for (var y = 0; y < c; y++) {
-                    var x = new d(this.ctx);
+                    var x = new m(this.ctx);
                     this.instances[y] = x
                 }
                 if (this.instanceId = 0,
                 this.playingInstances = [],
-                m = new d(this.ctx),
-                u = new p(m),
+                d = new m(this.ctx),
+                u = new p(d),
                 this.reverbs = {},
                 this.activeReverbs = [],
                 this.reverbFadeEndTime = 0,
@@ -33982,14 +33618,14 @@ webpackJsonp([0], {
                         return console.error("Invalid filter: " + i + ". Only valid filters are 'none', 'reverb' and 'muffled'."),
                         u;
                     if (a.canCoalesce)
-                        for (var l = this.ctx.currentTime + a.file.buffer.duration, d = 0; d < a.instances.length; d++) {
-                            var m = a.instances[d];
-                            if (!(Math.abs(l - m.stopTime) > .03)) {
-                                var h = m.volume * m.volume + o * o
-                                  , g = m.volume * m.pan + o * n
-                                  , f = m.volume + o;
-                                return m.volume = Math.sqrt(h),
-                                m.pan = g / Math.max(.001, f),
+                        for (var l = this.ctx.currentTime + a.file.buffer.duration, m = 0; m < a.instances.length; m++) {
+                            var d = a.instances[m];
+                            if (!(Math.abs(l - d.stopTime) > .03)) {
+                                var h = d.volume * d.volume + o * o
+                                  , g = d.volume * d.pan + o * n
+                                  , f = d.volume + o;
+                                return d.volume = Math.sqrt(h),
+                                d.pan = g / Math.max(.001, f),
                                 u
                             }
                         }
@@ -34004,9 +33640,9 @@ webpackJsonp([0], {
                     var x = y.paramEvents > 150
                       , v = y.paramEvents > 20 && !(this.instanceId % 7);
                     for ((x || v) && y.reallocNodes(); a.instances.length >= a.maxInstances; ) {
-                        for (var k = a.instances[0], _ = 1; _ < a.instances.length; _++)
-                            k.stopTime > a.instances[_].stopTime && (k = a.instances[_]);
-                        k.disconnect()
+                        for (var _ = a.instances[0], k = 1; k < a.instances.length; k++)
+                            _.stopTime > a.instances[k].stopTime && (_ = a.instances[k]);
+                        _.disconnect()
                     }
                     y.sound = a,
                     a.instances.push(y);
@@ -34065,13 +33701,12 @@ webpackJsonp([0], {
                     if (this.ctx.currentTime > this.reverbFadeEndTime) {
                         var n = this.ctx.currentTime + .006;
                         this.reverbFadeEndTime = n + .025;
-                        for (var r = 0, s = 0; s < this.activeReverbs.length; s++) {
-                            r += this.activeReverbs[s].targetLevel
-                        }
+                        for (var r = 0, s = 0; s < this.activeReverbs.length; s++)
+                            r += this.activeReverbs[s].targetLevel;
                         for (var l = r > 1 ? 1 / r : 1, c = 0; c < this.activeReverbs.length; c++) {
-                            var d = this.activeReverbs[c]
-                              , m = Math.sqrt(l * d.targetLevel);
-                            d.setGain(m, n, this.reverbFadeEndTime)
+                            var m = this.activeReverbs[c]
+                              , d = Math.sqrt(l * m.targetLevel);
+                            m.setGain(d, n, this.reverbFadeEndTime)
                         }
                         for (var p = this.activeReverbs.length - 1; p >= 0; p--) {
                             var u = this.activeReverbs[p]
@@ -34100,7 +33735,7 @@ webpackJsonp([0], {
                     var e = this;
                     if (this.runningOfflineTest = void 0 != this.runningOfflineTest && this.runningOfflineTest,
                     !this.runningOfflineTest) {
-                        this.runningOfflineTest = !0;
+                        this.runningOfflineTest = !0,
                         this.offlineCtx = new OfflineAudioContext(2,10 * this.ctx.sampleRate,this.ctx.sampleRate);
                         for (var t = this.offlineCtx.createBuffer(2, 10 * this.ctx.sampleRate, this.ctx.sampleRate), a = 0; a < t.numberOfChannels; a++)
                             for (var i = t.getChannelData(a), o = 0; o < i.length; o++)
@@ -34108,49 +33743,49 @@ webpackJsonp([0], {
                         var n = this.offlineCtx.createBufferSource();
                         n.buffer = t;
                         for (var r = this.offlineCtx.createConvolver(), s = this.offlineCtx.createBuffer(1, 4 * this.ctx.sampleRate, this.ctx.sampleRate), l = 0; l < s.numberOfChannels; l++)
-                            for (var c = s.getChannelData(l), d = 0; d < c.length; d++)
-                                c[d] = 2 * Math.random() - 1;
+                            for (var c = s.getChannelData(l), m = 0; m < c.length; m++)
+                                c[m] = 2 * Math.random() - 1;
                         r.buffer = s;
-                        var m = {
+                        var d = {
                             volume: .7,
                             echoVolume: .5,
                             echoLowPass: 800,
                             echoDelay: .25,
                             stereoSpread: .004
                         };
-                        if (m.convolverNode = r,
-                        m.echoLowPassNode = this.offlineCtx.createBiquadFilter(),
-                        m.echoLowPassNode.type = "lowpass",
-                        m.echoLowPassNode.frequency.setValueAtTime(m.echoLowPass, 0),
-                        m.echoLowPassNode.Q.setValueAtTime(-3.0102999566398125, 0),
-                        m.echoDelayNode = this.offlineCtx.createDelay(m.echoDelay || .01),
-                        m.echoDelayNode.delayTime.setValueAtTime(m.echoDelay, 0),
-                        m.stereoSpread && (m.stereoDelayNode = this.offlineCtx.createDelay(m.stereoSpread),
-                        m.stereoDelayNode.delayTime.setValueAtTime(m.stereoSpread, 0),
-                        m.mergerNode = this.offlineCtx.createChannelMerger(2)),
-                        m.gainNode = this.offlineCtx.createGain(),
-                        m.gainNode.channelCount = 1,
-                        m.gainNode.channelCountMode = "explicit",
-                        m.gainNode.gain.setValueAtTime(1, 0),
-                        m.echoGainNode = this.offlineCtx.createGain(),
-                        m.echoGainNode.channelCount = 1,
-                        m.echoGainNode.channelCountMode = "explicit",
-                        m.echoGainNode.gain.setValueAtTime(m.echoVolume, 0),
-                        m.outNode = this.offlineCtx.createGain(),
-                        m.gainNode.connect(m.convolverNode),
-                        m.stereoSpread) {
-                            var p = m.convolverNode.buffer;
+                        if (d.convolverNode = r,
+                        d.echoLowPassNode = this.offlineCtx.createBiquadFilter(),
+                        d.echoLowPassNode.type = "lowpass",
+                        d.echoLowPassNode.frequency.setValueAtTime(d.echoLowPass, 0),
+                        d.echoLowPassNode.Q.setValueAtTime(-3.0102999566398125, 0),
+                        d.echoDelayNode = this.offlineCtx.createDelay(d.echoDelay || .01),
+                        d.echoDelayNode.delayTime.setValueAtTime(d.echoDelay, 0),
+                        d.stereoSpread && (d.stereoDelayNode = this.offlineCtx.createDelay(d.stereoSpread),
+                        d.stereoDelayNode.delayTime.setValueAtTime(d.stereoSpread, 0),
+                        d.mergerNode = this.offlineCtx.createChannelMerger(2)),
+                        d.gainNode = this.offlineCtx.createGain(),
+                        d.gainNode.channelCount = 1,
+                        d.gainNode.channelCountMode = "explicit",
+                        d.gainNode.gain.setValueAtTime(1, 0),
+                        d.echoGainNode = this.offlineCtx.createGain(),
+                        d.echoGainNode.channelCount = 1,
+                        d.echoGainNode.channelCountMode = "explicit",
+                        d.echoGainNode.gain.setValueAtTime(d.echoVolume, 0),
+                        d.outNode = this.offlineCtx.createGain(),
+                        d.gainNode.connect(d.convolverNode),
+                        d.stereoSpread) {
+                            var p = d.convolverNode.buffer;
                             p && 1 != p.numberOfChannels && console.error("stereoSpread can only be applied to mono IRs"),
-                            m.convolverNode.connect(m.stereoDelayNode),
-                            m.convolverNode.connect(m.mergerNode, 0, 0),
-                            m.stereoDelayNode.connect(m.mergerNode, 0, 1),
-                            m.mergerNode.connect(m.outNode)
+                            d.convolverNode.connect(d.stereoDelayNode),
+                            d.convolverNode.connect(d.mergerNode, 0, 0),
+                            d.stereoDelayNode.connect(d.mergerNode, 0, 1),
+                            d.mergerNode.connect(d.outNode)
                         } else
-                            m.convolverNode.connect(m.outNode);
-                        this.offlineCtx.createDynamicsCompressor();
+                            d.convolverNode.connect(d.outNode);
+                        this.offlineCtx.createDynamicsCompressor(),
                         console.log("starting convolver"),
-                        n.connect(m.gainNode),
-                        m.outNode.connect(this.offlineCtx.destination),
+                        n.connect(d.gainNode),
+                        d.outNode.connect(this.offlineCtx.destination),
                         n.start(),
                         this.startTime = performance.now(),
                         this.offlineCtx.oncomplete = function(t) {
@@ -34260,14 +33895,14 @@ webpackJsonp([0], {
             this.screenScaleFactor = 1,
             this.callback = null
         }
-        var o = a("80ac57a6")
+        var o = a("8b1dfb45")
           , n = (a("989ad62a"),
         a("1901e2d9"),
         a("c2a798c8"),
         a("ce29f17f"))
           , r = a("26be8056");
         i.prototype = {
-            init: function(e, t, a, i) {
+            a: function(e, t, a, i) {
                 this.active = !0,
                 this.clientData = {
                     label: a,
@@ -34295,18 +33930,18 @@ webpackJsonp([0], {
                 this.mobileOffset = r.isLandscape() ? e.mobileOffsetLandscape : e.mobileOffsetPortrait) : (this.container.scale = new o.Point(1,1),
                 this.mobileOffset = 0)
             },
-            free: function(e) {
+            o: function(e) {
                 this.active = !1,
                 e && (this.container.visible = !1,
                 this.container.clear())
             },
-            update: function(e, t, a) {
+            l: function(e, t, a) {
                 if (!this.active)
                     return void (this.container.alpha = this.clientData.keepAlive ? 1 : 0);
                 this.clientData.elapsed += e,
                 this.clientData.elapsed = Math.min(this.clientData.elapsed, this.clientData.duration),
                 (this.clientData.elapsed >= this.clientData.duration || t.dead) && (this.render(a),
-                this.free(),
+                this.o(),
                 this.callback && this.callback(t))
             },
             render: function(e) {
@@ -34341,8 +33976,8 @@ webpackJsonp([0], {
             }
         },
         e.exports = {
-            PieTimer: i
+            Ee: i
         }
     }
 }, ["c99e6613"]);
-//# sourceMappingURL=app.32500edd.js.map
+//# sourceMappingURL=app.33a88da1.js.map
