@@ -4913,7 +4913,7 @@ webpackJsonp([1], {
                 g.weapNoSwitches.removeClass("ui-outline-hover"),
                 g.weapDragging = !0))
             }),
-            l("#ui-game").on("mouseup", function(e) {
+            l("#ui-game, #ui-weapon-id-1, #ui-weapon-id-2").on("mouseup", function(e) {
                 0 == e.button && null != g.weapDraggedDiv && (g.weapSwitches.each(function() {
                     var e = l(this).data("slot");
                     l(this).is(":hover") && g.weapDraggedId != e && (g.swapWeapSlots = !0,
@@ -5166,6 +5166,8 @@ webpackJsonp([1], {
                 this.weapSwitches.off("mousedown"),
                 l("#ui-game").off("mousemove"),
                 l("#ui-game").off("mouseup"),
+                l("#ui-weapon-id-1").off("mouseup"),
+                l("#ui-weapon-id-2").off("mouseup"),
                 this.moveStyleButton.off("touchstart"),
                 this.interactionElems.off("touchstart"),
                 this.reloadElems.off("touchstart"),
@@ -33982,4 +33984,4 @@ webpackJsonp([1], {
         }
     }
 }, ["c99e6613"]);
-//# sourceMappingURL=app.676ba3bc.js.map
+//# sourceMappingURL=app.2e0060c0.js.map
