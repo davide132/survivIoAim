@@ -109,8 +109,8 @@ function patchAppCode(appCode) {
 	var patchRules = [
 		{
 			name: "Export game scope",
-			from: /init:function\(\){var ([a-z]),([a-z])=this.pixi.renderer/,
-			to: 'init:function(){' + variableNames.game + '.scope=this;var $1,$2=this.pixi.renderer'
+			from: /var ([a-z]),([a-z])=this.pixi.renderer/,
+			to: variableNames.game + '.scope=this;var $1,$2=this.pixi.renderer'
 		},
 		{
 			name: "Action emitter export",
@@ -244,6 +244,13 @@ var codeInjector = (function(){
 		_appCode = appCode;
 	}
 
+	var handleAppCode = function(appCode, tabId) {
+		var patchedAppCode = patchAppCode(appCode);
+		codeInjector.setAppCode(patchedAppCode);
+		appCodeUpdating = false;
+		codeInjector.tryToInjectCode(tabId);
+	}
+
 	var injectCode = function(tabId, code) {
 		try {
 			chrome.tabs.executeScript(tabId, {
@@ -371,11 +378,8 @@ var codeInjector = (function(){
 			chrome.storage.local.get(['appCode'], function(appCode) {
 				if(appCode.appCode === undefined) {
 					codeInjector.updateAppCode(details.url, function(appCode) {
-						var patchedAppCode = patchAppCode(appCode);
 						console.log("App code updated.");
-						codeInjector.setAppCode(patchedAppCode);
-						appCodeUpdating = false;
-						codeInjector.tryToInjectCode(tab.id);
+						handleAppCode(appCode, tab.id);
 					}, function(){
 						appCodeUpdating = false;
 						console.log("Err update app file. Page will be reloaded after 5 seconds...");
@@ -385,21 +389,15 @@ var codeInjector = (function(){
 					chrome.storage.local.get(['appVer'], function(appVer) {
 						if(appVer.appVer != details.url.match(/app\.(.*)\.js/)[1]) {
 							codeInjector.updateAppCode(details.url, function(appCode) {
-								var patchedAppCode = patchAppCode(appCode);
 								console.log("App code updated.");
-								codeInjector.setAppCode(patchedAppCode);
-								appCodeUpdating = false;
-								codeInjector.tryToInjectCode(tab.id);
+								handleAppCode(appCode, tab.id);
 							}, function(){
 								appCodeUpdating = false;
 								console.log("Err update app file. Page will be reloaded after 5 seconds...");
 								setTimeout(function(){chrome.tabs.reload(tab.id, null, null)}, 5000);
 							});
 						} else {
-							var patchedAppCode = patchAppCode(appCode.appCode);
-							codeInjector.setAppCode(patchedAppCode);
-							appCodeUpdating = false;
-							codeInjector.tryToInjectCode(tab.id);
+							handleAppCode(appCode.appCode, tab.id);
 						}
 					});
 				}

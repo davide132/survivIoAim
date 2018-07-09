@@ -3,27 +3,6 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		console.log("Error: Exports not defined, return.");
 		return;
 	}
-	
-	function findVariable(name, exports) {
-		var keys = Object.keys(exports);
-		for(var i = 0; i < keys.length; i++) {
-			if(exports[keys[i]].exports[name]) {
-				return exports[keys[i]].exports[name];
-			}
-		}
-		return null;
-	};
-
-	function findPrototype(name, exports) {
-		var keys = Object.keys(exports);
-		for(var i = 0; i < keys.length; i++) {
-			if(exports[keys[i]].exports.prototype) {
-				if(exports[keys[i]].exports.prototype[name]) {
-					return exports[keys[i]].exports;
-				}
-			}
-		}	
-	}
 
 	function storeOptions(extensionId, optionsObj) {
 		chrome.runtime.sendMessage(extensionId, JSON.stringify(optionsObj));
@@ -57,14 +36,16 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 	smokeAlpha.scope = options.smokeGernadeAlpha;
 	emitActionCb.scope = function(){};
 
-	var defsParticles = findVariable("Defs", exports);
-	var bullets = findVariable("bullets", exports);
-	var items = findVariable("items", exports);
-	var bagSizes = findVariable("bagSizes", exports);
-	var playerBarn = findVariable("PlayerBarn", exports);
-	var lootBarn = findVariable("LootBarn", exports);
-	var scopeZoomRadius = findVariable("scopeZoomRadius", exports);
-	var inputHandler = findVariable("InputHandler", exports);
+	var defsParticles = exports['119e8c4c'].exports.d;
+	var bullets = exports['989ad62a'].exports.bullets;
+	var items = exports['989ad62a'].exports.items;
+	var bagSizes = exports['989ad62a'].exports.bagSizes;
+	var scopeZoomRadius = exports['989ad62a'].exports.scopeZoomRadius;
+
+	var playerBarn = exports['a508b62a'].exports.ke;
+	var lootBarn = exports['a48f3bb2'].exports.De;
+
+	var inputHandler = exports['4b8d140f'].exports.ae;
 
 	var particlesTransparencyCb = null;
 	var ceilingTransparencyCb = null;
@@ -77,20 +58,20 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 	var defaultFragGernadeTint = null;
 	var defaultFragGernadeScale = null;
 
-	if(	!!defsParticles ||
-		!!items ||
-		!!bullets ||
-		!!bagSizes ||
-		!!playerBarn ||
-		!!lootBarn ||
-		!!scopeZoomRadius ||
+	if(	!!defsParticles &&
+		!!items &&
+		!!bullets &&
+		!!bagSizes &&
+		!!playerBarn &&
+		!!lootBarn &&
+		!!scopeZoomRadius &&
 		!!inputHandler) {
 
 		var defaultInputHandlerFreeFunction = function() {};
 		var inputHandlerFreeContext = {};
 
-		defaultInputHandlerFreeFunction = inputHandler.prototype.free;
-		inputHandler.prototype.free = function() {
+		defaultInputHandlerFreeFunction = inputHandler.prototype.o;
+		inputHandler.prototype.o = function() {
 			disableCheat();
 			inputHandlerFreeContext = this;
 			defaultInputHandlerFreeFunction.call(inputHandlerFreeContext);			
@@ -112,14 +93,14 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 			}
 		});
 
-		defsParticles["bush_03"].img.alpha = options.particlesTransparency;
-		defsParticles["bush_02"].img.alpha = options.particlesTransparency;
-		defsParticles["bush_01"].img.alpha = options.particlesTransparency;
+		// defsParticles["bush_03"].img.alpha = options.particlesTransparency;
+		// defsParticles["bush_02"].img.alpha = options.particlesTransparency;
+		// defsParticles["bush_01"].img.alpha = options.particlesTransparency;
 
-		defsParticles["tree_01"].img.alpha = options.particlesTransparency;
+		// defsParticles["tree_01"].img.alpha = options.particlesTransparency;
 		
-		defsParticles["table_02"].img.alpha = options.particlesTransparency;
-		defsParticles["table_01"].img.alpha = options.particlesTransparency;
+		// defsParticles["table_02"].img.alpha = options.particlesTransparency;
+		// defsParticles["table_01"].img.alpha = options.particlesTransparency;
 
 		particlesTransparencyCb = function(alpha) {
 			// Particle alpha
@@ -185,7 +166,6 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		}
 	} else {
 		console.log("Error: Variable not defined");
-		return;
 	}
 
 	storeOptionsCb = function() {

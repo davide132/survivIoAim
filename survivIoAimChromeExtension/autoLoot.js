@@ -26,40 +26,40 @@ window.autoLoot = function(game, variables) {
 	*/
 
 	var pressF = function() {
-		if(!game.scope.input.keys["70"]) {
+		if(!game.scope.ue.keys["70"]) {
 			setTimeout(function() {
-				game.scope.input.keys["70"] = true;
+				game.scope.ue.keys["70"] = true;
 				setTimeout(function() {
-					delete game.scope.input.keys["70"]
+					delete game.scope.ue.keys["70"]
 				}, 90);
 			}, 0);
 		}
 	}
 
 	var pickupLoot = function() {
-		if(game.scope.lootBarn.closestLoot && game.scope.lootBarn.closestLoot.active) {
-			if(	/mm/.test(game.scope.lootBarn.closestLoot.name) ||
-				/12gauge/.test(game.scope.lootBarn.closestLoot.name) ||
-				/50AE/.test(game.scope.lootBarn.closestLoot.name) ||
-				/bandage/.test(game.scope.lootBarn.closestLoot.name) ||
-				/soda/.test(game.scope.lootBarn.closestLoot.name) ||
-				/painkiller/.test(game.scope.lootBarn.closestLoot.name) ||
-				/smoke/.test(game.scope.lootBarn.closestLoot.name) ||
-				/frag/.test(game.scope.lootBarn.closestLoot.name) ||
-				/healthkit/.test(game.scope.lootBarn.closestLoot.name)) {
+		if(game.scope.Ae.closestLoot && game.scope.Ae.closestLoot.active) {
+			if(	/mm/.test(game.scope.Ae.closestLoot.name) ||
+				/12gauge/.test(game.scope.Ae.closestLoot.name) ||
+				/50AE/.test(game.scope.Ae.closestLoot.name) ||
+				/bandage/.test(game.scope.Ae.closestLoot.name) ||
+				/soda/.test(game.scope.Ae.closestLoot.name) ||
+				/painkiller/.test(game.scope.Ae.closestLoot.name) ||
+				/smoke/.test(game.scope.Ae.closestLoot.name) ||
+				/frag/.test(game.scope.Ae.closestLoot.name) ||
+				/healthkit/.test(game.scope.Ae.closestLoot.name)) {
 
-				var ownBagIndex = !!game.scope.activePlayer.netData.backpack ? parseInt(game.scope.activePlayer.netData.backpack.slice(-2), 10) : 0;
-				var bagSize = bagSizes[game.scope.lootBarn.closestLoot.name][ownBagIndex];
+				var ownBagIndex = !!game.scope.Je.netData.backpack ? parseInt(game.scope.Je.netData.backpack.slice(-2), 10) : 0;
+				var bagSize = bagSizes[game.scope.Ae.closestLoot.name][ownBagIndex];
 
-				if(game.scope.activePlayer.localData.inventory[game.scope.lootBarn.closestLoot.name] !== bagSize) {
+				if(game.scope.Je.localData.inventory[game.scope.Ae.closestLoot.name] !== bagSize) {
 					pressF();
 				}
 				return;
 			}
 
-			if(/scope/.test(game.scope.lootBarn.closestLoot.name)) {
-				var scopeLevel = parseInt(game.scope.lootBarn.closestLoot.name.slice(0, -6), 10);
-				if(!game.scope.activePlayer.localData.inventory[game.scope.lootBarn.closestLoot.name]) {
+			if(/scope/.test(game.scope.Ae.closestLoot.name)) {
+				var scopeLevel = parseInt(game.scope.Ae.closestLoot.name.slice(0, -6), 10);
+				if(!game.scope.Je.localData.inventory[game.scope.Ae.closestLoot.name]) {
 					pressF();
 				}
 				return;
@@ -70,19 +70,19 @@ window.autoLoot = function(game, variables) {
 				chest01
 				backpack01
 			*/
-			if(	/helmet/.test(game.scope.lootBarn.closestLoot.name) ||
-				/chest/.test(game.scope.lootBarn.closestLoot.name) ||
-				/backpack/.test(game.scope.lootBarn.closestLoot.name)) {
+			if(	/helmet/.test(game.scope.Ae.closestLoot.name) ||
+				/chest/.test(game.scope.Ae.closestLoot.name) ||
+				/backpack/.test(game.scope.Ae.closestLoot.name)) {
 
-				var lootname = game.scope.lootBarn.closestLoot.name.slice(0, -2);
-				var lootLevel = parseInt(game.scope.lootBarn.closestLoot.name.slice(-2), 10);
+				var lootname = game.scope.Ae.closestLoot.name.slice(0, -2);
+				var lootLevel = parseInt(game.scope.Ae.closestLoot.name.slice(-2), 10);
 
-				if(!game.scope.activePlayer.netData[lootname]) {
+				if(!game.scope.Je.netData[lootname]) {
 					pressF();
 					return;
 				};
 
-				var ownLootLevel = parseInt(game.scope.activePlayer.netData[lootname].slice(-2), 10);
+				var ownLootLevel = parseInt(game.scope.Je.netData[lootname].slice(-2), 10);
 				if( ownLootLevel < lootLevel) {
 					pressF();
 				}
@@ -92,8 +92,8 @@ window.autoLoot = function(game, variables) {
 			/*
 				Guns and skins
 			*/
-			if(game.scope.activePlayer.localData.weapons[0].name == "" ||
-			   game.scope.activePlayer.localData.weapons[1].name == "") {
+			if(game.scope.Je.localData.weapons[0].name == "" ||
+			   game.scope.Je.localData.weapons[1].name == "") {
 				pressF();
 				return;
 			}
@@ -104,8 +104,8 @@ window.autoLoot = function(game, variables) {
 	var lootBarnUpdateContext = {};
 
 	var bind = function() {
-		defaultLootBarnUpdateFunction = lootBarn.prototype.update;
-		lootBarn.prototype.update = function(e, t, a) {
+		defaultLootBarnUpdateFunction = lootBarn.prototype.l;
+		lootBarn.prototype.l = function(e, t, a) {
 			lootBarnUpdateContext = this;
 			defaultLootBarnUpdateFunction.call(lootBarnUpdateContext, e, t, a);
 
@@ -115,7 +115,7 @@ window.autoLoot = function(game, variables) {
 	}
 
 	var unbind = function() {
-		lootBarn.prototype.update = defaultLootBarnUpdateFunction;
+		lootBarn.prototype.l = defaultLootBarnUpdateFunction;
 		binded = false;
 	}
 
