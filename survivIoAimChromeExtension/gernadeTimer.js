@@ -8,8 +8,8 @@ window.gernadeTimer = function(game) {
 	var dead = true;
 
 	var updateTimerState = function() {
-		if(	game.scope.Je.curWeapIdx === 3 &&
-			game.scope.Je.weapType === "frag" &&
+		if(	game.scope.Qe.curWeapIdx === 3 &&
+			game.scope.Qe.weapType === "frag" &&
 			!dead) {
 
 			setTimeout(updateTimerState, period);	
@@ -19,7 +19,7 @@ window.gernadeTimer = function(game) {
 	}
 
 	var initTimer = function() {
-		game.scope.Ee.init(function onElapsed() {
+		game.scope.Be.init(function onElapsed() {
 			freeTimer();
 		}, duration, "Grenade", true);
 		dead = false;
@@ -28,14 +28,14 @@ window.gernadeTimer = function(game) {
 	}
 
 	var freeTimer = function() {
-		game.scope.Ee.free(true);
+		game.scope.Be.free(true);
 		dead = true;
 	}
 
 	var mouseListener = {
 		mousedown: function(event) {
-			if(	game.scope.Je.curWeapIdx === 3 &&
-				game.scope.Je.weapType === "frag" &&
+			if(	game.scope.Qe.curWeapIdx === 3 &&
+				game.scope.Qe.weapType === "frag" &&
 				dead &&
 				event.button === 0) {
 

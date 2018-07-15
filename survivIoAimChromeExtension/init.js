@@ -43,9 +43,9 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 	var scopeZoomRadius = exports['989ad62a'].exports.scopeZoomRadius;
 
 	var playerBarn = exports['a508b62a'].exports.ke;
-	var lootBarn = exports['a48f3bb2'].exports.De;
+	var lootBarn = exports['a48f3bb2'].exports.Oe;
 
-	var inputHandler = exports['4b8d140f'].exports.ae;
+	var inputHandler = exports['4b8d140f'].exports.ie;
 
 	var particlesTransparencyCb = null;
 	var ceilingTransparencyCb = null;
