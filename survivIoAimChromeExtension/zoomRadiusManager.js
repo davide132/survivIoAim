@@ -61,8 +61,8 @@ window.zoomRadiusManager = function(game, variables) {
 	}
 
 	var bind = function() {
-		defaultBOnMouseWheel = game.scope.he.bOnMouseWheel;
-		window.removeEventListener('wheel', game.scope.he.bOnMouseWheel);
+		defaultBOnMouseWheel = game.scope.ge.bOnMouseWheel;
+		window.removeEventListener('wheel', game.scope.ge.bOnMouseWheel);
 
 		removeMouseListener();
 		addMouseListener();

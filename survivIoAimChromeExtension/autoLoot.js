@@ -26,40 +26,40 @@ window.autoLoot = function(game, variables) {
 	*/
 
 	var pressF = function() {
-		if(!game.scope.he.keys["70"]) {
+		if(!game.scope.ge.keys["70"]) {
 			setTimeout(function() {
-				game.scope.he.keys["70"] = true;
+				game.scope.ge.keys["70"] = true;
 				setTimeout(function() {
-					delete game.scope.he.keys["70"]
+					delete game.scope.ge.keys["70"]
 				}, 90);
 			}, 0);
 		}
 	}
 
 	var pickupLoot = function() {
-		if(game.scope.De.closestLoot && game.scope.De.closestLoot.active) {
-			if(	/mm/.test(game.scope.De.closestLoot.name) ||
-				/12gauge/.test(game.scope.De.closestLoot.name) ||
-				/50AE/.test(game.scope.De.closestLoot.name) ||
-				/bandage/.test(game.scope.De.closestLoot.name) ||
-				/soda/.test(game.scope.De.closestLoot.name) ||
-				/painkiller/.test(game.scope.De.closestLoot.name) ||
-				/smoke/.test(game.scope.De.closestLoot.name) ||
-				/frag/.test(game.scope.De.closestLoot.name) ||
-				/healthkit/.test(game.scope.De.closestLoot.name)) {
+		if(game.scope.Oe.closestLoot && game.scope.Oe.closestLoot.active) {
+			if(	/mm/.test(game.scope.Oe.closestLoot.name) ||
+				/12gauge/.test(game.scope.Oe.closestLoot.name) ||
+				/50AE/.test(game.scope.Oe.closestLoot.name) ||
+				/bandage/.test(game.scope.Oe.closestLoot.name) ||
+				/soda/.test(game.scope.Oe.closestLoot.name) ||
+				/painkiller/.test(game.scope.Oe.closestLoot.name) ||
+				/smoke/.test(game.scope.Oe.closestLoot.name) ||
+				/frag/.test(game.scope.Oe.closestLoot.name) ||
+				/healthkit/.test(game.scope.Oe.closestLoot.name)) {
 
-				var ownBagIndex = !!game.scope.Qe.netData.backpack ? parseInt(game.scope.Qe.netData.backpack.slice(-2), 10) : 0;
-				var bagSize = bagSizes[game.scope.De.closestLoot.name][ownBagIndex];
+				var ownBagIndex = !!game.scope.$e.netData.backpack ? parseInt(game.scope.$e.netData.backpack.slice(-2), 10) : 0;
+				var bagSize = bagSizes[game.scope.Oe.closestLoot.name][ownBagIndex];
 
-				if(game.scope.Qe.localData.inventory[game.scope.De.closestLoot.name] !== bagSize) {
+				if(game.scope.$e.localData.inventory[game.scope.Oe.closestLoot.name] !== bagSize) {
 					pressF();
 				}
 				return;
 			}
 
-			if(/scope/.test(game.scope.De.closestLoot.name)) {
-				var scopeLevel = parseInt(game.scope.De.closestLoot.name.slice(0, -6), 10);
-				if(!game.scope.Qe.localData.inventory[game.scope.De.closestLoot.name]) {
+			if(/scope/.test(game.scope.Oe.closestLoot.name)) {
+				var scopeLevel = parseInt(game.scope.Oe.closestLoot.name.slice(0, -6), 10);
+				if(!game.scope.$e.localData.inventory[game.scope.Oe.closestLoot.name]) {
 					pressF();
 				}
 				return;
@@ -70,19 +70,19 @@ window.autoLoot = function(game, variables) {
 				chest01
 				backpack01
 			*/
-			if(	/helmet/.test(game.scope.De.closestLoot.name) ||
-				/chest/.test(game.scope.De.closestLoot.name) ||
-				/backpack/.test(game.scope.De.closestLoot.name)) {
+			if(	/helmet/.test(game.scope.Oe.closestLoot.name) ||
+				/chest/.test(game.scope.Oe.closestLoot.name) ||
+				/backpack/.test(game.scope.Oe.closestLoot.name)) {
 
-				var lootname = game.scope.De.closestLoot.name.slice(0, -2);
-				var lootLevel = parseInt(game.scope.De.closestLoot.name.slice(-2), 10);
+				var lootname = game.scope.Oe.closestLoot.name.slice(0, -2);
+				var lootLevel = parseInt(game.scope.Oe.closestLoot.name.slice(-2), 10);
 
-				if(!game.scope.Qe.netData[lootname]) {
+				if(!game.scope.$e.netData[lootname]) {
 					pressF();
 					return;
 				};
 
-				var ownLootLevel = parseInt(game.scope.Qe.netData[lootname].slice(-2), 10);
+				var ownLootLevel = parseInt(game.scope.$e.netData[lootname].slice(-2), 10);
 				if( ownLootLevel < lootLevel) {
 					pressF();
 				}
@@ -92,8 +92,8 @@ window.autoLoot = function(game, variables) {
 			/*
 				Guns and skins
 			*/
-			if(game.scope.Qe.localData.weapons[0].name == "" ||
-			   game.scope.Qe.localData.weapons[1].name == "") {
+			if(game.scope.$e.localData.weapons[0].name == "" ||
+			   game.scope.$e.localData.weapons[1].name == "") {
 				pressF();
 				return;
 			}
