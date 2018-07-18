@@ -172,7 +172,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		storeOptions(extensionId, options);
 	}
 
-	// setInterval(function(){if(game.scope && game.scope.activePlayer){
+	// setInterval(function(){if(game.scope && game.scope.$e){
 	// 	console.log(game.scope);console.log(exports);
 	// }}, 2000);
 
