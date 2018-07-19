@@ -36,7 +36,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 	smokeAlpha.scope = options.smokeGernadeAlpha;
 	emitActionCb.scope = function(){};
 
-	var defsParticles = exports['119e8c4c'].exports.d;
+	var defsParticles = exports['ceee80d9'].exports.Defs;
 	var bullets = exports['989ad62a'].exports.bullets;
 	var items = exports['989ad62a'].exports.items;
 	var bagSizes = exports['989ad62a'].exports.bagSizes;
@@ -93,14 +93,14 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 			}
 		});
 
-		// defsParticles["bush_03"].img.alpha = options.particlesTransparency;
-		// defsParticles["bush_02"].img.alpha = options.particlesTransparency;
-		// defsParticles["bush_01"].img.alpha = options.particlesTransparency;
+		defsParticles["bush_03"].img.alpha = options.particlesTransparency;
+		defsParticles["bush_02"].img.alpha = options.particlesTransparency;
+		defsParticles["bush_01"].img.alpha = options.particlesTransparency;
 
-		// defsParticles["tree_01"].img.alpha = options.particlesTransparency;
+		defsParticles["tree_01"].img.alpha = options.particlesTransparency;
 		
-		// defsParticles["table_02"].img.alpha = options.particlesTransparency;
-		// defsParticles["table_01"].img.alpha = options.particlesTransparency;
+		defsParticles["table_02"].img.alpha = options.particlesTransparency;
+		defsParticles["table_01"].img.alpha = options.particlesTransparency;
 
 		particlesTransparencyCb = function(alpha) {
 			// Particle alpha
