@@ -122,7 +122,7 @@ var extensionManager = (function() {
 		var keys = Object.keys(fileList);
 
 		for(var i = 0; i < keys.length; i++) {
-			if(extensionCode[keys[i]] == undefined) return false;
+			if(!extensionCode[keys[i]]) return false;
 		}
 		
 		return true;
