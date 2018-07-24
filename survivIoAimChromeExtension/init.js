@@ -42,8 +42,8 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 	var bagSizes = exports['989ad62a'].exports.bagSizes;
 	var scopeZoomRadius = exports['989ad62a'].exports.scopeZoomRadius;
 
-	var playerBarn = exports['a508b62a'].exports.Se;
-	var lootBarn = exports['a48f3bb2'].exports.Le;
+	var playerBarn = exports['a508b62a'].exports.ze;
+	var lootBarn = exports['a48f3bb2'].exports.Ee;
 
 	var inputHandler = exports['4b8d140f'].exports.ie;
 
@@ -172,7 +172,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		storeOptions(extensionId, options);
 	}
 
-	// setInterval(function(){if(game.scope && game.scope.$e){
+	// setInterval(function(){if(game.scope && game.scope.et){
 	// 	console.log(game.scope);console.log(exports);
 	// }}, 2000);
 
