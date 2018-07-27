@@ -3,7 +3,6 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		console.log("Error: Exports not defined, return.");
 		return;
 	}
-
 	function storeOptions(extensionId, optionsObj) {
 		chrome.runtime.sendMessage(extensionId, JSON.stringify(optionsObj));
 		console.log("Storing options...");
@@ -42,10 +41,10 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 	var bagSizes = exports['989ad62a'].exports.bagSizes;
 	var scopeZoomRadius = exports['989ad62a'].exports.scopeZoomRadius;
 
-	var playerBarn = exports['a508b62a'].exports.ze;
-	var lootBarn = exports['a48f3bb2'].exports.Ee;
+	var playerBarn = exports['a508b62a'].exports.Te;
+	var lootBarn = exports['a48f3bb2'].exports.Ge;
 
-	var inputHandler = exports['4b8d140f'].exports.ie;
+	var inputHandler = exports['4b8d140f'].exports.re;
 
 	var particlesTransparencyCb = null;
 	var ceilingTransparencyCb = null;
@@ -57,6 +56,8 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 	// Default gernade properties
 	var defaultFragGernadeTint = null;
 	var defaultFragGernadeScale = null;
+
+
 
 	if(	!!defsParticles &&
 		!!items &&
@@ -172,7 +173,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		storeOptions(extensionId, options);
 	}
 
-	// setInterval(function(){if(game.scope && game.scope.et){
+	// setInterval(function(){if(game.scope && game.scope.st){
 	// 	console.log(game.scope);console.log(exports);
 	// }}, 2000);
 
