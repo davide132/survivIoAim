@@ -32,7 +32,6 @@ window.autoLoot = function(game) {
 	}
 
 	var unbind = function() {
-		lootBarn.prototype.l = defaultLootBarnUpdateFunction;
 		binded = false;
 	}
 
