@@ -291,7 +291,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		autoAimEnableCb: autoAimEnableCb,
 		autoAimTargetEnemyVisibilityCb: autoAimTargetEnemyVisibilityCb,
 		forwardFiringCoeffCb: forwardFiringCoeffCb,
-		autoHealenableCb:autoHealenableCb,
+		autoHealEnableCb: autoHealEnableCb,
 		autoLootEnableCb: autoLootEnableCb,
 		autoOpeningDoorsEnableCb: autoOpeningDoorsEnableCb,
 		zoomRadiusManagerEnableCb: zoomRadiusManagerEnableCb,
