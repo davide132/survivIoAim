@@ -1,4 +1,4 @@
-window.autoLoot = function(game) {
+window.autoHeal = function(game) {
 
 	var binded = false;
 	var presskey = function(key) {
