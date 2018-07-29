@@ -2,14 +2,28 @@ window.autoLoot = function(game) {
 
 	var binded = false;
 	var presskey = function(key) {
-		if(!game.scope.fe.keys[key]) {
+		if(!game.scope.xe.keys[key]) {
 			setTimeout(function() {
-				game.scope.fe.keys[key] = true;
+				game.scope.xe.keys[key] = true;
 				setTimeout(function() {
-					delete game.scope.fe.keys[key]
+					delete game.scope.xe.keys[key]
 				}, 90);
 			}, 0);
 		}
+	}
+
+	var heal = function() {
+		setInterval(
+			function(){
+			if (game.scope.st.U.health<60){
+			presskey("55")
+			}
+			if (game.scope.st.U.health<30){
+				presskey("56")
+				}
+			}
+	,2000)
+        
 	}
 
 	var bind = function() {
