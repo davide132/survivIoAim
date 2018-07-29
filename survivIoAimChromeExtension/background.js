@@ -16,6 +16,7 @@ var options = null;
 var moduleNames = [
 	"autoAim", 
 	"autoLoot", 
+	"autoHeal", 
 	"autoOpeningDoors",
 	"bigMapManager",
 	"gernadeTimer", 

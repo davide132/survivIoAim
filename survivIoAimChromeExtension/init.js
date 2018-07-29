@@ -20,6 +20,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 			defaultFragGernadeEnabled: false,
 			autoAimEnabled: true,
 			autoLootEnabled: true,
+			autoHealEnabled: true,
 			autoOpeningDoorsEnabled: true,
 			gernadeTimerEnabled: true,
 			zoomRadiusManagerEnabled: true,
@@ -214,7 +215,15 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 			options.autoLootEnabled = true;
 		}
 	}
-
+	var autoHealEnableCb = function() {
+		if(autoHeal.isBinded() && options.autoHealEnabled) {
+			autoHeal.unbind();
+			options.autoHealEnabled = false;
+		} else if(!autoHeal.isBinded() && !options.autoHealEnabled) {
+			autoHeal.bind();
+			options.autoHealEnabled = true;
+		}
+	}
 	var autoOpeningDoorsEnableCb = function() {
 		if(autoOpeningDoors.isBinded() && options.autoOpeningDoorsEnabled) {
 			autoOpeningDoors.unbind();
@@ -256,6 +265,8 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		bagSizes: bagSizes
 	});
 
+	var autoHeal = modules.autoHeal(game);
+
 	var autoOpeningDoors = modules.autoOpeningDoors(game, emitActionCb, interactionEmitter);
 
 	var bigMapManager = modules.bigMapManager(game);
@@ -280,7 +291,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		autoAimEnableCb: autoAimEnableCb,
 		autoAimTargetEnemyVisibilityCb: autoAimTargetEnemyVisibilityCb,
 		forwardFiringCoeffCb: forwardFiringCoeffCb,
-		
+		autoHealenableCb:autoHealenableCb,
 		autoLootEnableCb: autoLootEnableCb,
 		autoOpeningDoorsEnableCb: autoOpeningDoorsEnableCb,
 		zoomRadiusManagerEnableCb: zoomRadiusManagerEnableCb,
@@ -298,6 +309,9 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 				if(autoLoot.isBinded()) {
 					autoLoot.unbind();
 				}
+				if(autoHeal.isBinded()) {
+					autoHeal.unbind();
+				}
 			}
 		},
 		keyup: function(event) {
@@ -309,6 +323,9 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 					autoLoot.bind({
 						targetEnemyNicknameVisibility: options.targetEnemyNicknameVisibility
 					});
+				}
+				if(options.autoHealEnabled && !autoHeal.isBinded()) {
+					autoHeal.bind();
 				}
 			}
 		}
@@ -333,6 +350,10 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 
 		if(options.autoLootEnabled && !autoLoot.isBinded()) {
 			autoLoot.bind();
+		}
+
+		if(options.autoHealEnabled && !autoHeal.isBinded()) {
+			autoHeal.bind();
 		}
 
 		if(options.autoOpeningDoorsEnabled && !autoOpeningDoors.isBinded()) {
@@ -377,6 +398,10 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 
 		if(autoLoot.isBinded()) {
 			autoLoot.unbind();
+		}
+
+		if(autoHeal.isBinded()) {
+			autoHeal.unbind();
 		}
 
 		if(autoOpeningDoors.isBinded()) {
