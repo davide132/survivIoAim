@@ -2,11 +2,11 @@ window.autoLoot = function(game) {
 
 	var binded = false;
 	var presskey = function(key) {
-		if(!game.scope.fe.keys[key]) {
+		if(!game.scope.xe.keys[key]) {
 			setTimeout(function() {
-				game.scope.fe.keys[key] = true;
+				game.scope.xe.keys[key] = true;
 				setTimeout(function() {
-					delete game.scope.fe.keys[key]
+					delete game.scope.xe.keys[key]
 				}, 90);
 			}, 0);
 		}
@@ -18,7 +18,6 @@ window.autoLoot = function(game) {
 	}
 
 	var unbind = function() {
-		lootBarn.prototype.l = defaultLootBarnUpdateFunction;
 		binded = false;
 	}
 
