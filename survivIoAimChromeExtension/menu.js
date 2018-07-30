@@ -22,6 +22,7 @@ window.menu = function(options, callbacks) {
 		var forwardFiringCoeffSlider = document.createElement('div');
 
 		var autoLootEnabledCheckbox = document.createElement('div');
+		var autoHealEnabledCheckbox = document.createElement('div');
 		var autoOpeningDoorsEnabledCheckbox = document.createElement('div');
 		var gernadeTimerEnabledCheckbox = document.createElement('div');
 		var zoomRadiusManagerEnabledCheckbox = document.createElement('div');
@@ -250,6 +251,24 @@ window.menu = function(options, callbacks) {
 			autoLootEnabledCheckbox.appendChild(input);
 		}
 
+		if(callbacks.autoHealEnableCb) {
+			var description = document.createElement('p');
+			description.className = "modal-settings-checkbox-text";
+			description.innerHTML = "Auto heal enabled";
+
+			var input = document.createElement('input');
+			input.type = "checkbox";
+			input.checked = options.autoHealEnabled;
+
+			input.addEventListener("change", function() {
+				callbacks.autoHealEnableCb();
+				this.checked = options.autoHealEnabled;
+			}, false);
+
+			autoHealEnabledCheckbox.appendChild(description);
+			autoHealEnabledCheckbox.appendChild(input);
+		}
+
 		if(callbacks.autoOpeningDoorsEnableCb) {
 			var description = document.createElement('p');
 			description.className = "modal-settings-checkbox-text";
@@ -329,6 +348,7 @@ window.menu = function(options, callbacks) {
 		cheatMenuContainer.appendChild(forwardFiringCoeffSlider);
 
 		cheatMenuContainer.appendChild(autoLootEnabledCheckbox);
+		cheatMenuContainer.appendChild(autoHealEnabledCheckbox);
 		cheatMenuContainer.appendChild(autoOpeningDoorsEnabledCheckbox);
 		cheatMenuContainer.appendChild(gernadeTimerEnabledCheckbox);
 		cheatMenuContainer.appendChild(zoomRadiusManagerEnabledCheckbox);
