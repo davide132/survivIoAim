@@ -254,7 +254,7 @@ window.menu = function(options, callbacks) {
 		if(callbacks.autoHealEnableCb) {
 			var description = document.createElement('p');
 			description.className = "modal-settings-checkbox-text";
-			description.innerHTML = "Auto loot enabled";
+			description.innerHTML = "Auto heal enabled";
 
 			var input = document.createElement('input');
 			input.type = "checkbox";
