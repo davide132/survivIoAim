@@ -174,11 +174,9 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		storeOptions(extensionId, options);
 	}
 
-	 // setInterval(function(){if(game.scope && game.scope.st){
-	 // 	console.log(game.scope);
-	 // 	console.log(exports);
-	 // 	console.log(game.scope.Ke.playersAlive["0"].innerText);
-	 // }}, 2000);
+	// setInterval(function(){if(game.scope && game.scope.st){
+	// 	console.log(game.scope);console.log(exports);
+	// }}, 2000);
 
 	var bindAutoAim = function() {
 		autoAim.bind({
@@ -228,6 +226,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 			options.autoHealEnabled = true;
 		}
 	}
+
 
 	var autoOpeningDoorsEnableCb = function() {
 		if(autoOpeningDoors.isBinded() && options.autoOpeningDoorsEnabled) {

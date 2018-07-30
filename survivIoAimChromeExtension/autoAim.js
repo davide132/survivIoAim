@@ -68,7 +68,6 @@ window.autoAim = function(game, variables) {
 
 		var selfTeamId = game.scope.Me._t[game.scope.ce].teamId;
 		var selfId = game.scope.ce;
-		var objectIds = Object.keys(game.scope.rt.idToObj);
 		var playerIds = Object.keys(game.scope.Me._t);
 
 		for(var i = 0; i < playerIds.length; i++) {
@@ -76,6 +75,7 @@ window.autoAim = function(game, variables) {
 				(!game.scope.rt.idToObj[playerIds[i]].q.dead) && 
 				(!game.scope.rt.idToObj[playerIds[i]].q.downed) &&
 				game.scope.Me._t[playerIds[i]].teamId != selfTeamId) {
+				
 				if(playerIds[i] != selfId) {
 					result[playerIds[i]] = game.scope.rt.idToObj[playerIds[i]];
 				}
