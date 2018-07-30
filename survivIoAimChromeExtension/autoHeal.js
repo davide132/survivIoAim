@@ -21,9 +21,17 @@ window.autoHeal = function(game) {
 			if (game.scope.st.U.health<60){
 			presskey("55")
 			}
-			
+			if(parseInt(game.scope.Ke.playersAlive["0"].innerText)<20&&game.scope.st.U.boost<40){
+				presskey("57")
 			}
-	,2000)
+			if(parseInt(game.scope.Ke.playersAlive["0"].innerText)<10){
+				if (game.scope.st.U.boost<=40)
+					presskey("48")
+				else
+					presskey("57")
+			}
+			}
+	,1000)
         
 	}
 

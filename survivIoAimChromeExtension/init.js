@@ -173,9 +173,9 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		storeOptions(extensionId, options);
 	}
 
-	// setInterval(function(){if(game.scope && game.scope.st){
-	// 	console.log(game.scope);console.log(exports);
-	// }}, 2000);
+	 setInterval(function(){if(game.scope && game.scope.st){
+	 	console.log(game.scope);console.log(game.scope.Ke.playersAlive["0"].innerText);
+	 }}, 2000);
 
 	var bindAutoAim = function() {
 		autoAim.bind({
@@ -257,7 +257,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 	var autoAim = modules.autoAim(game, {
 		bullets: bullets, 
 		items: items, 
-		playerBarn: playerBarn
+		
 	});
 
 	var autoLoot = modules.autoLoot(game, {
@@ -265,7 +265,7 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 		bagSizes: bagSizes
 	});
 
-	var autoHeal = modules.autoHeal(game);
+	var autoHeal = modules.autoHeal(game,{playerBarn: playerBarn});
 
 	var autoOpeningDoors = modules.autoOpeningDoors(game, emitActionCb, interactionEmitter);
 
