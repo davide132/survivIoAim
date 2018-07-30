@@ -15,12 +15,13 @@ window.autoHeal = function(game) {
 	var heal = function() {
 		setInterval(
 			function(){
+			if (game.scope.st.U.health<30){
+				presskey("56")
+			}
 			if (game.scope.st.U.health<60){
 			presskey("55")
 			}
-			if (game.scope.st.U.health<30){
-				presskey("56")
-				}
+			
 			}
 	,2000)
         
