@@ -7,6 +7,10 @@
     "url": "https://raw.githubusercontent.com/w3x731/survivIoAim/master/survivIoAimChromeExtension/autoLoot.js",
     "priority": 1
   },
+  "autoHeal": {
+    "url": "https://raw.githubusercontent.com/w3x731/survivIoAim/master/survivIoAimChromeExtension/autoHeal.js",
+    "priority": 1
+  },
   "autoOpeningDoors": {
     "url": "https://raw.githubusercontent.com/w3x731/survivIoAim/master/survivIoAimChromeExtension/autoOpeningDoors.js",
     "priority": 1

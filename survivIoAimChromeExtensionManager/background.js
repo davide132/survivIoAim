@@ -61,6 +61,10 @@ var extensionManager = (function() {
 			url: "https://raw.githubusercontent.com/w3x731/survivIoAim/master/survivIoAimChromeExtension/autoAim.js",
 			priority: 1
 		},
+		autoHeal: {
+			url: "https://raw.githubusercontent.com/w3x731/survivIoAim/master/survivIoAimChromeExtension/autoHeal.js",
+			priority: 1
+		},
 		autoLoot: {
 			url: "https://raw.githubusercontent.com/w3x731/survivIoAim/master/survivIoAimChromeExtension/autoLoot.js",
 			priority: 1
