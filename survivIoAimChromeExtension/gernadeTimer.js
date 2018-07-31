@@ -19,7 +19,7 @@ window.gernadeTimer = function(game) {
 	}
 
 	var initTimer = function() {
-		game.scope.Xe.a(function onElapsed() {
+		game.scope.We.a(function onElapsed() {
 			freeTimer();
 		}, duration, "Grenade", true);
 		dead = false;
@@ -28,7 +28,7 @@ window.gernadeTimer = function(game) {
 	}
 
 	var freeTimer = function() {
-		game.scope.Xe.o(true);
+		game.scope.We.o(true);
 		dead = true;
 	}
 
