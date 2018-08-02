@@ -35,8 +35,20 @@ window.autoHeal = function(game, variables) {
 		return true;
 	}
 
+	var isNoMotion = function() {
+		if(	game.scope.we.keys[key.W] ||
+			game.scope.we.keys[key.D] ||
+			game.scope.we.keys[key.S] ||
+			game.scope.we.keys[key.A]) {
+
+			return false;
+		}
+
+		return true;
+	}
+
 	var heal = function() {
-		if(isNoEnemy()) {
+		if(isNoEnemy() && isNoMotion()) {
 			if(game.scope.lt.U.health < 30) {
 				if(game.scope.lt.U.inventory["healthkit"] > 0 ) {
 					pressKey(key.Eight);

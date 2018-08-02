@@ -57,8 +57,12 @@ window.autoAim = function(game, variables) {
 		return game.scope.lt.pos;
 	}
 
-	var getMousePos = function() {
-		return state.mousePos;
+	var getMouseScreenPos = function() {
+		return game.scope.we.mousePos;
+	}
+
+	var getMousePointPos = function() {
+		return game.scope.N.screenToPoint(getMouseScreenPos());
 	}
 
 	// todo: not detect on different levels
@@ -142,15 +146,9 @@ window.autoAim = function(game, variables) {
 			state.push({
 				distance: null,
 				radianAngle: null,
-				pos: {
-					x: game.scope.we.mousePos.x,
-					y: game.scope.we.mousePos.y
-				},
-				timestamp: 0,
-				targetMousePosition: {
-					x: game.scope.we.mousePos.x,
-					y: game.scope.we.mousePos.y
-				}
+				pos: getMouseScreenPos(),
+				targetMousePosition: getMouseScreenPos(),
+				timestamp: 0
 			});
 		}
 		state.new = null;
@@ -164,11 +162,10 @@ window.autoAim = function(game, variables) {
 			}
 		}; // enemy
 		state.averageTargetMousePosition = null;
-		state.mousePos = {
-			x: game.scope.we.mousePos.x,
-			y: game.scope.we.mousePos.y
-		};
-
+		state.mouseRelPointPos = {
+			x: 0,
+			y: 0
+		}
 		return state;
 	}
 
@@ -193,7 +190,10 @@ window.autoAim = function(game, variables) {
 
 	var updateState = function(detectedEnemies) {
 		var selfPos = getSelfPos();
-		var mousePos = getMousePos();
+		var mousePos = {
+			x: selfPos.x + state.mouseRelPointPos.x,
+			y: selfPos.y + state.mouseRelPointPos.y
+		};
 		var enemySelfDistances = [];
 		var enemyMouseDistances = [];
 		var enemySelfRadianAngles = [];
@@ -247,13 +247,7 @@ window.autoAim = function(game, variables) {
 			
 			options.targetEnemyNicknameVisibility && showTargetEnemyNick();
 			
-			if(state.new) {
-				return;
-			}
-
 			state.new = true;
-
-			return;
 		}
 	}
 
@@ -292,10 +286,16 @@ window.autoAim = function(game, variables) {
 			}
 		},
 		mousemove: function(event) {
-			state.mousePos = game.scope.N.screenToPoint({
+			var selfPos = getSelfPos();
+			var eventPointPos = game.scope.N.screenToPoint({
 				x: event.clientX,
 				y: event.clientY
 			});
+
+			state.mouseRelPointPos = {
+				x: eventPointPos.x - selfPos.x,
+				y: eventPointPos.y - selfPos.y,
+			};
 
 			if(!state.new) {
 				defaultBOnMouseMove(event);
