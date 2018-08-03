@@ -36,10 +36,10 @@ window.autoHeal = function(game, variables) {
 	}
 
 	var isNoMotion = function() {
-		if(	game.scope.we.keys[key.W] ||
-			game.scope.we.keys[key.D] ||
-			game.scope.we.keys[key.S] ||
-			game.scope.we.keys[key.A]) {
+		if(	game.scope.xe.keys[key.W] ||
+			game.scope.xe.keys[key.D] ||
+			game.scope.xe.keys[key.S] ||
+			game.scope.xe.keys[key.A]) {
 
 			return false;
 		}
