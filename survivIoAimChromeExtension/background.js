@@ -124,11 +124,11 @@ function patchAppCode(appCode) {
 			to: 'e.interaction.text&&(a.interaction.text.innerHTML=t.interaction.text,' + variableNames.emitActionCb + '.scope())'
 		},
 
-		// {
-		// 	name: "Change removeAds function",
-		// 	from: /removeAds:function\(\)/g,
-		// 	to: 'removeAds:function(){},_removeAds:function()'
-		// },
+		{
+			name: "Change removeAds function",
+			from: /removeAds:function\(\)/g,
+			to: 'removeAds:function(){},_removeAds:function()'
+		},
 		{
 			name: "Smoke gernade alpha",
 			from: /sprite.tint=([a-z]).tint,([a-z]).sprite.alpha=[a-z],([a-z]).sprite.visible=([a-z]).active/g,
@@ -501,7 +501,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 			"*://*.2dbattleroyale.org/js/manifest.*.js",
 			"*://*.2dbattleroyale.org/js/vendor.*.js",
 			"*://*.2dbattleroyale.org/js/app.*.js",
-			// "*://*.googlesyndication.com/pagead/osd.js"
+			"*://*.googlesyndication.com/pagead/osd.js"
 		],
 		types: ["script"]
 	},
