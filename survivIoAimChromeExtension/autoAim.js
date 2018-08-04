@@ -142,7 +142,7 @@ window.autoAim = function(game, variables) {
 
 	var getNewState = function() {
 		var state = [];
-		for(var i = 0; i < 2; i++) {
+		for(var i = 0; i < 3; i++) {
 			state.push({
 				distance: null,
 				radianAngle: null,
@@ -228,19 +228,18 @@ window.autoAim = function(game, variables) {
 			});
 			state.pop();
 			state[0].targetMousePosition = calculateTargetMousePosition(state[0].pos, state[0].timestamp, state[1].pos, state[1].timestamp, state.distance);
-			state.averageTargetMousePosition = state[0].targetMousePosition;
-			// state.averageTargetMousePosition = {
-			// 	x: 0,
-			// 	y: 0
-			// };
+			state.averageTargetMousePosition = {
+				x: 0,
+				y: 0
+			};
 
-			// for(var i = 0; i < state.length; i++) {
-			// 	state.averageTargetMousePosition.x += state[i].targetMousePosition.x;
-			// 	state.averageTargetMousePosition.y += state[i].targetMousePosition.y;
-			// }
+			for(var i = 0; i < state.length; i++) {
+				state.averageTargetMousePosition.x += state[i].targetMousePosition.x;
+				state.averageTargetMousePosition.y += state[i].targetMousePosition.y;
+			}
 
-			// state.averageTargetMousePosition.x /= state.length;
-			// state.averageTargetMousePosition.y /= state.length;
+			state.averageTargetMousePosition.x /= state.length;
+			state.averageTargetMousePosition.y /= state.length;
 
 			options.targetEnemyNicknameVisibility && hideTargetEnemyNick();
 
