@@ -124,11 +124,11 @@ function patchAppCode(appCode) {
 			to: 'e.interaction.text&&(a.interaction.text.innerHTML=t.interaction.text,' + variableNames.emitActionCb + '.scope())'
 		},
 
-		{
-			name: "Change removeAds function",
-			from: /removeAds:function\(\)/g,
-			to: 'removeAds:function(){},_removeAds:function()'
-		},
+		// {
+		// 	name: "Change removeAds function",
+		// 	from: /removeAds:function\(\)/g,
+		// 	to: 'removeAds:function(){},_removeAds:function()'
+		// },
 		{
 			name: "Smoke gernade alpha",
 			from: /sprite.tint=([a-z]).tint,([a-z]).sprite.alpha=[a-z],([a-z]).sprite.visible=([a-z]).active/g,
@@ -253,9 +253,26 @@ var codeInjector = (function(){
 	}
 
 	var injectCode = function(tabId, code) {
+		/* Passing code as string */
+		var codeContainer = JSON.stringify({
+			code: code
+		});
+		
+		var injectionScript = "(function(){";
+
+		injectionScript += "var code = (";
+		injectionScript += codeContainer;
+		injectionScript += ").code;";
+
+		injectionScript += "var script = document.createElement('script');";
+		injectionScript += "script.innerHTML = code;";
+		injectionScript += "document.body.appendChild(script);";
+
+		injectionScript += "})()";
+
 		try {
 			chrome.tabs.executeScript(tabId, {
-				code: code
+				code: injectionScript
 			});
 		} catch(e) {};
 	};
@@ -484,7 +501,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 			"*://*.2dbattleroyale.org/js/manifest.*.js",
 			"*://*.2dbattleroyale.org/js/vendor.*.js",
 			"*://*.2dbattleroyale.org/js/app.*.js",
-			"*://*.googlesyndication.com/pagead/osd.js"
+			// "*://*.googlesyndication.com/pagead/osd.js"
 		],
 		types: ["script"]
 	},
