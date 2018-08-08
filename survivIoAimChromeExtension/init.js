@@ -44,9 +44,9 @@ window.init = function(game, exports, interactionEmitter, emitActionCb, smokeAlp
 	var bagSizes = exports['989ad62a'].exports.bagSizes;
 	var scopeZoomRadius = exports['989ad62a'].exports.scopeZoomRadius;
 
-	var playerBarn = exports['a508b62a'].exports.Te;
-	var lootBarn = exports['a48f3bb2'].exports.Ge;
-	var bulletBarn = exports['c73dee75'].exports.Ce;
+	var playerBarn = exports['a508b62a'].exports.Pe;
+	var lootBarn = exports['a48f3bb2'].exports.Ue;
+	var bulletBarn = exports['c73dee75'].exports.Ie;
 	var inputHandler = exports['4b8d140f'].exports.re;
 
 	var key = exports['4b8d140f'].exports.Key;
