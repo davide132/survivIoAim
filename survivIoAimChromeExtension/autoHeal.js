@@ -56,7 +56,7 @@ window.autoHeal = function(game, variables) {
 				}
 			}
 
-			if(game.scope.lt.U.health < 70) {
+			if(game.scope.lt.U.health < 70 && game.scope.lt.U.boost < 40) {
 				if(game.scope.lt.U.inventory["bandage"] > 0 ) {
 					pressKey(key.Seven);
 					return;
