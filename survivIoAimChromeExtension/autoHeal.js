@@ -5,28 +5,28 @@ window.autoHeal = function(game, variables) {
 	var timer = null;
 
 	var pressKey = function(key) {
-		if(!game.scope.xe.keys[key]) {
+		if(!game.scope.we.keys[key]) {
 			setTimeout(function() {
-				game.scope.xe.keys[key] = true;
+				game.scope.we.keys[key] = true;
 				setTimeout(function() {
-					delete game.scope.xe.keys[key]
+					delete game.scope.we.keys[key]
 				}, 90);
 			}, 0);
 		}
 	}
 
 	var isNoEnemy = function() {
-		if(!game.scope.Me._t[game.scope.ce]) return false;
+		if(!game.scope.Te.vt[game.scope.ce]) return false;
 
-		var selfTeamId = game.scope.Me._t[game.scope.ce].teamId;
+		var selfTeamId = game.scope.Te.vt[game.scope.ce].teamId;
 		var selfId = game.scope.ce;
-		var playerIds = Object.keys(game.scope.Me._t);
+		var playerIds = Object.keys(game.scope.Te.vt);
 
 		for(var i = 0; i < playerIds.length; i++) {
-			if( game.scope.rt.idToObj[playerIds[i]] && 
-				(!game.scope.rt.idToObj[playerIds[i]].q.dead) && 
-				(!game.scope.rt.idToObj[playerIds[i]].q.downed) &&
-				game.scope.Me._t[playerIds[i]].teamId != selfTeamId) {
+			if( game.scope.nt.idToObj[playerIds[i]] && 
+				(!game.scope.nt.idToObj[playerIds[i]].q.dead) && 
+				(!game.scope.nt.idToObj[playerIds[i]].q.downed) &&
+				game.scope.Te.vt[playerIds[i]].teamId != selfTeamId) {
 				
 				return false;
 			}
@@ -36,10 +36,10 @@ window.autoHeal = function(game, variables) {
 	}
 
 	var isNoMotion = function() {
-		if(	game.scope.xe.keys[key.W] ||
-			game.scope.xe.keys[key.D] ||
-			game.scope.xe.keys[key.S] ||
-			game.scope.xe.keys[key.A]) {
+		if(	game.scope.we.keys[key.W] ||
+			game.scope.we.keys[key.D] ||
+			game.scope.we.keys[key.S] ||
+			game.scope.we.keys[key.A]) {
 
 			return false;
 		}
@@ -49,29 +49,29 @@ window.autoHeal = function(game, variables) {
 
 	var heal = function() {
 		if(isNoEnemy() && isNoMotion()) {
-			if(game.scope.st.U.health < 30) {
-				if(game.scope.st.U.inventory["healthkit"] > 0 ) {
+			if(game.scope.lt.U.health < 30) {
+				if(game.scope.lt.U.inventory["healthkit"] > 0 ) {
 					pressKey(key.Eight);
 					return;
 				}
 			}
 
-			if(game.scope.st.U.health < 70) {
-				if(game.scope.st.U.inventory["bandage"] > 0 ) {
+			if(game.scope.lt.U.health < 70) {
+				if(game.scope.lt.U.inventory["bandage"] > 0 ) {
 					pressKey(key.Seven);
 					return;
 				}
 			}
 
-			if(game.scope.st.U.boost < 50) {
-				if(game.scope.st.U.inventory["painkiller"] > 0 ) {
+			if(game.scope.lt.U.boost < 50) {
+				if(game.scope.lt.U.inventory["painkiller"] > 0 ) {
 					pressKey(key.Zero);
 					return;
 				}
 			}
 
-			if(game.scope.st.U.boost < 75) {
-				if(game.scope.st.U.inventory["soda"] > 0 ) {
+			if(game.scope.lt.U.boost < 75) {
+				if(game.scope.lt.U.inventory["soda"] > 0 ) {
 					pressKey(key.Nine);
 					return;
 				}
