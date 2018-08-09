@@ -11,17 +11,19 @@ window.autoLoot = function(game, variables) {
 
 	/*
 		var bagSizes = {
-			"9mm": 			[120, 240, 330, 420],
-		    "762mm": 		[90, 180, 240, 300],
-		    "556mm": 		[90, 180, 240, 300],
-		    "12gauge": 		[15, 30, 60, 90],
-		    "50AE": 		[42, 84, 126, 168],
-		    "frag": 		[3, 6, 9, 12],
-		    "smoke": 		[3, 6, 9, 12],
-		    "bandage": 		[5, 10, 15, 30],
-		    "healthkit": 	[1, 2, 3, 4],
-		    "soda": 		[2, 5, 10, 15],
-		    "painkiller": 	[1, 2, 3, 4]
+			"9mm": [120, 240, 330, 420],
+			"762mm": [90, 180, 240, 300],
+			"556mm": [90, 180, 240, 300],
+			"12gauge": [15, 30, 60, 90],
+			"50AE": [49, 98, 147, 196],
+			"308sub": [10, 20, 30, 40],
+			flare: [2, 4, 6, 8],
+			frag: [3, 6, 9, 12],
+			smoke: [3, 6, 9, 12],
+			bandage: [5, 10, 15, 30],
+			healthkit: [1, 2, 3, 4],
+			soda: [2, 5, 10, 15],
+			painkiller: [1, 2, 3, 4],
 		}
 	*/
 
@@ -41,6 +43,8 @@ window.autoLoot = function(game, variables) {
 			if(	/mm/.test(game.scope.Ge._t().name) ||
 				/12gauge/.test(game.scope.Ge._t().name) ||
 				/50AE/.test(game.scope.Ge._t().name) ||
+				/308sub/.test(game.scope.Ge._t().name) ||
+				"flare" === game.scope.Ge._t().name ||
 				/bandage/.test(game.scope.Ge._t().name) ||
 				/soda/.test(game.scope.Ge._t().name) ||
 				/painkiller/.test(game.scope.Ge._t().name) ||
