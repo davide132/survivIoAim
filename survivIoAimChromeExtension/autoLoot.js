@@ -44,7 +44,7 @@ window.autoLoot = function(game, variables) {
 				/12gauge/.test(game.scope.Ge._t().name) ||
 				/50AE/.test(game.scope.Ge._t().name) ||
 				/308sub/.test(game.scope.Ge._t().name) ||
-				"flare" == game.scope.Ge._t().name ||
+				"flare" === game.scope.Ge._t().name ||
 				/bandage/.test(game.scope.Ge._t().name) ||
 				/soda/.test(game.scope.Ge._t().name) ||
 				/painkiller/.test(game.scope.Ge._t().name) ||
