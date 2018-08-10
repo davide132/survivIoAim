@@ -15090,7 +15090,7 @@ webpackJsonp([0], {
                 }
             }, {
                 meta: {
-                    image: "imgs-40a339d9.png",
+                    image: "imgs-4696fdc7.png",
                     size: {
                         w: 2048,
                         h: 2048
@@ -18661,7 +18661,7 @@ webpackJsonp([0], {
                 }
             }, {
                 meta: {
-                    image: "imgs-c8e7334f.png",
+                    image: "imgs-ac9260e4.png",
                     size: {
                         w: 512,
                         h: 512
@@ -19602,6 +19602,7 @@ webpackJsonp([0], {
                         n("#team-code").html(x.roomUrl.substring(1)),
                         window.history && window.history.replaceState("", "", x.roomUrl)),
                         a.html(x.findingGame || y ? '<div class="ui-spinner"></div>' : a.attr("data-label")),
+                        4 == x.teamMode ? a.addClass("btn-flare-mode") : a.removeClass("btn-flare-mode"),
                         _ ? (o.addClass("btn-darken"),
                         o.removeClass("btn-disabled"),
                         o.removeClass("btn-opaque")) : (o.addClass("btn-disabled"),
@@ -25049,9 +25050,9 @@ webpackJsonp([0], {
                     caseTiming: "shoot",
                     ammo: "308sub",
                     ammoSpawnCount: 20,
-                    maxClip: 1,
-                    maxReload: 1,
-                    reloadTime: 1.9,
+                    maxClip: 5,
+                    maxReload: 5,
+                    reloadTime: 2.8,
                     fireDelay: 1.5,
                     switchDelay: 1,
                     pullDelay: 1.4,
@@ -53894,7 +53895,7 @@ webpackJsonp([0], {
                 }
             }, {
                 meta: {
-                    image: "imgs-2d67a325.png",
+                    image: "imgs-889f18eb.png",
                     size: {
                         w: 1024,
                         h: 1024
@@ -55760,4 +55761,4 @@ webpackJsonp([0], {
         }
     }
 }, ["c99e6613"]);
-//# sourceMappingURL=app.57953f6c.js.map
+//# sourceMappingURL=app.bc4ebdef.js.map
