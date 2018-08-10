@@ -3,11 +3,11 @@ window.autoOpeningDoors = function(game, emitActionCb, interactionEmitter) {
 	var binded = false;
 
 	var pressF = function() {
-		if(!game.scope.we.keys["70"]) {
+		if(!game.scope.be.keys["70"]) {
 			setTimeout(function() {
-				game.scope.we.keys["70"] = true;
+				game.scope.be.keys["70"] = true;
 				setTimeout(function() {
-					delete game.scope.we.keys["70"]
+					delete game.scope.be.keys["70"]
 				}, 50);
 			}, 50);
 		}

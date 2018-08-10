@@ -19,22 +19,22 @@ window.autoAim = function(game, variables) {
 
 	// Yeah i know that i can create single func with key arg
 	var pressOne = function() {
-		if(!game.scope.we.keys["49"]) {
+		if(!game.scope.be.keys["49"]) {
 			setTimeout(function() {
-				game.scope.we.keys["49"] = true;
+				game.scope.be.keys["49"] = true;
 				setTimeout(function() {
-					delete game.scope.we.keys["49"]
+					delete game.scope.be.keys["49"]
 				}, 50);
 			}, 0);
 		}
 	}
 
 	var pressTwo = function() {
-		if(!game.scope.we.keys["50"]) {
+		if(!game.scope.be.keys["50"]) {
 			setTimeout(function() {
-				game.scope.we.keys["50"] = true;
+				game.scope.be.keys["50"] = true;
 				setTimeout(function() {
-					delete game.scope.we.keys["50"]
+					delete game.scope.be.keys["50"]
 				}, 50);
 			}, 0);
 		}
@@ -54,34 +54,34 @@ window.autoAim = function(game, variables) {
 	}
 
 	var getSelfPos = function() {
-		return game.scope.lt.pos;
+		return game.scope.mt.pos;
 	}
 
 	var getMouseScreenPos = function() {
-		return game.scope.we.mousePos;
+		return game.scope.be.mousePos;
 	}
 
 	var getMousePointPos = function() {
-		return game.scope.N.screenToPoint(getMouseScreenPos());
+		return game.scope.q.screenToPoint(getMouseScreenPos());
 	}
 
 	// todo: not detect on different levels
 	var detectEnemies = function() {
 		var result = [];
-		if(!game.scope.Te.vt[game.scope.ce]) return result;
+		if(!game.scope.Pe.St[game.scope.ce]) return result;
 
-		var selfTeamId = game.scope.Te.vt[game.scope.ce].teamId;
+		var selfTeamId = game.scope.Pe.St[game.scope.ce].teamId;
 		var selfId = game.scope.ce;
-		var playerIds = Object.keys(game.scope.Te.vt);
+		var playerIds = Object.keys(game.scope.Pe.St);
 
 		for(var i = 0; i < playerIds.length; i++) {
-			if( game.scope.nt.idToObj[playerIds[i]] && 
-				(!game.scope.nt.idToObj[playerIds[i]].q.dead) && 
-				(!game.scope.nt.idToObj[playerIds[i]].q.downed) &&
-				game.scope.Te.vt[playerIds[i]].teamId != selfTeamId) {
+			if( game.scope.st.idToObj[playerIds[i]] && 
+				(!game.scope.st.idToObj[playerIds[i]].N.dead) && 
+				(!game.scope.st.idToObj[playerIds[i]].N.downed) &&
+				game.scope.Pe.St[playerIds[i]].teamId != selfTeamId) {
 				
 				if(playerIds[i] != selfId) {
-					result[playerIds[i]] = game.scope.nt.idToObj[playerIds[i]];
+					result[playerIds[i]] = game.scope.st.idToObj[playerIds[i]];
 				}
 			}
 		}
@@ -97,8 +97,8 @@ window.autoAim = function(game, variables) {
 		var bulletSpeed = 0;
 		var bulletApproachTime = Infinity;
 		
-		if(items[game.scope.lt.weapType].bulletType) {
-			bulletSpeed = bullets[items[game.scope.lt.weapType].bulletType].speed * options.forwardFiringCoeff;
+		if(items[game.scope.mt.weapType].bulletType) {
+			bulletSpeed = bullets[items[game.scope.mt.weapType].bulletType].speed * options.forwardFiringCoeff;
 		} else {
 			bulletSpeed = 1000;
 		};
@@ -125,8 +125,8 @@ window.autoAim = function(game, variables) {
 			predictionEnemyDistance = calculateDistance(selfPos.x, selfPos.y, predictionEnemyPos.x, predictionEnemyPos.y);
 		}
 
-		var halfScreenWidth = game.scope.N.screenWidth/2;
-		var halfScreenHeight = game.scope.N.screenHeight/2;
+		var halfScreenWidth = game.scope.q.screenWidth/2;
+		var halfScreenHeight = game.scope.q.screenHeight/2;
 
 		var minScreenCircleRadius = halfScreenHeight > halfScreenWidth ? halfScreenWidth : halfScreenHeight;
 		minScreenCircleRadius = Math.floor(minScreenCircleRadius - 1);		
@@ -207,7 +207,7 @@ window.autoAim = function(game, variables) {
 			return;
 		} else {
 			for(var i = 0; i < detectedEnemiesKeys.length; i++) {
-				var enemyPos = detectedEnemies[detectedEnemiesKeys[i]].q.pos;
+				var enemyPos = detectedEnemies[detectedEnemiesKeys[i]].N.pos;
 
 				var selfDistance = Math.sqrt(Math.pow(selfPos.x - enemyPos.x, 2) + Math.pow(selfPos.y - enemyPos.y, 2));
 				var mouseDistance = Math.sqrt(Math.pow(mousePos.x - enemyPos.x, 2) + Math.pow(mousePos.y - enemyPos.y, 2));
@@ -223,7 +223,7 @@ window.autoAim = function(game, variables) {
 			state.unshift({
 				distance: enemySelfDistances[targetEnemyIndex],
 				radianAngle: enemySelfRadianAngles[targetEnemyIndex],
-				pos: detectedEnemies[detectedEnemiesKeys[targetEnemyIndex]].q.pos,
+				pos: detectedEnemies[detectedEnemiesKeys[targetEnemyIndex]].N.pos,
 				timestamp: Date.now(),
 			});
 			state.pop();
@@ -252,7 +252,7 @@ window.autoAim = function(game, variables) {
 	}
 
 	var aim = function(averageTargetMousePosition) {
-		game.scope.we.mousePos = averageTargetMousePosition;
+		game.scope.be.mousePos = averageTargetMousePosition;
 	}
 
 	var defaultPlayerBarnRenderFunction = function(e) {};
@@ -264,12 +264,12 @@ window.autoAim = function(game, variables) {
 	var mouseListener = {
 		mousedown: function(event) {
 			if(event.button === 2) {
-				if(game.scope.lt.curWeapIdx) {
+				if(game.scope.mt.curWeapIdx) {
 					pressOne();
 					return;
 				}
 				
-				if(!game.scope.lt.curWeapIdx) {
+				if(!game.scope.mt.curWeapIdx) {
 					pressTwo();
 					return;
 				}
@@ -277,17 +277,17 @@ window.autoAim = function(game, variables) {
 
 			if(((event.button === 0) || (event.button === 2)) && state.new) {
 
-				game.scope.we.mousePos = state.averageTargetMousePosition;
+				game.scope.be.mousePos = state.averageTargetMousePosition;
 				// ???
-				game.scope.we.mouseButtonOld = false;
-				game.scope.we.mouseButton = true;
+				game.scope.be.mouseButtonOld = false;
+				game.scope.be.mouseButton = true;
 			} else {
 				defaultBOnMouseDown(event);
 			}
 		},
 		mousemove: function(event) {
 			var selfPos = getSelfPos();
-			var eventPointPos = game.scope.N.screenToPoint({
+			var eventPointPos = game.scope.q.screenToPoint({
 				x: event.clientX,
 				y: event.clientY
 			});
@@ -316,12 +316,12 @@ window.autoAim = function(game, variables) {
 	var spaceKeyListeners = {
 		keydown: function(event) {
 			if(event.which == 32) {
-				game.scope.we.mouseButton = true;
+				game.scope.be.mouseButton = true;
 			}
 		},
 		keyup: function(event) {
 			if(event.which == 32) {
-				game.scope.we.mouseButton = false;
+				game.scope.be.mouseButton = false;
 			}
 		}
 	}
@@ -342,8 +342,8 @@ window.autoAim = function(game, variables) {
 
 		state = getNewState();
 
-		defaultBOnMouseDown = game.scope.we.bOnMouseDown;
-		defaultBOnMouseMove = game.scope.we.bOnMouseMove;
+		defaultBOnMouseDown = game.scope.be.bOnMouseDown;
+		defaultBOnMouseMove = game.scope.be.bOnMouseMove;
 
 		defaultPlayerBarnRenderFunction = playerBarn.prototype.render;
 		playerBarn.prototype.render = function(e) {
@@ -358,8 +358,8 @@ window.autoAim = function(game, variables) {
 			defaultPlayerBarnRenderFunction.call(playerBarnRenderContext, e);
 		};
 
-		window.removeEventListener("mousedown", game.scope.we.bOnMouseDown);
-		window.removeEventListener("mousemove", game.scope.we.bOnMouseMove);
+		window.removeEventListener("mousedown", game.scope.be.bOnMouseDown);
+		window.removeEventListener("mousemove", game.scope.be.bOnMouseMove);
 
 		removeMouseListener();
 		removeSpaceKeyListener();
