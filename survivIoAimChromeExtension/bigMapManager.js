@@ -9,8 +9,8 @@ window.bigMapManager = function(game) {
 	var qKeyListener = {
 		keyup: function(event) {
 			if(event.which == 81) {
-				game.scope.Xe.displayMapLarge(game.scope.Xe.bigmapDisplayed);
-				game.scope.Xe.container.alpha = options.bigMapTransparency;
+				game.scope.Ye.displayMapLarge(game.scope.Ye.bigmapDisplayed);
+				game.scope.Ye.container.alpha = options.bigMapTransparency;
 			}
 		}
 	}
